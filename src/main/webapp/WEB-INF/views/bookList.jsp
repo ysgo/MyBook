@@ -118,7 +118,18 @@ function searchFunc(e) {
 $(function(){
     $('#submitForm').on('click', searchFunc);   
     $('input[name=keyword]').on('keydown', searchFunc);   
+    $('.close').on('click', function() {
+    	$.ajax({
+            url: "bookList.do",
+            type: 'GET', 
+            success: function(data){
+            	$('body').html(data);
+            }
+        });
+    });   
 });
+
+
 </script>
 
 </body>
