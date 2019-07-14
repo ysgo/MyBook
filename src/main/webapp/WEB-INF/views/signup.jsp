@@ -25,7 +25,7 @@
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>
-                        <form action="/mybooktest/signup" method="POST" class="register-form" id="register-form" autocomplete="off">
+                        <form action="/book/signup" method="POST" class="register-form" id="register-form" autocomplete="off">
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input required type="text" name="userName" id="userName" placeholder="Your Name"/>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="signup-image">
                         <figure><img src="images/books.jpg" alt="sing up image"></figure>
-                        <p class="mt-5 mb-3 text-muted signup-image-link">이미 회원가입을 하셨나요? <a href="/mybooktest/signin?action=signin&id=2">로그인</a></p>
+                        <p class="mt-5 mb-3 text-muted signup-image-link">이미 회원가입을 하셨나요? <a href="/book/signin?action=signin&id=2">로그인</a></p>
                         <input class="form-submit" value="네이버로 로그인"/>
                     </div>
                 </div>
@@ -120,7 +120,7 @@ $("#userId").blur(function() {
 	// id = "id_reg" / name = "userId"
 	var user_id = $('#userId').val();
 	$.ajax({
-		url : '/mybooktest/idCheck?userId='+ user_id,
+		url : '/book/idCheck?userId='+ user_id,
 		type : 'get',
 		success : function(data) {			
 			if (data == 1) {	// 1 : 아이디가 중복되는 문구

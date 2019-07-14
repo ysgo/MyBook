@@ -58,5 +58,12 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void signout(SessionStatus session) {
 		session.setComplete();
+	}
+
+	// 아이디 찾기
+	@Override
+	public String find_id(String userId) {
+		String statement = "resource.MemberMapper.find_id";
+		return session.selectOne(statement, userId);
 	}	
 }

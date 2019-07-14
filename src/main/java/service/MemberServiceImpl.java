@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import vo.MemberVO;
@@ -49,5 +50,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void signout(SessionStatus session) throws Exception {
 		dao.signout(session);
+	}
+	// 아이디 찾기
+	@Override
+	public String find_id(String userId) {
+		ModelAndView mav = new ModelAndView();
+		String id = dao.find_id(userId);
+		
+		if (id == null) {
+			mav.addObject("", "<script>alert('가입된 아이디가 없습니다.);history.go(-1);</script>");
+			return null;
+		} else {
+			return id;
+		}
 	}
 } 

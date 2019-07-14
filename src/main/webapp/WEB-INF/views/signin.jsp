@@ -29,9 +29,10 @@
 <link rel="stylesheet" type="text/css" href="css/signin.css">
 </head>
 <body class="text-center">
-<form class="form-signin" action="/mybooktest/signin" method="POST" >
+<form class="form-signin" action="/book/signin" method="POST" >
   <!-- <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> --><!-- 로고 이미지 추가하고 싶으면 사용 -->
-  <h1 class="h3 mb-3 font-weight-normal">로고</h1>
+  <!-- <h1 class="h3 mb-3 font-weight-normal">로고</h1> -->
+  <a class="my-0 mr-md-auto" href="/book/">로고</a>
   <div id="login_container">
   <label for="inputEmail" class="sr-only"></label>
   <input type="email" id="userId" name="userId"  class="form-control" placeholder="example@exam.com" required autofocus>
@@ -51,63 +52,16 @@
 <br> 
   <!-- 아이디, 비밀번호 찾기 -->
   <button id="searchId" class="btn btn-lg btn-primary btn-block" onclick="search(userId)">아이디 찾기</button>
-  <button id="searchId" class="btn btn-lg btn-primary btn-block"  data-toggle="modal" data-target="#myModal">아이디 찾기 모달</button>
-  <button id="searchPass" class="btn btn-lg btn-primary btn-block" onclick="search(userPass)">비밀번호 찾기</button>
-  
-  <!-- 책 추가 모달 -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
-    <div class="modal-content">
-	<!-- 닫기 버튼 -->
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-	 
-	 <div class="modal-body">
-	 	
-	 	<!--  모달 컨텐트 컨테이너 -->     	
-	 	<div class="container">
-	 		<!--  인풋 로우 -->   
-			<div class="row inputrow">
-				<div class="col-sm-12  ">
-					<form class="input-group" action="/mybooktest/searchId" method="GET">					
-			        	<input name="keyword" type="text" class="form-control" 
-				        	placeholder="닉네임 검색" aria-describedby="basic-addon2" width="20px">
-			        	 <div class="input-group-append">
-			    			<button class="btn btn-outline-secondary" id="submitForm">검색</button>
-			 			 </div>
-				     </form>
-	       <!--  결과 로우 bookList는 List 타입-->   
-<%-- 	        <c:forEach items="${searchId}" var ="b">
-	        
-	        		<div class="row">x
-		            <div class="col-2 col-sm-3">
-		            	${b.userId}
-		            </div>
-		            <div class="w-150"></div>
-	        	</div>
-	 
-	        </c:forEach> --%>
-				</div>
-			</div>
 
-	       <br>
-			
-			</div>
-        	<!--  모달 컨텐트 컨테이너 끝 -->
-	 	
-	 </div>	
-    </div>
-  </div>
-</div>
-<!-- 책 추가 모달 끝 -->
-  <p class="mt-5 mb-3 text-muted">아직 회원가입을 안하셨나요? <a href="/mybooktest/signup?action=signup&id=2">회원가입</a></p>
+  <p class="mt-5 mb-3 text-muted">아직 회원가입을 안하셨나요? <a href="/book/signup?action=signup&id=2">회원가입</a></p>
 
 <script>
  function search(cv) {
 	if(cv == userId) {	// 아이디 찾기
-		window.open("/mybooktest/searchId", "아이디 찾기", "width=400, height=300, left=100, top=50");
+		window.open("/book/searchId", "아이디 찾기", "width=400, height=300, left=100, top=50");
 	} else {	// 비밀번호 찾기
-		window.open("/mybooktest/searchPass", "비밀번호 찾기", "width=400, height=300, left=100, top=50");
-	}
+		window.open("/book/searchPass", "비밀번호 찾기", "width=400, height=300, left=100, top=50");
+	} 
 } 
 
 //이메일아이디 검사 정규식 : -_특수문자 가능하며 중앙에 @ 필수 그리고 . 뒤에 2~3글자 필요

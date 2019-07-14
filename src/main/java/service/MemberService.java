@@ -24,4 +24,7 @@ public interface MemberService {
 	public MemberVO viewMember(MemberVO vo);
 	
 	public int userIdCheck(String userId);
+	
+	// 아이디 찾기
+	public String find_id(String userId);
 }

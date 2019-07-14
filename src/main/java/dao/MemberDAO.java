@@ -20,4 +20,7 @@ public interface MemberDAO {
 	public void signout(SessionStatus session);
 	
 	public int checkOverId(String userId);
+	
+	// 아이디 찾기
+	public String find_id(String userId);
 }
