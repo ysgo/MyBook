@@ -13,7 +13,7 @@
 		$("#loginBtn").click(function(){
 			location.href='/book/signin';
 		})
-	})
+	}) 
 </script>
 </head>
 <body>
