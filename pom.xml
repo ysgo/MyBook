@@ -15,8 +15,8 @@
 	</properties>
 	<dependencies>
 	
-		<!-- 	xmlpull, jstl 추가 -->
-		 	 <dependency>
+		<!-- (1) xmlpull, jstl 추가 -->
+		<dependency>
             <groupId>net.sf.sociaal</groupId>
             <artifactId>xmlpull-xpp3</artifactId>
             <version>3.0.0.20130526</version>
@@ -26,7 +26,24 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        
+        <!-- (2) naver OAuth Scribe 라이브러리 추가-->
+		<dependency>
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-core</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.4</version>
+		</dependency>
+				
+		        
         <!-- 추가 끝 -->
+        
+        
 	
 	
 		<!-- Spring -->

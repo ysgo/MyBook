@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="mybook.my.book" />
 	
+	<beans:bean id="naverLoginBO" class="mybook.my.book.NaverLoginBO" />
+
 	
 	
 </beans:beans>

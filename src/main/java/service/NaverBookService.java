@@ -53,7 +53,7 @@ public class NaverBookService {
 				case XmlPullParser.START_TAG: {
 					String tag = parser.getName();
 					switch (tag) {
-                    case "item":
+                    case "item": 
                         b = new Book();
                         break;
                     case "title":
