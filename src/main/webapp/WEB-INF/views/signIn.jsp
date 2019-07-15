@@ -53,7 +53,7 @@
 			<h4 class="card-title mt-3 text-center">로그인</h4>
 		</div>
 				<!-- 네이버 로그인 버튼 -->
-				<a href="#" class="btn btn-block " ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
+				<a href="${url}" class="btn btn-block " ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
 			<p class="divider-text">
 				<span class="bg-light">OR</span>
 			</p>

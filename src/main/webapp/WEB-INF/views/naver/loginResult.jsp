@@ -23,7 +23,8 @@ h3 {
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
-		var name = ${result}.response.name;
+		console.log(${result}.response);
+		var name = ${result}.response.nickname;
 		var email = ${result}.response.email;
 		$("#name").html("환영합니다. "+name+"님");
 		$("#email").html(email);
