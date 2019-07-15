@@ -65,87 +65,107 @@
 // 이름 정규식 : 가~힣, 한글로 이루어진 문자만으로 2~6자리 이름을 적어야한다
 var nameJ = /^[가-힣a-zA-z]{2,6}$/;
 // 이메일 검사 정규식 : -_특수문자 가능하며 중앙에 @ 필수 그리고 . 뒤에 2~3글자 필요
-var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+/* var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; */
+var mailJ = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 // 비밀번호 정규식 : A~Z, a~z,,0~9로 시작하는 4~12자리 비밀번호 가능
 var pwJ = /^[A-Za-z0-9]{4,16}$/;
 
 var text;
 var check;
 // 이름 정규식(한글로만 2~6자리 또는 특수문자 안됨)
-$("#userName").blur(function() {
-	if(nameJ.test($("#userName").val())) {
-		text = "사용가능합니다";
-		check=false;
-	} else {
-		text="한글과 영어로만 2~6자리 입력가능합니다.";
-		check=true;
+$("#userName").keyup(function() {
+	var userName = $("#userName").val();
+	if(userName != "") {
+		$.ajax({
+			url : '/book/nameCheck?userName='+ userName,
+			type : 'get',
+			success : function(data) {			
+				if (data == 1) {	// 1 : 아이디가 중복되는 문구
+					text = "이미 등록된 이름입니다.";
+					check=true;
+				} else {		// 0 : 아이디 길이 / 문자열 검사					
+					if(nameJ.test(userName)){
+						text = "사용 가능합니다.";
+						check=false;			
+					} else {			
+						text = "한글과 영어로만 2~6자리 입력가능합니다.";
+						check=true;
+					}	
+				}
+			$("#name_check").text(text);
+			$("#name_check").css("color", "red");
+			$("#signup").attr("disabled", check);
+			}
+		});
 	}
-		$("#name_check").text(text);
-		$("#name_check").css("color", "red");
-		$("#signup").attr("disabled", check); 
-});
-
-// 비밀번호 유효성 검사(숫자, 문자로만 4~12자리)
-$("#userPass").blur(function() {
-	if(pwJ.test($("#userPass").val())) {
-		text = "사용가능합니다";
-		check=false;
-	} else {
-		text = "숫자 또는 문자로만 4~12자리 입력가능합니다.";
-		check=true;
-	}
-		$("#pass_check").text(text);
-		$("#pass_check").css("color", "red");
-		$("#signup").attr("disabled", check);
-});
-
-// 비밀번호 재확인
-$("#rePass").blur(function() {
-	var userPass = document.getElementById("userPass").value;
-	var rePass = document.getElementById("rePass").value;
-	if(userPass != rePass) {
-		text = "비밀번호가 일치하지 않습니다.";
-		check=false;
-	} else {
-		text = "비밀번호가 일치합니다.";
-		check=true;
-	}
-		$("#repass_check").text(text);
-		$("#repass_check").css("color", "red");
-		$("#signup").attr("disabled", check);
 });
 
 //아이디 유효성 검사(1 = 중복 / 0 != 중복)
-$("#userId").blur(function() {						
+$("#userId").keyup(function() {						
 	// id = "id_reg" / name = "userId"
 	var user_id = $('#userId').val();
-	$.ajax({
-		url : '/book/idCheck?userId='+ user_id,
-		type : 'get',
-		success : function(data) {			
-			if (data == 1) {	// 1 : 아이디가 중복되는 문구
-				text = "이미 가입된 이메일입니다.";
-				check=true;
-			} else {		// 0 : 아이디 길이 / 문자열 검사					
-				if(mailJ.test(user_id)){
-					text = "사용 가능합니다.";
-					check=false;			
-				} else if(user_id == ""){			
-					text = "아이디를 입력해주세요.";
-					check=true;					
-				} else {			
-					text = "유효하지 않은 양식입니다.";
+	if(user_id != "") {
+		$.ajax({
+			url : '/book/idCheck?userId='+ user_id,
+			type : 'get',
+			success : function(data) {			
+				if (data == 1) {	// 1 : 아이디가 중복되는 문구
+					text = "이미 가입된 이메일입니다.";
 					check=true;
-				}	
+				} else {		// 0 : 아이디 길이 / 문자열 검사					
+					if(mailJ.test(user_id)){
+						text = "사용 가능합니다.";
+						check=false;			
+					} else {			
+						text = "유효하지 않은 양식입니다.";
+						check=true;
+					}	
+				}
+				$("#id_check").text(text);
+				$("#id_check").css("color", "red");
+				$("#signup").attr("disabled", check);
+			}, error : function() {
+					console.log("실패");
 			}
-			$("#id_check").text(text);
-			$("#id_check").css("color", "red");
-			$("#signup").attr("disabled", check);
-		}, error : function() {
-				console.log("실패");
-		}
-	});
+		});
+	}
 });
+
+// 비밀번호 유효성 검사(숫자, 문자로만 4~12자리)
+$("#userPass").keyup(function() {
+	var val = $("#userPass").val();
+	if(val != "") {
+		if(pwJ.test(val)) {
+			text = "사용가능합니다";
+			check=false;
+		} else {
+			text = "숫자 또는 문자로만 4~12자리 입력가능합니다.";
+			check=true;
+		}
+		$("#pass_check").text(text);
+		$("#pass_check").css("color", "red");
+		$("#signup").attr("disabled", check);
+	}
+});
+
+// 비밀번호 재확인
+$("#rePass").keyup(function() {
+	var userPass = document.getElementById("userPass").value;
+	var rePass = document.getElementById("rePass").value;
+	if(rePass != "") {
+		if(userPass != rePass) {
+			text = "비밀번호가 일치하지 않습니다.";
+			check=true;
+		} else {
+			text = "비밀번호가 일치합니다.";
+			check=false;
+		}
+		$("#repass_check").text(text);
+		$("#repass_check").css("color", "red");
+		$("#signup").attr("disabled", check);
+	}
+});
+
 </script>
 </body>
 </html>
