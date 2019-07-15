@@ -3,7 +3,7 @@ package vo;
 import java.util.Date;
 
 public class MemberVO {
-/*  
+/*   
     userId      varchar2(50)    not null,
     userPass    varchar2(100)   not null,
     userName    varchar2(30)    not null,

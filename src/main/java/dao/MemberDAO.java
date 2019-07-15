@@ -13,7 +13,7 @@ import vo.MemberVO;
 @Repository
 public class MemberDAO {
 	@Inject
-	SqlSession session = null;	
+	SqlSession session = null;	 
 	
 	// 회원 가입
 	public boolean signup(MemberVO vo) throws Exception {

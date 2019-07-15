@@ -15,7 +15,7 @@ import service.MemberService;
 @Controller
 public class CheckController {
 	@Autowired
-	private MemberService service;
+	private MemberService service; 
 	
 	// 닉네임 체크기능
 	@RequestMapping(value = "/nameCheck", method = RequestMethod.GET)

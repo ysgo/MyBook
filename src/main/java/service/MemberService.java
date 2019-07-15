@@ -15,7 +15,7 @@ import vo.MemberVO;
 public class MemberService {
 	@Autowired
 	private MemberDAO dao;
-
+ 
 	// 회원 가입
 	public boolean signup(MemberVO vo) throws Exception {
 		return dao.signup(vo);		
