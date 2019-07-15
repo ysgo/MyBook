@@ -25,7 +25,7 @@ public class MemberController {
 	@Autowired
 	BCryptPasswordEncoder passEncoder;
 	
-	// main 페이지 이동
+	// main 페이지 이동 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main() {
 		return "main";
