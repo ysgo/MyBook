@@ -12,13 +12,32 @@ public class BookController {
 	@Autowired
 	private NaverBookService service;
 	
-	@RequestMapping("bookList.do")
-	public ModelAndView bookList(@RequestParam(required=false)String keyword) {
+	@RequestMapping(value = {"/main","/signUp","/signIn","/readBook","/interestBook"}) 
+	public ModelAndView bookList(@RequestParam(required=false)String keyword,String action, String id) {
 		ModelAndView mav = new ModelAndView(); 
-		if(keyword != null) {
-			mav.addObject("bookList", service.searchBook(keyword, 10, 1));
+		if(id != null) {
+			if(action.equals("signUp")) { 
+				mav.setViewName("signUp");
+				return mav;
+			}else if(action.equals("signIn")) { 
+				mav.setViewName("signIn");
+				return mav;
+			}if(action.equals("readBook")) { 
+				mav.setViewName("readBook");
+				return mav;
+			}else if(action.equals("interestBook")) { 
+				mav.setViewName("interestBook");
+				return mav;
+			}
+		}else {
+			/*아직 readBook.jsp에 구현안함*/
+			if(keyword != null) {
+				mav.addObject("bookList", service.searchBook(keyword, 10, 1)); 
+				mav.setViewName("readBook");
+			}
+			else
+				mav.setViewName("main");
 		}
-		mav.setViewName("bookList");
 		return mav;
 	}
 }

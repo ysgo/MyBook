@@ -1,0 +1,9 @@
+<svg width="55" height="80" style="border: 1px solid black;" xmlns="http://www.w3.org/2000/svg">
+	<style>
+		@import url('https://cdn.rawgit.com/YJSoft/Webfonts/0.1/BM_JUA.css');
+	</style>
+	<text  x="5" y="40" font-family='BM JUA,배달의민족 주아' font-size="40pt" fill="#4e86b1">ㅊ
+	<animate dur="3.5s" values="#000000; #4e86b1; #000000" keyTimes="0; 0.5; 1" attributeName="fill" repeatCount="indefinite"/></text>
+  	<text x="5" y="70" font-family='BM JUA,배달의민족 주아' font-size="40pt" fill="black">ㅊ
+  	<animate dur="3.5s" values="#4e86b1; #000000; #4e86b1" keyTimes="0; 0.5; 1" attributeName="fill" repeatCount="indefinite"/></text>
+</svg>
