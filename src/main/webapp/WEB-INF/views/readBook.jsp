@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,10 +76,10 @@
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
                 <li>
-                    <a href="${pageContext.request.contextPath}/readBook?action=readBook&id=4">읽은 책</a>
+                    <a href="/book/readBook?action=readBook&id=4">읽은 책</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/interestBook?action=interestBook&id=5">관심 책</a>
+                    <a href="/book/interestBook?action=interestBook&id=5">관심 책</a>
                 </li>  
             </ul>
         </nav>
@@ -90,14 +91,19 @@
 			  <button type="button" id="sidebarCollapse" class="btn my-0 mr-md-auto">
                         <i class="fas fa-bars" style="color:#000;"></i>
               </button>
-              <a class="my-0 mr-md-auto" href="${pageContext.request.contextPath}/main"><img src="images/logo.svg" width="38" height="37"></a>
+              <a class="my-0 mr-md-auto" href="${pageContext.request.contextPath}/"><img src="images/logo.svg" width="38" height="37"></a>
 			  <nav class="my-2 my-md-0 mr-md-3">
 				  <a class="p-2 text-dark" href="${pageContext.request.contextPath}/readBook?action=readBook&id=4">내 서재</a>
 				  <a class="p-2 text-dark" href="#">내 정보</a>
 			  </nav>
 			  <nav class="my-2 my-md-0 mr-md-3">
-				  <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/signIn?action=signIn&id=1">로그인</a>
-				  <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/signUp?action=signUp&id=2">회원가입</a>
+				<c:if test="${empty status }">
+			  		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/signIn?action=signIn&id=2">로그인</a>
+			  		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/signUp?action=signUp&id=1">회원가입</a>
+				</c:if>
+				<c:if test="${!empty status }">
+			  		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/signOut">로그아웃</a>
+				</c:if>
 			  </nav> 
 			</div>
 			<div id="content_padding" class="row" >

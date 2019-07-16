@@ -7,10 +7,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>홈페이지명</title>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+	<!-- Bootstrap CSS CDN -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- Font Awesome JS -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
 <style>
 .divider-text {
 	position: relative;
@@ -50,13 +56,18 @@
 .logo{
 	margin : 16px 0px 12px 60px;
 }
+#signColor{
+	border:none; 
+	background-color:transparent;
+	color : #007bff;
+}
 </style>
 </head>
 <body>
 	<div class="card bg-light">
 		<article class="card-body mx-auto" style="max-width: 400px;">
 		<div class="row">
-			<a href="/book/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
+			<a href="${pageContext.request.contextPath}/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
 			<h4 class="card-title mt-3 text-center">회원가입</h4>
 		</div>
 			
@@ -67,7 +78,7 @@
 		</p>
 		
 		<!-- 회원가입 폼태그 시작 -->
-		<form>
+		<form action="${pageContext.request.contextPath}/signUp" method="POST">
 			<!-- 닉네임 -->
 			<div class="form-group input-group">
 				<div class="input-group-prepend">
@@ -87,6 +98,7 @@
 				<input id="userId" name="userId" class="form-control" placeholder="이메일" type="email" required>
 				<span class="check_font" id="id_check"></span>
 			</div>
+			
 			<!-- 비밀번호 -->
 			<div class="form-group input-group">
 				<div class="input-group-prepend">
@@ -109,15 +121,16 @@
 			
 			<!-- 등록 버튼 -->
 			<div class="form-group">
-				<input type="submit" id="signup" name="signup" class="btn btn-primary btn-block" value="등록">
+				<input type="submit" id="signUp" name="signUp" class="btn btn-primary btn-block" value="등록">
 			</div>
 			
-			<!-- 로그인 링크 -->
-			<p class="text-center">
-				이미 회원가입을 하셨나요?<a href="/book/signIn?action=signIn&id=2"> 로그인</a>
-			</p>
 		</form>
 		<!-- 회원가입 폼태그 끝 -->
+			
+		<!-- 로그인 링크 -->
+		<form class="text-center" action="${pageContext.request.contextPath}/signIn" method="get">
+	                 이미 회원가입을 하셨나요? <input id="signColor" type="submit" value="로그인">
+	    </form>	
 		
 	</article>
 </div>
@@ -158,7 +171,7 @@ $("#userName").keyup(function() {
 				}
 			$("#name_check").text(text);
 			$("#name_check").css("color", "red");
-			$("#signup").attr("disabled", check);
+			$("#signUp").attr("disabled", check);
 			}
 		});
 	}
@@ -187,7 +200,7 @@ $("#userId").keyup(function() {
 				}
 				$("#id_check").text(text);
 				$("#id_check").css("color", "red");
-				$("#signup").attr("disabled", check);
+				$("#signUp").attr("disabled", check);
 			}, error : function() {
 					console.log("실패");
 			}
@@ -208,7 +221,7 @@ $("#userPass").keyup(function() {
 		}
 		$("#pass_check").text(text);
 		$("#pass_check").css("color", "red");
-		$("#signup").attr("disabled", check);
+		$("#signUp").attr("disabled", check);
 	}
 });
 
@@ -226,7 +239,7 @@ $("#rePass").keyup(function() {
 		}
 		$("#repass_check").text(text);
 		$("#repass_check").css("color", "red");
-		$("#signup").attr("disabled", check);
+		$("#signUp").attr("disabled", check);
 	}
 });
 

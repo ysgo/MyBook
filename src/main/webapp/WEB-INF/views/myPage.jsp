@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,9 +17,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
 
     <!-- Bootstrap CSS CDN -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -31,7 +30,9 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
 </head>
+
 <body>
+
     <div class="wrapper">
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
@@ -109,9 +110,56 @@
             </nav>
 			<!-- navbar 끝 -->
 			
-			<!-- 컨텐트 추가 시작 -->
-            <h2>관심 책을 추가해주세요.</h2>
-            
+			<!-- 컨텐트 추가 시작 -->    
+			<article id="updateArticle" class="card-body mx-auto">
+				<h2>내 정보 수정</h2>
+				
+				<!-- 수정 폼태그 시작 -->
+				<form>
+					<!-- 닉네임 -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-user"></i>
+							</span>
+						</div>
+						<input name="" class="form-control" placeholder="닉네임" type="text" required autofocus>
+					</div>
+					
+					<!-- 이메일 -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-envelope"></i>
+							</span>
+						</div>
+						<input name="" class="form-control" placeholder="이메일" type="email" required>
+					</div>
+	
+					<!-- 비밀번호 -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<input class="form-control" placeholder="비밀번호" type="password" required>
+					</div>
+					
+					<!-- 비밀번호 확인 -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<input class="form-control" placeholder="비밀번호 확인" type="password" required>
+					</div>
+					
+					<!-- 수정 버튼 -->
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary btn-block" value="수정">
+					</div>
+				</form>
+				<!-- 수정 폼태그 끝 -->
+				
+			</article>
             <div class="line"></div> <!-- 구분선 -->
             <!-- 컨텐트 추가 끝 -->
 
@@ -119,6 +167,9 @@
         <!-- Page Content 끝 -->
         
     </div>
+    
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -134,4 +185,5 @@
         });
     </script>
 </body>
+
 </html>

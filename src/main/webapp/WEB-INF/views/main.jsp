@@ -30,19 +30,19 @@
 </head>
 <body>
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top">
-	<a class="my-0 mr-md-auto" href="/book/"><img src="images/logo.svg" width="38" height="37" style="border: 1px solid black;"></a>
+	<a class="my-0 mr-md-auto" href="${pageContext.request.contextPath}/"><img src="images/logo.svg" width="38" height="37" style="border: 1px solid black;"></a>
   <!-- <h5 class="my-0 mr-md-auto font-weight-normal">로고</h5> -->
   <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="/book/mylibrary?action=mylibrary&id=3">내 서재</a>
+    <a class="p-2 text-dark" href="${pageContext.request.contextPath}/readBook?action=mylibrary&id=3">내 서재</a>
     <a class="p-2 text-dark" href="#">내 정보</a>
   </nav>
   <nav class="my-2 my-md-0 mr-md-3">
 	<c:if test="${empty status }">
-  		<a class="btn btn-outline-primary" href="/book/signin?action=signin&id=2">로그인</a>
-  		<a class="btn btn-outline-primary" href="/book/signup?action=signup&id=1">회원가입</a>
+  		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/signin?action=signin&id=2">로그인</a>
+  		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/signUp?action=signup&id=1">회원가입</a>
 	</c:if>
 	<c:if test="${!empty status }">
-  		<a class="btn btn-outline-primary" href="/book/signout">로그아웃</a>
+  		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/signOut">로그아웃</a>
 	</c:if>
   </nav>
 	

@@ -5,11 +5,15 @@
 <head> 
 <meta charset="UTF-8">
 <title>홈페이지명</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/signin.css">
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- Bootstrap CSS CDN -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- Font Awesome JS -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <style>
 .divider-text {
 	position: relative;
@@ -42,15 +46,20 @@
 .logo{
 	margin : 16px 0px 12px 80px;
 }
+#signColor{
+	border:none; 
+	background-color:transparent;
+	color : #007bff;
+}
 </style>
 <!-- Custom styles for this template -->
 </head>
-<body class="text-center">
+<body>
 
 <div class="card bg-light">
-	<article class="card-body mx-auto" style="max-width: 400px;">
+	<article class="card-body mx-auto" style="width: 400px;">
 	<div class="row">
-		<a href="/book/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
+		<a href="${pageContext.request.contextPath}/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
 		<h4 class="card-title mt-3 text-center">로그인</h4>
 	</div>
 			<!-- 네이버 로그인 버튼 -->
@@ -60,7 +69,7 @@
 		</p>
 		
 		<!-- 로그인 폼태그 시작 -->
-		<form action="/book/signin" method="POST" >
+		<form action="${pageContext.request.contextPath}/signIn" method="POST" >
 			<!-- 이메일 아이디 -->
 			<div class="form-group input-group">
 				<div class="input-group-prepend">
@@ -83,23 +92,20 @@
 			
 			<!-- 로그인 버튼 -->
 			<div class="form-group">
-				<input id="signin" type="submit" class="btn btn-primary btn-block" value="로그인">
+				<input id="signIn" type="submit" class="btn btn-primary btn-block" value="로그인">
 			</div>
-			
-			<!-- 회원가입 링크 -->
-			<p class="text-center">
-				아직 회원가입을 안하셨나요?
-				<a href="/book/signup?action=signup&id=2"> 회원가입</a>
-			</p>
-			
-			<!-- 아이디, 비밀번호 찾기 링크 -->
-			<p class="text-center">
-				<!-- <a href="#"> 아이디 찾기/비밀번호 찾기</a> -->
-				<button id="searchId" onclick="search()">아이디/비밀번호 찾기</button>
-			</p>
 		</form>
 		<!-- 로그인 폼태그 끝 -->
-		
+			
+			<!-- 회원가입 링크 -->
+			<form class="text-center" action="${pageContext.request.contextPath}/signUp" method="get">
+					아직 회원가입을 안하셨나요? <input id="signColor" type="submit" value="회원가입">
+			</form>
+				
+			<!-- 아이디, 비밀번호 찾기 링크 -->
+			<p class="text-center">
+				<button id="searchId" onclick="search()">아이디/비밀번호 찾기</button>
+			</p>
 	</article>
 </div>
 
@@ -130,7 +136,7 @@ $("#userId").keyup(function() {
 		}
 		$("#id_check").text(text);
 		$("#id_check").css("color", "red");
-		$("#signin").attr("disabled", check);	
+		$("#signIn").attr("disabled", check);	
 	}
 });
 
@@ -147,7 +153,7 @@ $("#userPass").keyup(function() {
 		}
 		$("#pass_check").text(text);
 		$("#pass_check").css("color", "red");
-		$("#signin").attr("disabled", check);	
+		$("#signIn").attr("disabled", check);	
 	}
 });
 

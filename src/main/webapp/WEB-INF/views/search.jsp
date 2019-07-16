@@ -11,7 +11,7 @@
 <body>
 <div class="w3-content w3-container w3-margin-top">
 	<div class="w3-container w3-card-4">
-		<form action="/book/searchId" method="POST">
+		<form action="${pageContext.request.contextPath}/searchId" method="POST">
 			<div class="w3-center w3-large w3-margin-top">
 				<h3>아이디 찾기</h3>
 			</div>
@@ -28,7 +28,7 @@
 		</form>
 	</div>
 	<div class="w3-container w3-card-4">
-		<form action="/book/searchPass" method="POST">
+		<form action="${pageContext.request.contextPath}/searchPass" method="POST">
 			<div class="w3-center w3-large w3-margin-top">
 				<h3>비밀번호 찾기</h3>
 			</div>

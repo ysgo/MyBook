@@ -38,13 +38,13 @@ public class MemberController {
 	}
 	
 	// 회원가입 페이지 이동
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
 	public String signup() {
 		return "signUp";
 	}
 	
 	// 회원가입 : 암호화 저장 후 서비스 객체에 저장
-	@RequestMapping(value="/signup", method=RequestMethod.POST)
+	@RequestMapping(value="/signUp", method=RequestMethod.POST)
 	public ModelAndView signUp(MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String inputPass = vo.getUserPass();
@@ -62,7 +62,7 @@ public class MemberController {
 	}
 	
 	// 로그인 : 객체 정보를 추출해 세션에 저장, 비교후 이동
-	@RequestMapping(value="/signin", method=RequestMethod.POST)
+	@RequestMapping(value="/signIn", method=RequestMethod.POST)
 	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpSession session, 
 			@CookieValue(value="userId", required=false) String userId) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -79,7 +79,7 @@ public class MemberController {
 	}
 	
 	// 로그아웃 
-	@RequestMapping(value="/signout", method=RequestMethod.GET)
+	@RequestMapping(value="/signOut", method=RequestMethod.GET)
 	public String signOut(SessionStatus session) throws Exception {
 		service.signout(session);
 		return "redirect:/";

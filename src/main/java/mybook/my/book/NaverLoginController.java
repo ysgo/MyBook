@@ -2,7 +2,7 @@ package mybook.my.book;
 import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.social.google.connect.GoogleConnectionFactory;
 //import org.springframework.social.oauth2.GrantType;
