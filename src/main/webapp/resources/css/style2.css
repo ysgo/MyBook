@@ -16,9 +16,9 @@ p {
     color: #999;
 }
 
-a,
-a:hover,
-a:focus {
+#leftSideBar,
+#leftSideBar:hover,
+#leftSideBar:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
@@ -31,6 +31,7 @@ a:focus {
     border-radius: 0;
     margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
 .navbar-btn {
@@ -62,8 +63,8 @@ a:focus {
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #fff; /* #7386D5 */ /* 사이드바  본문 배경색 */
-    color: #000; /* 사이드바 헤더 글자색 */
+    background: #17a2b8; /* #7386D5 */ /* left Sidebar 배경색 */
+    color: #fff; /* #fff */
     transition: all 0.3s;
 }
 
@@ -72,14 +73,13 @@ a:focus {
 }
 
 #sidebar .sidebar-header {
-    padding: 14px;
-    background: #fff; /* 사이드바 헤더 배경색 */
-    border-bottom: 1px solid #dddddd; /* 구분선 */
+    padding: 20px;
+    background: #fff; /* #6d7fcc */ /* logo 배경색 */
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #dddddd; /* 구분선 */
+    border-bottom: 1px solid #fff; /* #47748b */ /* 구분선 */
 }
 
 #sidebar ul p {
@@ -87,46 +87,46 @@ a:focus {
     padding: 10px;
 }
 
-#sidebar ul li a {
+#sidebar ul li #leftSideBar {
     padding: 10px;
     font-size: 1.1em;
     display: block;
 }
 
-#sidebar ul li a:hover {
-    color: #007bff;
-    background: #fff; /* 사이드바 목록버튼 위로 마우스가 위치할 때 */
+#sidebar ul li #leftSideBar :hover {
+    color: #7386D5;
+    background: #fff; /* left Sidebar 위로 마우스가 위치할 때 */
 }
 
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
+#sidebar ul li.active>#leftSideBar,
+#leftSideBar [aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc; /* 사이드바 목록버튼을 눌렀을 때 */
+    background: #17a2b8; /* #6d7fcc */ /* 내 서재 메뉴 배경색 */
 }
 
-a[data-toggle="collapse"] {
+#leftSideBar [data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
+/* .dropdown-toggle::after {
     display: block;
     position: absolute;
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
-}
+} */
 
-ul ul a {
+ul ul #leftSideBar {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #17a2b8; /* 읽은 책, 관심책 메뉴 배경색 */
 }
 
 ul.CTAs {
     padding: 20px;
 }
 
-ul.CTAs a {
+ul.CTAs #leftSideBar {
     text-align: center;
     font-size: 0.9em !important;
     display: block;
@@ -134,7 +134,7 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-a.download {
+/* a.download {
     background: #fff;
     color: #7386D5;
 }
@@ -143,7 +143,7 @@ a.article,
 a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
-}
+} */
 
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -151,21 +151,45 @@ a.article:hover {
 
 #content {
     width: calc(100% - 250px);
-    /* padding: 40px; */
+    padding: 40px;
     min-height: 100vh;
     transition: all 0.3s;
     position: absolute;
     top: 0;
     right: 0;
-}
-#content_padding {
-    padding: 20px;
+    background-color: #fff;
 }
 
 #content.active {
     width: 100%;
 }
 
+#updateArticle{
+	max-width: 400px;
+	text-align: center;
+}
+#addButton{
+	position:fixed; 
+	bottom:30px;
+	right:30px; 
+	z-index:999;
+	background-color: #17a2b8 !important;
+	border-color: #17a2b8;
+}
+#signColor{
+	border:none; 
+	background-color:transparent;
+}
+#leftSideBarColor{
+	border:none; 
+	background-color: #17a2b8;
+	width : auto;
+	color : #fff;
+}
+.brand-logo{
+	width : 30px;
+	height : 20px;
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -187,4 +211,3 @@ a.article:hover {
         display: none;
     }
 }
-

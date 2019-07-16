@@ -3,6 +3,7 @@ package mybook.my.book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import service.NaverBookService;
@@ -12,33 +13,34 @@ public class BookController {
 	@Autowired
 	private NaverBookService service;
 	
-	@RequestMapping(value = {"/main","/signUp","/signIn","/readBook","/interestBook"}) 
-	public ModelAndView bookList(@RequestParam(required=false)String keyword,String action, String id) {
-		ModelAndView mav = new ModelAndView(); 
-		if(id != null) {
-			if(action.equals("signUp")) { 
-				mav.setViewName("signUp");
-				return mav;
-			}else if(action.equals("signIn")) { 
-				mav.setViewName("signIn");
-				return mav;
-			}if(action.equals("readBook")) { 
-				mav.setViewName("readBook");
-				return mav;
-			}else if(action.equals("interestBook")) { 
-				mav.setViewName("interestBook");
-				return mav;
-			}
-		}else {
-			/*아직 readBook.jsp에 구현안함*/
-			if(keyword != null) {
-				mav.addObject("bookList", service.searchBook(keyword, 10, 1)); 
-				mav.setViewName("readBook");
-			}
-			else
-				mav.setViewName("main");
-		}
-		return mav;
+	@RequestMapping(value = {"/"}, method=RequestMethod.GET) 
+	public String main() {
+		return "main";
+	}
+	
+	@RequestMapping(value = {"/signUp"}, method=RequestMethod.GET) 
+	public String signUp() {
+		return "signUp";
+	}
+	
+	@RequestMapping(value = {"/signIn"}, method=RequestMethod.GET) 
+	public String signIn() {
+		return "signIn";
+	}
+	
+	@RequestMapping(value = {"/readBook"}, method=RequestMethod.GET) 
+	public String readBook() {
+		return "readBook";
+	}
+	
+	@RequestMapping(value = {"/interestBook"}, method=RequestMethod.GET) 
+	public String interestBook() {
+		return "interestBook";
+	}
+	
+	@RequestMapping(value = {"/myPage"}, method=RequestMethod.GET) 
+	public String myPage() {
+		return "myPage";
 	}
 }
 
