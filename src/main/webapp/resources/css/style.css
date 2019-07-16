@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* top layer */
+    z-index: 9999;
+}
+
+
+/* 스타일 2 */
 /*
     DEMO STYLE
 */
@@ -29,6 +44,7 @@ p {
     border: none;
     border-radius: 0;
     margin-bottom: 40px;
+   	padding-left: 0;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -66,15 +82,11 @@ p {
     color: #fff; /* #fff */
     transition: all 0.3s;
     margin-right: 0; 
+    padding-top: 30px;
 }
 
 #sidebar.active {
     margin-left: -250px;
-}
-
-#sidebar .sidebar-header {
-    padding: 20px;
-    background: #58C9B9;
 }
 
 #sidebar ul.components {
@@ -88,7 +100,7 @@ p {
 }
 
 #sidebar ul li #leftSideBar {
-    padding: 10px;
+    padding: 15px;
     font-size: 1.1em;
     display: block;
 }
@@ -109,10 +121,27 @@ p {
     background: #58C9B9; /* #6d7fcc */ /* 내 서재 메뉴 배경색 */
 }
 
+.brand-logo-main {
+	position: fixed;
+	color: #58C9B9;
+	text-shadow: 2px 2px 2px #519D9E;
+	font-size: 30px;
+	font-family: 'Fredoka One', cursive;
+	text-decoration: none;
+	padding: 15px;
+}
+
+.brand-logo-main:hover {
+	color: #D1B6E1;
+	text-decoration: none;
+}
+
 #sidebar .brand-logo {
 	color: white;
 	text-shadow: 3px 2px 2px #D1B6E1;
 	text-decoration: none;
+	font-size: 30px;
+	font-family: 'Fredoka One', cursive;
 }
 
 #sidebar .brand-logo:hover {
@@ -141,6 +170,7 @@ ul ul #leftSideBar:hover {
 	background: #58C9B9;
 	border: white;
 }
+
 
 /* 스타일 변경 및 추가한 부분 by 다영 - 끝 */
 
@@ -220,12 +250,14 @@ a.article:hover {
 	border:none; 
 	background-color:transparent;
 }
+
 #leftSideBarColor{
 	border:none; 
 	background-color: #58C9B9;
 	width : auto;
 	color : #fff;
 }
+
 .brand-logo{
 	width : 30px;
 	height : 20px;
