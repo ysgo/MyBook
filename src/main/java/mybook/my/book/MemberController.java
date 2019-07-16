@@ -34,13 +34,13 @@ public class MemberController {
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String signin() {
-		return "signin";
+		return "signIn";
 	}
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup() {
-		return "signup";
+		return "signUp";
 	}
 	
 	// 회원가입 : 암호화 저장 후 서비스 객체에 저장
@@ -49,7 +49,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		String inputPass = vo.getUserPass();
 		if(inputPass == null || !(inputPass.equals(vo.getUserPass()))) {
-			mav.setViewName("signup");
+			mav.setViewName("signUp");
 			return mav;
 		}
 		if(service.signup(vo)) {
@@ -73,7 +73,7 @@ public class MemberController {
 			mav.setViewName("main");
 		} else {
 			mav.addObject("status", null);
-			mav.setViewName("signin");
+			mav.setViewName("signIn");
 		}
 		return mav;
 	}

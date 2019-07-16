@@ -9,51 +9,101 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/signin.css">
 <style>
-	.bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+.divider-text {
+	position: relative;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-} 
+.divider-text span {
+	padding: 7px;
+	font-size: 12px;
+	position: relative;
+	z-index: 2;
+}
+
+.divider-text:after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+	top: 55%;
+	left: 0;
+	z-index: 1;
+}
+
+.row{
+	margin: 0 auto;
+}
+
+.logo{
+	margin : 16px 0px 12px 80px;
+}
 </style>
 <!-- Custom styles for this template -->
-<link rel="stylesheet" type="text/css" href="css/signin.css">
 </head>
 <body class="text-center">
-<form class="form-signin" action="/book/signin" method="POST" >
-  <!-- <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> --><!-- 로고 이미지 추가하고 싶으면 사용 -->
-  <!-- <h1 class="h3 mb-3 font-weight-normal">로고</h1> -->
-  <a class="my-0 mr-md-auto" href="/book/">로고</a>
-  <div id="login_container">
-  <label for="inputEmail" class="sr-only"></label>
-  <input type="email" id="userId" name="userId"  class="form-control" placeholder="example@exam.com" required autofocus>
-  <span class="check_font" id="id_check"></span>
-  <label for="inputPassword" class="sr-only"></label>
-  <input type="password" id="userPass" name="userPass" class="form-control" placeholder="***********" required>
-  <span class="check_font" id="pass_check"></span>
-  <div class="checkbox mb-3 text-left" >
-    <label>
-      <input type="checkbox" value="remember-me"> 아이디 저장
-    </label>
-  </div>
-  <button id="signin" class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-  
-  </div>
-</form>
-<br> 
-  <!-- 아이디, 비밀번호 찾기 -->
-  <button id="searchId" class="btn btn-lg btn-primary btn-block" onclick="search()">아이디/비밀번호 찾기</button>
 
-  <p class="mt-5 mb-3 text-muted">아직 회원가입을 안하셨나요? <a href="/book/signup?action=signup&id=2">회원가입</a></p>
+<div class="card bg-light">
+	<article class="card-body mx-auto" style="max-width: 400px;">
+	<div class="row">
+		<a href="/book/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
+		<h4 class="card-title mt-3 text-center">로그인</h4>
+	</div>
+			<!-- 네이버 로그인 버튼 -->
+			<a href="${url}" class="btn btn-block " ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
+		<p class="divider-text">
+			<span class="bg-light">OR</span>
+		</p>
+		
+		<!-- 로그인 폼태그 시작 -->
+		<form action="/book/signin" method="POST" >
+			<!-- 이메일 아이디 -->
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-envelope"></i>
+					</span>
+				</div>
+				<input id="userId" name="userId" class="form-control" placeholder="example@exam.com" type="email" required autofocus>
+				<span class="check_font" id="id_check"></span>
+			</div>
+			
+			<!-- 비밀번호 -->
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-lock"></i>
+					</span>
+				</div>
+				<input id="userPass" name="userPass" class="form-control" placeholder="비밀번호를 입력해주세요." type="password">
+				<span class="check_font" id="pass_check"></span>
+			</div>
+			
+			<!-- 로그인 버튼 -->
+			<div class="form-group">
+				<input id="signin" type="submit" class="btn btn-primary btn-block" value="로그인">
+			</div>
+			
+			<!-- 회원가입 링크 -->
+			<p class="text-center">
+				아직 회원가입을 안하셨나요?
+				<a href="/book/signup?action=signup&id=2"> 회원가입</a>
+			</p>
+			
+			<!-- 아이디, 비밀번호 찾기 링크 -->
+			<p class="text-center">
+				<!-- <a href="#"> 아이디 찾기/비밀번호 찾기</a> -->
+				<button id="searchId" onclick="search()">아이디/비밀번호 찾기</button>
+			</p>
+		</form>
+		<!-- 로그인 폼태그 끝 -->
+		
+	</article>
+</div>
+
+
 
 <script>
  function search(cv) {
@@ -68,7 +118,7 @@ var pwJ = /^[A-Za-z0-9]{4,16}$/;
 var text;
 var check;
 //이메일아이디 정규식
-$("#userId").blur(function() {
+$("#userId").keyup(function() {
 	var val = $("#userId").val();
 	if(val != "") {
 		if(mailJ.test(val)) {
@@ -85,7 +135,7 @@ $("#userId").blur(function() {
 });
 
 //비밀번호 유효성 검사(숫자, 문자로만 4~12자리)
-$("#userPass").blur(function() {
+$("#userPass").keyup(function() {
 	var val = $("#userPass").val();
 	if(val != "") {
 		if(pwJ.test(val)) {
