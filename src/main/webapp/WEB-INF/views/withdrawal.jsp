@@ -93,7 +93,8 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <c:if test="${empty status}">
+                        <ul class="nav navbar-nav ml-auto">
+                            <c:if test="${empty status}">
 	                            <li class="nav-item active">
 	                            	<form action="signIn" method="get">
 		                                <input id="signColor" type="submit" value="로그인" class="nav-link">
@@ -111,7 +112,8 @@
 		                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
 		                            </form>
 	                            </li>
-                            </c:if> 
+                            </c:if>                    
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -119,58 +121,28 @@
 			
 			<!-- 컨텐트 추가 시작 -->    
 			<article id="updateArticle" class="card-body mx-auto">
-				<h2>내 정보 수정</h2>
+				<h2>회원 탈퇴</h2>
 				
 				<!-- 수정 폼태그 시작 -->
-				<form action="${pageContext.request.contextPath}/updateMember" method="POST">
-					<!-- 닉네임 -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-user"></i>
-							</span>
-						</div>
-						<input value="${ userName }" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
-					</div>
-					
-					<!-- 이메일 -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-envelope"></i>
-							</span>
-						</div>
-						<input value="${ userId }" name="userId" class="form-control" placeholder="이메일" type="email" readonly>
-					</div>
-	
-					<!-- 비밀번호 -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-lock"></i>
-							</span>
-						</div>
-						<input id="userPass" name="userPass" class="form-control" placeholder="비밀번호" type="password" required>
-					</div>
-					
+				<form action="${pageContext.request.contextPath}/withdrawal" method="POST">
+
 					<!-- 비밀번호 확인 -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-lock"></i>
 							</span>
 						</div>
-						<input id="rePass" class="form-control" placeholder="비밀번호 확인" type="password" required>
+						<input name="checkPass" class="form-control" placeholder="비밀번호 확인" type="password" required>
 					</div>
 					
-					<div id="checkMsg"></div>
-					
-					<!-- 수정 버튼 -->
+					<!-- 탈퇴 버튼 -->
 					<div class="form-group">
-						<input id="submit" type="submit" class="btn btn-primary btn-block" value="수정">
+						<input type="submit" class="btn btn-primary btn-block" value="탈퇴">
 					</div>
 				</form>
-				<!-- 수정 폼태그 끝 -->
-				
-				<!-- 탈퇴 페이지 이동 -->
+				<!-- 취소 -->
 				<div class="form-group">
-					<input onclick="location.href='/book/withdrawal'"type="button" class="btn btn-primary btn-block" value="탈퇴">
+					<input onclick="location.href='/book/myPage'"type="button" class="btn btn-primary btn-block" value="취소">
 				</div>
 				
 			</article>
@@ -184,37 +156,7 @@
     
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-	
-	<script>
-	var text;
-	var check = true;
-	var pwJ = /^[A-Za-z0-9]{4,16}$/;
-	
-	// 변경 비밀번호 유효성 검사 및 재확인
-	$("#rePass").keyup(function() {
-		var userPass = document.getElementById("userPass").value;
-		var rePass = document.getElementById("rePass").value;
-	
-		if(rePass != "") { 
-			if(pwJ.test(rePass)) {
-				if(userPass != rePass) {
-					text = "비밀번호가 일치하지 않습니다.";
-					check=true;
-				} else {
-					text = "비밀번호가 일치합니다.";
-					check=false;
-				}
-			} else {
-				text = "숫자 또는 문자로만 4~12자리 입력가능합니다.";
-				check=true;
-			}
-		}
-		$("#checkMsg").text(text);
-		$("#checkMsg").css("color", "red");
-		$("#submit").attr("disabled", check);
-});
-	</script>
-	
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({

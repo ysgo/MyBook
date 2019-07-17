@@ -94,7 +94,7 @@
               <a class="my-0 mr-md-auto" href="${pageContext.request.contextPath}/"><img src="images/logo.svg" width="38" height="37"></a>
 			  <nav class="my-2 my-md-0 mr-md-3">
 				  <a class="p-2 text-dark" href="${pageContext.request.contextPath}/readBook?action=readBook&id=4">내 서재</a>
-				  <a class="p-2 text-dark" href="#">내 정보</a>
+				  <a class="p-2 text-dark" href="${pageContext.request.contextPath}/myPage">내 정보</a>
 			  </nav>
 			  <nav class="my-2 my-md-0 mr-md-3">
 				<c:if test="${empty status }">

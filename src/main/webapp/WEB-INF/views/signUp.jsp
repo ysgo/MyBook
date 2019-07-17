@@ -65,14 +65,14 @@
 </head>
 <body>
 	<div class="card bg-light">
-		<article class="card-body mx-auto" style="max-width: 400px;">
+		<article class="card-body mx-auto" style="max-width: 500px;">
 		<div class="row">
 			<a href="${pageContext.request.contextPath}/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
 			<h4 class="card-title mt-3 text-center">회원가입</h4>
 		</div>
 			
 		<!-- 네이버 로그인 버튼 -->
-		<a href="#" class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
+		<a href="/book/signIn" class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
 		<p class="divider-text">
 			<span class="bg-light">OR</span>
 		</p>
@@ -86,7 +86,7 @@
 					</span>
 				</div>
 				<input id="userName" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
-				<span class="check_font" id="name_check"></span>
+				<input type="button" id="name_check" value="중복체크">
 			</div>
 			
 			<!-- 이메일 -->
@@ -96,7 +96,7 @@
 					</span>
 				</div>
 				<input id="userId" name="userId" class="form-control" placeholder="이메일" type="email" required>
-				<span class="check_font" id="id_check"></span>
+				<input type="button" id="id_check" value="중복체크">
 			</div>
 			
 			<!-- 비밀번호 -->
@@ -116,7 +116,7 @@
 					</span>
 				</div>
 				<input class="form-control" id="rePass" name="rePass" placeholder="비밀번호 확인" type="password" required>
-				<span class="check_font" id="repass_check"></span>
+				<input type="button" id="repass_check" value="중복체크">
 			</div>
 			
 			<!-- 등록 버튼 -->
@@ -128,15 +128,12 @@
 		<!-- 회원가입 폼태그 끝 -->
 			
 		<!-- 로그인 링크 -->
-		<form class="text-center" action="${pageContext.request.contextPath}/signIn" method="get">
+		<form class="text-center" action="${pageContext.request.contextPath}/signin" method="get">
 	                 이미 회원가입을 하셨나요? <input id="signColor" type="submit" value="로그인">
 	    </form>	
 		
 	</article>
 </div>
-	
-	
-	
 	
 <script>
 // 이름 정규식 : 가~힣, 한글로 이루어진 문자만으로 2~6자리 이름을 적어야한다
@@ -148,9 +145,10 @@ var mailJ = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 var pwJ = /^[A-Za-z0-9]{4,16}$/;
 
 var text;
-var check;
-// 이름 정규식(한글로만 2~6자리 또는 특수문자 안됨)
-$("#userName").keyup(function() {
+var check=true;
+$("#signUp").attr("disabled", check);
+// 이름 유효성 검사(한글로만 2~6자리 또는 특수문자 안됨)
+$("#name_check").on("click", function() {
 	var userName = $("#userName").val();
 	if(userName != "") {
 		$.ajax({
@@ -169,17 +167,13 @@ $("#userName").keyup(function() {
 						check=true;
 					}	
 				}
-			$("#name_check").text(text);
-			$("#name_check").css("color", "red");
-			$("#signUp").attr("disabled", check);
 			}
 		});
 	}
 });
 
-//아이디 유효성 검사(1 = 중복 / 0 != 중복)
-$("#userId").keyup(function() {						
-	// id = "id_reg" / name = "userId"
+//아이디 유효성 검사(1 = 중복 / 0 != 사용가능)
+$("#id_check").on("click", function() {						
 	var user_id = $('#userId').val();
 	if(user_id != "") {
 		$.ajax({
@@ -193,14 +187,12 @@ $("#userId").keyup(function() {
 					if(mailJ.test(user_id)){
 						text = "사용 가능합니다.";
 						check=false;			
-					} else {			
+					} else {			 
 						text = "유효하지 않은 양식입니다.";
 						check=true;
 					}	
 				}
-				$("#id_check").text(text);
-				$("#id_check").css("color", "red");
-				$("#signUp").attr("disabled", check);
+				alert(text);
 			}, error : function() {
 					console.log("실패");
 			}
@@ -208,39 +200,27 @@ $("#userId").keyup(function() {
 	}
 });
 
-// 비밀번호 유효성 검사(숫자, 문자로만 4~12자리)
-$("#userPass").keyup(function() {
-	var val = $("#userPass").val();
-	if(val != "") {
-		if(pwJ.test(val)) {
-			text = "사용가능합니다";
-			check=false;
+// 비밀번호 유효성 검사 및 비밀번호 재확인
+$("#repass_check").on("click", function() {
+	var userPass = document.getElementById("userPass").value;
+	var rePass = document.getElementById("rePass").value;
+
+	if(rePass != "") { 
+		if(pwJ.test(rePass)) {
+			if(userPass != rePass) {
+				text = "비밀번호가 일치하지 않습니다.";
+				check=true;
+			} else {
+				text = "비밀번호가 일치합니다.";
+				check=false;
+			}
 		} else {
 			text = "숫자 또는 문자로만 4~12자리 입력가능합니다.";
 			check=true;
 		}
-		$("#pass_check").text(text);
-		$("#pass_check").css("color", "red");
-		$("#signUp").attr("disabled", check);
 	}
-});
-
-// 비밀번호 재확인
-$("#rePass").keyup(function() {
-	var userPass = document.getElementById("userPass").value;
-	var rePass = document.getElementById("rePass").value;
-	if(rePass != "") {
-		if(userPass != rePass) {
-			text = "비밀번호가 일치하지 않습니다.";
-			check=true;
-		} else {
-			text = "비밀번호가 일치합니다.";
-			check=false;
-		}
-		$("#repass_check").text(text);
-		$("#repass_check").css("color", "red");
-		$("#signUp").attr("disabled", check);
-	}
+	alert(text);
+	$("#signUp").attr("disabled", check);
 });
 
 </script>

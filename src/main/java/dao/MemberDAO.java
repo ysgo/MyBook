@@ -65,4 +65,24 @@ public class MemberDAO {
 		String statement = "resource.MemberMapper.find_pw";
 		return session.selectOne(statement, hash);
 	}	
+	
+	// 회원 탈퇴
+	public boolean withdrawal(String userId) {
+		boolean result = true;
+		String statement = "resource.MemberMapper.withdrawal";
+		if(session.delete(statement, userId)!=1) {
+			result = false;
+		}
+		return result;
+	}
+	
+	// 회원 정보 수정
+	public boolean updateMember(MemberVO vo) {
+		boolean result = true;
+		String statement = "resource.MemberMapper.updateMember";
+		if(session.update(statement, vo) != 1) {
+			result = false;
+		}
+		return result;
+	}
 }

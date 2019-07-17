@@ -69,7 +69,7 @@
 		</p>
 		
 		<!-- 로그인 폼태그 시작 -->
-		<form action="${pageContext.request.contextPath}/signIn" method="POST" >
+		<form action="${pageContext.request.contextPath}/signin" method="POST" >
 			<!-- 이메일 아이디 -->
 			<div class="form-group input-group">
 				<div class="input-group-prepend">
@@ -104,58 +104,17 @@
 				
 			<!-- 아이디, 비밀번호 찾기 링크 -->
 			<p class="text-center">
-				<button id="searchId" onclick="search()">아이디/비밀번호 찾기</button>
+				<button id="searchId" onclick="searchMember()">아이디/비밀번호 찾기</button>
 			</p>
 	</article>
 </div>
-
+ 
 
 
 <script>
- function search(cv) {
-	window.open("/book/search", "아이디 찾기", "width=500, height=620, left=100, top=50");
+ function searchMember() {
+	window.open("/book/search", "아이디/비밀번호 찾기", "width=500, height=620, left=100, top=50");
 } 
-
-//이메일아이디 검사 정규식 : -_특수문자 가능하며 중앙에 @ 필수 그리고 . 뒤에 2~3글자 필요
-var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-/* String regexp = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$"; //이메일 정규 표현식 */
-//비밀번호 정규식 : A~Z, a~z,,0~9로 시작하는 4~12자리 비밀번호 가능
-var pwJ = /^[A-Za-z0-9]{4,16}$/;
-var text;
-var check;
-//이메일아이디 정규식
-$("#userId").keyup(function() {
-	var val = $("#userId").val();
-	if(val != "") {
-		if(mailJ.test(val)) {
-			text="";
-			check=false;
-		} else {
-			text="유효하지 않은 양식입니다.";
-			check=true;
-		}
-		$("#id_check").text(text);
-		$("#id_check").css("color", "red");
-		$("#signIn").attr("disabled", check);	
-	}
-});
-
-//비밀번호 유효성 검사(숫자, 문자로만 4~12자리)
-$("#userPass").keyup(function() {
-	var val = $("#userPass").val();
-	if(val != "") {
-		if(pwJ.test(val)) {
-			text="";
-			check=false;
-		} else {
-			text="숫자 or 문자로만 4~12자리 입력가능합니다.";
-			check=true;
-		}
-		$("#pass_check").text(text);
-		$("#pass_check").css("color", "red");
-		$("#signIn").attr("disabled", check);	
-	}
-});
 
 function searchFunc(e) {  
 	var keyword = $('input[name=keyword]').val();

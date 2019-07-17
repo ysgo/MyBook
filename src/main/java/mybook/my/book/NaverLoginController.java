@@ -31,7 +31,7 @@ public class NaverLoginController {
 		this.naverLoginBO = naverLoginBO;
 	}
 
-	//로그인 첫 화면 요청 메소드
+	//로그인 첫 화면 요청 메소드 
 	@RequestMapping(value = "/signIn", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(Model model, HttpSession session) {
 		

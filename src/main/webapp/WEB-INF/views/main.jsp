@@ -34,7 +34,7 @@
   <!-- <h5 class="my-0 mr-md-auto font-weight-normal">로고</h5> -->
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" href="${pageContext.request.contextPath}/readBook?action=mylibrary&id=3">내 서재</a>
-    <a class="p-2 text-dark" href="#">내 정보</a>
+    <a class="p-2 text-dark" href="${pageContext.request.contextPath}/myPage">내 정보</a>
   </nav>
   <nav class="my-2 my-md-0 mr-md-3">
 	<c:if test="${empty status }">

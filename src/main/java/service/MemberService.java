@@ -29,6 +29,7 @@ public class MemberService {
 			// 세션 등록
 			session.setAttribute("userId", vo2.getUserId());
 			session.setAttribute("userPass", vo2.getUserPass());
+			session.setAttribute("userName", vo2.getUserName());
 			return result;
 		}
 		return false;
@@ -72,5 +73,15 @@ public class MemberService {
 		} else {
 			return pass;
 		}
+	}
+	
+	// 회원 탈퇴
+	public boolean withdrawal(String userId) {
+		return dao.withdrawal(userId);
+	}
+	
+	// 회원 정보 수정
+	public boolean updateMember(MemberVO vo) {
+		return dao.updateMember(vo);
 	}
 } 
