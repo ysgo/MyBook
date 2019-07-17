@@ -34,13 +34,6 @@
 	z-index: 2;
 }
 
-.divider-text span {
-	padding: 7px;
-	font-size: 12px;
-	position: relative;
-	z-index: 2;
-}
-
 .divider-text:after {
 	content: "";
 	position: absolute;
@@ -68,7 +61,7 @@
 </head>
 <body>
 	<div class="card bg-light">
-		<article class="card-body mx-auto" style="max-width: 400px;">
+		<article class="card-body mx-auto" style="width: 300px;">
 			<div class="row">
 				<a href="${pageContext.request.contextPath}/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
 				<h4 class="card-title mt-3 text-center">회원가입</h4>
@@ -89,6 +82,7 @@
 						</span>
 					</div>
 					<input name="" class="form-control" placeholder="닉네임" type="text" required autofocus>
+					<div>유효하지 않은 .</div>
 				</div>
 				
 				<!-- 이메일 -->

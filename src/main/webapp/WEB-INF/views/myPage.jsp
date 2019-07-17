@@ -131,7 +131,7 @@
 							<span class="input-group-text"> <i class="fa fa-envelope"></i>
 							</span>
 						</div>
-						<input name="" class="form-control" placeholder="이메일" type="email" required>
+						<input name="" class="form-control" placeholder="" type="email" disabled>
 					</div>
 	
 					<!-- 비밀번호 -->

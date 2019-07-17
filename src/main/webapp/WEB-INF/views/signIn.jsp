@@ -106,9 +106,7 @@
 				
 				<!-- 아이디, 비밀번호 찾기 링크 -->
 				<p class="text-center">
-					<a href="#"> 아이디 찾기</a>
-					<span> / </span>
-					<a href="#"> 비밀번호 찾기</a>
+					<a href="#"> 아이디 찾기 / 비밀번호 찾기</a>
 				</p>
 				
 		</article>
