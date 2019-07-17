@@ -145,46 +145,49 @@ var mailJ = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 var pwJ = /^[A-Za-z0-9]{4,16}$/;
 
 var text;
-var check=true;
+var check=new Array(true, true, true);
 $("#signUp").attr("disabled", check);
-// 이름 유효성 검사(한글로만 2~6자리 또는 특수문자 안됨)
-$("#name_check").on("click", function() {
-	var userName = $("#userName").val();
+
+//이름 유효성 및 중복 검사(한글로만 2~6자리 또는 특수문자 안됨)
+$("#name_check").on("click", function() {						
+	var userName = $('#userName').val();
 	if(userName != "") {
 		$.ajax({
 			url : '/book/nameCheck?userName='+ userName,
 			type : 'get',
 			success : function(data) {			
-				if (data == 1) {	// 1 : 아이디가 중복되는 문구
+				if (data == 1) {	// 1 : 닉네임이 중복되는 경우
 					text = "이미 등록된 이름입니다.";
 					check=true;
-				} else {		// 0 : 아이디 길이 / 문자열 검사					
+				} else {		// 0 : 닉네임 길이 / 문자열 검사					
 					if(nameJ.test(userName)){
 						text = "사용 가능합니다.";
 						check=false;			
-					} else {			
-						text = "한글과 영어로만 2~6자리 입력가능합니다.";
+					} else {			 
+						text = "한글 또는 영어로만 2~6자리 입력가능합니다.";
 						check=true;
 					}	
 				}
+				alert(text);
+			}, error : function() {
+					console.log("실패");
 			}
 		});
 	}
 });
-
 //아이디 유효성 검사(1 = 중복 / 0 != 사용가능)
 $("#id_check").on("click", function() {						
-	var user_id = $('#userId').val();
-	if(user_id != "") {
+	var userId = $('#userId').val();
+	if(userId != "") {
 		$.ajax({
-			url : '/book/idCheck?userId='+ user_id,
+			url : '/book/idCheck?userId='+ userId,
 			type : 'get',
 			success : function(data) {			
 				if (data == 1) {	// 1 : 아이디가 중복되는 문구
 					text = "이미 가입된 이메일입니다.";
 					check=true;
 				} else {		// 0 : 아이디 길이 / 문자열 검사					
-					if(mailJ.test(user_id)){
+					if(mailJ.test(userId)){
 						text = "사용 가능합니다.";
 						check=false;			
 					} else {			 
@@ -220,9 +223,8 @@ $("#repass_check").on("click", function() {
 		}
 	}
 	alert(text);
-	$("#signUp").attr("disabled", check);
+	$("#signUp").attr("disabled", check);	
 });
-
 </script>
 </body>
 </html>

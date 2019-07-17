@@ -122,7 +122,7 @@
 				<h2>내 정보 수정</h2>
 				
 				<!-- 수정 폼태그 시작 -->
-				<form action="${pageContext.request.contextPath}/updateMember" method="POST">
+				<form action="${pageContext.request.contextPath}/updateMember" method="POST" location.reload();>
 					<!-- 닉네임 -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
@@ -131,7 +131,6 @@
 						</div>
 						<input value="${ userName }" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
 					</div>
-					
 					<!-- 이메일 -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
@@ -157,9 +156,8 @@
 							</span>
 						</div>
 						<input id="rePass" class="form-control" placeholder="비밀번호 확인" type="password" required>
+						<input type="button" id="checkPass" value="중복확인">
 					</div>
-					
-					<div id="checkMsg"></div>
 					
 					<!-- 수정 버튼 -->
 					<div class="form-group">
@@ -191,7 +189,8 @@
 	var pwJ = /^[A-Za-z0-9]{4,16}$/;
 	
 	// 변경 비밀번호 유효성 검사 및 재확인
-	$("#rePass").keyup(function() {
+	$("#submit").attr("disabled", check);
+	$("#checkPass").on("click", function() {
 		var userPass = document.getElementById("userPass").value;
 		var rePass = document.getElementById("rePass").value;
 	
@@ -209,8 +208,7 @@
 				check=true;
 			}
 		}
-		$("#checkMsg").text(text);
-		$("#checkMsg").css("color", "red");
+		alert(text);
 		$("#submit").attr("disabled", check);
 });
 	</script>
