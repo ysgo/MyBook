@@ -21,7 +21,7 @@
     <!-- Bootstrap CSS CDN -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -36,9 +36,9 @@
     <div class="wrapper">
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
-            <div class="sidebar-header">
-            	<a href="${pageContext.request.contextPath}/" class="brand-logo">
-					<img src="images/logo.svg" alt="logo">
+			<div class="sidebar-header p-3">
+            	<a href="${pageContext.request.contextPath}/" class="brand-logo" style="font-family: 'Fredoka one'">
+					CHACKCHECK
 				</a>
             </div>
 
@@ -84,7 +84,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
                         <i class="fas fa-align-left"></i>
                         <span>메뉴</span>
                     </button>
@@ -172,17 +172,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
-            });
-
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-        });
+	    $(document).ready(function () {
+	    	// hide sidebar when refresh the page
+	        $('#sidebar').toggleClass('active');
+	        $("#sidebar").mCustomScrollbar({
+	            theme: "minimal"
+	        });
+	        
+	        $('#sidebarCollapse').on('click', function () {
+	        	// open sidebar when clicked
+	            $('#sidebar, #content').toggleClass('active');
+	            $('.collapse.in').toggleClass('in');
+	            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+	        });
+	    });
     </script>
 </body>
 
