@@ -20,7 +20,7 @@
     <!-- Bootstrap CSS CDN -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?a">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -34,8 +34,17 @@
 
     <div class="wrapper">
          <div style="z-index:500">
-          	<a href="${pageContext.request.contextPath}/" class="brand-logo-main">
-				<div>CHACK</div><div>CHECK</div>
+          	<a href="${pageContext.request.contextPath}/" class="brand-logo-main tooltip">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-auto pr-0 mt-2">CHACK<br>CHECK</div>
+						<div class="col-sm-auto pl-1"><img src="images/book.jpg" style="width: 55px"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-auto tooltiptext">HELLO!</div>
+					</div>
+					
+				</div>
 			</a>
          </div>
     
@@ -141,15 +150,16 @@
     <script type="text/javascript">
     	
         $(document).ready(function () {
-        	// hide sidebar
+        	// hide sidebar when refresh the page
             $('#sidebar').toggleClass('active');
-            $("#sidebar").mCustomScrollbar({
+ 
+        	$("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
             
             $('#sidebarCollapse').on('click', function () {
-            	// open sidebar
-                $('#sidebar').toggleClass('active');
+            	// open sidebar when clicked
+                $('#sidebar, #content').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
