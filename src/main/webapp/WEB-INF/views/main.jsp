@@ -33,19 +33,21 @@
 <body>
 
     <div class="wrapper">
+    
          <div style="z-index:500">
-          	<a href="${pageContext.request.contextPath}/" class="brand-logo-main tooltip">
+	        <a href="${pageContext.request.contextPath}/" class="brand-logo-main" >
 				<div class="container">
-					<div class="row">
-						<div class="col-sm-auto pr-0 mt-2">CHACK<br>CHECK</div>
-						<div class="col-sm-auto pl-1"><img src="images/book.jpg" style="width: 55px"></div>
-					</div>
-					<div class="row">
-						<div class="col-sm-auto tooltiptext">HELLO!</div>
-					</div>
-					
+					<div class="row" id="tooltip">
+						<div class="col-sm-auto pr-0 mt-2">		
+							CHACK<br>CHECK
+						</div>
+						<div class="col-sm-auto pl-1">
+							<img src="images/book.jpg" style="width: 55px">
+						</div>
+					</div>	
+					<div class="p-3" id="tooltiptext">안녕하세요! 책첵은 처음인가요?<br>회원가입 후 첫 서평을 작성해보세요:)</div>
 				</div>
-			</a>
+			</a>		
          </div>
     
   		<!-- left Sidebar 시작 -->
@@ -163,6 +165,17 @@
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
+            
+            $('#tooltip').hover(function(){
+            	//$( '#tooltiptext' ).removeClass( 'invisible' );
+            	$( '#tooltiptext' ).animate({opacity: "1"}, 1000);
+      
+            });
+            $('#tooltip').mouseleave(function(){
+            	$( '#tooltiptext' ).animate({opacity: "0"}, 500);
+            	//$( '#tooltiptext' ).fadeTo("fast", 0);
+            	//$( '#tooltiptext' ).addClass( 'invisible' );
+             });
         });
     </script>
 </body>
