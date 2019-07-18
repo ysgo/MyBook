@@ -108,7 +108,7 @@
                             </c:if>
                             <c:if test="${!empty status}">
                             	<li class="nav-item active">
-	                            	<form action="${pageContext.request.contextPath}/signOut" method="get">
+	                            	<form action="signOut" method="get">
 		                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
 		                            </form>
 	                            </li>

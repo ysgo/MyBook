@@ -27,38 +27,31 @@
 	
 	<context:component-scan base-package="mybook.my.book" />
 	<beans:bean id="naverLoginBO" class="mybook.my.book.NaverLoginBO" />
+
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
+
+	<context:component-scan base-package="service"/>
+	<context:component-scan base-package="dao"/>
+	<context:component-scan base-package="vo"/>
 	
-	<beans:bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-
-	<context:component-scan base-package="service" />
-	<context:component-scan base-package="dao" />
-	<context:component-scan base-package="vo" />
-
-	<beans:bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<beans:property name="driverClassName"
-			value="oracle.jdbc.OracleDriver" />
-		<beans:property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:XE" />
-		<beans:property name="username" value="jdbctest" />
-		<beans:property name="password" value="jdbctest" />
-	</beans:bean>
-
-	<beans:bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<beans:property name="dataSource" ref="dataSource" />
-		<beans:property name="configLocation"
-			value="classpath:/mybatis-config.xml" />
-		<beans:property name="mapperLocations"
-			value="classpath:/*Mapper.xml" />
-	</beans:bean>
-
-	<beans:bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate"
-		destroy-method="clearCache">
-		<beans:constructor-arg index="0"
-			ref="sqlSessionFactory"></beans:constructor-arg>
+	
+	<beans:bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+	<beans:property value="oracle.jdbc.OracleDriver" name="driverClassName"/>
+	<beans:property value="jdbc:oracle:thin:@localhost:1521:XE" name="url"/>
+	<beans:property value="jdbctest" name="username"/>
+	<beans:property value="jdbctest" name="password"/>
 	</beans:bean>
 	
+	
+	<beans:bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+	<beans:property name="dataSource" ref="dataSource"/>
+	<beans:property value="classpath:/mybatis-config.xml" name="configLocation"/>
+	<beans:property value="classpath:/*Mapper.xml" name="mapperLocations"/>
+	</beans:bean>
+	
+	
+	<beans:bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession" destroy-method="clearCache">
+	<beans:constructor-arg ref="sqlSessionFactory" index="0"/>
+	</beans:bean>
+
 </beans:beans>

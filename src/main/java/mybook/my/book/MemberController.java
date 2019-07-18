@@ -18,7 +18,7 @@ import service.MemberService;
 import vo.MemberVO;
 
 @Controller
-@SessionAttributes({"status", "userId", "userName"})
+@SessionAttributes({"status", "userId", "userPass", "userName"})
 public class MemberController {
 	@Inject
 	private MemberService service;
@@ -27,19 +27,15 @@ public class MemberController {
 	
 	// main 페이지 이동 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView main() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
-		return mav;
+	public String main() {
+		return "main";
 	}
 	
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-	public ModelAndView signUp() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("signUp");
-		return mav;
+	public String signUp() {
+		return "signUp";
 	}
 	
 	// 회원가입 : 서비스 객체에 저장
@@ -59,15 +55,13 @@ public class MemberController {
 	}
 	
 	// 로그인 페이지 이동
-	@RequestMapping(value = "/signin", method = RequestMethod.GET)
-	public ModelAndView  signIn() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("signIn");
-		return mav;
+	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
+	public String  signIn() {
+		return "signIn";
 	}
 	
 	// 로그인 : 객체 정보를 추출해 세션에 저장, 비교후 이동
-	@RequestMapping(value="/signin", method=RequestMethod.POST)
+	@RequestMapping(value="/signIn", method=RequestMethod.POST)
 	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		boolean result = service.loginCheck(vo, session);
@@ -83,27 +77,24 @@ public class MemberController {
 	
 	// 로그아웃 
 	@RequestMapping(value="/signOut", method=RequestMethod.GET)
-	public ModelAndView  signOut(SessionStatus session) throws Exception {
+	public String  signOut(SessionStatus session) throws Exception {
 		service.signout(session);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
-		return mav;
+		return "redirect:/";
 	}
 	
-	// 회원 수정
-	@RequestMapping(value="/updateMember", method=RequestMethod.GET)
-	public ModelAndView  infoUpdate() throws Exception {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("myPage");
-		return mav;
+	// 회원 수정  페이지 이동
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public String  infoUpdate() throws Exception {
+		return "myPage";
 	}
 	// 회원 수정
-	@RequestMapping(value="/updateMember", method=RequestMethod.POST)
+	@RequestMapping(value="/myPage", method=RequestMethod.POST)
 	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, HttpSession session, SessionStatus s) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		boolean result = service.updateMember(vo);
 		if(result) {
 			mav.addObject("userName", vo.getUserName());
+			mav.addObject("userPass", vo.getUserPass());
 		}
 		mav.setViewName("myPage");
 		return mav;
@@ -111,10 +102,8 @@ public class MemberController {
 	
 	// 회원탈퇴 페이지 이동
 	@RequestMapping(value="/withdrawal", method=RequestMethod.GET)
-	public ModelAndView withdrawal() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("withdrawal");
-		return mav;
+	public String withdrawal() {
+		return "withdrawal";
 	}
 	
 	// 회원탈퇴

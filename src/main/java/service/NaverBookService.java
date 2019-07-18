@@ -7,14 +7,20 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import model.Book;
+import model.MyBookList;
 
 @Service
 public class NaverBookService {
+	@Autowired
+	SqlSession session=null;
+	
 	private static String clientID = "cTj9CJ7ev5hnHb4dsgdX";
 	private static String clientSecret="DgiKpqs83X";
 	
@@ -53,7 +59,7 @@ public class NaverBookService {
 				case XmlPullParser.START_TAG: {
 					String tag = parser.getName();
 					switch (tag) {
-                    case "item":
+                    case "item": 
                         b = new Book();
                         break;
                     case "title":
@@ -106,6 +112,37 @@ public class NaverBookService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public List<MyBookList> listAll(String id){
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.selectAllBookList";
+		list = session.selectList(statement, id);
+		return list;
+	}
+	
+	public boolean insert(MyBookList vo) {
+		boolean result=true;
+		String statement = "resource.MyBookListMapper.insertBookList";
+		if(session.insert(statement, vo) != 1)
+			result = false;
+		return result;
+	}
+	
+	public boolean delete(int id) {
+		boolean result=true;
+		String statement = "resource.MyBookListMapper.deleteBookList";
+		if(session.insert(statement, id) != 1)
+			result = false;
+		return result;
+	}
+	
+	public boolean update(MyBookList vo) {
+		boolean result=true;
+		String statement = "resource.MyBookListMapper.updateBookList";
+		if(session.insert(statement, vo) != 1)
+			result = false;
+		return result;
 	}
 }
 
