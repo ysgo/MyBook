@@ -72,7 +72,7 @@ public class NaverBookService {
                         break;
                     case "image":
                         if(b != null)
-                            b.setImage(parser.nextText());
+                            b.setImage(parser.nextText().replace("type=m1", ""));
                         break;
                     case "author":
                         if(b != null)
@@ -143,6 +143,13 @@ public class NaverBookService {
 		if(session.insert(statement, vo) != 1)
 			result = false;
 		return result;
+	}
+	
+	public List<MyBookList> searchReadbook(String readkeyword) {
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.searchBookList";
+		list = session.selectList(statement, readkeyword);
+		return list;
 	}
 }
 

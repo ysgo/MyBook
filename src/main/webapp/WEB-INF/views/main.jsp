@@ -37,7 +37,7 @@
          <div style="z-index:500">
 	        <a href="${pageContext.request.contextPath}/" class="brand-logo-main" >
 				<div class="container">
-					<div class="row" id="tooltip">
+					<div class="row" id="tooltip" style="width: 200px;">
 						<div class="col-sm-auto pr-0 mt-2">		
 							CHACK<br>CHECK
 						</div>
@@ -98,7 +98,13 @@
         <div id="content">
 
 			<!-- navbar 시작 -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+			
+			<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5">
+               <i class="fas fa-align-left"></i>
+               <span>MENU</span>
+            </button>
+			
+            <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
@@ -124,7 +130,7 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav> -->
 			<!-- navbar 끝 -->
 			
 			<!-- 컨텐트 추가 시작 -->
@@ -141,7 +147,17 @@
 
         </div>
         <!-- Page Content 끝 -->
-        <div class="overlay"></div>
+        
+        <!-- 회원가입 및 로그인 -->
+        <div class="sign">
+       		<form action="signIn" method="get" style ='float: left;'>
+              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+          	</form>
+       		<form action="signUp" method="get" style ='float: left;'>
+              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+          	</form>
+        </div>
+        <!-- 회원가입 및 로그인 끝 -->
         
     </div>
     

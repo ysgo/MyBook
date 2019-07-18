@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -21,7 +22,8 @@
     <!-- Bootstrap CSS CDN -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?a">
+    <link rel="stylesheet" href="css/booklist-style.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -29,79 +31,24 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-<style>
-	@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-	body {
-		font-family:  ''Noto Sans KR";
-	}
-	#imgContainer {
-		text-align:center;
-	}
-	.row {
-		padding: 5px;
-	}
-	.row:hover {
-		background-color: #dcebf7;
-		cursor: pointer;
-	}
-	.inputrow:hover {
-		background-color: white;
-	}
-	.inputrow {
-		margin: 0 auto;
-	    float: none;
-	    text-align: center;
-	}
-	.input-group{
-		vertical-align: middle; 
-	}
-	
-	/*서평 추가 모달*/
-	.form-elegant .font-small {
-	    font-size: 0.8rem; }
-	.form-elegant .z-depth-1a {
-	    -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
-	    box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25); }
-	.form-elegant .z-depth-1-half,
-	.form-elegant .btn:hover {
-	    -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
-	    box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15); }
-	.modal-dialog .form-elegant .btn .fab {
-	    color: #2196f3 !important; }
-	
-	.form-elegant .modal-body, .form-elegant .modal-footer {
-	    font-weight: 400; }
-	    
-	/*별점*/    
-	.star_rating {font-size:0; letter-spacing:-4px;}
-	.star_rating a {
-	    font-size:22px;
-	    letter-spacing:0;
-	    display:inline-block;
-	    margin-left:5px;
-	    color:#ccc;
-	    text-decoration:none;
-	}
-	.star_rating a:first-child {
-		margin-left:0;
-	}
-	.star_rating a.on {
-		color : #17a2b8;
-	}
-	
-	.modal-open {
-    	overflow: scroll; /* 모달 영역을 닫아도 스크롤바가 존재 */
-	}
-	
-	.upDelButton{
-		background-color: #17a2b8;
-		border:none; 
-	}
-</style>	
 </head>
 
 <body>
     <div class="wrapper">
+    	<div style="z-index:500">
+	        <a href="${pageContext.request.contextPath}/" class="brand-logo-main" >
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-auto pr-0 mt-2">		
+							CHACK<br>CHECK
+						</div>
+						<div class="col-sm-auto pl-1">
+							<img src="images/book.jpg" style="width: 55px">
+						</div>
+					</div>	
+				</div>
+			</a>		
+         </div>
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
 			<div class="sidebar-header p-3">
@@ -149,41 +96,50 @@
         <div id="content">
 
 			<!-- navbar 시작 -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
-                        <i class="fas fa-align-left"></i>
-                        <span>메뉴</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
+	 		<div class="top-page mb-5"><!-- top page 시작 -->
+	 		
+	 			<div class="btn-with-fixedInput pr-1 pl-3"><!-- 메뉴 버튼 -->
+	
+					<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
+		               <i class="fas fa-align-left"></i>
+		               <span>MENU</span>
+		            </button>
+		            
+				</div>
+					
+				<div class="fixedInput pl-1"><!-- 고정된 인풋 -->
+				
+					<form method="get" action="readBook">
+					<div class="input-group">
+						<input name="readkeyword" 
+				        	type="text" class="form-control" 
+				        	placeholder="내가 등록한 책 제목, 저자, 출판사 검색"
+			        	 	aria-describedby="basic-addon2"
+			        	 	>
+			        	 <div class="input-group-append">
+			    			<button class="btn btn-outline-secondary" type="submit">검색</button>
+			 			 </div>
+					</div>
+					</form>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                            	<form action="signIn" method="get">
-	                                <input id="signColor" type="submit" value="로그인" class="nav-link">
-	                            </form>
-                            </li>
-                            <li class="nav-item active">
-	                            <form action="signUp" method="get">
-	                                <input id="signColor" type="submit" value="회원가입" class="nav-link">
-	                            </form>
-                            </li>                        
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+			     </div><!-- 고정된 인풋 끝 -->
+	 			
+	 		</div><!-- top page 끝 -->
+				
+
 			<!-- navbar 끝 -->
 
 			<!-- 책이미지와 서평 내용 출력 -->
+			<div class="container">
+			
 			<c:if test="${ !empty list }">
 				<ul>
 					<c:forEach var="vo" items="${ list }">
 						<li class="row">
+	
 							<img alt="이미지" src="${vo.image}" width="100" height="150" style="border : 1px solid #000"/>
+
 							<div style="margin : 0 10px;">
 								<span style="margin-right: 5px; font-size: 20pt;">${vo.m_title}</span>
 								<span>${vo.registdate}</span><br>
@@ -209,12 +165,26 @@
 								<span style="font-size: 15pt;">${vo.m_content}</span>
 							</div>
 						</li>
+						<div class="caption">
+						<c:choose>
+							<c:when test = '${fn:length(vo.title) >= 20 }'>
+							${fn:substring(vo.title,0,20)} ...
+							</c:when>
+							<c:otherwise>
+							${vo.title}
+							</c:otherwise>
+						</c:choose>
+						</div>
 						<div class="float-right">
 							<form action="readBook" method="post">
 								<input type="hidden" name="bookNum" value="${vo.id}">						
-								<button type="button" class="btn btn-primary upDelButton" data-toggle="modal" data-target="#myModal3" 
-								onclick="updateButton('${vo.id}', '${vo.m_title}', '${vo.m_star}', '${vo.m_content}');">수정</button>
-								<input type="submit" class="btn btn-primary upDelButton" value="삭제">
+								<button type="button" class="btn btn-outline-primary upDelButton" data-toggle="modal" data-target="#myModal3" 
+									onclick="updateButton('${vo.id}', '${vo.m_title}', '${vo.m_star}', '${vo.m_content}');" onmouseover="hover(this);" onmouseleave="leave(this)">
+									<img id="pencil" src="images/pencil.png" style="width: 20px" class="mr-2">수정
+								</button>
+								<button type="submit" class="btn btn-outline-primary upDelButton" onmouseover="hover(this);" onmouseleave="leave(this)">
+									<img id="trash" src="images/trash.png" style="width: 20px" class="mr-1">삭제
+								</button>
 							</form>
 						</div>
 						<div class="line"></div> <!-- 구분선 -->
@@ -222,16 +192,36 @@
 				</ul>
 			</c:if>
 			<c:if test="${ empty list }">
+			<% 
+				if(request.getParameter("readkeyword") != null) { 
+			%>
+				<h2>찾으시는 내용이 없어요!</h2>
+			<%
+				} else {
+			%>
 				<h2>읽은 책과 서평을 추가해주세요.</h2>
+			<%
+				}
+			%>
+			<%-- <c:choose>
+				<c:when test="${ readkeyword ne null }">
+				<h2>찾으시는 내용이 없어요!</h2>
+				</c:when>
+				<c:otherwise>
+				<h2>읽은 책과 서평을 추가해주세요.</h2>
+				</c:otherwise>
+			</c:choose> --%>
+			
 				<div class="line"></div> <!-- 구분선 -->
 			</c:if>
 			<!-- 책이미지와 서평 내용 출력 끝 -->           
-            
+            </div><!-- 컨테이너 끝 -->
             <c:if test="${!empty msg}">
-				<script> alert("${msg}""); </script> 
+				<script> alert("${msg}"); </script> 
 			</c:if>
            
-            <!-- 모달 영역 시작 -->          
+            <!-- 모달 영역 시작 -->    
+            <div id="readMe" class="p-2">밑의 버튼을 클릭하여<br>책을 추가해주세요:)</div>      
             <!-- Button trigger modal -->
 			<button id="addButton" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 			  +
@@ -258,7 +248,7 @@
 						        	 	aria-describedby="basic-addon2"
 						        	 	width="20px">
 						        	 <div class="input-group-append">
-						    			<button class="btn btn-outline-secondary" type="" id="submitForm">검색</button>
+						    			<button class="btn btn-outline-secondary" id="submitForm">검색</button>
 						 			 </div>
 							     </div>
 							</div>
@@ -267,16 +257,16 @@
 				       <br>
 				       <!--  결과 로우 -->   
 				        <c:forEach items="${bookList}" var ="b" >
-					        	<div id="row" class="row">
-					        		<div id="imgContainer" class="col-2 col-sm-2">
-					                	<img id="image" src="${b.image}">
+					        	<div id="row" class="row mr-1">
+					        		<div id="imgContainer" class="col-sm-3">
+					                	<img id="image" src="${b.image}" style="width: 200px">
 						            </div>
-						            <div class="col-2 col-sm-3">
-						            	<span id="title">${b.title}</span><br>
+						            <div class="col-sm-4">
+						            	<span id="title">${b.title}</span><br><br>
 						                <span id="author">${b.author}</span><br>
 						                <span id="publisher">${b.publisher}</span>
 						            </div>
-						             <div class="col-6 col-md-7">
+						             <div class="col-sm">
 						                ${b.description}
 						            </div>
 						            <div class="w-150"></div>
@@ -385,6 +375,17 @@
 			 
         </div>
         <!-- Page Content 끝 -->
+        
+        <!-- 회원가입 및 로그인 -->
+        <div class="sign">
+       		<form action="signIn" method="get" style ='float: left;'>
+              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+          	</form>
+       		<form action="signUp" method="get" style ='float: left;'>
+              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+          	</form>
+        </div>
+        <!-- 회원가입 및 로그인 끝 -->
         
     </div>
     
@@ -545,24 +546,15 @@
 	});
 	</script>
 	<!-- 도서 검색 끝-->
-	
-	<!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-	
-	<!-- 스크롤바 -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
-            });
-
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-        });
-    </script>
-    <!-- 스크롤바 끝 -->
+	<script>
+		function hover(e) {
+			var image = e.childNodes[1];
+			image.id === 'pencil' ? image.src = 'images/white-pencil.png' : image.src = 'images/white-trash.png';
+		}
+		function leave(e) {
+			var image = e.childNodes[1];
+			image.id === 'pencil' ? image.src = 'images/pencil.png' : image.src = 'images/trash.png';
+		}
+	</script>
 </body>
 </html>

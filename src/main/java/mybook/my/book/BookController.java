@@ -31,8 +31,14 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = {"/readBook"}) 
-	public ModelAndView  readBook(@RequestParam(required=false)String keyword, MyBookList model, String bookNum) {
+	public ModelAndView  readBook(@RequestParam(required=false)String keyword, MyBookList model, String bookNum, String readkeyword) {
 		ModelAndView mav = new ModelAndView(); 
+		if(readkeyword != null) {
+			mav.addObject("list", service.searchReadbook(readkeyword)); 
+			mav.setViewName("readBook");
+			return mav;	
+		}
+		
 		if(keyword != null) { 
 			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api를 통해 찾은 값을 list형식으로 보내준다.
 		}else {
