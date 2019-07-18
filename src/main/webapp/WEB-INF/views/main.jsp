@@ -62,34 +62,64 @@
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
                 <li>
-                	<form id="leftSideBar" action="" method="get">
+                	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="get">
 	                	<input id="leftSideBarColor" type="submit" value="메인">
 	                </form>
                 </li>
-                <li class="active">
-                	<form id="leftSideBar" action="readBook" method="get">
-	                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-	                		<input id="leftSideBarColor" type="submit" value="내 서재">
-	                	</a>
-	               	</form>
-                    <ul class="collapse list-unstyled" id="bookSubmenu">
-                        <li>
-                        	<form id="leftSideBar" action="readBook" method="post">
-	                			<input id="leftSideBarColor" type="submit" value="읽은 책">
-	                		</form>
-                        </li>
-                        <li>
-                        	<form id="leftSideBar" action="interestBook" method="get">
-	                			<input id="leftSideBarColor" type="submit" value="관심 책">
-	                		</form>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                	<form id="leftSideBar" action="myPage" method="get">
-	                	<input id="leftSideBarColor" type="submit" value="내 정보">
-	                </form>
-                </li> 
+                <c:choose>
+	                <c:when test="${ !empty status }">
+		                <li class="active">
+		                	<form id="leftSideBar" action="readBook" method="get">
+			                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+			                		<input id="leftSideBarColor" type="submit" value="내 서재">
+			                	</a>
+			               	</form>
+		                    <ul class="collapse list-unstyled" id="bookSubmenu">
+		                        <li>
+		                        	<form id="leftSideBar" action="readBook" method="post">
+			                			<input id="leftSideBarColor" type="submit" value="읽은 책">
+			                		</form>
+		                        </li>
+		                        <li>
+		                        	<form id="leftSideBar" action="interestBook" method="get">
+			                			<input id="leftSideBarColor" type="submit" value="관심 책">
+			                		</form>
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li>
+		                	<form id="leftSideBar" action="myPage" method="get">
+			                	<input id="leftSideBarColor" type="submit" value="내 정보">
+			                </form>
+		                </li>
+	                </c:when>
+	                <c:otherwise>
+	                	<li class="active">
+		                	<form id="leftSideBar" action="readBook" method="get">
+			                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+			                		<input id="leftSideBarColor" type="submit" value="내 서재">
+			                	</a>
+			               	</form>
+		                    <ul class="collapse list-unstyled" id="bookSubmenu">
+		                        <li>
+		                        	<form id="leftSideBar" action="signIn" method="post">
+			                			<input id="leftSideBarColor" type="submit" value="읽은 책">
+			                		</form>
+		                        </li>
+		                        <li>
+		                        	<form id="leftSideBar" action="signIn" method="get">
+			                			<input id="leftSideBarColor" type="submit" value="관심 책">
+			                		</form>
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li>
+		                	<form id="leftSideBar" action="signIn" method="get">
+			                	<input id="leftSideBarColor" type="submit" value="내 정보">
+			                </form>
+		                </li>
+	                </c:otherwise>
+                </c:choose>
             </ul>
         </nav>
 		<!-- left Sidebar 끝 -->

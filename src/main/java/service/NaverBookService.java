@@ -114,10 +114,10 @@ public class NaverBookService {
 		return list;
 	}
 	
-	public List<MyBookList> listAll(String id){
+	public List<MyBookList> listAll(MyBookList model){
 		List<MyBookList> list = null;
 		String statement = "resource.MyBookListMapper.selectAllBookList";
-		list = session.selectList(statement, id);
+		list = session.selectList(statement, model);
 		return list;
 	}
 	
@@ -129,10 +129,10 @@ public class NaverBookService {
 		return result;
 	}
 	
-	public boolean delete(int id) {
+	public boolean delete(MyBookList model) {
 		boolean result=true;
 		String statement = "resource.MyBookListMapper.deleteBookList";
-		if(session.insert(statement, id) != 1)
+		if(session.insert(statement, model) != 1)
 			result = false;
 		return result;
 	}

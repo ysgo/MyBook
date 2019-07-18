@@ -2,14 +2,17 @@ package mybook.my.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.MyBookList;
 import service.NaverBookService;
+import vo.MemberVO;
 
 @Controller
 @SessionAttributes("status")
@@ -18,13 +21,13 @@ public class BookController {
 	private NaverBookService service;
 	
 	@RequestMapping(value = {"/readBook"}) 
-	public ModelAndView  readBook(@RequestParam(required=false)String keyword, MyBookList model, String bookNum) {
+	public ModelAndView  readBook(@RequestParam(required=false)String keyword, String bookNum,
+			@ModelAttribute MyBookList model, @SessionAttribute("status")MemberVO vo) {
 		ModelAndView mav = new ModelAndView(); 
 		if(keyword != null) { 
 			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api를 통해 찾은 값을 list형식으로 보내준다.
 		}else {
-			model.setEmail("qwe@gmail.com");
-			
+			model.setEmail(vo.getUserId());
 			if(bookNum != null) {
 				//update
 				if(model.getM_title()!=null && model.getM_star()!=null && model.getM_content()!=null) {
@@ -37,7 +40,12 @@ public class BookController {
 						mav.addObject("msg", "mybooklist update 실패");
 				}else {
 					//delete
-					boolean result = service.delete(Integer.parseInt(bookNum));
+					boolean result = service.delete(model);
+					if(result) {
+						mav.addObject("msg", "mybooklist delete 성공");
+					} else {
+						mav.addObject("msg", "mybooklist delete 실패");						
+					}
 				}
 			}else {
 				//insert
@@ -53,7 +61,7 @@ public class BookController {
 			}
 		}
 	
-		mav.addObject("list", service.listAll("qwe@gmail.com")); 
+		mav.addObject("list", service.listAll(model)); 
 		mav.setViewName("readBook");
 		return mav;
 	}

@@ -45,7 +45,7 @@
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
                 <li>
-                	<form id="leftSideBar" action="" method="get">
+                	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="get">
 	                	<input id="leftSideBarColor" type="submit" value="메인">
 	                </form>
                 </li>
@@ -131,7 +131,7 @@
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
 						</div>
-						<input value="${ userName }" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
+						<input value="${ status.userName }" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
 					</div>
 					<!-- 이메일 -->
 					<div class="form-group input-group">
@@ -139,7 +139,7 @@
 							<span class="input-group-text"> <i class="fa fa-envelope"></i>
 							</span>
 						</div>
-						<input value="${ userId }" name="userId" class="form-control" placeholder="이메일" type="email" readonly>
+						<input value="${ status.userId }" name="userId" class="form-control" placeholder="이메일" type="email" readonly>
 					</div>
 	
 					<!-- 비밀번호 -->

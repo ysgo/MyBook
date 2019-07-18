@@ -1,7 +1,6 @@
 package mybook.my.book;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,18 +9,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.MyBookList;
 import service.MemberService;
+import service.NaverBookService;
 import vo.MemberVO;
 
 @Controller
-@SessionAttributes({"status", "userId", "userPass", "userName"})
+@SessionAttributes("status")
 public class MemberController {
 	@Inject
 	private MemberService service;
+	@Inject
+	private NaverBookService serviceBook;
 	@Autowired
 	BCryptPasswordEncoder passEncoder;
 	
@@ -40,10 +44,10 @@ public class MemberController {
 	
 	// 회원가입 : 서비스 객체에 저장
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
-	public ModelAndView signUp(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
+	public ModelAndView signUp(@ModelAttribute MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName = null;
-		if(service.signup(vo, session)) {
+		if(service.signup(vo)) {
 			mav.addObject("status", vo);
 			viewName = "main";
 		} else {
@@ -62,16 +66,19 @@ public class MemberController {
 	
 	// 로그인 : 객체 정보를 추출해 세션에 저장, 비교후 이동
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
-	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
+	public ModelAndView signIn(@ModelAttribute MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		boolean result = service.loginCheck(vo, session);
+		String viewName  =null;
+		boolean result = service.loginCheck(vo);
 		if(result) {
+			vo = service.viewMember(vo);
 			mav.addObject("status", vo);
-			mav.setViewName("main");
+			viewName = "main";
 		} else {
 			mav.addObject("status", null);
-			mav.setViewName("signIn");
+			viewName = "signIn";
 		}
+		mav.setViewName(viewName);
 		return mav;
 	}
 	
@@ -87,14 +94,15 @@ public class MemberController {
 	public String  infoUpdate() throws Exception {
 		return "myPage";
 	}
+	
 	// 회원 수정
 	@RequestMapping(value="/myPage", method=RequestMethod.POST)
-	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, HttpSession session, SessionStatus s) throws Exception {
+	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status")MemberVO member) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		boolean result = service.updateMember(vo);
+		member = vo;
 		if(result) {
-			mav.addObject("userName", vo.getUserName());
-			mav.addObject("userPass", vo.getUserPass());
+			mav.addObject("status", member);
 		}
 		mav.setViewName("myPage");
 		return mav;
@@ -108,12 +116,16 @@ public class MemberController {
 	
 	// 회원탈퇴
 	@RequestMapping(value="/withdrawal", method=RequestMethod.POST)
-	public String  withdrawal(HttpSession session, SessionStatus sessionClear, @RequestParam("checkPass")String checkPass) throws Exception {
-		if(!checkPass.equals(session.getAttribute("userPass"))) {
+	public String  withdrawal(@RequestParam("checkPass")String checkPass, @ModelAttribute MyBookList model, 
+			@SessionAttribute("status")MemberVO user, SessionStatus sessionClear) throws Exception {
+		String userId = user.getUserId();
+		if(!checkPass.equals(user.getUserPass())) {
 			return "redirect:withdrawal";
 		} else {
-			boolean result = service.withdrawal((String)session.getAttribute("userId")); 
+			boolean result = service.withdrawal(userId); 
 			if(result) {
+				model.setEmail(userId);
+				serviceBook.delete(model);
 				sessionClear.setComplete();
 			}
 		}

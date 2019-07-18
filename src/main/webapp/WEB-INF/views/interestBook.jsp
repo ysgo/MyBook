@@ -45,7 +45,7 @@
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
                 <li>
-                	<form id="leftSideBar" action="" method="get">
+                	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="get">
 	                	<input id="leftSideBarColor" type="submit" value="메인">
 	                </form>
                 </li>
@@ -108,7 +108,7 @@
                             </c:if>
                             <c:if test="${!empty status}">
                             	<li class="nav-item active">
-	                            	<form action="${pageContext.request.contextPath}/signOut" method="get">
+	                            	<form action="signOut" method="get">
 		                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
 		                            </form>
 	                            </li>

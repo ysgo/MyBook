@@ -32,7 +32,7 @@
 <style>
 	@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 	body {
-		font-family:  ''Noto Sans KR";
+		font-family: Noto Sans KR;
 	}
 	#imgContainer {
 		text-align:center;
@@ -113,7 +113,7 @@
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
                 <li>
-                	<form id="leftSideBar" action="" method="get">
+                	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="get">
 	                	<input id="leftSideBarColor" type="submit" value="메인">
 	                </form>
                 </li>
@@ -267,7 +267,7 @@
 						        	 	aria-describedby="basic-addon2"
 						        	 	width="20px">
 						        	 <div class="input-group-append">
-						    			<button class="btn btn-outline-secondary" type="" id="submitForm">검색</button>
+						    			<button class="btn btn-outline-secondary" id="submitForm">검색</button>
 						 			 </div>
 							     </div>
 							</div>
@@ -409,8 +409,8 @@
 	        });
 	        
 	        $('#sidebarCollapse').on('click', function () {
-	        	// open sidebar
-	            $('#sidebar, #content').toggleClass('active');
+	        	// open sidebar when clicked
+	            /* $('#sidebar, #content').toggleClass('active'); */
 	            $('.collapse.in').toggleClass('in');
 	            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
 	        });
@@ -480,7 +480,7 @@
 	<!-- 	읽은 책 수정버튼 -->
 	<script>
   	function updateButton(id, m_title, m_star, m_content){
-    	alert(m_star);
+    	/* alert(m_star); */
   		document.getElementById('u_title').value=m_title; 
   		document.getElementById('u_content').value=m_content; 
   		$('#'+m_star).parent().children(" a").removeClass("on");
