@@ -36,14 +36,14 @@
 			</p>
 			
 			<!-- 로그인 폼태그 시작 -->
-			<form>
+			<form action="${pageContext.request.contextPath}/signIn" method="POST">
 				<!-- 이메일 아이디 -->
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text"> <i class="fa fa-envelope"></i>
 						</span>
 					</div>
-					<input name="" class="form-control" placeholder="이메일을 입력해주세요." type="email" required autofocus>
+					<input id="userId" name="userId" class="form-control" placeholder="이메일을 입력해주세요." type="email" required autofocus>
 				</div>
 				
 				<!-- 비밀번호 -->
@@ -52,12 +52,12 @@
 						<span class="input-group-text"> <i class="fa fa-lock"></i>
 						</span>
 					</div>
-					<input class="form-control" placeholder="비밀번호를 입력해주세요." type="password">
+					<input id="userPass" name="userPass" class="form-control" placeholder="비밀번호를 입력해주세요." type="password">
 				</div>
 				
 				<!-- 로그인 버튼 -->
 				<div class="form-group">
-					<input type="submit" class="btn btn-primary btn-block" value="로그인">
+					<input id="signIn" type="submit" class="btn btn-primary btn-block" value="로그인">
 				</div>
 			</form>
 			<!-- 로그인 폼태그 끝 -->
@@ -69,11 +69,45 @@
 				
 				<!-- 아이디, 비밀번호 찾기 링크 -->
 				<p class="text-center">
-					<a href="#"> 아이디 찾기 / 비밀번호 찾기</a>
+					<button id="searchId" onclick="searchMember()">아이디/비밀번호 찾기</button>
 				</p>
 				
 		</article>
 	</div>
+<script>
+ function searchMember() {
+	window.open("/test/search", "아이디/비밀번호 찾기", "width=500, height=620, left=100, top=50");
+} 
 
+function searchFunc(e) {  
+	var keyword = $('input[name=keyword]').val();
+
+    var url = "bookList.do?keyword=" + keyword;
+    if(e.type == "keydown" && e.keyCode != 13) { return; } 
+    
+    $.ajax({
+        url: url,
+        type: 'GET', 
+        success: function(data){
+        	$('body').html(data);
+            $('#myModal').modal('show'); 
+        }
+    });
+}
+
+$(function(){
+    $('#submitForm').on('click', searchFunc);   
+    $('input[name=keyword]').on('keydown', searchFunc);   
+    $('.close').on('click', function() {
+    	$.ajax({
+            url: "bookList.do",
+            type: 'GET', 
+            success: function(data){
+            	$('body').html(data);
+            }
+        });
+    });   
+});
+</script>
 </body>
 </html>

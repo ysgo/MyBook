@@ -31,7 +31,6 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-
 </head>
 
 <body>
@@ -186,7 +185,7 @@
 						        	 	aria-describedby="basic-addon2"
 						        	 	width="20px">
 						        	 <div class="input-group-append">
-						    			<button class="btn btn-outline-secondary" type="" id="submitForm">검색</button>
+						    			<button class="btn btn-outline-secondary" id="submitForm">검색</button>
 						 			 </div>
 							     </div>
 							</div>
@@ -222,14 +221,23 @@
         <!-- Page Content 끝 -->
         
         <!-- 회원가입 및 로그인 -->
-        <div class="sign">
-       		<form action="signIn" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
-          	</form>
-       		<form action="signUp" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
-          	</form>
-        </div>
+        <c:if test="${ empty status }">
+	        <div class="sign">
+	       		<form action="signIn" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+	          	</form>
+	       		<form action="signUp" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+	          	</form>
+	        </div>
+        </c:if>
+        <c:if test="${ !empty status }">
+	        <div class="sign">
+	       		<form action="signOut" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
+	          	</form>
+	        </div>
+        </c:if>
         <!-- 회원가입 및 로그인 끝 -->
         
     </div>
@@ -343,5 +351,4 @@
 	</script>
 	<!-- 도서 검색 끝-->
 </body>
-
 </html>

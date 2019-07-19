@@ -63,34 +63,64 @@
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
                 <li>
-                	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="post">
+                	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="get">
 	                	<input id="leftSideBarColor" type="submit" value="메인">
 	                </form>
                 </li>
-                <li class="active">
-                	<form id="leftSideBar" action="readBook" method="get">
-	                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-	                		<input id="leftSideBarColor" type="submit" value="내 서재">
-	                	</a>
-	               	</form>
-                    <ul class="collapse list-unstyled" id="bookSubmenu">
-                        <li>
-                        	<form id="leftSideBar" action="readBook" method="post">
-	                			<input id="leftSideBarColor" type="submit" value="읽은 책">
-	                		</form>
-                        </li>
-                        <li>
-                        	<form id="leftSideBar" action="interestBook" method="get">
-	                			<input id="leftSideBarColor" type="submit" value="관심 책">
-	                		</form>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                	<form id="leftSideBar" action="myPage" method="get">
-	                	<input id="leftSideBarColor" type="submit" value="내 정보">
-	                </form>
-                </li> 
+                <c:choose>
+                	<c:when test="${ !empty status }">
+		                <li class="active">
+		                	<form id="leftSideBar" action="readBook" method="get">
+			                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+			                		<input id="leftSideBarColor" type="submit" value="내 서재">
+			                	</a>
+			               	</form>
+		                    <ul class="collapse list-unstyled" id="bookSubmenu">
+		                        <li>
+		                        	<form id="leftSideBar" action="readBook" method="post">
+			                			<input id="leftSideBarColor" type="submit" value="읽은 책">
+			                		</form>
+		                        </li>
+		                        <li>
+		                        	<form id="leftSideBar" action="interestBook" method="get">
+			                			<input id="leftSideBarColor" type="submit" value="관심 책">
+			                		</form>
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li>
+		                	<form id="leftSideBar" action="myPage" method="get">
+			                	<input id="leftSideBarColor" type="submit" value="내 정보">
+			                </form>
+		                </li> 
+		                </c:when>
+		                <c:otherwise>
+			                <li class="active">
+			                	<form id="leftSideBar" action="signIn" method="get">
+				                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+				                		<input id="leftSideBarColor" type="submit" value="내 서재">
+				                	</a>
+				               	</form>
+			                    <ul class="collapse list-unstyled" id="bookSubmenu">
+			                        <li>
+			                        	<form id="leftSideBar" action="signIn" method="post">
+				                			<input id="leftSideBarColor" type="submit" value="읽은 책">
+				                		</form>
+			                        </li>
+			                        <li>
+			                        	<form id="leftSideBar" action="signIn" method="get">
+				                			<input id="leftSideBarColor" type="submit" value="관심 책">
+				                		</form>
+			                        </li>
+			                    </ul>
+			                </li>
+			                <li>
+			                	<form id="leftSideBar" action="signIn" method="get">
+				                	<input id="leftSideBarColor" type="submit" value="내 정보">
+				                </form>
+			                </li> 
+		                </c:otherwise>
+		     	</c:choose>
             </ul>
         </nav>
 		<!-- left Sidebar 끝 -->
@@ -117,29 +147,51 @@
 				</c:if>
 				</c:forEach> 
 				
-
             </div>
 
+            <h2>활동로그</h2>
+	            <c:if test="${ !empty listLog }">
+					<ul>
+		           		<c:forEach var="vo" items="${ listLog }" >
+		           			<div id="row" class="row mr-1">
+		           				<div>닉네임 : ${vo.userName}</div><br> 
+								<div>책제목 : ${vo.title}</div><br> 
+								<div>별점 : ${vo.m_star}</div><br>  
+								<div>내용 : ${vo.m_content}</div><br> 
+								<div>로그 등록일 : ${vo.logregistdate}</div> 
+							</div>	
+							<div class="line"></div>
+						 </c:forEach>
+					 </ul>
+				 </c:if>
+				 <c:if test="${ empty listLog }">
+				 	<div>활동로그가 없습니다.</div>
+				 </c:if>
             <div class="line"></div> <!-- 구분선 -->
 
-            <h2>활동로그</h2>
-            <p>추후에 로그 추가</p>
-
-            <div class="line"></div>
             <!-- 컨텐트 추가 끝 -->
 
         </div>
         <!-- Page Content 끝 -->
         
         <!-- 회원가입 및 로그인 -->
-        <div class="sign">
-       		<form action="signIn" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
-          	</form>
-       		<form action="signUp" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
-          	</form>
-        </div>
+        <c:if test="${ empty status }">
+	        <div class="sign">
+	       		<form action="signIn" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+	          	</form>
+	       		<form action="signUp" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+	          	</form>
+	        </div>
+        </c:if>
+        <c:if test="${ !empty status }">
+	        <div class="sign">
+	       		<form action="signOut" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
+	          	</form>
+	        </div>
+        </c:if>
         <!-- 회원가입 및 로그인 끝 -->
         
     </div>
@@ -183,5 +235,4 @@
         });
     </script>
 </body>
-
 </html>

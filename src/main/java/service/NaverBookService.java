@@ -116,11 +116,10 @@ public class NaverBookService {
 		return list;
 	}
 	
-	//MyBookList
-	public List<MyBookList> listAll(String id){
+	public List<MyBookList> listAll(MyBookList model){
 		List<MyBookList> list = null;
 		String statement = "resource.MyBookListMapper.selectAllBookList";
-		list = session.selectList(statement, id);
+		list = session.selectList(statement, model);
 		return list;
 	}
 	
@@ -135,7 +134,7 @@ public class NaverBookService {
 	public boolean delete(int id) {
 		boolean result=true;
 		String statement = "resource.MyBookListMapper.deleteBookList";
-		if(session.insert(statement, id) != 1)
+		if(session.delete(statement, id) != 1)
 			result = false;
 		return result;
 	}
@@ -143,11 +142,11 @@ public class NaverBookService {
 	public boolean update(MyBookList vo) {
 		boolean result=true;
 		String statement = "resource.MyBookListMapper.updateBookList";
-		if(session.insert(statement, vo) != 1)
+		if(session.update(statement, vo) != 1)
 			result = false;
 		return result;
 	}
-	
+
 	public List<MyBookList> searchReadbook(Map<String, String>map) {
 		List<MyBookList> list = null;
 		String statement = "resource.MyBookListMapper.searchBookList";
@@ -159,6 +158,15 @@ public class NaverBookService {
 		List<MyBookList> list = null;
 		String statement = "resource.MyBookListMapper.trendingbook";
 		list = session.selectList(statement);
+		return list;
+	}
+	
+	//log
+	public List<MyBookList> selectReadBooklog(){
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.selectReadBookLog";
+		list = session.selectList(statement);
+		System.out.println(list);
 		return list;
 	}
 	
@@ -181,7 +189,7 @@ public class NaverBookService {
 		public boolean deleteInterestBook(int id) {
 			boolean result=true;
 			String statement = "resource.MyBookListMapper.deleteInterestBookList";
-			if(session.insert(statement, id) != 1)
+			if(session.delete(statement, id) != 1)
 				result = false;
 			return result;
 		}
@@ -201,6 +209,9 @@ public class NaverBookService {
 			return list;
 		}
 
-
+	public int getTotalCnt(String userId) {
+		String statement = "resource.MyBookListMapper.totalCnt";
+		return session.selectOne(statement, userId);
+	}
 }
 

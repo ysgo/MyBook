@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -21,7 +21,7 @@
     <!-- Bootstrap CSS CDN -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style2.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -36,9 +36,9 @@
     <div class="wrapper">
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
-			<div class="sidebar-header p-3">
-            	<a href="${pageContext.request.contextPath}/" class="brand-logo" style="font-family: 'Fredoka one'">
-					CHACKCHECK
+            <div class="sidebar-header">
+            	<a href="${pageContext.request.contextPath}/" class="brand-logo">
+					<img src="images/logo.svg" alt="logo">
 				</a>
             </div>
 
@@ -85,6 +85,34 @@
                <i class="fas fa-align-left"></i>
                <span>MENU</span>
             </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                         <ul class="nav navbar-nav ml-auto">
+	                        <c:if test="${empty status}">
+		                            <li class="nav-item active">
+		                            	<form action="signIn" method="get">
+			                                <input id="signColor" type="submit" value="로그인" class="nav-link">
+			                            </form> 
+		                            </li>
+		                            <li class="nav-item active">
+			                            <form action="signUp" method="get">
+			                                <input id="signColor" type="submit" value="회원가입" class="nav-link">
+			                            </form>
+		                            </li>
+	                            </c:if>
+	                            <c:if test="${!empty status}">
+	                            	<li class="nav-item active">
+		                            	<form action="signOut" method="get">
+			                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
+			                            </form>
+		                            </li>
+	                            </c:if> 
+                            </ul>
+                    </div>
+            </nav>
 			<!-- navbar 끝 -->
 			
 			<!-- 컨텐트 추가 시작 -->    
@@ -92,23 +120,22 @@
 				<h2>내 정보 수정</h2>
 				
 				<!-- 수정 폼태그 시작 -->
-				<form>
+				<form action="${pageContext.request.contextPath}/myPage" method="POST" location.reload();>
 					<!-- 닉네임 -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
 						</div>
-						<input name="" class="form-control" placeholder="닉네임" type="text" required autofocus>
+						<input value="${ status.userName }" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
 					</div>
-					
 					<!-- 이메일 -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-envelope"></i>
 							</span>
 						</div>
-						<input name="" class="form-control" placeholder="" type="email" disabled>
+						<input value="${ status.userId }" name="userId" class="form-control" placeholder="이메일" type="email" readonly>
 					</div>
 	
 					<!-- 비밀번호 -->
@@ -117,7 +144,7 @@
 							<span class="input-group-text"> <i class="fa fa-lock"></i>
 							</span>
 						</div>
-						<input class="form-control" placeholder="비밀번호" type="password" required>
+						<input id="userPass" name="userPass" class="form-control" placeholder="비밀번호" type="password" required>
 					</div>
 					
 					<!-- 비밀번호 확인 -->
@@ -126,15 +153,21 @@
 							<span class="input-group-text"> <i class="fa fa-lock"></i>
 							</span>
 						</div>
-						<input class="form-control" placeholder="비밀번호 확인" type="password" required>
+						<input id="rePass" class="form-control" placeholder="비밀번호 확인" type="password" required>
+						<input type="button" id="checkPass" value="중복확인">
 					</div>
 					
 					<!-- 수정 버튼 -->
 					<div class="form-group">
-						<input type="submit" class="btn btn-primary btn-block" value="수정">
+						<input id="submit" type="submit" class="btn btn-primary btn-block" value="수정">
 					</div>
 				</form>
 				<!-- 수정 폼태그 끝 -->
+				
+				<!-- 탈퇴 페이지 이동 -->
+				<div class="form-group">
+					<input onclick="location.href='/book/withdrawal'"type="button" class="btn btn-primary btn-block" value="탈퇴">
+				</div>
 				
 			</article>
             <div class="line"></div> <!-- 구분선 -->
@@ -158,22 +191,49 @@
     
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
+	
+	<script>
+	var text;
+	var check = true;
+	var pwJ = /^[A-Za-z0-9]{4,16}$/;
+	
+	// 변경 비밀번호 유효성 검사 및 재확인
+	$("#submit").attr("disabled", check);
+	$("#checkPass").on("click", function() {
+		var userPass = document.getElementById("userPass").value;
+		var rePass = document.getElementById("rePass").value;
+	
+		if(rePass != "") { 
+			if(pwJ.test(rePass)) {
+				if(userPass != rePass) {
+					text = "비밀번호가 일치하지 않습니다.";
+					check=true;
+				} else {
+					text = "비밀번호가 일치합니다.";
+					check=false;
+				}
+			} else {
+				text = "숫자 또는 문자로만 4~12자리 입력가능합니다.";
+				check=true;
+			}
+		}
+		alert(text);
+		$("#submit").attr("disabled", check);
+});
+	</script>
+	
     <script type="text/javascript">
-	    $(document).ready(function () {
-	    	// hide sidebar when refresh the page
-	        $('#sidebar').toggleClass('active');
-	        $("#sidebar").mCustomScrollbar({
-	            theme: "minimal"
-	        });
-	        
-	        $('#sidebarCollapse').on('click', function () {
-	        	// open sidebar when clicked
-	            $('#sidebar, #content').toggleClass('active');
-	            $('.collapse.in').toggleClass('in');
-	            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-	        });
-	    });
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
     </script>
 </body>
 

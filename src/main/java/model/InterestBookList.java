@@ -8,6 +8,7 @@ public class InterestBookList {
     private String publisher;
     private String description;
     private String image;
+    private String logregistdate;
     
 	public int getId() {
 		return id;
@@ -51,9 +52,16 @@ public class InterestBookList {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	public String getLogregistdate() {
+		return logregistdate;
+	}
+	public void setLogregistdate(String logregistdate) {
+		this.logregistdate = logregistdate;
+	}
 	@Override
 	public String toString() {
 		return "InterestBookList [id=" + id + ", email=" + email + ", title=" + title + ", author=" + author
-				+ ", publisher=" + publisher + ", description=" + description + ", image=" + image + "]";
+				+ ", publisher=" + publisher + ", description=" + description + ", image=" + image + ", logregistdate="
+				+ logregistdate + "]";
 	}
 }

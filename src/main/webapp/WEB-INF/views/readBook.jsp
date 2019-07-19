@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -33,96 +33,100 @@
 </head>
 
 <body>
-    <div class="wrapper">
-    	<div style="z-index:500">
-	        <a href="${pageContext.request.contextPath}/" class="brand-logo-main" >
+	<div class="wrapper">
+		<div style="z-index: 500">
+			<a href="${pageContext.request.contextPath}/" class="brand-logo-main">
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-auto pr-0 mt-2">		
+						<div class="col-sm-auto pr-0 mt-2">
 							CHACK<br>CHECK
 						</div>
 						<div class="col-sm-auto pl-1">
 							<img src="images/book.jpg" style="width: 55px">
 						</div>
-					</div>	
-				</div>
-			</a>		
-         </div>
-        <!-- left Sidebar 시작 -->
-        <nav id="sidebar">
-			<div class="sidebar-header p-3">
-            	<a href="${pageContext.request.contextPath}/" class="brand-logo" style="font-family: 'Fredoka one'">
-					CHACKCHECK
-				</a>
-            </div>
-
-            <ul class="list-unstyled components">
-                <li>
-                	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="get">
-	                	<input id="leftSideBarColor" type="submit" value="메인">
-	                </form>
-                </li>
-                <li class="active">
-                	<form id="leftSideBar" action="readBook" method="get">
-	                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-	                		<input id="leftSideBarColor" type="submit" value="내 서재">
-	                	</a>
-	               	</form>
-                    <ul class="collapse list-unstyled" id="bookSubmenu">
-                        <li>
-                        	<form id="leftSideBar" action="readBook" method="get">
-	                			<input id="leftSideBarColor" type="submit" value="읽은 책">
-	                		</form>
-                        </li>
-                        <li>
-                        	<form id="leftSideBar" action="interestBook" method="get">
-	                			<input id="leftSideBarColor" type="submit" value="관심 책">
-	                		</form>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                	<form id="leftSideBar" action="myPage" method="get">
-	                	<input id="leftSideBarColor" type="submit" value="내 정보">
-	                </form>
-                </li> 
-            </ul>
-        </nav>
-		<!-- left Sidebar 끝 -->
-		
-        <!-- Page Content 시작 -->
-        <div id="content">
-
-	 		<div class="top-page mb-5"><!-- top page 시작 -->
-	 		
-	 			<div class="btn-with-fixedInput pr-1 pl-3"><!-- 메뉴 버튼 -->
-	
-					<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
-		               <i class="fas fa-align-left"></i>
-		               <span>MENU</span>
-		            </button>
-		            
-				</div>
-					
-				<div class="fixedInput pl-1"><!-- 고정된 인풋 -->
-				
-					<form method="get" action="readBook" target="_self">
-					<div class="input-group">
-						<input name="readkeyword" 
-				        	type="text" class="form-control" 
-				        	placeholder="내가 등록한 책 제목, 저자, 출판사 검색"
-			        	 	aria-describedby="basic-addon2"
-			        	 	>
-			        	 <div class="input-group-append">
-			    			<button class="btn btn-outline-secondary" type="submit">검색</button>
-			 			 </div>
 					</div>
+				</div>
+			</a>
+		</div>
+		<!-- left Sidebar 시작 -->
+		<nav id="sidebar">
+			<div class="sidebar-header p-3">
+				<a href="${pageContext.request.contextPath}/" class="brand-logo"
+					style="font-family: 'Fredoka one'"> CHACKCHECK </a>
+			</div>
+
+			<ul class="list-unstyled components">
+				<li>
+					<form id="leftSideBar" action="${pageContext.request.contextPath}/"
+						method="get">
+						<input id="leftSideBarColor" type="submit" value="메인">
+					</form>
+				</li>
+				<li class="active">
+					<form id="leftSideBar" action="readBook" method="get">
+						<a href="#bookSubmenu" data-toggle="collapse"
+							aria-expanded="false" class="dropdown-toggle"> <input
+							id="leftSideBarColor" type="submit" value="내 서재">
+						</a>
+					</form>
+					<ul class="collapse list-unstyled" id="bookSubmenu">
+						<li>
+							<form id="leftSideBar" action="readBook" method="get">
+								<input id="leftSideBarColor" type="submit" value="읽은 책">
+							</form>
+						</li>
+						<li>
+							<form id="leftSideBar" action="interestBook" method="get">
+								<input id="leftSideBarColor" type="submit" value="관심 책">
+							</form>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<form id="leftSideBar" action="myPage" method="get">
+						<input id="leftSideBarColor" type="submit" value="내 정보">
+					</form>
+				</li>
+			</ul>
+		</nav>
+		<!-- left Sidebar 끝 -->
+
+		<!-- Page Content 시작 -->
+		<div id="content">
+
+			<div class="top-page mb-5">
+				<!-- top page 시작 -->
+
+				<div class="btn-with-fixedInput pr-1 pl-3">
+					<!-- 메뉴 버튼 -->
+
+					<button type="button" id="sidebarCollapse"
+						class="btn btn-outline-secondary">
+						<i class="fas fa-align-left"></i> <span>MENU</span>
+					</button>
+
+				</div>
+
+				<div class="fixedInput pl-1">
+					<!-- 고정된 인풋 -->
+
+					<form method="get" action="readBook" target="_self">
+						<div class="input-group">
+							<input name="readkeyword" type="text" class="form-control"
+								placeholder="내가 등록한 책 제목, 저자, 출판사 검색"
+								aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="submit">검색</button>
+							</div>
+						</div>
 					</form>
 
-			     </div><!-- 고정된 인풋 끝 -->
-	 			
-	 		</div><!-- top page 끝 -->
-				
+				</div>
+				<!-- 고정된 인풋 끝 -->
+
+			</div>
+			<!-- top page 끝 -->
+
 
 			<!-- 책이미지와 서평 내용 출력 -->
 			<div class="container">
@@ -203,138 +207,194 @@
 			</c:if>
 			<!-- 책이미지와 서평 내용 출력 끝 -->           
             </div><!-- 컨테이너 끝 -->
-            <c:if test="${!empty msg}">
-				<script> alert("${msg}"); </script> 
-			</c:if>
-           
-            <!-- 모달 영역 시작 -->    
-            <div id="readMe" class="p-2">밑의 버튼을 클릭하여<br>책을 추가해주세요:)</div>      
-            <!-- Button trigger modal -->
-			<button id="addButton" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-			  +
-			</button>
-			 
+
+					<!-- 페이징 버튼 위치 시작 -->
+					<div>
+						<c:if test="${pagination.curRange ne 1 }">
+							<a href="#" onClick="fn_paging(1)">[처음]</a>
+						</c:if>
+						<c:if test="${pagination.curPage ne 1}">
+							<a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a>
+						</c:if>
+						<c:forEach var="pageNum" begin="${pagination.startPage }"
+							end="${pagination.endPage }">
+							<c:choose>
+								<c:when test="${pageNum eq  pagination.curPage}">
+									<span style="font-weight: bold;"><a href="#"
+										onClick="fn_paging('${pageNum }')">${pageNum }</a></span>
+								</c:when>
+								<c:otherwise>
+									<a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if
+							test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+							<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
+						</c:if>
+						<c:if
+							test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+							<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
+						</c:if>
+					</div>
+
+					<div>총 게시글 수 : ${pagination.listCnt } / 총 페이지 수 :
+						${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 :
+						${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }</div>
+					<!-- 페이징 버튼 위치 종료 -->
+
+			<!-- 모달 영역 시작 -->
+			<div id="readMe" class="p-2">
+				밑의 버튼을 클릭하여<br>책을 추가해주세요:)
+			</div>
+			<!-- Button trigger modal -->
+			<button id="addButton" type="button" class="btn btn-primary btn-lg"
+				data-toggle="modal" data-target="#myModal">+</button>
+
 			<!-- 책 추가 모달 -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
-			    <div class="modal-content">
-				  <!-- 닫기 버튼 -->
-			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-				 
-				 <div class="modal-body">
-				 	
-				 	<!--  모달 컨텐트 컨테이너 -->     	
-				 	<div class="container">
-				 		<!--  인풋 로우 -->   
-						<div class="row inputrow">
-							<div class="col-sm-12  ">
-								<div class="input-group">
-						        	<input name="keyword" 
-							        	type="text" class="form-control" 
-							        	placeholder="책 제목, 저자 검색"
-						        	 	aria-describedby="basic-addon2"
-						        	 	width="20px">
-						        	 <div class="input-group-append">
-						    			<button class="btn btn-outline-secondary" id="submitForm">검색</button>
-						 			 </div>
-							     </div>
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog"
+					style="max-width: 100%; width: auto; display: table;">
+					<div class="modal-content">
+						<!-- 닫기 버튼 -->
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+
+						<div class="modal-body">
+
+							<!--  모달 컨텐트 컨테이너 -->
+							<div class="container">
+								<!--  인풋 로우 -->
+								<div class="row inputrow">
+									<div class="col-sm-12  ">
+										<div class="input-group">
+											<input name="keyword" type="text" class="form-control"
+												placeholder="책 제목, 저자 검색" aria-describedby="basic-addon2"
+												width="20px">
+											<div class="input-group-append">
+												<button class="btn btn-outline-secondary" id="submitForm">검색</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<br>
+								<!--  결과 로우 -->
+								<c:forEach items="${bookList}" var="b">
+									<div id="row" class="row mr-1">
+										<div id="imgContainer" class="col-sm-3">
+											<img id="image" src="${b.image}" style="width: 200px">
+										</div>
+										<div class="col-sm-4">
+											<span id="title">${b.title}</span><br> <br> <span
+												id="author">${b.author}</span><br> <span id="publisher">${b.publisher}</span>
+										</div>
+										<div class="col-sm">${b.description}</div>
+										<div class="w-150"></div>
+									</div>
+								</c:forEach>
+
 							</div>
+							<!--  모달 컨텐트 컨테이너 끝 -->
 						</div>
-			
-				       <br>
-				       <!--  결과 로우 -->   
-				        <c:forEach items="${bookList}" var ="b" >
-					        	<div id="row" class="row mr-1">
-					        		<div id="imgContainer" class="col-sm-3">
-					                	<img id="image" src="${b.image}" style="width: 200px">
-						            </div>
-						            <div class="col-sm-4">
-						            	<span id="title">${b.title}</span><br><br>
-						                <span id="author">${b.author}</span><br>
-						                <span id="publisher">${b.publisher}</span>
-						            </div>
-						             <div class="col-sm">
-						                ${b.description}
-						            </div>
-						            <div class="w-150"></div>
-					        	</div>
-				        </c:forEach>
-						
-						</div>
-			        	<!--  모달 컨텐트 컨테이너 끝 -->
-				 </div>	
-			    </div>
-			  </div>
+					</div>
+				</div>
 			</div>
 			<!-- 책 추가 모달 끝 -->
 
 			<!-- 서평 추가 모달 -->
-			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-			    <!-- 컨텐트 시작 -->
-			    <div class="modal-content form-elegant">
-			      <!-- 닫기 버튼 -->
-			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-			      <!--헤더-->
-			      <div class="modal-header text-center">
-			        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>글쓰기</strong></h3>
-			      </div>
-			      <!--바디-->
-			      <div class="modal-body mx-4">
-			      	<!-- 제목 -->
-			        <div class="md-form mb-3">
-			          <p class="md-form mb-2">제목</p>
-			      	  <input type="text" id="m_title" class="form-control validate">
-			        </div>
-			        <!-- 별점 -->
-			        <div class="md-form mb-3"> <!-- 1:4px 2:8px 3:16px 4:24px 5:48px -->
-			          <p class="md-form mb-1">별점</p>
-			          <p class="star_rating">
-					    <a href="#" target="star" id="1" class="on">★</a>
-					    <a href="#" target="star" id="2" class="on">★</a>
-					    <a href="#" target="star" id="3" class="on">★</a>
-					    <a href="#" target="star" id="4" class="on">★</a>
-					    <a href="#" target="star" id="5" class="on">★</a> 
-					  </p>
-			        </div>
-			        <!-- 내용작성부분 -->
-					<div class="md-form mb-3"> 
-			          <p class="md-form mb-2">내용</p>
-			          <textarea id="m_content" class="form-control" rows="5"></textarea>
-			        </div>
-					<!-- 확인버튼 -->
-			        <div class="text-center mb-3">
-			          <button type="button" id="m_submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">확인</button>
-			        </div>
-			      </div>
-			    </div>
-			    <!-- 바디 끝 -->
-			  </div>
+			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<!-- 컨텐트 시작 -->
+					<div class="modal-content form-elegant">
+						<!-- 닫기 버튼 -->
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+						<!--헤더-->
+						<div class="modal-header text-center">
+							<h3
+								class="modal-title w-100 dark-grey-text font-weight-bold my-3"
+								id="myModalLabel">
+								<strong>글쓰기</strong>
+							</h3>
+						</div>
+						<!--바디-->
+						<div class="modal-body mx-4">
+							<!-- 제목 -->
+							<div class="md-form mb-3">
+								<p class="md-form mb-2">제목</p>
+								<input type="text" id="m_title" class="form-control validate">
+							</div>
+							<!-- 별점 -->
+							<div class="md-form mb-3">
+								<!-- 1:4px 2:8px 3:16px 4:24px 5:48px -->
+								<p class="md-form mb-1">별점</p>
+								<p class="star_rating">
+									<a href="#" target="star" id="1" class="on">★</a> <a href="#"
+										target="star" id="2" class="on">★</a> <a href="#"
+										target="star" id="3" class="on">★</a> <a href="#"
+										target="star" id="4" class="on">★</a> <a href="#"
+										target="star" id="5" class="on">★</a>
+								</p>
+							</div>
+							<!-- 내용작성부분 -->
+							<div class="md-form mb-3">
+								<p class="md-form mb-2">내용</p>
+								<textarea id="m_content" class="form-control" rows="5"></textarea>
+							</div>
+							<!-- 확인버튼 -->
+							<div class="text-center mb-3">
+								<button type="button" id="m_submit"
+									class="btn blue-gradient btn-block btn-rounded z-depth-1a">확인</button>
+							</div>
+						</div>
+					</div>
+					<!-- 바디 끝 -->
+				</div>
 			</div>
 			<!-- 서평 추가 모달 끝 -->
-			
-			 <!-- 모달 영역 끝 -->
-			 
-        </div>
-        <!-- Page Content 끝 -->
-        
-        <!-- 회원가입 및 로그인 -->
-        <div class="sign">
-       		<form action="signIn" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
-          	</form>
-       		<form action="signUp" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
-          	</form>
-        </div>
-        <!-- 회원가입 및 로그인 끝 -->
-        
-    </div>
-    
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript">
+			<!-- 모달 영역 끝 -->
+
+		</div>
+		<!-- Page Content 끝 -->
+
+		<div class="sign"><!-- 회원가입 및 로그인 -->
+			<c:if test="${empty status }">
+				<form action="signIn" method="get" style='float: left;'>
+					<input id="signColor" type="submit" class="nav-link p-2"
+						value="로그인">
+				</form>
+				<form action="signUp" method="get" style='float: left;'>
+					<input id="signColor" type="submit" class="nav-link p-2"
+						value="회원가입">
+				</form>
+			</c:if>
+			<c:if test="${!empty status }">
+				<form action="signIn" method="get" style='float: left;'>
+					<input id="signColor" type="submit" class="nav-link p-2"
+						value="로그아웃">
+				</form>
+			</c:if>
+		</div><!-- 회원가입 및 로그인 끝 -->
+
+	</div>
+
+	<!-- jQuery Custom Scroller CDN -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<script type="text/javascript">
+    function fn_paging(curPage) {
+    	location.href = "/test/readBook?curPage=" + curPage;
+    }
+    
 	    $(document).ready(function () {
 	    	// hide sidebar
 	        $('#sidebar').toggleClass('active');
@@ -350,16 +410,16 @@
 	        });
 	    });
     </script>
-    
-    <!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 -->
-    <script>   	
-    	var image, title, author, publisher;
+
+	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 -->
+	<script>   	
+    	var image, title, author, publisher, log;
     	//책 추가 모달에서 목록을 눌렀을 때
 		$('div#row').click(function(){ 
 				image = $(this).children('div').children('img#image').attr("src");
 			  	title = $(this).children('div').children('span#title').text();
 			  	author = $(this).children('div').children('span#author').text();
-			  	publisher = $(this).children('div').children('span#publisher').text(); 		
+			  	publisher = $(this).children('div').children('span#publisher').text(); 	
 
 			 	$("#myModal").removeClass("in"); 
 			 	$(".modal-backdrop").remove();
@@ -395,7 +455,7 @@
 	 		}); 
 		});	
     </script>
-    <!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 끝 -->
+	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 끝 -->
 
 	<script>	
 	//서평 모달에서 별점 눌렀을 때 채워지게 함 
@@ -411,8 +471,8 @@
 		   m_star = $(this).attr('id');
 	}); 
 	</script>
-	
-	
+
+
 	<!-- 	수정버튼 -->
 	<script>
   	function updateButton(id, m_title, m_star, m_content){
@@ -454,7 +514,7 @@
   	}
 	</script>
 	<!-- 	수정버튼 끝 -->
-	
+
 	<!-- 도서 검색 -->
 	<script>
 	function searchFunc(e) {  
