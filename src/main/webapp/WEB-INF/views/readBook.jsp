@@ -7,43 +7,30 @@
 
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>CHACKCHECK</title>
+    <title>CHACKCHECK</title>
 
-<!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!-- Popper.JS -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-	integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-crossorigin="anonymous"></script>
+	<!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<!-- Bootstrap CSS CDN -->
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<!-- Our Custom CSS -->
-<link rel="stylesheet" href="css/style.css?a">
-<link rel="stylesheet" href="css/booklist-style.css">
-<!-- Scrollbar Custom CSS -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <!-- Bootstrap CSS CDN -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/style.css?a">
+    <link rel="stylesheet" href="css/booklist-style.css?a">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
-<!-- Font Awesome JS -->
-<script defer
-	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-	crossorigin="anonymous"></script>
-<script defer
-	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-	crossorigin="anonymous"></script>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+>>>>>>> 0e6abf5c0571417c12c143d7931f207db1c0c698
 </head>
 
 <body>
@@ -144,67 +131,83 @@ crossorigin="anonymous"></script>
 
 			<!-- 책이미지와 서평 내용 출력 -->
 			<div class="container">
-
-				<c:if test="${ !empty list }">
-					<ul id="ulRow">
-						<c:forEach var="vo" items="${ list }">
-							<li class="row"><img alt="이미지" src="${vo.image}" width="100"
-								height="150" style="border: 1px solid #000" />
-								<div style="margin: 0 10px;">
-									<span style="margin-right: 5px; font-size: 20pt;">${vo.m_title}</span>
-									<span>${vo.registdate}</span><br> 별점 : <span> <c:choose>
-											<c:when test="${vo.m_star == '1'}">
-												<a class="on">★</a>
-											</c:when>
-											<c:when test="${vo.m_star == '2'}">
-												<a class="on">★★</a>
-											</c:when>
-											<c:when test="${vo.m_star == '3'}">
-												<a class="on">★★★</a>
-											</c:when>
-											<c:when test="${vo.m_star == '4'}">
-												<a class="on">★★★★</a>
-											</c:when>
-											<c:otherwise>
-												<a class="on">★★★★★</a>
-											</c:otherwise>
-										</c:choose></span><br> <span style="font-size: 15pt;">${vo.m_content}</span>
-								</div></li>
-							<div class="caption">
+			
+			<c:if test="${ !empty list }">
+				<ul id="ulRow">
+					<c:forEach var="vo" items="${ list }">
+						<li class="row pl-3">
+							<img alt="이미지" src="${vo.image}" width="100" height="150" style="border : 1px solid lightgray"/>
+							<div style="width: 70%" class="ml-4">
+								<span style="margin-right: 5px; font-size: 17pt;">${vo.m_title}</span>
+								<span>${vo.registdate}</span><br>
+								별점 : 
+								<span>
 								<c:choose>
-									<c:when test='${fn:length(vo.title) >= 20}'>
-							${fn:substring(vo.title,0,20)} ...
-							</c:when>
+									<c:when test="${vo.m_star == '1'}">
+										<a class="on">★</a>
+									</c:when>
+									<c:when test="${vo.m_star == '2'}">
+										<a class="on">★★</a>
+									</c:when>
+									<c:when test="${vo.m_star == '3'}">	
+										<a class="on">★★★</a>
+									</c:when>
+									<c:when test="${vo.m_star == '4'}">
+										<a class="on">★★★★</a>
+									</c:when>
 									<c:otherwise>
+										<a class="on">★★★★★</a>
+									</c:otherwise>
+								</c:choose></span><br>	
+								<span style="font-size: 14pt;">${vo.m_content}</span>
+							</div>
+						</li>
+						<div class="caption">
+						<c:choose>
+							<c:when test = '${fn:length(vo.title) >= 19}'>
+							${fn:substring(vo.title,0,18)}...
+							</c:when>
+							<c:otherwise>
 							${vo.title}
 							</c:otherwise>
-								</c:choose>
-							</div>
-							<div class="float-right">
-								<!-- 수정 및 삭제 시작-->
-								<form action="readBook" method="post">
-									<input type="hidden" name="bookNum" value="${vo.id}">
-									<button type="button"
-										class="btn btn-outline-primary upDelButton"
-										data-toggle="modal" data-target="#myModal2"
-										onclick="updateButton('${vo.id}', '${vo.m_title}', '${vo.m_star}', '${vo.m_content}');"
-										onmouseover="hover(this);" onmouseleave="leave(this)">
-										<img id="pencil" src="images/pencil.png" style="width: 20px"
-											class="mr-2">수정
-									</button>
-									<button type="submit"
-										class="btn btn-outline-primary upDelButton"
-										onmouseover="hover(this);" onmouseleave="leave(this)">
-										<img id="trash" src="images/trash.png" style="width: 20px"
-											class="mr-1">삭제
-									</button>
-								</form>
-							</div>
-							<!-- 수정 및 삭제 끝-->
-							<div class="line"></div>
-							<!-- 구분선 -->
-						</c:forEach>
-					</ul>
+						</c:choose>
+						</div>
+						<div class="float-right"><!-- 수정 및 삭제 시작-->
+							<form action="readBook" method="post">
+								<input type="hidden" name="bookNum" value="${vo.id}">						
+								<button type="button" class="btn btn-outline-primary upDelButton" data-toggle="modal" data-target="#myModal2" 
+									onclick="updateButton('${vo.id}', '${vo.m_title}', '${vo.m_star}', '${vo.m_content}');" onmouseover="hover(this);" onmouseleave="leave(this)">
+									<img id="pencil" src="images/pencil.png" style="width: 20px" class="mr-2">수정
+								</button>
+								<button type="submit" class="btn btn-outline-primary upDelButton" onmouseover="hover(this);" onmouseleave="leave(this)">
+									<img id="trash" src="images/trash.png" style="width: 20px" class="mr-1">삭제
+								</button>
+							</form>
+						</div><!-- 수정 및 삭제 끝-->
+						<div class="line"></div> <!-- 구분선 -->
+					</c:forEach>
+				</ul>
+			</c:if>
+			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
+			</a>
+			
+			<c:if test="${ empty list }">
+			<% 
+				if(request.getParameter("readkeyword") != null) { 
+			%>
+				<h2>찾으시는 내용이 없어요!</h2>
+			<%
+				} else {
+			%>
+				<h2>읽은 책과 서평을 추가해주세요.</h2>
+			<%
+				}
+			%>
+			<div class="line"></div> <!-- 구분선 -->
+			</c:if>
+			<!-- 책이미지와 서평 내용 출력 끝 -->           
+            </div><!-- 컨테이너 끝 -->
 
 					<!-- 페이징 버튼 위치 시작 -->
 					<div>
@@ -239,31 +242,7 @@ crossorigin="anonymous"></script>
 					<div>총 게시글 수 : ${pagination.listCnt } / 총 페이지 수 :
 						${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 :
 						${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }</div>
-
 					<!-- 페이징 버튼 위치 종료 -->
-
-				</c:if>
-				<c:if test="${ empty list }">
-					<%
-						if (request.getParameter("readkeyword") != null) {
-					%>
-					<h2>찾으시는 내용이 없어요!</h2>
-					<%
-						} else {
-					%>
-					<h2>읽은 책과 서평을 추가해주세요.</h2>
-					<%
-						}
-					%>
-					<div class="line"></div>
-					<!-- 구분선 -->
-				</c:if>
-				<!-- 책이미지와 서평 내용 출력 끝 -->
-			</div>
-			<!-- 컨테이너 끝 -->
-			<c:if test="${!empty msg}">
-				<script> alert("${msg}"); </script>
-			</c:if>
 
 			<!-- 모달 영역 시작 -->
 			<div id="readMe" class="p-2">
@@ -387,8 +366,7 @@ crossorigin="anonymous"></script>
 		</div>
 		<!-- Page Content 끝 -->
 
-		<!-- 회원가입 및 로그인 -->
-		<div class="sign">
+		<div class="sign"><!-- 회원가입 및 로그인 -->
 			<c:if test="${empty status }">
 				<form action="signIn" method="get" style='float: left;'>
 					<input id="signColor" type="submit" class="nav-link p-2"
@@ -405,10 +383,7 @@ crossorigin="anonymous"></script>
 						value="로그아웃">
 				</form>
 			</c:if>
-		</div>
-
-
-		<!-- 회원가입 및 로그인 끝 -->
+		</div><!-- 회원가입 및 로그인 끝 -->
 
 	</div>
 
@@ -471,7 +446,6 @@ crossorigin="anonymous"></script>
 	 		        },
 	 		        dataType : "text",
 	 		        success: function(data){           
-	 		        	//alert("insert 보냄");
 			 	 		$("#myModal2 .close").click();
 			 	 		return false;
 	 		        },
@@ -503,6 +477,7 @@ crossorigin="anonymous"></script>
 	<!-- 	수정버튼 -->
 	<script>
   	function updateButton(id, m_title, m_star, m_content){
+  		alert("눌림");
   		document.getElementById('m_title').value=m_title; 
   		document.getElementById('m_content').value=m_content; 
   		$('#'+m_star).parent().children("a").removeClass("on");
@@ -515,6 +490,7 @@ crossorigin="anonymous"></script>
   		
   		//서평 추가 모달에서 확인버튼 눌렀을 때
   			$('button#m_submit').click(function(){ 
+  				
   			    var m_title = $('input#m_title').val();
   			    var m_content = $('textarea#m_content').val();
   			    
@@ -529,8 +505,7 @@ crossorigin="anonymous"></script>
   			        },
   			        dataType : "text",
   			        success: function(data){           
-  			        	//alert("보냄");
-  			 	 		$("#myModal2 .close").click(); 			 	 	
+  			 	 		$("#myModal2 .close").click(); 			 	 		
   			        },
   			        error : function(request, status, error){
   			            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
