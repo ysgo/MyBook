@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -86,8 +87,19 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = {"/interestBook"}) 
-	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum) {
+	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword) {
 		ModelAndView mav = new ModelAndView(); 
+		
+		if(interestkeyword != null) {
+			Map<String, String> map = new HashMap<String, String>();
+	        map.put("interestkeyword", interestkeyword);
+	        map.put("email", "qwe@gmail.com");
+
+			mav.addObject("list", service.searchInterestbook(map)); 
+			mav.setViewName("interestBook");
+			return mav;	
+		}
+		
 		if(keyword != null) { 
 			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api�? ?��?�� 찾�? 값을 list?��?��?���? 보내�??��.
 		}else {
@@ -119,5 +131,12 @@ public class BookController {
 		return mav;
 	}
 	
+	@RequestMapping(value = {"/trendingbook"}, method=RequestMethod.GET) 
+	public ModelAndView trendingbook() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", service.trendingbook()); 
+		mav.setViewName("main");
+		return mav;
+	}
 }
 

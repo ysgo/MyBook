@@ -146,6 +146,20 @@ public class NaverBookService {
 			result = false;
 		return result;
 	}
+
+	public List<MyBookList> searchReadbook(Map<String, String>map) {
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.searchBookList";
+		list = session.selectList(statement, map);
+		return list;
+	}
+	
+	public List<MyBookList> trendingbook() {
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.trendingbook";
+		list = session.selectList(statement);
+		return list;
+	}
 	
 	//log
 	public List<MyBookList> selectReadBooklog(){
@@ -180,6 +194,13 @@ public class NaverBookService {
 			return result;
 		}
 		
+		public List<InterestBookList> searchInterestbook(Map<String, String>map) {
+			List<InterestBookList> list = null;
+			String statement = "resource.MyBookListMapper.searchInterestbook";
+			list = session.selectList(statement, map);
+			return list;
+		}
+		
 	//detailInterestBook
 		public List<InterestBookList> selectDetailInterestBook(int id){
 			List<InterestBookList> list = null;
@@ -188,12 +209,6 @@ public class NaverBookService {
 			return list;
 		}
 
-	public List<MyBookList> searchReadbook(Map<String, String>map) {
-		List<MyBookList> list = null;
-		String statement = "resource.MyBookListMapper.searchBookList";
-		list = session.selectList(statement, map);
-		return list;
-	}
 	public int getTotalCnt(String userId) {
 		String statement = "resource.MyBookListMapper.totalCnt";
 		return session.selectOne(statement, userId);
