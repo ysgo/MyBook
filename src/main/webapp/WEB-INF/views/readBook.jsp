@@ -133,7 +133,7 @@
 				<ul>
 					<c:forEach var="vo" items="${ list }">
 						<li class="row">
-	
+				
 							<img alt="이미지" src="${vo.image}" width="100" height="150" style="border : 1px solid #000"/>
 
 							<div style="margin : 0 10px;">
