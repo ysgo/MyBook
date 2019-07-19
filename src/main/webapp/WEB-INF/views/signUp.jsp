@@ -22,77 +22,172 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form-style.css">
 
-<style>
-</style>
 </head>
 <body>
-
 	<div class="card bg-light">
 		<article class="card-body mx-auto mt-3 mb-3" style="max-width: 400px;">
-			<div class="row justify-content-center">
-				<div class="col-sm-auto logo pl-1 pr-0 mb-4"><a href="${pageContext.request.contextPath}/">CHACKCHECK</a></div>
-<!-- 				<div class="col-sm-auto"><h4 class="card-title mt-2 text-center">회원가입</h4></div> -->
+		<div class="row justify-content-center">
+			<%-- <a href="${pageContext.request.contextPath}/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
+			<h4 class="card-title mt-3 text-center">회원가입</h4> --%>
+			<div class="col-sm-auto logo pl-1 pr-0 mb-4">
+				<a href="${pageContext.request.contextPath}/">CHACKCHECK</a>
 			</div>
+<!-- 				<div class="col-sm-auto"><h4 class="card-title mt-2 text-center">회원가입</h4></div> -->
+		</div>
+		<!-- 네이버 로그인 버튼 -->
+		<a href="/book/signIn" class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
+		<p class="divider-text">
+			<span class="bg-light">OR</span>
+		</p>
+		
+		<!-- 회원가입 폼태그 시작 -->
+		<form action="${pageContext.request.contextPath}/signUp" method="POST">
+			<!-- 닉네임 -->
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-user"></i>
+					</span>
+				</div>
+				<input id="userName" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
+				<input type="button" id="name_check" value="중복체크">
+			</div>
+			
+			<!-- 이메일 -->
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-envelope"></i>
+					</span>
+				</div>
+				<input id="userId" name="userId" class="form-control" placeholder="이메일" type="email" required>
+				<input type="button" id="id_check" value="중복체크">
+			</div>
+			
+			<!-- 비밀번호 -->
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-lock"></i>
+					</span>
+				</div>
+				<input class="form-control" id="userPass" name="userPass" placeholder="비밀번호" type="password" required>
+				<span class="check_font" id="pass_check"></span>
+			</div>
+			
+			<!-- 비밀번호 확인 -->
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-lock"></i>
+					</span>
+				</div>
+				<input class="form-control" id="rePass" name="rePass" placeholder="비밀번호 확인" type="password" required>
+				<input type="button" id="repass_check" value="중복체크">
+			</div>
+			
+			<!-- 등록 버튼 -->
+			<div class="form-group">
+				<input type="submit" id="signUp" name="signUp" class="btn btn-primary btn-block" value="등록">
+			</div>
+			
+		</form>
+		<!-- 회원가입 폼태그 끝 -->
+			
+		<!-- 로그인 링크 -->
+		<form class="text-center" action="signIn" method="get">
+	                 이미 회원가입을 하셨나요? <input id="signColor" type="submit" value="로그인">
+	    </form>	
+		
+	</article>
+</div>
 	
-			<!-- 네이버 로그인 버튼 -->
-			<a href="#" class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
-			<p class="divider-text">
-				<span class="bg-light">OR</span>
-			</p>
-			
-			<!-- 회원가입 폼태그 시작 -->
-			<form>
-				<!-- 닉네임 -->
-				<div class="form-group input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text"> <i class="fa fa-user"></i>
-						</span>
-					</div>
-					<input name="" class="form-control" placeholder="닉네임" type="text" required autofocus>
-				</div>
-				
-				<!-- 이메일 -->
-				<div class="form-group input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text"> <i class="fa fa-envelope"></i>
-						</span>
-					</div>
-					<input name="" class="form-control" placeholder="이메일" type="email" required>
-				</div>
+<script>
+// 이름 정규식 : 가~힣, 한글로 이루어진 문자만으로 2~6자리 이름을 적어야한다
+var nameJ = /^[가-힣a-zA-z]{2,6}$/;
+// 이메일 검사 정규식 : -_특수문자 가능하며 중앙에 @ 필수 그리고 . 뒤에 2~3글자 필요
+/* var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; */
+var mailJ = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+// 비밀번호 정규식 : A~Z, a~z,,0~9로 시작하는 4~12자리 비밀번호 가능
+var pwJ = /^[A-Za-z0-9]{4,16}$/;
 
-				<!-- 비밀번호 -->
-				<div class="form-group input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text"> <i class="fa fa-lock"></i>
-						</span>
-					</div>
-					<input class="form-control" placeholder="비밀번호" type="password" required>
-				</div>
-				
-				<!-- 비밀번호 확인 -->
-				<div class="form-group input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text"> <i class="fa fa-lock"></i>
-						</span>
-					</div>
-					<input class="form-control" placeholder="비밀번호 확인" type="password" required>
-				</div>
-				
-				<!-- 등록 버튼 -->
-				<div class="form-group">
-					<input type="submit" class="btn btn-primary btn-block" value="등록">
-				</div>
-				
-			</form>
-			<!-- 회원가입 폼태그 끝 -->
-			
-			<!-- 로그인 링크 -->
-			<form class="text-center" action="signIn" method="get">
-	                       이미 회원가입을 하셨나요? <input id="signColor" type="submit" value="로그인">
-	        </form>	
-						
-		</article>
-	</div>
+var text;
+var check=new Array(true, true, true);
+$("#signUp").attr("disabled", check);
 
+//이름 유효성 및 중복 검사(한글로만 2~6자리 또는 특수문자 안됨)
+$("#name_check").on("click", function() {						
+	var userName = $('#userName').val();
+	if(userName != "") {
+		$.ajax({
+			url : '/test/nameCheck?userName='+ userName,
+			type : 'get',
+			success : function(data) {			
+				if (data == 1) {	// 1 : 닉네임이 중복되는 경우
+					text = "이미 등록된 이름입니다.";
+					check=true;
+				} else {		// 0 : 닉네임 길이 / 문자열 검사					
+					if(nameJ.test(userName)){
+						text = "사용 가능합니다.";
+						check=false;			
+					} else {			 
+						text = "한글 또는 영어로만 2~6자리 입력가능합니다.";
+						check=true;
+					}	
+				}
+				alert(text);
+			}, error : function(request, status, error){
+		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
+		       }
+		});
+	}
+});
+//아이디 유효성 검사(1 = 중복 / 0 != 사용가능)
+$("#id_check").on("click", function() {						
+	var userId = $('#userId').val();
+	if(userId != "") {
+		$.ajax({
+			url : '/test/idCheck?userId='+ userId,
+			type : 'get',
+			success : function(data) {			
+				if (data == 1) {	// 1 : 아이디가 중복되는 문구
+					text = "이미 가입된 이메일입니다.";
+					check=true;
+				} else {		// 0 : 아이디 길이 / 문자열 검사					
+					if(mailJ.test(userId)){
+						text = "사용 가능합니다.";
+						check=false;			
+					} else {			 
+						text = "유효하지 않은 양식입니다.";
+						check=true;
+					}	
+				}
+				alert(text);
+			}, error : function() {
+					console.log("실패");
+			}
+		});
+	}
+});
+
+// 비밀번호 유효성 검사 및 비밀번호 재확인
+$("#repass_check").on("click", function() {
+	var userPass = document.getElementById("userPass").value;
+	var rePass = document.getElementById("rePass").value;
+
+	if(rePass != "") { 
+		if(pwJ.test(rePass)) {
+			if(userPass != rePass) {
+				text = "비밀번호가 일치하지 않습니다.";
+				check=true;
+			} else {
+				text = "비밀번호가 일치합니다.";
+				check=false;
+			}
+		} else {
+			text = "숫자 또는 문자로만 4~12자리 입력가능합니다.";
+			check=true;
+		}
+	}
+	alert(text);
+	$("#signUp").attr("disabled", check);	
+});
+</script>
 </body>
 </html>

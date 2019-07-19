@@ -61,11 +61,6 @@
     	overflow: scroll; /* 모달 영역을 닫아도 스크롤바가 존재 */
 	}
 	
-	.upDelButton{
-		background-color: #17a2b8;
-		border:none; 
-	}
-	
 	/* 이미지 위에 마우스를 올려놓으면 opacity가 1이 되는 영역 */
 	.img-wrap {
 	    position: relative;
@@ -73,27 +68,13 @@
 	    font-size: 0;
 	}
 	
-	/* 이미지 위에 deleteButton */
- 	.img-wrap .close{
-	    position: absolute;
-	    top: 4px;
-	    right: 18px;
-	    z-index: 100;
- 	    background-color: #58C9B9;
-	    padding: 5px 2px 2px;
-	    color: #fff;
-	    font-weight: bold; 
-	    cursor: pointer;
-	    opacity: 0.2;
-	} 
 	.img-wrap:hover .btn-circle {
 	    opacity: 1;
 	}
- 	.btn-circle {
+ 	.img-wrap .btn-circle {
 	  	width: 25px;
 	  	height: 25px;
 	  	text-align: center;
-	  	padding: 6px 0;
 	  	font-size: 18px;
 	  	border-radius: 15px;
 	  	position: absolute;
@@ -101,12 +82,8 @@
 	    right: 18px;
 	    z-index: 100;
 	    color : #fff;
+	    background-color: #58C9B9;
 	} 
-	
-	/* 구분선 진하게 */
-	div.line{
-		border : 2px solid #000;
-	}
 	
 	input[type=image]{
 		width : 110px;
@@ -240,7 +217,7 @@
 						        	 	aria-describedby="basic-addon2"
 						        	 	width="20px">
 						        	 <div class="input-group-append">
-						    			<button class="btn btn-outline-secondary" type="" id="submitForm">검색</button>
+						    			<button class="btn btn-outline-secondary" id="submitForm">검색</button>
 						 			 </div>
 							     </div>
 							</div>
@@ -277,14 +254,23 @@
         <!-- Page Content 끝 -->
         
         <!-- 회원가입 및 로그인 -->
-        <div class="sign">
-       		<form action="signIn" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
-          	</form>
-       		<form action="signUp" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
-          	</form>
-        </div>
+        <c:if test="${ empty status }">
+	        <div class="sign">
+	       		<form action="signIn" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+	          	</form>
+	       		<form action="signUp" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+	          	</form>
+	        </div>
+        </c:if>
+        <c:if test="${ !empty status }">
+	        <div class="sign">
+	       		<form action="signOut" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
+	          	</form>
+	        </div>
+        </c:if>
         <!-- 회원가입 및 로그인 끝 -->
         
     </div>
@@ -398,5 +384,4 @@
 	</script>
 	<!-- 도서 검색 끝-->
 </body>
-
 </html>
