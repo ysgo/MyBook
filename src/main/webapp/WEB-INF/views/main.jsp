@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="model.MyBookList, java.util.List" %>
 <!DOCTYPE html>
 <html>
 
@@ -14,6 +13,10 @@
 
 	<!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- jQuery Custom Scroller CDN -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+	</script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
@@ -135,20 +138,6 @@
             </button>
 			
 			<!-- 컨텐트 추가 시작 -->
-            <h3>지금 CHACKCHECK에서 인기있는 책</h3>
-            <div id="trending" class="mx-auto mt-5">
-            	<c:set var="loop_flag" value="false" />
-            	<c:forEach var="vo" items="${ list }" varStatus="status">	
-            	<c:if test="${not loop_flag}">
-            		${vo.title}<br>
-	            	<c:if test="${status.count == 5}">		
-						<c:set var="loop_flag" value="true"/>
-					</c:if>   
-				</c:if>
-				</c:forEach> 
-				
-            </div>
-
             <h2>활동로그</h2>
 	            <c:if test="${ !empty listLog }">
 					<ul>
@@ -169,6 +158,10 @@
 				 </c:if>
             <div class="line"></div> <!-- 구분선 -->
 
+            <h2>트렌드</h2>
+            <p>추후에 트렌드 추가</p>
+
+            <div class="line"></div>
             <!-- 컨텐트 추가 끝 -->
 
         </div>
@@ -195,14 +188,10 @@
         <!-- 회원가입 및 로그인 끝 -->
         
     </div>
-    
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-	
 
     <script type="text/javascript">
     	
-        $(document).ready(function () {        	
+        $(document).ready(function () {
         	// hide sidebar when refresh the page
             $('#sidebar').toggleClass('active');
  
@@ -227,11 +216,6 @@
             	//$( '#tooltiptext' ).fadeTo("fast", 0);
             	//$( '#tooltiptext' ).addClass( 'invisible' );
              });
-            
-		    $.get("trendingbook", function(data) {
-		    	$('body').html(data);
-		    	}
- 		    ); 
         });
     </script>
 </body>

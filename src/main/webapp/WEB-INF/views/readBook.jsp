@@ -14,6 +14,10 @@
 
 	<!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- jQuery Custom Scroller CDN -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+	</script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
@@ -26,7 +30,7 @@
     <link rel="stylesheet" href="css/booklist-style.css?a">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
+	
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -188,18 +192,21 @@
 				</ul>
 			</c:if>
 			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
-				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
 			</a>
 			
 			<c:if test="${ empty list }">
 			<% 
 				if(request.getParameter("readkeyword") != null) { 
 			%>
-				<h2>찾으시는 내용이 없어요!</h2>
+				<h2 style="padding-top: 30px">찾으시는 내용이 없어요!</h2>
 			<%
 				} else {
 			%>
-				<h2>읽은 책과 서평을 추가해주세요.</h2>
+				<script>
+					$('#listall').hide();
+				</script>
+				<h2>읽은 책과 서평을 추가해주세요 :)</h2>
 			<%
 				}
 			%>
@@ -386,13 +393,10 @@
 
 	</div>
 
-	<!-- jQuery Custom Scroller CDN -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 	<script type="text/javascript">
     function fn_paging(curPage) {
-    	location.href = "/test/readBook?curPage=" + curPage;
+    	location.href = "/book/readBook?curPage=" + curPage;
     }
     
 	    $(document).ready(function () {
@@ -476,7 +480,6 @@
 	<!-- 	수정버튼 -->
 	<script>
   	function updateButton(id, m_title, m_star, m_content){
-  		alert("눌림");
   		document.getElementById('m_title').value=m_title; 
   		document.getElementById('m_content').value=m_content; 
   		$('#'+m_star).parent().children("a").removeClass("on");
@@ -559,5 +562,6 @@
 			image.id === 'pencil' ? image.src = 'images/pencil.png' : image.src = 'images/trash.png';
 		}
 	</script>
+
 </body>
 </html>
