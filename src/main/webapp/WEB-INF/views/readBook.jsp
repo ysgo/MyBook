@@ -95,8 +95,6 @@
         <!-- Page Content 시작 -->
         <div id="content">
 
-			<!-- navbar 시작 -->
-
 	 		<div class="top-page mb-5"><!-- top page 시작 -->
 	 		
 	 			<div class="btn-with-fixedInput pr-1 pl-3"><!-- 메뉴 버튼 -->
@@ -110,7 +108,7 @@
 					
 				<div class="fixedInput pl-1"><!-- 고정된 인풋 -->
 				
-					<form method="get" action="readBook">
+					<form method="get" action="readBook" target="_self">
 					<div class="input-group">
 						<input name="readkeyword" 
 				        	type="text" class="form-control" 
@@ -127,8 +125,6 @@
 	 			
 	 		</div><!-- top page 끝 -->
 				
-
-			<!-- navbar 끝 -->
 
 			<!-- 책이미지와 서평 내용 출력 -->
 			<div class="container">
@@ -167,7 +163,7 @@
 						</li>
 						<div class="caption">
 						<c:choose>
-							<c:when test = '${fn:length(vo.title) >= 20 }'>
+							<c:when test = '${fn:length(vo.title) >= 20}'>
 							${fn:substring(vo.title,0,20)} ...
 							</c:when>
 							<c:otherwise>
@@ -175,7 +171,7 @@
 							</c:otherwise>
 						</c:choose>
 						</div>
-						<div class="float-right">
+						<div class="float-right"><!-- 수정 및 삭제 시작-->
 							<form action="readBook" method="post">
 								<input type="hidden" name="bookNum" value="${vo.id}">						
 								<button type="button" class="btn btn-outline-primary upDelButton" data-toggle="modal" data-target="#myModal3" 
@@ -186,7 +182,7 @@
 									<img id="trash" src="images/trash.png" style="width: 20px" class="mr-1">삭제
 								</button>
 							</form>
-						</div>
+						</div><!-- 수정 및 삭제 끝-->
 						<div class="line"></div> <!-- 구분선 -->
 					</c:forEach>
 				</ul>
@@ -203,16 +199,7 @@
 			<%
 				}
 			%>
-			<%-- <c:choose>
-				<c:when test="${ readkeyword ne null }">
-				<h2>찾으시는 내용이 없어요!</h2>
-				</c:when>
-				<c:otherwise>
-				<h2>읽은 책과 서평을 추가해주세요.</h2>
-				</c:otherwise>
-			</c:choose> --%>
-			
-				<div class="line"></div> <!-- 구분선 -->
+			<div class="line"></div> <!-- 구분선 -->
 			</c:if>
 			<!-- 책이미지와 서평 내용 출력 끝 -->           
             </div><!-- 컨테이너 끝 -->

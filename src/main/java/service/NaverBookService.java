@@ -6,6 +6,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,10 +146,10 @@ public class NaverBookService {
 		return result;
 	}
 	
-	public List<MyBookList> searchReadbook(String readkeyword) {
+	public List<MyBookList> searchReadbook(Map<String, String>map) {
 		List<MyBookList> list = null;
 		String statement = "resource.MyBookListMapper.searchBookList";
-		list = session.selectList(statement, readkeyword);
+		list = session.selectList(statement, map);
 		return list;
 	}
 }

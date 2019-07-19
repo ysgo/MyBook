@@ -1,5 +1,8 @@
 package mybook.my.book;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +37,11 @@ public class BookController {
 	public ModelAndView  readBook(@RequestParam(required=false)String keyword, MyBookList model, String bookNum, String readkeyword) {
 		ModelAndView mav = new ModelAndView(); 
 		if(readkeyword != null) {
-			mav.addObject("list", service.searchReadbook(readkeyword)); 
+			Map<String, String> map = new HashMap<String, String>();
+	        map.put("readkeyword", readkeyword);
+	        map.put("email", "qwe@gmail.com");
+
+			mav.addObject("list", service.searchReadbook(map)); 
 			mav.setViewName("readBook");
 			return mav;	
 		}

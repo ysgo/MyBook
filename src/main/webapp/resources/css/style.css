@@ -267,3 +267,9 @@ ul.CTAs #leftSideBar {
         display: none;
     }
 }
+
+@media (min-width: 1300px) {
+	#content {
+        width: 70%;
+    }
+}
