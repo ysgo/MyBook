@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	
-	<title>ㅊㅊ</title>
+	<title>CHACKCHECK</title>
 	
 	<!-- jQuery CDN -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -22,12 +22,10 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form-style.css">
 
-<style>
-</style>
 </head>
 <body>
 	<div class="card bg-light">
-		<article class="card-body mx-auto" style="max-width: 500px;">
+		<article class="card-body mx-auto mt-3 mb-3" style="max-width: 400px;">
 		<div class="row justify-content-center">
 			<%-- <a href="${pageContext.request.contextPath}/"><img class="logo" src="images/logo.svg" width="38" height="37"></a>
 			<h4 class="card-title mt-3 text-center">회원가입</h4> --%>
@@ -134,9 +132,9 @@ $("#name_check").on("click", function() {
 					}	
 				}
 				alert(text);
-			}, error : function() {
-					console.log("실패");
-			}
+			}, error : function(request, status, error){
+		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
+		       }
 		});
 	}
 });

@@ -2,8 +2,6 @@ package mybook.my.book;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +24,9 @@ public class MemberController {
 	private MemberService service;
 	@Inject
 	private NaverBookService serviceBook;
-	@Autowired
-	BCryptPasswordEncoder passEncoder;
 	
 	// main 페이지 이동 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/")
 	public String main() {
 		return "main";
 	}
@@ -124,8 +120,8 @@ public class MemberController {
 		} else {
 			boolean result = service.withdrawal(userId); 
 			if(result) {
-				model.setEmail(userId);
-				serviceBook.delete(model);
+				serviceBook.deleteAll(userId);
+				serviceBook.deleteAllInterestBook(userId);
 				sessionClear.setComplete();
 			}
 		}

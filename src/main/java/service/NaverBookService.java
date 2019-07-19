@@ -6,6 +6,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import model.Book;
+import model.InterestBookList;
 import model.MyBookList;
 
 @Service
@@ -72,7 +74,7 @@ public class NaverBookService {
                         break;
                     case "image":
                         if(b != null)
-                            b.setImage(parser.nextText());
+                            b.setImage(parser.nextText().replace("type=m1", ""));
                         break;
                     case "author":
                         if(b != null)
@@ -129,12 +131,19 @@ public class NaverBookService {
 		return result;
 	}
 	
-	public boolean delete(MyBookList model) {
+	public boolean delete(int id) {
 		boolean result=true;
 		String statement = "resource.MyBookListMapper.deleteBookList";
-		if(session.delete(statement, model) != 1)
+		if(session.delete(statement, id) != 1)
 			result = false;
 		return result;
+	}
+	
+	public boolean deleteAll(String email) {
+		String statement = "resource.MyBookListMapper.deleteAll";
+		if(session.delete(statement, email) != 1)
+			return false;
+		return true;
 	}
 	
 	public boolean update(MyBookList vo) {
@@ -144,7 +153,76 @@ public class NaverBookService {
 			result = false;
 		return result;
 	}
+
+	public List<MyBookList> searchReadbook(Map<String, String>map) {
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.searchBookList";
+		list = session.selectList(statement, map);
+		return list;
+	}
 	
+	public List<MyBookList> trendingbook() {
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.trendingbook";
+		list = session.selectList(statement);
+		return list;
+	}
+	
+	//log
+	public List<MyBookList> selectReadBooklog(){
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.selectReadBookLog";
+		list = session.selectList(statement);
+		System.out.println(list);
+		return list;
+	}
+	
+	//InterestBookList
+		public List<InterestBookList> listAllInterestBook(String id){
+			List<InterestBookList> list = null;
+			String statement = "resource.MyBookListMapper.selectAllInterestBookList";
+			list = session.selectList(statement, id);
+			return list;
+		}
+		
+		public boolean insertInterestBook(InterestBookList vo) {
+			boolean result=true;
+			String statement = "resource.MyBookListMapper.insertInterestBookList";
+			if(session.insert(statement, vo) != 1)
+				result = false;
+			return result;
+		}
+		
+		public boolean deleteInterestBook(int id) {
+			boolean result=true;
+			String statement = "resource.MyBookListMapper.deleteInterestBookList";
+			if(session.delete(statement, id) != 1)
+				result = false;
+			return result;
+		}
+		
+		public boolean deleteAllInterestBook(String email) {
+			String statement = "resource.MyBookListMapper.deleteAllInterestBook";
+			if(session.delete(statement, email) != 1)
+				return false;
+			return true;
+		}
+		
+		public List<InterestBookList> searchInterestbook(Map<String, String>map) {
+			List<InterestBookList> list = null;
+			String statement = "resource.MyBookListMapper.searchInterestbook";
+			list = session.selectList(statement, map);
+			return list;
+		}
+		
+	//detailInterestBook
+		public List<InterestBookList> selectDetailInterestBook(int id){
+			List<InterestBookList> list = null;
+			String statement = "resource.MyBookListMapper.selectDetailInterestBook";
+			list = session.selectList(statement, id);
+			return list;
+		}
+
 	public int getTotalCnt(String userId) {
 		String statement = "resource.MyBookListMapper.totalCnt";
 		return session.selectOne(statement, userId);

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -9,10 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>ㅊㅊ</title>
+    <title>CHACKCHECK</title>
 
 	<!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- jQuery Custom Scroller CDN -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+	</script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
@@ -22,6 +26,8 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/booklist-style.css">
+    <link rel="stylesheet" href="css/interestbook-style.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -34,6 +40,20 @@
 <body>
 
     <div class="wrapper">
+       	<div style="z-index:500">
+	        <a href="${pageContext.request.contextPath}/" class="brand-logo-main" >
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-auto pr-0 mt-2">		
+							CHACK<br>CHECK
+						</div>
+						<div class="col-sm-auto pl-1">
+							<img src="images/book.jpg" style="width: 55px">
+						</div>
+					</div>	
+				</div>
+			</a>		
+         </div>
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
 			<div class="sidebar-header p-3">
@@ -43,7 +63,6 @@
             </div>
 
             <ul class="list-unstyled components">
-                <!-- <p>Dummy Heading</p> -->
                 <li>
                 	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="get">
 	                	<input id="leftSideBarColor" type="submit" value="메인">
@@ -80,58 +99,152 @@
         <!-- Page Content 시작 -->
         <div id="content">
 
-			<!-- navbar 시작 -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
+			<div class="top-page mb-5"><!-- top page 시작 -->
+	 		
+	 			<div class="btn-with-fixedInput pr-1 pl-3"><!-- 메뉴 버튼 -->
+	
+					<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
+		               <i class="fas fa-align-left"></i>
+		               <span>MENU</span>
+		            </button>
+		            
+				</div>
+					
+				<div class="fixedInput pl-1"><!-- 고정된 인풋 -->
+				
+					<form method="get" action="interestBook" target="_self">
+					<div class="input-group">
+						<input name="interestkeyword" 
+				        	type="text" class="form-control" 
+				        	placeholder="내가 추가한 책 제목, 저자, 출판사 검색"
+			        	 	aria-describedby="basic-addon2"
+			        	 	>
+			        	 <div class="input-group-append">
+			    			<button class="btn btn-outline-secondary" type="submit">검색</button>
+			 			 </div>
+					</div>
+					</form>
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
-                        <i class="fas fa-align-left"></i>
-                        <span>메뉴</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <c:if test="${empty status}">
-	                            <li class="nav-item active">
-	                            	<form action="signIn" method="get">
-		                                <input id="signColor" type="submit" value="로그인" class="nav-link">
-		                            </form>
-	                            </li>
-	                            <li class="nav-item active">
-		                            <form action="signUp" method="get">
-		                                <input id="signColor" type="submit" value="회원가입" class="nav-link">
-		                            </form>
-	                            </li>
-                            </c:if>
-                            <c:if test="${!empty status}">
-                            	<li class="nav-item active">
-	                            	<form action="signOut" method="get">
-		                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
-		                            </form>
-	                            </li>
-                            </c:if>                         
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-			<!-- navbar 끝 -->
+			     </div><!-- 고정된 인풋 끝 -->
+	 			
+	 		</div><!-- top page 끝 -->
 			
-			<!-- 컨텐트 추가 시작 -->
-            <h2>관심 책을 추가해주세요.</h2>
+			<!-- 책이미지 출력 -->
+			<c:if test="${ !empty list }">
+				<c:forEach var="vo" items="${ list }" varStatus="status">		
+				
+					<div class="img-wrap pl-2">
+   						<button type="button" class="btn btn-circle close" onclick="deleteButton('${vo.id}');">
+   							<i class="fas fa-times" style="color: white;"></i>
+   						</button>
+  							<form action="detailInterestBook" method="post">
+  								<input type="hidden" name="bookNum" value="${vo.id}">
+  								<input type="hidden" name="bookTitle" value="${vo.title}">
+							<input type="image" alt="이미지" src="${vo.image}"> 
+						</form>
+					</div>	
+					<c:if test="${status.count % 4 == 0}">		
+						<br>
+						<div class="line"></div> <!-- 구분선 -->
+					</c:if>    			 
+				</c:forEach>
+			</c:if>
+			<a href="interestBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
+			</a>
+			<c:if test="${ empty list }">
+				<h2>관심 책을 추가해주세요.</h2>
+				<div class="line"></div> <!-- 구분선 -->
+			</c:if>
+			<!-- 책이미지 출력 끝 -->           
             
-            <div class="line"></div> <!-- 구분선 -->
-            <!-- 컨텐트 추가 끝 -->
+            <c:if test="${!empty msg}">
+				<script> alert("${msg}"); </script> 
+			</c:if>
+
+			<!-- 모달 영역 시작 -->          
+            <!-- Button trigger modal -->
+			<button id="addButton" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			  +
+			</button>
+			 
+			<!-- 책 추가 모달 -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+			    <div class="modal-content">
+				  <!-- 닫기 버튼 -->
+			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				 
+				 <div class="modal-body">
+				 	
+				 	<!--  모달 컨텐트 컨테이너 -->     	
+				 	<div class="container">
+				 		<!--  인풋 로우 -->   
+						<div class="row inputrow">
+							<div class="col-sm-12">
+								<div class="input-group">
+						        	<input name="keyword" 
+							        	type="text" class="form-control" 
+							        	placeholder="책 제목, 저자 검색"
+						        	 	aria-describedby="basic-addon2"
+						        	 	width="20px">
+						        	 <div class="input-group-append">
+						    			<button class="btn btn-outline-secondary" id="submitForm">검색</button>
+						 			 </div>
+							     </div>
+							</div>
+						</div>
+			
+				       <br>
+				       <!--  결과 로우 -->   
+			       		<c:forEach items="${bookList}" var ="b" >
+				        	<div id="row" class="row mr-1">
+				        		<div id="imgContainer" class="col-sm-3">
+				                	<img id="image" src="${b.image}" style="width: 200px">
+					            </div>
+					            <div class="col-sm-4">
+					            	<span id="title">${b.title}</span><br><br>
+					                <span id="author">${b.author}</span><br>
+					                <span id="publisher">${b.publisher}</span>
+					            </div>
+					             <div class="col-sm">
+					                ${b.description}
+					            </div>
+					            <div class="w-150"></div>
+				        	</div>
+			        	</c:forEach>
+						</div>
+			        	<!--  모달 컨텐트 컨테이너 끝 -->
+				 </div>	
+			    </div>
+			  </div>
+			</div>
+			<!-- 책 추가 모달 끝 -->
 
         </div>
         <!-- Page Content 끝 -->
         
+        <!-- 회원가입 및 로그인 -->
+        <c:if test="${ empty status }">
+	        <div class="sign">
+	       		<form action="signIn" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+	          	</form>
+	       		<form action="signUp" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+	          	</form>
+	        </div>
+        </c:if>
+        <c:if test="${ !empty status }">
+	        <div class="sign">
+	       		<form action="signOut" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
+	          	</form>
+	        </div>
+        </c:if>
+        <!-- 회원가입 및 로그인 끝 -->
+        
     </div>
-
-	<!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
 	    $(document).ready(function () {
@@ -149,5 +262,94 @@
 	        });
 	    });
     </script>
+        
+    <!-- 책추가 controller 보내서 db저장 -->
+    <script>   	
+    	//책 추가 모달에서 목록을 눌렀을 때
+		$('div#row').click(function(){ 
+		    var	image = $(this).children('div').children('img#image').attr("src");
+		    var	title = $(this).children('div').children('span#title').text();
+		    var	author = $(this).children('div').children('span#author').text();
+		    var	publisher = $(this).children('div').children('span#publisher').text(); 		
+		    var	description = $(this).children('div#description').text(); 	
+		    
+		    $.ajax({
+ 		        url: "interestBook",
+ 		        type: 'POST', 
+ 		        data: {
+ 		        	title : title,
+ 		        	author : author,
+ 		        	publisher : publisher,
+ 		        	description : description,
+ 		        	image : image
+ 		        },
+ 		        dataType : "text",
+ 		        success: function(data){           
+ 		        	//alert("insert 보냄");
+ 		        	$("#myModal .close").click();
+ 		        },
+ 		        error : function(request, status, error){
+ 		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
+ 		        }
+ 		    }); 
+		});	
+    </script>
+    <!-- 책추가 controller 보내서 db저장 끝 -->
+    
+    <!-- 삭제버튼 끝 -->
+	<script>
+		function deleteButton(id){
+		    $.ajax({
+		        url: "interestBook",
+		        type: 'POST', 
+		        data: {
+		        	bookNum : id
+		        },
+		        dataType : "text",
+		        success: function(data){           
+		        	//alert("delete 보냄");	 	
+		        	$('body').html(data);
+		        },
+		        error : function(request, status, error){
+		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
+		        }
+		    }); 
+		}
+	</script> 
+	<!-- 삭제버튼 끝 -->
+    
+    <!-- 도서 검색 -->
+	<script>
+	function searchFunc(e) {  
+		var keyword = $('input[name=keyword]').val();
+	
+	    var url = "interestBook?keyword=" + keyword;
+	    if(e.type == "keydown" && e.keyCode != 13) { return; } 
+	    
+	    $.ajax({
+	        url: url,
+	        type: 'GET', 
+	        success: function(data){
+	        	$('body').html(data);
+	            $('#myModal').modal('show'); 
+	        }
+	    });
+	}
+	
+	$(function(){
+	    $('#submitForm').on('click', searchFunc);   
+	    $('input[name=keyword]').on('keydown', searchFunc);   
+	    $('.close').on('click', function() {
+	    	$.ajax({
+	            url: "interestBook",
+	            type: 'GET', 
+	            success: function(data){
+	            	$('body').html(data);
+	            }
+	        });
+	    });   
+	});
+	</script>
+	<!-- 도서 검색 끝-->
 </body>
 </html>

@@ -4,17 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="resource.MyBookListMapper">
 
+	<!-- readBook -->
+ 	<!--<select id="selectAllBookList" parameterType="string"  resultType="model.MyBookList">
+    	select id, title, image, m_title, registdate, m_star, m_content from mybooklist where email = #{email} order by registdate desc
+ 	</select>-->
+ 	
+ 	<select id="searchBookList"  parameterType="string" resultType="model.MyBookList">
+    	select id, email, title, author, publisher, image, m_title, m_star, m_content, registdate from mybooklist where email = #{email} and (title like '%'||#{readkeyword}||'%' or author like '%'||#{readkeyword}||'%' or publisher like '%'||#{readkeyword}||'%')
+    </select>
+
+	<!-- readBook -->
  	<!--rownum을 이용하여 id시퀀스 번호만큼 추출  -->
  	<select id="selectAllBookList" parameterType="model.MyBookList"  resultType="model.MyBookList">
-    	select id, image, m_title, registdate, m_star, m_content from 
-    	(select id, image, m_title, registdate, m_star, m_content, rownum rnum from 
-    	(select * from mybooklist where email = #{email} order by id asc)) 
+    	select id, image, m_title, m_star, m_content,  registdate from 
+    	(select id, image, m_title, m_star, m_content,  registdate, rownum rnum from 
+    	(select * from mybooklist where email = #{email} order by registdate desc)) 
     	where rnum between #{start} and #{last}
  	</select>
- 	
-  	<!-- <select id="selectAllBookList" parameterType="model.MyBookList" resultType="model.MyBookList">
-    	select id, image, m_title, registdate, m_star, m_content from mybooklist where email = #{email} order by id asc
- 	</select> -->
 
 	<select id="totalCnt" parameterType="String" resultType="int">
 		select count(*) from mybooklist where email=#{email}
@@ -31,6 +37,10 @@
 		delete from mybooklist where id = #{id} 
 	</delete>
 	
+	<delete id="deleteAll" parameterType="String">
+		delete from mybooklist where email = #{email}
+	</delete>
+	
 	<update id="updateBookList" parameterType="model.MyBookList">
 		update mybooklist set 
 				m_title=#{m_title}, 
@@ -39,4 +49,44 @@
 				registdate=sysdate
 		where id=#{id}
 	</update>
+	
+	<select id="trendingbook" resultType="model.MyBookList">
+    	select title, count(*) as count from mybooklist group by title order by count(*) desc
+    </select>
+
+	<!-- selectlog -->
+	<select id="selectReadBookLog" resultType="model.MyBookList">
+    	select member.userName userName, booklist.title, booklist.m_star, booklist.m_content, booklist.logregistdate 
+    	from mybooklist booklist, tbl_member member where booklist.email = member.userID order by booklist.logregistdate desc
+ 	</select>
+	
+	<!-- interestBook -->
+	 <select id="searchInterestbook"  parameterType="string" resultType="model.InterestBookList">
+    	select id, email, title, author, publisher, image from interestbooklist where email = #{email} and (title like '%'||#{interestkeyword}||'%' or author like '%'||#{interestkeyword}||'%' or publisher like '%'||#{interestkeyword}||'%')
+    </select>
+	
+	<select id="selectAllInterestBookList" parameterType="string"  resultType="model.InterestBookList">
+    	select id, image, title from interestbooklist where email = #{email} order by id desc
+ 	</select>
+
+  	<insert id="insertInterestBookList"  parameterType="model.InterestBookList">
+  		<selectKey resultType="int" keyProperty="id" order="BEFORE">
+      		select mybooklist_seq.nextval from dual     
+    	</selectKey>  
+    		insert into interestbooklist(id, email, title, author, publisher, image) values(#{id},#{email},#{title},#{author},#{publisher}, #{image})
+<!--     		insert into interestbooklist(id, email, title, author, publisher, description, image, logregistdate) values(#{id},#{email},#{title},#{author},#{publisher}, #{description}, #{image}, sysdate) -->
+	</insert>	
+	
+	<delete id="deleteInterestBookList" parameterType="int">
+		delete from interestbooklist where id = #{id} 
+	</delete> 
+	
+	<delete id="deleteAllInterestBook" parameterType="String">
+		delete from interestbooklist where email = #{email} 
+	</delete> 
+
+	<!-- detailInterestBook -->
+	<select id="selectDetailInterestBook" parameterType="int"  resultType="model.InterestBookList">
+    	select id, image, title, author, publisher from interestbooklist where id = #{id}
+ 	</select>
 </mapper>

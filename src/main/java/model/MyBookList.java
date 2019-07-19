@@ -3,6 +3,7 @@ package model;
 public class MyBookList {
 	private int id;
     private String email;
+    private String userName;
     private String title;
     private String author;
     private String publisher;
@@ -11,6 +12,7 @@ public class MyBookList {
     private String m_star;
     private String m_content;
     private String registdate;
+    private String logregistdate;
     
     private int start;
     private int last;
@@ -70,7 +72,6 @@ public class MyBookList {
 	public void setRegistdate(String registdate) {
 		this.registdate = registdate;
 	}
-	
 	public String getM_title() {
 		return m_title;
 	}
@@ -89,10 +90,24 @@ public class MyBookList {
 	public void setM_content(String m_content) {
 		this.m_content = m_content;
 	}
+	public String getLogregistdate() {
+		return logregistdate;
+	}
+	public void setLogregistdate(String logregistdate) {
+		this.logregistdate = logregistdate;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	@Override
 	public String toString() {
-		return "MyBookList [id=" + id + ", email=" + email + ", title=" + title + ", author=" + author + ", publisher="
-				+ publisher + ", image=" + image + ", m_title=" + m_title + ", m_star=" + m_star + ", m_content="
-				+ m_content + ", registdate=" + registdate + "]";
+		return "MyBookList [id=" + id + ", email=" + email + ", userName=" + userName + ", title=" + title + ", author="
+				+ author + ", publisher=" + publisher + ", image=" + image + ", m_title=" + m_title + ", m_star="
+				+ m_star + ", m_content=" + m_content + ", registdate=" + registdate + ", logregistdate="
+				+ logregistdate + "]";
 	}
 }

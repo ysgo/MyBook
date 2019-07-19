@@ -8,11 +8,10 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 p {
-    font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
@@ -42,11 +41,30 @@ p {
     border: none;
 }
 
+.sign {
+	position: fixed;
+	top: 4%;
+	right: 3%;
+}
+
+.sign input {
+	font-size: 20px;
+	font-family: 'Noto Sans', sans-serif;
+	font-weight: 700;
+	color: #58C9B9;
+}
+
+.sign input:hover {
+	opacity: .7;
+	text-decoration: none;
+}
+
 .line {
     width: 100%;
     height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
+    border-bottom: 1px dashed rgb(81, 157, 158, .4);
+    margin-bottom: 30px;
+    margin-top: 50px;
 }
 
 /* ---------------------------------------------------
@@ -119,10 +137,16 @@ ul ul #leftSideBar:hover {
     background: #58C9B9; /* 읽은 책, 관심책 메뉴 배경색 */
 }
 
+.btn-outline-secondary {
+	color: #58C9B9;
+	border-color: #58C9B9;
+}
+
 .btn:hover {
 	background: #58C9B9;
 	border: white;
 }
+
 
 /* 로고 */
 
@@ -174,6 +198,12 @@ ul ul #leftSideBar:hover {
 }
 /* 툴팁 끝 */
 
+#trending {
+	width: 90%;
+	height: 300px;
+	border: 1px solid gray;
+}
+
 
 ul.CTAs {
     padding: 20px;
@@ -193,8 +223,7 @@ ul.CTAs #leftSideBar {
 ----------------------------------------------------- */
 
 #content {
-	background-color: rgb(157, 200, 200, .3);
-	border: 1px solid lightgray;
+	background-color: rgb(157, 200, 200, .3); 
   	width: 60%;
     padding: 40px;
     min-height: 100vh;
@@ -202,6 +231,11 @@ ul.CTAs #leftSideBar {
     top: 0;
     left: 250px;
     position: absolute;
+    margin : 0 auto;  
+}
+
+body > div#content{
+	text-align: center;
 }
 
 #content.active {
@@ -211,14 +245,6 @@ ul.CTAs #leftSideBar {
 #updateArticle{
 	max-width: 400px;
 	text-align: center;
-}
-#addButton{
-	position:fixed; 
-	bottom:30px;
-	right:30px; 
-	z-index:999;
-	background-color: #17a2b8 !important;
-	border-color: #17a2b8;
 }
 
 #signColor{
@@ -232,7 +258,6 @@ ul.CTAs #leftSideBar {
 	width : auto;
 	color : #fff;
 }
-
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -252,5 +277,11 @@ ul.CTAs #leftSideBar {
     }
     #sidebarCollapse span {
         display: none;
+    }
+}
+
+@media (min-width: 1500px) {
+	#content {
+        width: 70%;
     }
 }
