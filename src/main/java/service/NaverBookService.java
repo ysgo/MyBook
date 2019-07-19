@@ -15,6 +15,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import model.Book;
+import model.InterestBookList;
 import model.MyBookList;
 
 @Service
@@ -115,6 +116,7 @@ public class NaverBookService {
 		return list;
 	}
 	
+	//MyBookList
 	public List<MyBookList> listAll(String id){
 		List<MyBookList> list = null;
 		String statement = "resource.MyBookListMapper.selectAllBookList";
@@ -146,6 +148,38 @@ public class NaverBookService {
 		return result;
 	}
 	
+	//InterestBookList
+		public List<InterestBookList> listAllInterestBook(String id){
+			List<InterestBookList> list = null;
+			String statement = "resource.MyBookListMapper.selectAllInterestBookList";
+			list = session.selectList(statement, id);
+			return list;
+		}
+		
+		public boolean insertInterestBook(InterestBookList vo) {
+			boolean result=true;
+			String statement = "resource.MyBookListMapper.insertInterestBookList";
+			if(session.insert(statement, vo) != 1)
+				result = false;
+			return result;
+		}
+		
+		public boolean deleteInterestBook(int id) {
+			boolean result=true;
+			String statement = "resource.MyBookListMapper.deleteInterestBookList";
+			if(session.insert(statement, id) != 1)
+				result = false;
+			return result;
+		}
+		
+	//detailInterestBook
+		public List<InterestBookList> selectDetailInterestBook(int id){
+			List<InterestBookList> list = null;
+			String statement = "resource.MyBookListMapper.selectDetailInterestBook";
+			list = session.selectList(statement, id);
+			return list;
+		}
+
 	public List<MyBookList> searchReadbook(Map<String, String>map) {
 		List<MyBookList> list = null;
 		String statement = "resource.MyBookListMapper.searchBookList";
