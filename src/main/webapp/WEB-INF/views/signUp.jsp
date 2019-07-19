@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	
-	<title>ㅊㅊ</title>
+	<title>CHACKCHECK</title>
 	
 	<!-- jQuery CDN -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -49,7 +49,6 @@
 						</span>
 					</div>
 					<input name="" class="form-control" placeholder="닉네임" type="text" required autofocus>
-					<div>유효하지 않은 .</div>
 				</div>
 				
 				<!-- 이메일 -->

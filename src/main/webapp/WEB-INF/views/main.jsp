@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>ㅊㅊ</title>
+    <title>CHACKCHECK</title>
 
 	<!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -62,7 +62,7 @@
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
                 <li>
-                	<form id="leftSideBar" action="" method="get">
+                	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="post">
 	                	<input id="leftSideBarColor" type="submit" value="메인">
 	                </form>
                 </li>

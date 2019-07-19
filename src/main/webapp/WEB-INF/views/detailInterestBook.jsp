@@ -1,17 +1,14 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8">
+<title>CHACKCHECK</title>
 
-    <title>CHACKCHECK</title>
-
-	<!-- jQuery CDN -->
+<!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
@@ -28,12 +25,15 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
+<style>
+	#kyoboImg, #interparkImg, #aladinImg,  #yes24Img {
+		width : 178px;
+		height : 65px;
+	}
+</style>
 </head>
-
 <body>
-
-    <div class="wrapper">
+	<div class="wrapper">
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
 			<div class="sidebar-header p-3">
@@ -43,7 +43,6 @@
             </div>
 
             <ul class="list-unstyled components">
-                <!-- <p>Dummy Heading</p> -->
                 <li>
                 	<form id="leftSideBar" action="${pageContext.request.contextPath}/" method="get">
 	                	<input id="leftSideBarColor" type="submit" value="메인">
@@ -110,60 +109,31 @@
             </nav>
 			<!-- navbar 끝 -->
 			
-			<!-- 컨텐트 추가 시작 -->    
-			<article id="updateArticle" class="card-body mx-auto">
-				<h2>내 정보 수정</h2>
-				
-				<!-- 수정 폼태그 시작 -->
-				<form>
-					<!-- 닉네임 -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-user"></i>
-							</span>
+			<!-- 선택한 관심책 상세 내용 출력 -->
+			<c:if test="${ !empty list }">	
+				<c:forEach var="vo" items="${ list }">	
+				<div class="row" style="height: auto;">
+						<img alt="이미지" src="${vo.image}" width="100" height="150" style="border : 1px solid #000;"/>	
+						<div>
+							<span style="font-weight: bold; font-size: 25px;">${vo.title}</span><br>	
+							<span style="font-weight: bold; font-size: 17px;">저자 : ${vo.author}</span><br>	
+							<span style="font-weight: bold; font-size: 17px;">출판사 : ${vo.publisher}</span><br>	
+							<p style="font-size: 15px;">${vo.description}</p>
 						</div>
-						<input name="" class="form-control" placeholder="닉네임" type="text" required autofocus>
-					</div>
-					
-					<!-- 이메일 -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-envelope"></i>
-							</span>
-						</div>
-						<input name="" class="form-control" placeholder="" type="email" disabled>
-					</div>
-	
-					<!-- 비밀번호 -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-lock"></i>
-							</span>
-						</div>
-						<input class="form-control" placeholder="비밀번호" type="password" required>
-					</div>
-					
-					<!-- 비밀번호 확인 -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-lock"></i>
-							</span>
-						</div>
-						<input class="form-control" placeholder="비밀번호 확인" type="password" required>
-					</div>
-					
-					<!-- 수정 버튼 -->
-					<div class="form-group">
-						<input type="submit" class="btn btn-primary btn-block" value="수정">
-					</div>
-				</form>
-				<!-- 수정 폼태그 끝 -->
-				
-			</article>
-            <div class="line"></div> <!-- 구분선 -->
-            <!-- 컨텐트 추가 끝 -->
-
-        </div>
+				</div>
+				<div class="line"></div> <!-- 구분선 --> 	
+				<div> 
+					<% String encodeStr = (String)request.getAttribute("bookTitle"); %>
+					<a href="http://www.kyobobook.co.kr/search/SearchKorbookMain.jsp?vPstrCategory=KOR&vPstrKeyWord=<%= URLEncoder.encode(encodeStr, "euc-kr") %>&vPplace=top" target="_blank"><img id="kyoboImg" src="images/kyobo.png" alt="교보문고" ></a>
+					<a href="http://bsearch.interpark.com/dsearch/book.jsp?sch=all&bid1=search_auto&bid2=product&bid3=000&bid4=001&query=<%= URLEncoder.encode(encodeStr, "euc-kr") %>" target="_blank"><img id="interparkImg" src="images/interpark.jpg" alt="인터파크" ></a>
+					<a href="https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=All&SearchWord=<%= URLEncoder.encode(encodeStr, "euc-kr") %>&x=0&y=0" target="_blank"><img id="aladinImg" src="images/aladin.png" alt="알라딘"></a>
+					<a href="http://www.yes24.com/searchcorner/Search?keywordAd=&keyword=&domain=ALL&qdomain=%C0%FC%C3%BC&Wcode=001_005&query=<%= URLEncoder.encode(encodeStr, "euc-kr") %>" target="_blank"><img id="yes24Img" src="images/yes24.png" alt="yes24"></a>
+				</div>		 
+				</c:forEach>		
+			</c:if>
+			<!-- 선택한 관심책 상세 내용 출력 끝 -->
+			
+			</div>
         <!-- Page Content 끝 -->
         
     </div>
@@ -188,5 +158,4 @@
 	    });
     </script>
 </body>
-
 </html>

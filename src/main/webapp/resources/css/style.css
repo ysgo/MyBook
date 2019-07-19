@@ -202,6 +202,11 @@ ul.CTAs #leftSideBar {
     top: 0;
     left: 250px;
     position: absolute;
+    margin : 0 auto;  
+}
+
+body > div#content{
+	text-align: center;
 }
 
 #content.active {
@@ -215,7 +220,7 @@ ul.CTAs #leftSideBar {
 #addButton{
 	position:fixed; 
 	bottom:30px;
-	right:30px; 
+	right:70px; 
 	z-index:999;
 	background-color: #17a2b8 !important;
 	border-color: #17a2b8;
@@ -232,7 +237,6 @@ ul.CTAs #leftSideBar {
 	width : auto;
 	color : #fff;
 }
-
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
