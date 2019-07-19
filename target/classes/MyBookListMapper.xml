@@ -7,6 +7,10 @@
  	<select id="selectAllBookList" parameterType="string"  resultType="model.MyBookList">
     	select id, image, m_title, registdate, m_star, m_content from mybooklist where email = #{email} order by id asc
  	</select>
+ 	
+ 	<select id="searchBookList"  parameterType="string" resultType="model.MyBookList">
+    	select id, email, title, author, publisher, image, m_title, m_star, m_content, registdate from mybooklist where email = #{email} and (title like '%'||#{readkeyword}||'%' or author like '%'||#{readkeyword}||'%' or publisher like '%'||#{readkeyword}||'%')
+    </select>
 
   	<insert id="insertBookList"  parameterType="model.MyBookList">
   		<selectKey resultType="int" keyProperty="id" order="BEFORE">

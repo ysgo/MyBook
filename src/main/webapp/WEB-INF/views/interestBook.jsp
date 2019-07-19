@@ -22,6 +22,7 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/booklist-style.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -119,6 +120,20 @@
 <body>
 
     <div class="wrapper">
+       	<div style="z-index:500">
+	        <a href="${pageContext.request.contextPath}/" class="brand-logo-main" >
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-auto pr-0 mt-2">		
+							CHACK<br>CHECK
+						</div>
+						<div class="col-sm-auto pl-1">
+							<img src="images/book.jpg" style="width: 55px">
+						</div>
+					</div>	
+				</div>
+			</a>		
+         </div>
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
 			<div class="sidebar-header p-3">
@@ -165,33 +180,10 @@
         <div id="content">
 
 			<!-- navbar 시작 -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
-                        <i class="fas fa-align-left"></i>
-                        <span>메뉴</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                            	<form action="signIn" method="get">
-	                                <input id="signColor" type="submit" value="로그인" class="nav-link">
-	                            </form>
-                            </li>
-                            <li class="nav-item active">
-	                            <form action="signUp" method="get">
-	                                <input id="signColor" type="submit" value="회원가입" class="nav-link">
-	                            </form>
-                            </li>                        
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5">
+               <i class="fas fa-align-left"></i>
+               <span>MENU</span>
+            </button>
 			<!-- navbar 끝 -->
 			
 			<!-- 책이미지 출력 -->
@@ -283,6 +275,17 @@
 
         </div>
         <!-- Page Content 끝 -->
+        
+        <!-- 회원가입 및 로그인 -->
+        <div class="sign">
+       		<form action="signIn" method="get" style ='float: left;'>
+              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+          	</form>
+       		<form action="signUp" method="get" style ='float: left;'>
+              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+          	</form>
+        </div>
+        <!-- 회원가입 및 로그인 끝 -->
         
     </div>
 

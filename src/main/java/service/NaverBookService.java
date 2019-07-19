@@ -6,6 +6,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class NaverBookService {
                         break;
                     case "image":
                         if(b != null)
-                            b.setImage(parser.nextText());
+                            b.setImage(parser.nextText().replace("type=m1", ""));
                         break;
                     case "author":
                         if(b != null)
@@ -178,5 +179,12 @@ public class NaverBookService {
 			list = session.selectList(statement, id);
 			return list;
 		}
+
+	public List<MyBookList> searchReadbook(Map<String, String>map) {
+		List<MyBookList> list = null;
+		String statement = "resource.MyBookListMapper.searchBookList";
+		list = session.selectList(statement, map);
+		return list;
+	}
 }
 

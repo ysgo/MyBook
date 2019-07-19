@@ -37,7 +37,7 @@
          <div style="z-index:500">
 	        <a href="${pageContext.request.contextPath}/" class="brand-logo-main" >
 				<div class="container">
-					<div class="row" id="tooltip">
+					<div class="row" id="tooltip" style="width: 200px;">
 						<div class="col-sm-auto pr-0 mt-2">		
 							CHACK<br>CHECK
 						</div>
@@ -98,34 +98,10 @@
         <div id="content">
 
 			<!-- navbar 시작 -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
-                        <i class="fas fa-align-left"></i>
-                        <span>메뉴</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                            	<form action="signIn" method="get">
-	                                <input id="signColor" type="submit" value="로그인" class="nav-link">
-	                            </form>
-                            </li>
-                            <li class="nav-item active">
-	                            <form action="signUp" method="get">
-	                                <input id="signColor" type="submit" value="회원가입" class="nav-link">
-	                            </form>
-                            </li>                        
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-			<!-- navbar 끝 -->
+			<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5">
+               <i class="fas fa-align-left"></i>
+               <span>MENU</span>
+            </button>
 			
 			<!-- 컨텐트 추가 시작 -->
             <h2>활동로그</h2>
@@ -141,7 +117,17 @@
 
         </div>
         <!-- Page Content 끝 -->
-        <div class="overlay"></div>
+        
+        <!-- 회원가입 및 로그인 -->
+        <div class="sign">
+       		<form action="signIn" method="get" style ='float: left;'>
+              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+          	</form>
+       		<form action="signUp" method="get" style ='float: left;'>
+              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+          	</form>
+        </div>
+        <!-- 회원가입 및 로그인 끝 -->
         
     </div>
     
