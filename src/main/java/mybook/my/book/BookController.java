@@ -31,10 +31,11 @@ public class BookController {
 			@SessionAttribute("status")MemberVO loginVO, @RequestParam(defaultValue="1")int curPage) {
 		ModelAndView mav = new ModelAndView(); 
 		String userId = loginVO.getUserId();
+		
 		if(readkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("readkeyword", readkeyword);
-	        map.put("email", "qwe@gmail.com");
+	        map.put("email", userId);
 
 			mav.addObject("list", service.searchReadbook(map)); 
 			mav.setViewName("readBook");
@@ -87,13 +88,15 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = {"/interestBook"}) 
-	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword) {
+	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword,
+			@SessionAttribute("status")MemberVO loginVO) {
 		ModelAndView mav = new ModelAndView(); 
+		String userId = loginVO.getUserId();
 		
 		if(interestkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("interestkeyword", interestkeyword);
-	        map.put("email", "qwe@gmail.com");
+	        map.put("email", userId);
 
 			mav.addObject("list", service.searchInterestbook(map)); 
 			mav.setViewName("interestBook");
@@ -103,7 +106,7 @@ public class BookController {
 		if(keyword != null) { 
 			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api�? ?��?�� 찾�? 값을 list?��?��?���? 보내�??��.
 		}else {
-			model.setEmail("qwe@gmail.com");
+			model.setEmail(userId);
 			
 			if(bookNum != null) {
 				//delete
@@ -117,7 +120,7 @@ public class BookController {
 					mav.addObject("msg", "InterestBookList insert ?��?��");
 			}
 		}
-		mav.addObject("list", service.listAllInterestBook("qwe@gmail.com")); 
+		mav.addObject("list", service.listAllInterestBook(userId)); 
 		mav.setViewName("interestBook");
 		return mav;
 	}

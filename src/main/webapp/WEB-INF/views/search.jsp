@@ -33,7 +33,7 @@
 			</div>
 			<div>
 				<p>
-					<label>NickName</label>
+					<label>UserName</label>
 					<input class="w3-input" type="text" id="userName" name="userName" required>
 				</p>
 				<p>

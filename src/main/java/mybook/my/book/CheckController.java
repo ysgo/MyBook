@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.MemberService;
@@ -18,12 +19,14 @@ public class CheckController {
 	
 	// ?��?��?�� 체크기능
 	@RequestMapping(value = "/nameCheck", method = RequestMethod.GET)
+	@ResponseBody
 	public int nameCheck(String userName) {
 		return service.userNameCheck(userName);
 	}
 	
 	// ?��메일ID 체크기능
 	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
+	@ResponseBody
 	public int idCheck(String userId) {
 		return service.userIdCheck(userId);
 	}
