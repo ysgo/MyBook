@@ -23,6 +23,7 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/booklist-style.css">
+    <link rel="stylesheet" href="css/interestbook-style.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -30,91 +31,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-<style>
-	@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-	body {
-		font-family:  ''Noto Sans KR";
-	}
-	#imgContainer {
-		text-align:center;
-	}
-	.row {
-		padding: 5px;
-	}
-	.row:hover {
-		background-color: #dcebf7;
-		cursor: pointer;
-	}
-	.inputrow:hover {
-		background-color: white;
-	}
-	.inputrow {
-		margin: 0 auto;
-	    float: none;
-	    text-align: center;
-	}
-	.input-group{
-		vertical-align: middle; 
-	}
 
-	.modal-open {
-    	overflow: scroll; /* 모달 영역을 닫아도 스크롤바가 존재 */
-	}
-	
-	.upDelButton{
-		background-color: #17a2b8;
-		border:none; 
-	}
-	
-	/* 이미지 위에 마우스를 올려놓으면 opacity가 1이 되는 영역 */
-	.img-wrap {
-	    position: relative;
-	    display: inline-block;
-	    font-size: 0;
-	}
-	
-	/* 이미지 위에 deleteButton */
- 	.img-wrap .close{
-	    position: absolute;
-	    top: 4px;
-	    right: 18px;
-	    z-index: 100;
- 	    background-color: #58C9B9;
-	    padding: 5px 2px 2px;
-	    color: #fff;
-	    font-weight: bold; 
-	    cursor: pointer;
-	    opacity: 0.2;
-	} 
-	.img-wrap:hover .btn-circle {
-	    opacity: 1;
-	}
- 	.btn-circle {
-	  	width: 25px;
-	  	height: 25px;
-	  	text-align: center;
-	  	padding: 6px 0;
-	  	font-size: 18px;
-	  	border-radius: 15px;
-	  	position: absolute;
-	    top: 4px;
-	    right: 18px;
-	    z-index: 100;
-	    color : #fff;
-	} 
-	
-	/* 구분선 진하게 */
-	div.line{
-		border : 2px solid #000;
-	}
-	
-	input[type=image]{
-		width : 110px;
-		height : 160px; 
-		border : 1px solid #000;
-		margin : 0 15px;
-	}
-</style>
 </head>
 
 <body>
@@ -179,30 +96,59 @@
         <!-- Page Content 시작 -->
         <div id="content">
 
-			<!-- navbar 시작 -->
-            <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5">
-               <i class="fas fa-align-left"></i>
-               <span>MENU</span>
-            </button>
-			<!-- navbar 끝 -->
+			<div class="top-page mb-5"><!-- top page 시작 -->
+	 		
+	 			<div class="btn-with-fixedInput pr-1 pl-3"><!-- 메뉴 버튼 -->
+	
+					<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
+		               <i class="fas fa-align-left"></i>
+		               <span>MENU</span>
+		            </button>
+		            
+				</div>
+					
+				<div class="fixedInput pl-1"><!-- 고정된 인풋 -->
+				
+					<form method="get" action="interestBook" target="_self">
+					<div class="input-group">
+						<input name="interestkeyword" 
+				        	type="text" class="form-control" 
+				        	placeholder="내가 추가한 책 제목, 저자, 출판사 검색"
+			        	 	aria-describedby="basic-addon2"
+			        	 	>
+			        	 <div class="input-group-append">
+			    			<button class="btn btn-outline-secondary" type="submit">검색</button>
+			 			 </div>
+					</div>
+					</form>
+
+			     </div><!-- 고정된 인풋 끝 -->
+	 			
+	 		</div><!-- top page 끝 -->
 			
 			<!-- 책이미지 출력 -->
 			<c:if test="${ !empty list }">
-					<c:forEach var="vo" items="${ list }" varStatus="status">		
-						<div class="img-wrap">
-    						<button type="button" class="btn btn-circle close" onclick="deleteButton('${vo.id}');"><i class="fas fa-times"></i></button>
-    							<form action="detailInterestBook" method="post">
-    								<input type="hidden" name="bookNum" value="${vo.id}">
-    								<input type="hidden" name="bookTitle" value="${vo.title}">
-									<input type="image" alt="이미지" src="${vo.image}"> 
-								</form>
-						</div>	
-							<c:if test="${status.count % 4 == 0}">		
-								<br>
-								<div class="line"></div> <!-- 구분선 -->
-							</c:if>    			 
-					</c:forEach>
+				<c:forEach var="vo" items="${ list }" varStatus="status">		
+				
+					<div class="img-wrap pl-2">
+   						<button type="button" class="btn btn-circle close" onclick="deleteButton('${vo.id}');">
+   							<i class="fas fa-times" style="color: white;"></i>
+   						</button>
+  							<form action="detailInterestBook" method="post">
+  								<input type="hidden" name="bookNum" value="${vo.id}">
+  								<input type="hidden" name="bookTitle" value="${vo.title}">
+							<input type="image" alt="이미지" src="${vo.image}"> 
+						</form>
+					</div>	
+					<c:if test="${status.count % 4 == 0}">		
+						<br>
+						<div class="line"></div> <!-- 구분선 -->
+					</c:if>    			 
+				</c:forEach>
 			</c:if>
+			<a href="interestBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
+			</a>
 			<c:if test="${ empty list }">
 				<h2>관심 책을 추가해주세요.</h2>
 				<div class="line"></div> <!-- 구분선 -->
@@ -248,23 +194,22 @@
 			
 				       <br>
 				       <!--  결과 로우 -->   
-				        <c:forEach items="${bookList}" var ="b" >
-					        	<div id="row" class="row">
-					        		<div id="imgContainer" class="col-2 col-sm-2">
-					                	<img id="image" src="${b.image}">
-						            </div>
-						            <div class="col-2 col-sm-3">
-						            	<span id="title">${b.title}</span><br>
-						                <span id="author">${b.author}</span><br>
-						                <span id="publisher">${b.publisher}</span>
-						            </div>
-						             <div id="description" class="col-6 col-md-7">
-						                ${b.description}
-						            </div>
-						            <div class="w-150"></div>
-					        	</div>
-				        </c:forEach>
-						
+			       		<c:forEach items="${bookList}" var ="b" >
+				        	<div id="row" class="row mr-1">
+				        		<div id="imgContainer" class="col-sm-3">
+				                	<img id="image" src="${b.image}" style="width: 200px">
+					            </div>
+					            <div class="col-sm-4">
+					            	<span id="title">${b.title}</span><br><br>
+					                <span id="author">${b.author}</span><br>
+					                <span id="publisher">${b.publisher}</span>
+					            </div>
+					             <div class="col-sm">
+					                ${b.description}
+					            </div>
+					            <div class="w-150"></div>
+				        	</div>
+			        	</c:forEach>
 						</div>
 			        	<!--  모달 컨텐트 컨테이너 끝 -->
 				 </div>	

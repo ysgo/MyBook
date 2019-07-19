@@ -82,8 +82,19 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = {"/interestBook"}) 
-	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum) {
+	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword) {
 		ModelAndView mav = new ModelAndView(); 
+		
+		if(interestkeyword != null) {
+			Map<String, String> map = new HashMap<String, String>();
+	        map.put("interestkeyword", interestkeyword);
+	        map.put("email", "qwe@gmail.com");
+
+			mav.addObject("list", service.searchInterestbook(map)); 
+			mav.setViewName("interestBook");
+			return mav;	
+		}
+		
 		if(keyword != null) { 
 			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api를 통해 찾은 값을 list형식으로 보내준다.
 		}else {
@@ -118,6 +129,14 @@ public class BookController {
 	@RequestMapping(value = {"/myPage"}, method=RequestMethod.GET) 
 	public String myPage() {
 		return "myPage";
+	}
+	
+	@RequestMapping(value = {"/trendingbook"}, method=RequestMethod.GET) 
+	public ModelAndView trendingbook() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", service.trendingbook()); 
+		mav.setViewName("main");
+		return mav;
 	}
 }
 

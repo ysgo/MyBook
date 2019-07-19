@@ -23,7 +23,7 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css?a">
-    <link rel="stylesheet" href="css/booklist-style.css">
+    <link rel="stylesheet" href="css/booklist-style.css?a">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -130,12 +130,10 @@
 			<c:if test="${ !empty list }">
 				<ul id="ulRow">
 					<c:forEach var="vo" items="${ list }">
-
-						<li class="row">
-
-							<img alt="이미지" src="${vo.image}" width="100" height="150" style="border : 1px solid #000"/>
-							<div style="margin : 0 10px;">
-								<span style="margin-right: 5px; font-size: 20pt;">${vo.m_title}</span>
+						<li class="row pl-3">
+							<img alt="이미지" src="${vo.image}" width="100" height="150" style="border : 1px solid lightgray"/>
+							<div style="width: 70%" class="ml-4">
+								<span style="margin-right: 5px; font-size: 17pt;">${vo.m_title}</span>
 								<span>${vo.registdate}</span><br>
 								별점 : 
 								<span>
@@ -156,13 +154,13 @@
 										<a class="on">★★★★★</a>
 									</c:otherwise>
 								</c:choose></span><br>	
-								<span style="font-size: 15pt;">${vo.m_content}</span>
+								<span style="font-size: 14pt;">${vo.m_content}</span>
 							</div>
 						</li>
 						<div class="caption">
 						<c:choose>
-							<c:when test = '${fn:length(vo.title) >= 20}'>
-							${fn:substring(vo.title,0,20)} ...
+							<c:when test = '${fn:length(vo.title) >= 19}'>
+							${fn:substring(vo.title,0,18)}...
 							</c:when>
 							<c:otherwise>
 							${vo.title}
@@ -172,7 +170,7 @@
 						<div class="float-right"><!-- 수정 및 삭제 시작-->
 							<form action="readBook" method="post">
 								<input type="hidden" name="bookNum" value="${vo.id}">						
-								<button type="button" class="btn btn-outline-primary upDelButton" data-toggle="modal" data-target="#myModal3" 
+								<button type="button" class="btn btn-outline-primary upDelButton" data-toggle="modal" data-target="#myModal2" 
 									onclick="updateButton('${vo.id}', '${vo.m_title}', '${vo.m_star}', '${vo.m_content}');" onmouseover="hover(this);" onmouseleave="leave(this)">
 									<img id="pencil" src="images/pencil.png" style="width: 20px" class="mr-2">수정
 								</button>
@@ -185,6 +183,10 @@
 					</c:forEach>
 				</ul>
 			</c:if>
+			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
+			</a>
+			
 			<c:if test="${ empty list }">
 			<% 
 				if(request.getParameter("readkeyword") != null) { 
@@ -383,7 +385,6 @@
 	 		        },
 	 		        dataType : "text",
 	 		        success: function(data){           
-	 		        	//alert("insert 보냄");
 			 	 		$("#myModal2 .close").click();
 			 	 		return false;
 	 		        },
@@ -415,6 +416,7 @@
 	<!-- 	수정버튼 -->
 	<script>
   	function updateButton(id, m_title, m_star, m_content){
+  		alert("눌림");
   		document.getElementById('m_title').value=m_title; 
   		document.getElementById('m_content').value=m_content; 
   		$('#'+m_star).parent().children("a").removeClass("on");
@@ -427,6 +429,7 @@
   		
   		//서평 추가 모달에서 확인버튼 눌렀을 때
   			$('button#m_submit').click(function(){ 
+  				
   			    var m_title = $('input#m_title').val();
   			    var m_content = $('textarea#m_content').val();
   			    
@@ -441,7 +444,6 @@
   			        },
   			        dataType : "text",
   			        success: function(data){           
-  			        	//alert("보냄");
   			 	 		$("#myModal2 .close").click(); 			 	 		
   			        },
   			        error : function(request, status, error){

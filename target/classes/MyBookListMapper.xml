@@ -5,7 +5,7 @@
 <mapper namespace="resource.MyBookListMapper">
 	<!-- readBook -->
  	<select id="selectAllBookList" parameterType="string"  resultType="model.MyBookList">
-    	select id, image, m_title, registdate, m_star, m_content from mybooklist where email = #{email} order by id asc
+    	select id, title, image, m_title, registdate, m_star, m_content from mybooklist where email = #{email} order by registdate desc
  	</select>
  	
  	<select id="searchBookList"  parameterType="string" resultType="model.MyBookList">
@@ -32,7 +32,15 @@
 		where id=#{id}
 	</update>
 	
+	<select id="trendingbook" resultType="model.MyBookList">
+    	select title, count(*) as count from mybooklist group by title order by count(*) desc
+    </select>
+	
 	<!-- interestBook -->
+	 <select id="searchInterestbook"  parameterType="string" resultType="model.InterestBookList">
+    	select id, email, title, author, publisher, description, image from interestbooklist where email = #{email} and (title like '%'||#{interestkeyword}||'%' or author like '%'||#{interestkeyword}||'%' or publisher like '%'||#{interestkeyword}||'%')
+    </select>
+	
 	<select id="selectAllInterestBookList" parameterType="string"  resultType="model.InterestBookList">
     	select id, image, title from interestbooklist where email = #{email} order by id asc
  	</select>
