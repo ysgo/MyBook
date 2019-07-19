@@ -26,14 +26,12 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="mybook.my.book" />
-	<beans:bean id="naverLoginBO" class="mybook.my.book.NaverLoginBO" />
-
-	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
-
 	<context:component-scan base-package="service"/>
 	<context:component-scan base-package="dao"/>
 	<context:component-scan base-package="vo"/>
-	
+	<beans:bean id="naverLoginBO" class="mybook.my.book.NaverLoginBO" />
+
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
 	
 	<beans:bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 	<beans:property value="oracle.jdbc.OracleDriver" name="driverClassName"/>
@@ -41,7 +39,7 @@
 	<beans:property value="jdbctest" name="username"/>
 	<beans:property value="jdbctest" name="password"/>
 	</beans:bean>
-	
+	<!-- Localhost 부분을 변경하여 사용하는 DB테이블의 IP주소를 현재 PC로 등록한다 -->
 	
 	<beans:bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 	<beans:property name="dataSource" ref="dataSource"/>

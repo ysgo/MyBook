@@ -48,15 +48,15 @@ commit;
 
 ```sql
 CREATE TABLE mybooklist(
-    id NUMBER(10) PRIMARY KEY not null,
+    id NUMBER(30) PRIMARY KEY not null,
     email VARCHAR2(100) not null,
-    title VARCHAR2(100),
-    author VARCHAR2(40),
-    publisher VARCHAR2(50),
+    title VARCHAR2(300),
+    author VARCHAR2(80),
+    publisher VARCHAR2(100),
     image VARCHAR2(400),
     m_title VARCHAR2(400),
     m_star VARCHAR2(30),
-    m_content VARCHAR2(500),
+    m_content VARCHAR2(800),
     registdate date
 );
 
@@ -75,6 +75,28 @@ increment by 1;
 -----------------------------------------------------
 
 select * from mybooklist;
+
+-- 페이지 범위 지정
+select id, image, m_title, registdate, m_star, m_content from 
+(select * from
+(select * from mybooklist where email = 'qwe@gmail.com' order by id asc))
+where rownum between 6 and 10;
+
+select id, image, m_title, registdate, m_star, m_content from 
+(select id, image, m_title, registdate, m_star, m_content, rownum rnum from
+(select * from mybooklist where email = #{email} order by id asc))
+where rnum between #{startPage} and #{endPage};
+
+select id, title, content, author, regisDate
+    from (
+        select id, title, content, author, regisDate,
+            row_number() over(order by id desc) as rNum
+        from mybooklist
+        ) mb
+    where rNum between 1 and 10
+        order by bno desc;
+
+-----------------------------------------------------
 
 select * from interestBooklist;
 

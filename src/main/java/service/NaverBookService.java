@@ -132,7 +132,7 @@ public class NaverBookService {
 	public boolean delete(MyBookList model) {
 		boolean result=true;
 		String statement = "resource.MyBookListMapper.deleteBookList";
-		if(session.insert(statement, model) != 1)
+		if(session.delete(statement, model) != 1)
 			result = false;
 		return result;
 	}
@@ -140,9 +140,14 @@ public class NaverBookService {
 	public boolean update(MyBookList vo) {
 		boolean result=true;
 		String statement = "resource.MyBookListMapper.updateBookList";
-		if(session.insert(statement, vo) != 1)
+		if(session.update(statement, vo) != 1)
 			result = false;
 		return result;
+	}
+	
+	public int getTotalCnt(String userId) {
+		String statement = "resource.MyBookListMapper.totalCnt";
+		return session.selectOne(statement, userId);
 	}
 }
 

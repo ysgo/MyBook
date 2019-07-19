@@ -7,35 +7,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.MemberService;
 
 @Controller
-@SessionAttributes("status")
 public class CheckController {
 	@Autowired
 	private MemberService service; 
 	
 	// 닉네임 체크기능
 	@RequestMapping(value = "/nameCheck", method = RequestMethod.GET)
-	@ResponseBody
 	public int nameCheck(String userName) {
 		return service.userNameCheck(userName);
 	}
+	
 	// 이메일ID 체크기능
 	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
-	@ResponseBody
 	public int idCheck(String userId) {
 		return service.userIdCheck(userId);
 	}
+	
 	// 아이디/비밀번호 찾기 페이지로 이동
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	public String searchId() {
 		return "search";
 	}
+	
 	// 아이디 찾기
 	@RequestMapping(value="/searchId", method=RequestMethod.POST)
 	public ModelAndView searchId(@RequestParam("userName")String userName) {
@@ -49,6 +47,7 @@ public class CheckController {
 		mav.setViewName("search_view");
 		return mav;
 	}
+	
 	// 비밀번호 찾기
 	@RequestMapping(value="/searchPass", method=RequestMethod.POST)
 	public ModelAndView searchPass(@RequestParam("userName") String userName,

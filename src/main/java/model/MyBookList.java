@@ -12,20 +12,20 @@ public class MyBookList {
     private String m_content;
     private String registdate;
     
-    private int startPage;
-    private int endPage;
-    
-	public int getStartPage() {
-		return startPage;
+    private int start;
+    private int last;
+	
+	public int getStart() {
+		return start;
 	}
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
+	public void setStart(int start) {
+		this.start = start;
 	}
-	public int getEndPage() {
-		return endPage;
+	public int getLast() {
+		return last;
 	}
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
+	public void setLast(int last) {
+		this.last = last;
 	}
 	
 	public int getId() {
