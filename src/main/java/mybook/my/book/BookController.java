@@ -34,7 +34,7 @@ public class BookController {
 		if(readkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("readkeyword", readkeyword);
-	        map.put("email", "qwe@gmail.com");
+	        map.put("email", userId);
 
 			mav.addObject("list", service.searchReadbook(map)); 
 			mav.setViewName("readBook");
@@ -52,10 +52,10 @@ public class BookController {
 					model.setId(Integer.parseInt(bookNum));
 					boolean result = service.update(model);
 					if(result) {
-						mav.addObject("msg", "mybooklist update ?���?");
+						mav.addObject("msg", "mybooklist update 성공");
 					}
 					else
-						mav.addObject("msg", "mybooklist update ?��?��");
+						mav.addObject("msg", "mybooklist update 실패");
 				}else {
 					//delete
 					boolean result = service.delete(Integer.parseInt(bookNum));
@@ -65,9 +65,9 @@ public class BookController {
 				&& model.getM_title()!=null && model.getM_star()!=null && model.getM_content()!=null) {
 				boolean result = service.insert(model);
 				if(result) 
-					mav.addObject("msg", "mybooklist insert ?���?");
+					mav.addObject("msg", "mybooklist insert 성공");
 				else
-					mav.addObject("msg", "mybooklist insert ?��?��");
+					mav.addObject("msg", "mybooklist insert 실패");
 			}
 		}
 //		mav.addObject("list", service.listAll("qwe@gmail.com")); 
@@ -112,9 +112,9 @@ public class BookController {
 					model.getPublisher()!=null && model.getDescription()!=null & model.getImage()!=null) {
 				boolean result = service.insertInterestBook(model);
 				if(result) 
-					mav.addObject("msg", "InterestBookList insert ?���?");
+					mav.addObject("msg", "InterestBookList insert 성공");
 				else
-					mav.addObject("msg", "InterestBookList insert ?��?��");
+					mav.addObject("msg", "InterestBookList insert 실패");
 			}
 		}
 		mav.addObject("list", service.listAllInterestBook("qwe@gmail.com")); 

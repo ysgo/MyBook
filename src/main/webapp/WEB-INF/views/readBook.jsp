@@ -199,14 +199,14 @@
 			<% 
 				if(request.getParameter("readkeyword") != null) { 
 			%>
-				<h2 style="padding-top: 30px">찾으시는 내용이 없어요!</h2>
+				<h2 style="padding-top: 30px">찾으시는 내용이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
 			<%
 				} else {
 			%>
 				<script>
 					$('#listall').hide();
 				</script>
-				<h2>읽은 책과 서평을 추가해주세요 :)</h2>
+				<h2>읽은 책과 서평을 추가해주세요  <img src="images/smile-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
 			<%
 				}
 			%>

@@ -27,10 +27,11 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/booklist-style.css">
-    <link rel="stylesheet" href="css/interestbook-style.css">
+    <link rel="stylesheet" href="css/interestbook-style.css?a">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
+	<!-- Font Awesome CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -134,26 +135,28 @@
 				<c:forEach var="vo" items="${ list }" varStatus="status">		
 				
 					<div class="img-wrap pl-2">
-   						<button type="button" class="btn btn-circle close" onclick="deleteButton('${vo.id}');">
-   							<i class="fas fa-times" style="color: white;"></i>
-   						</button>
-  							<form action="detailInterestBook" method="post">
-  								<input type="hidden" name="bookNum" value="${vo.id}">
-  								<input type="hidden" name="bookTitle" value="${vo.title}">
-							<input type="image" alt="이미지" src="${vo.image}"> 
+   						<%-- <button type="button" class="btn btn-circle close" onclick="deleteButton('${vo.id}');"> --%>
+		
+						<form action="detailInterestBook" method="post" style="width: 150px;" id="interestForm">
+							<input type="hidden" name="bookNum" value="${vo.id}">
+							<input type="hidden" name="bookTitle" value="${vo.title}">
+							<input type="image" alt="이미지" src="${vo.image}" /> 
+							<div style="position: relative;" id="iconbox">
+								<div style="position: absolute; right: 6px; bottom: 153px"><a href="interestBook?bookNum=${vo.id}"><img class="svg deletelink" src="images/times-solid.svg" style="z-index: 999;"></a></div>
+							</div>
 						</form>
 					</div>	
 					<c:if test="${status.count % 4 == 0}">		
 						<br>
 						<div class="line"></div> <!-- 구분선 -->
-					</c:if>    			 
+					</c:if> 					   			 			 
 				</c:forEach>
 			</c:if>
 			<a href="interestBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
 				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
 			</a>
 			<c:if test="${ empty list }">
-				<h2>관심 책을 추가해주세요.</h2>
+				<h2>관심 책을 추가해주세요  <img src="images/smile-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
 				<div class="line"></div> <!-- 구분선 -->
 			</c:if>
 			<!-- 책이미지 출력 끝 -->           
@@ -260,6 +263,7 @@
 	            $('.collapse.in').toggleClass('in');
 	            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
 	        });
+	        
 	    });
     </script>
         
@@ -295,29 +299,7 @@
 		});	
     </script>
     <!-- 책추가 controller 보내서 db저장 끝 -->
-    
-    <!-- 삭제버튼 끝 -->
-	<script>
-		function deleteButton(id){
-		    $.ajax({
-		        url: "interestBook",
-		        type: 'POST', 
-		        data: {
-		        	bookNum : id
-		        },
-		        dataType : "text",
-		        success: function(data){           
-		        	//alert("delete 보냄");	 	
-		        	$('body').html(data);
-		        },
-		        error : function(request, status, error){
-		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
-		        }
-		    }); 
-		}
-	</script> 
-	<!-- 삭제버튼 끝 -->
-    
+     
     <!-- 도서 검색 -->
 	<script>
 	function searchFunc(e) {  
@@ -351,5 +333,38 @@
 	});
 	</script>
 	<!-- 도서 검색 끝-->
+	
+	<!-- svg inline -->
+	<script>
+    jQuery('img.svg').each(function(){
+        var $img = jQuery(this);
+        var imgID = $img.attr('id');
+        var imgClass = $img.attr('class');
+        var imgURL = $img.attr('src');
+
+        jQuery.get(imgURL, function(data) {
+            // Get the SVG tag, ignore the rest
+            var $svg = jQuery(data).find('svg');
+
+            // Add replaced image's ID to the new SVG
+            if(typeof imgID !== 'undefined') {
+                $svg = $svg.attr('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if(typeof imgClass !== 'undefined') {
+                $svg = $svg.attr('class', imgClass+' replaced-svg');
+            }
+
+            // Remove any invalid XML tags as per http://validator.w3.org
+            $svg = $svg.removeAttr('xmlns:a');
+
+            // Replace image with new SVG
+            $img.replaceWith($svg);
+
+        }, 'xml');
+
+    });
+	</script>
+	<!-- svg inline -->
 </body>
 </html>
