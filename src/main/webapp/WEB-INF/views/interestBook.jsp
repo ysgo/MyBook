@@ -153,11 +153,24 @@
 				</c:forEach>
 			</c:if>
 			<a href="interestBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
-				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
 			</a>
 			<c:if test="${ empty list }">
+			<% 
+				if(request.getParameter("interestkeyword") != null) { 
+			%>
+				<h2 style="padding-top: 30px">찾으시는 내용이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
+			<%
+				} else {
+			%>
+				<script>
+					$('#listall').hide();
+				</script>
 				<h2>관심 책을 추가해주세요  <img src="images/smile-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
-				<div class="line"></div> <!-- 구분선 -->
+			<%
+				}
+			%>
+			<div class="line"></div> <!-- 구분선 -->
 			</c:if>
 			<!-- 책이미지 출력 끝 -->           
             
