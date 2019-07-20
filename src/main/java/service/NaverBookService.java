@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import model.Book;
 import model.InterestBookList;
+import model.Log;
 import model.MyBookList;
 
 @Service
@@ -116,6 +118,7 @@ public class NaverBookService {
 		return list;
 	}
 	
+	//myBookList
 	public List<MyBookList> listAll(MyBookList model){
 		List<MyBookList> list = null;
 		String statement = "resource.MyBookListMapper.selectAllBookList";
@@ -162,11 +165,19 @@ public class NaverBookService {
 	}
 	
 	//log
-	public List<MyBookList> selectReadBooklog(){
-		List<MyBookList> list = null;
-		String statement = "resource.MyBookListMapper.selectReadBookLog";
+	public boolean insertLog(Log vo) {
+		boolean result=true;
+		String statement = "resource.MyBookListMapper.insertLog";
+		if(session.insert(statement, vo) != 1)
+			result = false;
+		return result;
+	}
+	
+	public List<Log> selectLog(){
+		List<Log> list = null;
+		String statement = "resource.MyBookListMapper.selectLog";
 		list = session.selectList(statement);
-		System.out.println(list);
+		System.out.println("list : "+list);
 		return list;
 	}
 	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.MyBookList, java.util.List" %>
 <!DOCTYPE html>
 <html>
 
@@ -134,31 +135,54 @@
             </button>
 			
 			<!-- 컨텐트 추가 시작 -->
-            <h2>활동로그</h2>
+            <h3>지금 CHACKCHECK에서 인기있는 책</h3>
+            <div id="trending" class="mx-auto mt-5">
+            	<c:set var="loop_flag" value="false" />
+            	<c:forEach var="vo" items="${ list }" varStatus="status">	
+            	<c:if test="${not loop_flag}">
+            		${vo.title}<br>
+	            	<c:if test="${status.count == 5}">		
+						<c:set var="loop_flag" value="true"/>
+					</c:if>   
+				</c:if>
+				</c:forEach> 		
+            </div>
+            
+            <br>
+           		
+			<!-- 컨텐트 추가 시작 -->
+            <h2>활동기록</h2>
+            	 <br>
 	            <c:if test="${ !empty listLog }">
 					<ul>
-		           		<c:forEach var="vo" items="${ listLog }" >
-		           			<div id="row" class="row mr-1">
-		           				<div>닉네임 : ${vo.userName}</div><br> 
-								<div>책제목 : ${vo.title}</div><br> 
-								<div>별점 : ${vo.m_star}</div><br>  
-								<div>내용 : ${vo.m_content}</div><br> 
-								<div>로그 등록일 : ${vo.logregistdate}</div> 
-							</div>	
-							<div class="line"></div>
+		           		<c:forEach var="vo" items="${ listLog }" varStatus="status">
+			           		<%-- <c:if test="${status.count <6}"> --%>
+			           			<div id="row" class="row mr-1">
+			           				<a href="#"><div style="font-weight: bold;">${vo.userName}(닉네임)</div></a>&nbsp;<p>${vo.logRegistDate}(등록일)</p>
+				           				<c:if test="${ !empty vo.myBookTitle}"> <!-- 읽은 책 기록 -->
+				           					<span style="font-weight: bold; word-break: keep-all ;">${vo.myBookTitle} 서평을 작성하였습니다.</span><br>
+											<div>${vo.mStar}(별점)</div><br> 
+											<div style="word-break: keep-all ;">${vo.mContent}(내용)</div>
+				           				</c:if>
+				           				<c:if test="${ empty vo.myBookTitle}"> <!-- 관심 책 기록 -->
+				           					<span style="font-weight: bold; word-break: keep-all ;">${vo.interestBookTitle} 책을 관심 책에 담았습니다.</span><br>
+				           				</c:if>
+								</div>	
+								<div class="line"></div>
+							<%-- </c:if> --%>
 						 </c:forEach>
+						 <div style="text-align: right;"><a href="#">모든 활동기록 보기 ></a></div>
 					 </ul>
 				 </c:if>
 				 <c:if test="${ empty listLog }">
-				 	<div>활동로그가 없습니다.</div>
+				 	<div>활동기록이 없습니다.</div>
+				 	<div class="line"></div>
 				 </c:if>
-            <div class="line"></div> <!-- 구분선 -->
 
-            <h2>트렌드</h2>
+            <!-- <h2>트렌드</h2>
             <p>추후에 트렌드 추가</p>
-
-            <div class="line"></div>
-            <!-- 컨텐트 추가 끝 -->
+            <div class="line"></div>-->
+            <!-- 컨텐트 추가 끝 --> 
 
         </div>
         <!-- Page Content 끝 -->

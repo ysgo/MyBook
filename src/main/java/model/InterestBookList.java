@@ -9,6 +9,7 @@ public class InterestBookList {
     private String description;
     private String image;
     private String logregistdate;
+    private String userName;
     
 	public int getId() {
 		return id;
@@ -58,10 +59,16 @@ public class InterestBookList {
 	public void setLogregistdate(String logregistdate) {
 		this.logregistdate = logregistdate;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	@Override
 	public String toString() {
-		return "InterestBookList [id=" + id + ", email=" + email + ", title=" + title + ", author=" + author
-				+ ", publisher=" + publisher + ", description=" + description + ", image=" + image + ", logregistdate="
-				+ logregistdate + "]";
+		return "InterestBookList [id=" + id + ", email=" + email + ", userName=" + userName + ", title=" + title
+				+ ", author=" + author + ", publisher=" + publisher + ", description=" + description + ", image="
+				+ image + ", logregistdate=" + logregistdate + "]";
 	}
 }

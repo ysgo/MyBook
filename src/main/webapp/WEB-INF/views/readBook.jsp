@@ -162,7 +162,7 @@
 										<a class="on">★★★★★</a>
 									</c:otherwise>
 								</c:choose></span><br>	
-								<span style="font-size: 14pt;">${vo.m_content}</span>
+								<span style="font-size: 14pt; word-break: keep-all ;">${vo.m_content}</span> <!-- style="word-break: keep-all ;" -->
 							</div>
 						</li>
 						<div class="caption">
@@ -455,7 +455,7 @@
 	 		        error : function(request, status, error){
 	 		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
 	 		        }
-	 		    }); 
+	 		    }); 	 		
 	 		}); 
 		});	
     </script>

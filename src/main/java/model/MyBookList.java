@@ -3,7 +3,6 @@ package model;
 public class MyBookList {
 	private int id;
     private String email;
-    private String userName;
     private String title;
     private String author;
     private String publisher;
@@ -13,6 +12,7 @@ public class MyBookList {
     private String m_content;
     private String registdate;
     private String logregistdate;
+    private String userName;
     
     private int start;
     private int last;

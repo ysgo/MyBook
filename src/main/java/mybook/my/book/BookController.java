@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.InterestBookList;
+import model.Log;
 import model.MyBookList;
 import service.NaverBookService;
 import vo.MemberVO;
@@ -28,9 +29,10 @@ public class BookController {
 	
 	@RequestMapping(value = {"/readBook"}) 
 	public ModelAndView  readBook(@RequestParam(required=false)String keyword, @ModelAttribute MyBookList model, String bookNum, String readkeyword,
-			@SessionAttribute("status")MemberVO loginVO, @RequestParam(defaultValue="1")int curPage) {
+			@SessionAttribute("status")MemberVO loginVO, @RequestParam(defaultValue="1")int curPage, Log logmodel) {
 		ModelAndView mav = new ModelAndView(); 
 		String userId = loginVO.getUserId();
+		String userName = loginVO.getUserName();
 		
 		if(readkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
@@ -60,18 +62,18 @@ public class BookController {
 				}else {
 					//delete
 					boolean result = service.delete(Integer.parseInt(bookNum));
-				} //insert				
+				} 			
 			}else if(bookNum == null && model.getTitle()!=null && model.getTitle()!=null && 
 				model.getPublisher()!=null && model.getImage()!=null 
 				&& model.getM_title()!=null && model.getM_star()!=null && model.getM_content()!=null) {
+				//mybooklist insert
 				boolean result = service.insert(model);
-				if(result) 
-					mav.addObject("msg", "mybooklist insert ?���?");
-				else
-					mav.addObject("msg", "mybooklist insert ?��?��");
+				
+				//log table insert
+				logmodel.setUserName(userName);
+				service.insertLog(logmodel);
 			}
 		}
-//		mav.addObject("list", service.listAll("qwe@gmail.com")); 
 		
 		// selectAll & paging
 				int listCnt = service.getTotalCnt(userId);
@@ -89,9 +91,10 @@ public class BookController {
 	
 	@RequestMapping(value = {"/interestBook"}) 
 	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword,
-			@SessionAttribute("status")MemberVO loginVO) {
+			@SessionAttribute("status")MemberVO loginVO, Log logmodel) {
 		ModelAndView mav = new ModelAndView(); 
 		String userId = loginVO.getUserId();
+		String userName = loginVO.getUserName();
 		
 		if(interestkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
@@ -113,11 +116,12 @@ public class BookController {
 				boolean result = service.deleteInterestBook(Integer.parseInt(bookNum));
 			}else if(model.getTitle()!=null && model.getTitle()!=null && 
 					model.getPublisher()!=null && model.getDescription()!=null & model.getImage()!=null) {
+				//interestBooklist insert
 				boolean result = service.insertInterestBook(model);
-				if(result) 
-					mav.addObject("msg", "InterestBookList insert ?���?");
-				else
-					mav.addObject("msg", "InterestBookList insert ?��?��");
+				
+				//log table insert
+				logmodel.setUserName(userName);
+				service.insertLog(logmodel);
 			}
 		}
 		mav.addObject("list", service.listAllInterestBook(userId)); 
