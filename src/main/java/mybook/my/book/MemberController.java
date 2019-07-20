@@ -1,7 +1,11 @@
 package mybook.my.book;
 
-import javax.inject.Inject;
+import java.io.PrintWriter;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +28,14 @@ public class MemberController {
 	private MemberService service;
 	@Inject
 	private NaverBookService serviceBook;
+	@Inject
+	PasswordEncoder passwordEncoder;
 	
 	// main 페이지 이동 
 	@RequestMapping(value = "/")
 	public String main() {
 		return "main";
 	}
-	
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
@@ -43,6 +48,8 @@ public class MemberController {
 	public ModelAndView signUp(@ModelAttribute MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName = null;
+		String encPassword = passwordEncoder.encode(vo.getUserPass());
+		vo.setUserPass(encPassword);
 		if(service.signup(vo)) {
 			mav.addObject("status", vo);
 			viewName = "main";
@@ -60,26 +67,36 @@ public class MemberController {
 		return "signIn";
 	}
 	
-	// 로그인 : 객체 정보를 추출해 세션에 저장, 비교후 이동
+	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
-	public ModelAndView signIn(@ModelAttribute MemberVO vo) throws Exception {
+	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName  =null;
-		boolean result = service.loginCheck(vo);
-		if(result) {
-			vo = service.viewMember(vo);
-			mav.addObject("status", vo);
-			viewName = "main";
+		String pw = vo.getUserPass();
+		vo = service.viewMember(vo);
+		if(vo == null) {
+			viewName="signIn";
 		} else {
-			mav.addObject("status", null);
-			viewName = "signIn";
+			boolean result = passwordEncoder.matches(pw, vo.getUserPass());
+			if(result) {
+				mav.addObject("status", vo);
+				viewName = "main";
+			} else {
+				mav.addObject("status", null);
+				mav.addObject("msg", "로그인 정보를 확인해주세요!!");
+				viewName = "signIn";
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('로그인 정보를 확인해 주세요!!');</script>");
+				out.flush();
+			}			
 		}
 		mav.setViewName(viewName);
 		return mav;
 	}
 	
 	// 로그아웃 
-	@RequestMapping(value="/signOut", method=RequestMethod.GET)
+	@RequestMapping(value="/signOut", method=RequestMethod.POST)
 	public String  signOut(SessionStatus session) throws Exception {
 		service.signout(session);
 		return "redirect:/";
@@ -95,9 +112,12 @@ public class MemberController {
 	@RequestMapping(value="/myPage", method=RequestMethod.POST)
 	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status")MemberVO member) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		String userId = member.getUserId();
+		vo.setUserId(userId);
+		vo.setUserPass(passwordEncoder.encode(vo.getUserPass()));
 		boolean result = service.updateMember(vo);
-		member = vo;
 		if(result) {
+			member = vo;
 			mav.addObject("status", member);
 		}
 		mav.setViewName("myPage");

@@ -77,7 +77,8 @@ public class BookController {
 				model.setStart(pageList.getStartIndex());
 				model.setLast(pageList.getEndIndex());
 				List<MyBookList> list = service.listAll(model);
-				mav.addObject("list", list); 
+				mav.addObject("list", list);
+				mav.addObject("listCnt", listCnt);
 				mav.addObject("pagination", pageList);				
 				mav.setViewName("readBook");
 		return mav;

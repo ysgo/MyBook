@@ -192,6 +192,7 @@
 				</ul>
 				
 				<!-- 페이징 버튼 위치 시작 -->
+				<c:if test="${!empty listCnt }">
 					<div>
 						<c:if test="${pagination.curPage ne 1 }">
 							<a href="#" onClick="fn_paging(1)">[처음]</a>
@@ -220,6 +221,7 @@
 						</c:if>
 					</div>
 				</c:if>
+			</c:if>
 					<!-- 페이징 버튼 위치 종료 -->
 				
 			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
@@ -332,7 +334,7 @@
 							<!-- 제목 -->
 							<div class="md-form mb-3">
 								<p class="md-form mb-2">제목</p>
-								<input type="text" id="m_title" class="form-control validate">
+								<input type="text" id="m_title" class="form-control validate" >
 							</div>
 							<!-- 별점 -->
 							<div class="md-form mb-3">
@@ -380,7 +382,7 @@
 				</form>
 			</c:if>
 			<c:if test="${!empty status }">
-				<form action="signIn" method="get" style='float: left;'>
+				<form action="signOut" method="post" style='float: left;'>
 					<input id="signColor" type="submit" class="nav-link p-2"
 						value="로그아웃">
 				</form>

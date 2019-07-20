@@ -1,7 +1,5 @@
 package service;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.support.SessionStatus;
@@ -19,11 +17,6 @@ public class MemberService {
 		 return dao.signup(vo);
 	}
 
-	//회원 로그인 체크
-	public boolean loginCheck(MemberVO vo) {
-		return dao.loginCheck(vo);
-	}
-	
 	//회원 로그인 정보
 	public MemberVO viewMember(MemberVO vo) {
 		return dao.viewMember(vo);
@@ -55,13 +48,18 @@ public class MemberService {
 	}
 	
 	// 비밀번호 찾기
-	public String find_pw(HashMap<String, String> hash) {
-		String pass = dao.find_pw(hash);
+	public String find_pw(MemberVO vo) {
+		String pass = dao.find_pw(vo);
 		if(pass == null) {
 			return null;
 		} else {
 			return pass;
 		}
+	}
+	
+	// 임시 비밀번호 수정
+	public void tmp_pw(MemberVO vo) {
+		dao.tmp_pw(vo);
 	}
 	
 	// 회원 탈퇴

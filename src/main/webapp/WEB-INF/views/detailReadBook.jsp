@@ -93,16 +93,25 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                            	<form action="signIn" method="get">
-	                                <input id="signColor" type="submit" value="로그인" class="nav-link">
-	                            </form>
-                            </li>
-                            <li class="nav-item active">
-	                            <form action="signUp" method="get">
-	                                <input id="signColor" type="submit" value="회원가입" class="nav-link">
-	                            </form>
-                            </li>                        
+                            <c:if test="${empty status}">
+		                            <li class="nav-item active">
+		                            	<form action="signIn" method="get">
+			                                <input id="signColor" type="submit" value="로그인" class="nav-link">
+			                            </form> 
+		                            </li>
+		                            <li class="nav-item active">
+			                            <form action="signUp" method="get">
+			                                <input id="signColor" type="submit" value="회원가입" class="nav-link">
+			                            </form>
+		                            </li>
+	                            </c:if>
+	                            <c:if test="${!empty status}">
+	                            	<li class="nav-item active">
+		                            	<form action="signOut" method="post">
+			                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
+			                            </form>
+		                            </li>
+	                            </c:if>                    
                         </ul>
                     </div>
                 </div>

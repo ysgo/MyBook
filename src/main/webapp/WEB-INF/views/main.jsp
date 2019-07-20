@@ -176,7 +176,7 @@
         </c:if>
         <c:if test="${ !empty status }">
 	        <div class="sign">
-	       		<form action="signOut" method="get" style ='float: left;'>
+	       		<form action="signOut" method="post" style ='float: left;'>
 	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
 	          	</form>
 	        </div>
