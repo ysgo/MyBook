@@ -5,7 +5,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +16,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import model.Book;
 import model.InterestBookList;
-<<<<<<< HEAD
-=======
 import model.Log;
->>>>>>> origin/youngsun
 import model.MyBookList;
 
 @Service

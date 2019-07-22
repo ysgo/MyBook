@@ -165,7 +165,7 @@
 								<input type="hidden" name="bookNum" value="${vo.id}">						
 								<button type="button" class="btn btn-outline-primary upDelButton" data-toggle="modal" data-target="#myModal2" 
 									onclick="updateButton('${vo.id}', '${vo.m_title}', '${vo.m_star}', '${vo.m_content}');" onmouseover="hover(this);" onmouseleave="leave(this)">
-									<img id="pencil" src="images/pencil.png" style="width: 20px" class="mr-2">수정
+									<img id="pencil" src="images/pencil.png" style="width: 20px" class="mr-2">수정 
 								</button>
 								<button type="submit" class="btn btn-outline-primary upDelButton" onmouseover="hover(this);" onmouseleave="leave(this)">
 									<img id="trash" src="images/trash.png" style="width: 20px" class="mr-1">삭제

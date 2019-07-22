@@ -1,16 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
-<<<<<<< HEAD
-
-body {
-	font-family:  ''Noto Sans KR";
-}
-=======
 @import url('https://fonts.googleapis.com/css?family=Cantarell&display=swap');
 body {
 	font-family: 'Noto Sans', sans-serif; 
 } 
->>>>>>> origin/youngsun
 #imgContainer {
 	text-align:center;
 }
@@ -18,10 +11,6 @@ body {
 	padding: 5px;
 }
 .row:hover {
-<<<<<<< HEAD
-	background-color: #dcebf7;
-=======
->>>>>>> origin/youngsun
 	cursor: pointer;
 }
 .inputrow:hover {
@@ -37,11 +26,7 @@ body {
 }
 
 .modal-open {
-<<<<<<< HEAD
-   	overflow: scroll; /* ¸ð´Þ ¿µ¿ªÀ» ´Ý¾Æµµ ½ºÅ©·Ñ¹Ù°¡ Á¸Àç */
-=======
    	overflow: scroll; /* ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾Æµï¿½ ï¿½ï¿½Å©ï¿½Ñ¹Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ */
->>>>>>> origin/youngsun
 }
 
 .upDelButton{
@@ -49,11 +34,7 @@ body {
 	border:none; 
 }
 
-<<<<<<< HEAD
-/* ÀÌ¹ÌÁö À§¿¡ ¸¶¿ì½º¸¦ ¿Ã·Á³õÀ¸¸é opacity°¡ 1ÀÌ µÇ´Â ¿µ¿ª */
-=======
 /* ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ opacityï¿½ï¿½ 1ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ */
->>>>>>> origin/youngsun
 .img-wrap {
 	position: relative;
     display: inline-block;
@@ -84,8 +65,6 @@ input[type=image]{
 
 input[type=image]:hover {
 	transform: scale(1.1);
-<<<<<<< HEAD
-=======
 }
 
 input[type=image]:hover + #iconbox .deletelink path{
@@ -174,5 +153,4 @@ input[type=image]:hover + #iconbox .deletelink path{
 
 .booklink a:hover {
 	font-size: 23px;
->>>>>>> origin/youngsun
 }

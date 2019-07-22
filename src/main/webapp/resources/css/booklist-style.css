@@ -33,21 +33,11 @@
 
 .btn-with-fixedInput,
 .fixedInput {
-<<<<<<< HEAD
-=======
 	vertical-align:middle;
->>>>>>> origin/youngsun
 	display: table-cell;
 }
 
 .btn-with-fixedInput {
-<<<<<<< HEAD
-	width: 100px;
-}
-
-.fixedInput {
-	width: 390px;
-=======
 	width: 10%;
 }
 
@@ -55,7 +45,6 @@
 	margin-left: 10px;
 	margin: auto;
 	width: 50%;
->>>>>>> origin/youngsun
 }
 
 .caption {
@@ -66,11 +55,7 @@
 	color: gray;
 }
 
-<<<<<<< HEAD
-/*¼­Æò Ãß°¡ ¸ð´Þ*/
-=======
 /*ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½*/
->>>>>>> origin/youngsun
 .form-elegant .font-small {
     font-size: 0.8rem; }
 .form-elegant .z-depth-1a {
@@ -86,11 +71,7 @@
 .form-elegant .modal-body, .form-elegant .modal-footer {
     font-weight: 400; }
     
-<<<<<<< HEAD
-/*º°Á¡*/    
-=======
 /*ï¿½ï¿½ï¿½ï¿½*/    
->>>>>>> origin/youngsun
 .star_rating {font-size:0; letter-spacing:-4px;}
 .star_rating a {
     font-size:22px;
@@ -108,11 +89,7 @@
 }
 
 .modal-open {
-<<<<<<< HEAD
-   	overflow: scroll; /* ¸ð´Þ ¿µ¿ªÀ» ´Ý¾Æµµ ½ºÅ©·Ñ¹Ù°¡ Á¸Àç */
-=======
    	overflow: scroll; /* ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾Æµï¿½ ï¿½ï¿½Å©ï¿½Ñ¹Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ */
->>>>>>> origin/youngsun
 }
 
 .btn-outline-primary {
@@ -139,9 +116,6 @@
 	text-shadow: none;
 	color: black;
 	border-radius: 30px;
-<<<<<<< HEAD
-}
-=======
 }
 
 @media (max-width: 1100px) {
@@ -154,4 +128,3 @@
 	width: 250px;
 }
 }
->>>>>>> origin/youngsun
