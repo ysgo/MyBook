@@ -5,11 +5,7 @@
 .wrapper {
     display: flex;
     width: 100%;
-<<<<<<< HEAD
-    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-=======
     font-family: 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
->>>>>>> origin/master
 }
 
 p {
@@ -102,7 +98,6 @@ p {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #fff; /* #47748b */ /* ï¿½ï¿½ï¿½Ð¼ï¿½ */
 }
 
 #sidebar ul p {
@@ -206,11 +201,7 @@ ul ul #leftSideBar:hover {
 	opacity: 0;
 	border-radius: 30px;
 }
-<<<<<<< HEAD
-/* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
-=======
-/* ÅøÆÁ ³¡ */
->>>>>>> origin/master
+
 h3 {
 	font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
 }
