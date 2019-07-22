@@ -1,12 +1,16 @@
 package mybook.my.book;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,41 +24,97 @@ import model.MyBookList;
 import service.MemberService;
 import service.NaverBookService;
 import vo.MemberVO;
+import vo.PagingVO;
 
 @Controller
 @SessionAttributes("status")
 public class MemberController {
+	
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+	
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
+	
 	@Inject
 	private MemberService service;
 	@Inject
 	private NaverBookService serviceBook;
+	//main 페이지 이동 
+	@RequestMapping(value = "/")
+	public ModelAndView main() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("listLog", serviceBook.selectLog());
+		mav.addObject("list", serviceBook.trendingbook()); 
+		mav.setViewName("main");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/otherReadBook")
+	public ModelAndView otherReadBook(@RequestParam(defaultValue="1")int curPage,
+			@ModelAttribute MyBookList model, String email) {
+		ModelAndView mav = new ModelAndView();
+		int listCnt = serviceBook.getTotalCnt(email);
+		PagingVO pageList = new PagingVO(listCnt, curPage);
+		model.setStart(pageList.getStartIndex());
+		model.setLast(pageList.getEndIndex());
+		model.setEmail(email);
+		List<MyBookList> list = serviceBook.listAll(model);
+		mav.addObject("list", list); 
+		
+		mav.addObject("pagination", pageList);	
+		mav.setViewName("otherReadBook");
+		return mav;
+	}
+
+	
+	@RequestMapping(value = "/otherInterestBook")
+	public ModelAndView otherInterestBook(String email) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", serviceBook.listAllInterestBook(email)); 
+		mav.setViewName("otherInterestBook");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/allLog")
+	public ModelAndView allLog() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("listLog", serviceBook.selectLog()); 
+		mav.setViewName("allLog");
+		return mav;
+	}
+	
 	@Inject
 	PasswordEncoder passwordEncoder;
 	
-	// main 페이지 이동 
-	@RequestMapping(value = "/")
-	public String main() {
-		return "main";
-	}
-	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-	public String signUp() {
+	public String signUp(Model model, HttpSession session) {
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+		model.addAttribute("url", naverAuthUrl);
 		return "signUp";
 	}
 	
 	// 회원가입 : 서비스 객체에 저장
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
-	public ModelAndView signUp(@ModelAttribute MemberVO vo) throws Exception {
+	public ModelAndView signUp(@ModelAttribute MemberVO vo, Model model, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName = null;
 		String encPassword = passwordEncoder.encode(vo.getUserPass());
 		vo.setUserPass(encPassword);
 		if(service.signup(vo)) {
-//			mav.addObject("status", vo);
+			mav.addObject("status", vo);
+			mav.addObject("list", serviceBook.trendingbook()); 
+			mav.addObject("listLog", serviceBook.selectLog());
 			viewName = "redirect:/signIn";
 		} else {
-//			mav.addObject("status", null);
+			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+			model.addAttribute("url", naverAuthUrl);
+			mav.addObject("status", null);
 			viewName = "signUp";
 		}
 		mav.setViewName(viewName);
@@ -63,13 +123,15 @@ public class MemberController {
 	
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
-	public String  signIn() {
+	public String  signIn(Model model, HttpSession session) {
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+		model.addAttribute("url", naverAuthUrl);
 		return "signIn";
 	}
 	
 	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
-	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpServletResponse response) throws Exception {
+	public ModelAndView signIn(@ModelAttribute MemberVO vo, Model model, HttpServletResponse response, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName  =null;
 		String pw = vo.getUserPass();
@@ -80,10 +142,14 @@ public class MemberController {
 			boolean result = passwordEncoder.matches(pw, vo.getUserPass());
 			if(result) {
 				mav.addObject("status", vo);
+				mav.addObject("list", serviceBook.trendingbook()); 
+				mav.addObject("listLog", serviceBook.selectLog());
 				viewName = "redirect:/";
 			} else {
 				mav.addObject("status", null);
 				mav.addObject("msg", "로그인 정보를 확인해주세요!!");
+				String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+				model.addAttribute("url", naverAuthUrl);
 				viewName = "signIn";
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();

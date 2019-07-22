@@ -41,7 +41,7 @@
 		</p>
 		
 		<!-- 회원가입 폼태그 시작 -->
-		<form action="${pageContext.request.contextPath}/signUp" method="POST" id="form">
+		<form action="${pageContext.request.contextPath}/signUp" method="POST" >
 			<!-- 닉네임 -->
 			<div class="form-group input-group">
 				<div class="input-group-prepend">

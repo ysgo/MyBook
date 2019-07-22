@@ -98,7 +98,7 @@
 		<!-- Page Content 시작 -->
 		<div id="content">
 
-			<div class="top-page mb-5">
+			<div class="top-page mb-5 center-block">
 				<!-- top page 시작 -->
 
 				<div class="btn-with-fixedInput pr-1 pl-3">
@@ -144,25 +144,10 @@
 								<span style="margin-right: 5px; font-size: 17pt;">${vo.m_title}</span>
 								<span>${vo.registdate}</span><br>
 								별점 : 
-								<span>
-								<c:choose>
-									<c:when test="${vo.m_star == '1'}">
-										<a class="on">★</a>
-									</c:when>
-									<c:when test="${vo.m_star == '2'}">
-										<a class="on">★★</a>
-									</c:when>
-									<c:when test="${vo.m_star == '3'}">	
-										<a class="on">★★★</a>
-									</c:when>
-									<c:when test="${vo.m_star == '4'}">
-										<a class="on">★★★★</a>
-									</c:when>
-									<c:otherwise>
-										<a class="on">★★★★★</a>
-									</c:otherwise>
-								</c:choose></span><br>	
-								<span style="font-size: 14pt;">${vo.m_content}</span>
+								<c:forEach var="i" begin="1" end="${vo.m_star}">
+									<span>★</span>
+								</c:forEach><br>	
+								<span style="font-size: 14pt; word-break: keep-all ;">${vo.m_content}</span> <!-- style="word-break: keep-all ;" -->
 							</div>
 						</li>
 						<div class="caption">
@@ -189,9 +174,7 @@
 						</div><!-- 수정 및 삭제 끝-->
 						<div class="line"></div> <!-- 구분선 -->
 					</c:forEach>
-				</ul>
-				
-				<!-- 페이징 버튼 위치 시작 -->
+									<!-- 페이징 버튼 위치 시작 -->
 				<c:if test="${!empty listCnt }">
 					<div>
 						<c:if test="${pagination.curPage ne 1 }">
@@ -221,9 +204,10 @@
 						</c:if>
 					</div>
 				</c:if>
-			</c:if>
 					<!-- 페이징 버튼 위치 종료 -->
-				
+					
+				</ul>
+			</c:if>
 			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
 				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
 			</a>
@@ -232,14 +216,14 @@
 			<% 
 				if(request.getParameter("readkeyword") != null) { 
 			%>
-				<h2 style="padding-top: 30px">찾으시는 내용이 없어요!</h2>
+				<h2 style="padding-top: 30px">찾으시는 책이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
 			<%
 				} else {
 			%>
 				<script>
 					$('#listall').hide();
 				</script>
-				<h2>읽은 책과 서평을 추가해주세요 :)</h2>
+				<h2>읽은 책과 서평을 추가해주세요  <img src="images/smile-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
 			<%
 				}
 			%>
@@ -297,7 +281,7 @@
 											<span id="title">${b.title}</span><br> <br> <span
 												id="author">${b.author}</span><br> <span id="publisher">${b.publisher}</span>
 										</div>
-										<div class="col-sm">${b.description}</div>
+										<div class="col-sm" id="description">${b.description}</div>
 										<div class="w-150"></div>
 									</div>
 								</c:forEach>
@@ -334,7 +318,7 @@
 							<!-- 제목 -->
 							<div class="md-form mb-3">
 								<p class="md-form mb-2">제목</p>
-								<input type="text" id="m_title" class="form-control validate" >
+								<input type="text" id="m_title" class="form-control validate">
 							</div>
 							<!-- 별점 -->
 							<div class="md-form mb-3">
@@ -351,7 +335,7 @@
 							<!-- 내용작성부분 -->
 							<div class="md-form mb-3">
 								<p class="md-form mb-2">내용</p>
-								<textarea id="m_content" class="form-control" rows="5" style="white-space:pre-wrap"></textarea>
+								<textarea id="m_content" class="form-control" rows="5"></textarea>
 							</div>
 							<!-- 확인버튼 -->
 							<div class="text-center mb-3">
@@ -382,7 +366,7 @@
 				</form>
 			</c:if>
 			<c:if test="${!empty status }">
-				<form action="signOut" method="post" style='float: left;'>
+				<form action="signIn" method="post" style='float: left;'>
 					<input id="signColor" type="submit" class="nav-link p-2"
 						value="로그아웃">
 				</form>
@@ -415,13 +399,14 @@
 
 	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 -->
 	<script>   	
-    	var image, title, author, publisher, log;
+    	var image, title, author, publisher, description, log;
     	//책 추가 모달에서 목록을 눌렀을 때
 		$('div#row').click(function(){ 
 				image = $(this).children('div').children('img#image').attr("src");
 			  	title = $(this).children('div').children('span#title').text();
 			  	author = $(this).children('div').children('span#author').text();
 			  	publisher = $(this).children('div').children('span#publisher').text(); 	
+			  	description = $(this).children('div#description').text(); 	
 
 			 	$("#myModal").removeClass("in"); 
 			 	$(".modal-backdrop").remove();
@@ -432,7 +417,7 @@
 		 		$('button#m_submit').click(function(){ 
 		 		    var m_title = $('input#m_title').val();
 		 		    var m_content = $('textarea#m_content').val();
-		 		    m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+		 		   	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 	 		    $.ajax({
 	 		        url: "readBook",
 	 		        type: 'POST', 
@@ -440,6 +425,7 @@
 	 		        	title : title,
 	 		        	author : author,
 	 		        	publisher : publisher,
+	 		        	description : description,
 	 		        	image : image, 
 	 		        	m_title : m_title,
 	 		        	m_star : m_star,
@@ -478,8 +464,8 @@
 	<!-- 	수정버튼 -->
 	<script>
   	function updateButton(id, m_title, m_star, m_content){
-  		document.getElementById('m_title').value=m_title;
-  		document.getElementById('m_content').value=m_content.replace(/(<br\/>|(<br><\/button>))/g, '\r\n'); 
+  		document.getElementById('m_title').value=m_title; 
+  		document.getElementById('m_content').value=m_content.replace(/(<br\/>|(<br><\/button>))/g, '\r\n');
   		$('#'+m_star).parent().children("a").removeClass("on");
   		$('#'+m_star).addClass("on").prevAll("a").addClass("on");
 
@@ -493,7 +479,7 @@
   				
   			    var m_title = $('input#m_title').val();
   			    var m_content = $('textarea#m_content').val();
-  			 	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+  			  	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
   			    $.ajax({
   			        url: "readBook",
   			        type: 'POST', 
@@ -560,6 +546,5 @@
 			image.id === 'pencil' ? image.src = 'images/pencil.png' : image.src = 'images/trash.png';
 		}
 	</script>
-
 </body>
 </html>

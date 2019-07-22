@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.MyBookList, java.util.List" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
 
     <title>CHACKCHECK</title>
 
@@ -20,7 +21,7 @@
     <!-- Bootstrap CSS CDN -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css?b">
+    <link rel="stylesheet" href="css/style.css?a">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -28,6 +29,14 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<style>
+	#userNameCss{
+		font-weight: bold; 
+		border:none; 
+		background-color: #58C9B9; 
+		color: #fff;
+	}
+</style>
 </head>
 
 <body>
@@ -128,103 +137,54 @@
         <div id="content">
 
 			<!-- navbar 시작 -->
-			<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5 mt-2">
+			<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5">
                <i class="fas fa-align-left"></i>
                <span>MENU</span>
             </button>
-			
-			<!-- 컨텐트 추가 시작 -->
-			<!-- 트렌딩 북 -->
-			<h3 style="font-size: 28px; font-weight: 700; color: #58C9B9;">지금 인기있는 책</h3>
-            <div class="line"></div>
-            <div id="trending" class="mx-auto mt-4 mb-2 p-3">
-			<c:set var ="num" value="1" />
-            <c:forEach var="vo" items="${ list }" >
-            		<div class="slide" style="display:table; margin:0 auto;">
-            			<div style="display: table-row; height: 40px; font-weight: 700"># 가장 많이 읽은 책 ${num}위</div>  
-	            		<div style="display: table-cell; vertical-align:middle;" class="p-0"><img src="${vo.image}" style="box-shadow: 4px 4px 5px 0px rgba(107,106,107,1);"></div>
-	            		<div style="display: table-cell; vertical-align:middle;" class="pl-4">
-		            		<span style="font-size: 20px">${vo.title}</span><br><br>
-	 	            		${vo.author}<br>
-		            		${vo.publisher}<br><br> 
-		            		<span style="color:gray">${vo.description}</span><br> 
-	            		</div>	
-            		</div>
-            		<c:set var="num" value="${num+1}" />	
-            </c:forEach>		
-            </div>
-            <div style="height: 60px"></div>
-			
-			<script>
-			var index = 0;
-			function slide() {
-				var i;
-				var x = document.getElementsByClassName("slide");
-				for(i = 0 ; i < x.length ; i++) {
-					x[i].style.display = "none"; 
-				}
-				index++;
-				if(index > x.length) {
-					index = 1;
-				}
-				x[index-1].style.display= "block";
-				setTimeout(slide, 2000);
-			}
-			</script>
-			<!-- 트렌딩 북 끝 -->
-			
-            <h2 style="font-size: 28px; font-weight: 700; color: #58C9B9;">회원들의 활동 로그</h2>
-            	 <div class="line"></div>
+           		
+            <h2>활동기록</h2>
+            	 <br>
 	            <c:if test="${ !empty listLog }">
+					<ul>
 		           		<c:forEach var="vo" items="${listLog}" varStatus="status">
-			           		<c:if test="${status.count <6}">
-			           			<!-- 읽은 책 -->
-			           			<c:if test="${!empty vo.myBookTitle}"> 
-			           				<form action="otherReadBook" method="post">
-				               			<input type="hidden" name="email" value="${vo.email}">
-				           				<input id="userNameCss" type="submit" value="${vo.userName}">
-				           				&emsp;<span> ${vo.logregistdate}</span>
-			           				</form><br> 
-			           				<span style="font-weight: bold; word-break: keep-all ;">${vo.myBookTitle}</span>
-				           			<c:if test="${empty vo.isupdate}">
-				           				<span style="word-break: keep-all ;"> 책 서평을 작성하였습니다.</span>
-				           			</c:if>
-				           			<c:if test="${!empty vo.isupdate}">
-				           				<span style="word-break: keep-all ;"> 책 서평을 변경하였습니다.</span>
-				           			</c:if>	
-				           			<br>별점 <span>
-				           					<c:forEach var="i" begin="1" end="${vo.m_star}">
-				           						<span style="color : #58C9B9;">★</span>
-											</c:forEach></span><br>
-									<div style="word-break: keep-all ;">${vo.m_content}</div>		
-			           			</c:if> 
-			           			
-			           			<!-- 관심 책 -->
-			           			<c:if test="${empty vo.myBookTitle}"> 
-			           				<form action="otherInterestBook" method="post">
+			           		<%-- <c:if test="${status.count <6}"> --%>
+			           			<div id="row">    
+			           				<c:if test="${!empty vo.myBookTitle}">
+			           					<form action="otherReadBook" method="post">
 				               				<input type="hidden" name="email" value="${vo.email}">
 				           					<input id="userNameCss" type="submit" value="${vo.userName}">
 				           					&emsp;<span> ${vo.logregistdate}</span>
-			           				</form><br> 
-
-		           					<span style="font-weight: bold; word-break: keep-all ;">${vo.interestBookTitle}</span>
-			           				<c:if test="${empty vo.isupdate}">
-			           				<span style="word-break: keep-all ;"> 책을 관심 책으로 추가하였습니다.</span>
-			           				</c:if>	           			
-			           				
-			           			</c:if>			
+			           					</form><br> 
+			           					<span style="font-weight: bold; word-break: keep-all ;">${vo.myBookTitle}</span>
+				           				<c:if test="${empty vo.isupdate}">
+				           					<span style="word-break: keep-all ;"> 책 서평을 작성하였습니다.</span>
+				           					</c:if>
+				           				<c:if test="${!empty vo.isupdate}">
+				           					<span style="word-break: keep-all ;"> 책 서평을 변경하였습니다.</span>
+				           				</c:if>	
+				           				<br>별점 <span><c:forEach var="i" begin="1" end="${vo.m_star}">
+											<span style="color : #58C9B9;">★</span>
+										</c:forEach></span><br>
+										<div style="word-break: keep-all ;">${vo.m_content}</div>
+			           				</c:if> 
+			           				<c:if test="${empty vo.myBookTitle}">
+			           					<form action="otherInterestBook" method="post">
+				               				<input type="hidden" name="email" value="${vo.email}">
+				           					<input id="userNameCss" type="submit" value="${vo.userName}">
+				           					&emsp;<span> ${vo.logregistdate}</span>
+			           					</form><br>
+				           				<span style="font-weight: bold; word-break: keep-all ;">${vo.interestBookTitle}</span>
+				           				<span style="word-break: keep-all ;"> 책을 관심책에 담았습니다.</span><br>
+			           				</c:if>	
 								<div class="line"></div>
-							</c:if>
+							<%-- </c:if> --%>
 						 </c:forEach>
-					 <form style="text-align: right;" action="allLog" method="post"> 	
-				     	<button type="submit" class="btn btn-outline-secondary">모든 활동기록 보기 ></button>
-				     </form>
+					 </ul>
 				 </c:if>
 				 <c:if test="${ empty listLog }">
 				 	<div>활동기록이 없습니다.</div>
 				 	<div class="line"></div>
 				 </c:if>
-            <!-- 컨텐트 추가 끝 -->
 
         </div>
         <!-- Page Content 끝 -->
@@ -242,7 +202,7 @@
         </c:if>
         <c:if test="${ !empty status }">
 	        <div class="sign">
-	       		<form action="signOut" method="post" style ='float: left;'>
+	       		<form action="signOut" method="get" style ='float: left;'>
 	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
 	          	</form>
 	        </div>
@@ -281,8 +241,6 @@
             	//$( '#tooltiptext' ).fadeTo("fast", 0);
             	//$( '#tooltiptext' ).addClass( 'invisible' );
              });
-            
-            slide();
         });
     </script>
 </body>

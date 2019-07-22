@@ -1,5 +1,6 @@
 package mybook.my.book;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.InterestBookList;
+import model.Log;
 import model.MyBookList;
 import service.NaverBookService;
 import vo.MemberVO;
@@ -28,61 +29,67 @@ public class BookController {
 	
 	@RequestMapping(value = {"/readBook"}) 
 	public ModelAndView  readBook(@RequestParam(required=false)String keyword, @ModelAttribute MyBookList model, String bookNum, String readkeyword,
-			@SessionAttribute("status")MemberVO loginVO, @RequestParam(defaultValue="1")int curPage) {
+			@SessionAttribute("status")MemberVO loginVO, @RequestParam(defaultValue="1")int curPage, Log logmodel) throws ParseException {
 		ModelAndView mav = new ModelAndView(); 
 		String userId = loginVO.getUserId();
+		String userName = loginVO.getUserName();
 		if(readkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("readkeyword", readkeyword);
 	        map.put("email", userId);
-	        
-	        List<MyBookList> list = service.searchReadbook(map);
-			mav.addObject("list", list); 
+
+			mav.addObject("list", service.searchReadbook(map)); 
 			mav.setViewName("readBook");
 			return mav;	
 		}
+		
 		if(keyword != null) { 
-			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api를 통해 찾은 값을 list형식으로 보내준다
+			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api�? ?��?�� 찾�? 값을 list?��?��?���? 보내�??��.
 		}else {
 			model.setEmail(userId);
 			
 			if(bookNum != null) {
-				//update
 				if(model.getM_title()!=null && model.getM_star()!=null && model.getM_content()!=null) {
+					//update mybooklist
 					model.setId(Integer.parseInt(bookNum));
-					boolean result = service.update(model);
-					if(result) {
-						mav.addObject("msg", "mybooklist update 성공");
-					}
-					else
-						mav.addObject("msg", "mybooklist update 실패");
+					service.update(model);
+
+					//update log
+					logmodel.setId(Integer.parseInt(bookNum)+1);
+					logmodel.setLogregistdate(service.selectMyBookLastRegistDate());
+					logmodel.setIsupdate("y");
+					service.updateLog(logmodel);
+					
 				}else {
-					//delete
-					boolean result = service.delete(Integer.parseInt(bookNum));
-					if(result) {
-						mav.addObject("msg", "mybooklist delete 성공");
-					}
-					else
-						mav.addObject("msg", "mybooklist delete 실패");
-				} //insert				
+					//delete mybooklist
+					service.delete(Integer.parseInt(bookNum));
+					
+					//delete log
+					service.deleteLog(Integer.parseInt(bookNum)+1);
+				} 			
 			}else if(bookNum == null && model.getTitle()!=null && model.getTitle()!=null && 
 				model.getPublisher()!=null && model.getImage()!=null 
 				&& model.getM_title()!=null && model.getM_star()!=null && model.getM_content()!=null) {
-				boolean result = service.insert(model);
-				if(result) 
-					mav.addObject("msg", "mybooklist insert 성공");
-				else
-					mav.addObject("msg", "mybooklist insert 실패");
+
+				//insert mybooklist 
+				model.setUserName(userName);
+				service.insert(model);
+				
+				//insert log 
+				logmodel.setEmail(userId);
+				logmodel.setUserName(userName);
+				logmodel.setMyBookTitle(model.getTitle());
+				logmodel.setLogregistdate(service.selectMyBookLastRegistDate());
+				service.insertLog(logmodel);
 			}
 		}
-		
-		// selectAll & paging
+				//selectAll & paging
 				int listCnt = service.getTotalCnt(userId);
 				PagingVO pageList = new PagingVO(listCnt, curPage);
 				model.setStart(pageList.getStartIndex());
 				model.setLast(pageList.getEndIndex());
 				List<MyBookList> list = service.listAll(model);
-				mav.addObject("list", list);
+				mav.addObject("list", list); 
 				mav.addObject("listCnt", listCnt);
 				mav.addObject("pagination", pageList);				
 				mav.setViewName("readBook");
@@ -90,43 +97,51 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = {"/interestBook"}) 
-	public ModelAndView interestBook(@RequestParam(required=false)String keyword, @SessionAttribute("status")MemberVO loginVO,
-			InterestBookList model, String bookNum, String interestkeyword) {
+	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword,
+			@SessionAttribute("status")MemberVO loginVO, Log logmodel) throws ParseException {
 		ModelAndView mav = new ModelAndView(); 
 		String userId = loginVO.getUserId();
+		String userName = loginVO.getUserName();
+
 		if(interestkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("interestkeyword", interestkeyword);
 	        map.put("email", userId);
 
 			mav.addObject("list", service.searchInterestbook(map)); 
+			mav.addObject("total", service.countInterestBook(userId));
 			mav.setViewName("interestBook");
 			return mav;	
 		}
 		
 		if(keyword != null) { 
-			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api를 통해 찾은 값을 list형식으로 보내준다
+			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); 
 		}else {
 			model.setEmail(userId);
 			
 			if(bookNum != null) {
-				//delete
-				boolean result = service.deleteInterestBook(Integer.parseInt(bookNum));
-				if(result) {
-					mav.addObject("msg", "mybooklist delete 성공");
-				}
-				else
-					mav.addObject("msg", "mybooklist delete 실패");
+				//delete interestBook
+				service.deleteInterestBook(Integer.parseInt(bookNum));
+				
+				//delete log
+				service.deleteLog(Integer.parseInt(bookNum)+1);
 			}else if(model.getTitle()!=null && model.getTitle()!=null && 
 					model.getPublisher()!=null && model.getDescription()!=null & model.getImage()!=null) {
-				boolean result = service.insertInterestBook(model);
-				if(result) 
-					mav.addObject("msg", "InterestBookList insert 성공");
-				else
-					mav.addObject("msg", "InterestBookList insert 실패");
+				
+				//insert interestBooklist 
+				service.insertInterestBook(model);
+				
+				//insert log
+				logmodel.setEmail(userId);
+				logmodel.setUserName(userName);
+				logmodel.setInterestBookTitle(model.getTitle());
+				logmodel.setLogregistdate(service.selectInterestLastRegistDate());
+				service.insertLog(logmodel);
 			}
 		}
 		mav.addObject("list", service.listAllInterestBook(userId)); 
+		// interestBook list rendering
+		mav.addObject("total", service.countInterestBook(userId));
 		mav.setViewName("interestBook");
 		return mav;
 	}
@@ -140,12 +155,5 @@ public class BookController {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/trendingbook"}, method=RequestMethod.GET) 
-	public ModelAndView trendingbook() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", service.trendingbook()); 
-		mav.setViewName("main");
-		return mav;
-	}
 }
 
