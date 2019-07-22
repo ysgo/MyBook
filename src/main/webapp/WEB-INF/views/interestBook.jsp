@@ -176,7 +176,7 @@
 		      image.hover(function() {
 		        $(this).stop().animate({
 		          zoom: '1.1'
-		        }, 200);
+		        }, 150);
 		      }, function() {
 		        $(this).stop().animate({
 		          zoom: '1'

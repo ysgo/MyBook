@@ -134,16 +134,43 @@
             </button>
 			
 			<!-- 컨텐트 추가 시작 -->
-			<h3>지금 CHACKCHECK에서 인기있는 책</h3>
-            <div id="trending" class="mx-auto mt-4 mb-2">
+			<!-- 트렌딩 북 -->
+			<h3 style="font-size: 28px; font-weight: 700; color: #58C9B9;">지금 <span style="font-family: 'Fredoka One'; color: #D1B6E1; font-size: 30px; font-weight: 500;">CHACKCHECK</span>에서 인기있는 책</h3>
+            <div class="line"></div>
+            <div id="trending" class="mx-auto mt-4 mb-2 p-3">
+			<c:set var ="num" value="1" />
             <c:forEach var="vo" items="${ list }" >
-            <script>
-            var vo = '${vo}'
-            console.log(vo);
-            </script>
-            		${vo.title}<br>
+            		<div class="slide" style="display:table; margin:0 auto;">
+            			<div style="display: table-row; height: 40px; font-weight: 700"># 가장 많이 읽은 책 ${num}위</div>  
+	            		<div style="display: table-cell; vertical-align:middle;" class="p-0"><img src="${vo.image}" style="box-shadow: 4px 4px 5px 0px rgba(107,106,107,1);"></div>
+	            		<div style="display: table-cell; vertical-align:middle;" class="pl-4">
+		            		<span style="font-size: 20px">${vo.title}</span><br><br>
+	 	            		${vo.author}<br>
+		            		${vo.publisher}<br><br> 
+		            		<span style="color:gray">${vo.description}</span><br> 
+	            		</div>	
+            		</div>
+            		<c:set var="num" value="${num+1}" />	
             </c:forEach>		
             </div>
+            <div class="line"></div>
+			<!-- 트렌딩 북 끝 -->
+			<script>
+			var index = 0;
+			function slide() {
+				var i;
+				var x = document.getElementsByClassName("slide");
+				for(i = 0 ; i < x.length ; i++) {
+					x[i].style.display = "none"; 
+				}
+				index++;
+				if(index > x.length) {
+					index = 1;
+				}
+				x[index-1].style.display= "block";
+				setTimeout(slide, 2000);
+			}
+			</script>
 			
 			
             <h2>활동로그</h2>
@@ -165,11 +192,6 @@
 				 	<div>활동로그가 없습니다.</div>
 				 </c:if>
             <div class="line"></div> <!-- 구분선 -->
-
-            <h2>트렌드</h2>
-            <p>추후에 트렌드 추가</p>
-
-            <div class="line"></div>
             <!-- 컨텐트 추가 끝 -->
 
         </div>
@@ -227,6 +249,8 @@
             	//$( '#tooltiptext' ).fadeTo("fast", 0);
             	//$( '#tooltiptext' ).addClass( 'invisible' );
              });
+            
+            slide();
         });
     </script>
 </body>

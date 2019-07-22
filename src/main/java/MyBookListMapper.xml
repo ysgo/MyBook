@@ -26,7 +26,7 @@
   		<selectKey resultType="int" keyProperty="id" order="BEFORE">
       		select mybooklist_seq.nextval from dual     
     	</selectKey>  
-    		insert into mybooklist(id, email, title, author, publisher, image, m_title, m_star, m_content,  registdate, logregistdate) values(#{id},#{email},#{title},#{author},#{publisher},#{image},#{m_title}, #{m_star}, #{m_content}, sysdate, sysdate)
+    		insert into mybooklist(id, email, title, author, publisher, description, image, m_title, m_star, m_content,  registdate) values(#{id},#{email},#{title},#{author},#{publisher}, #{description}, #{image},#{m_title}, #{m_star}, #{m_content}, sysdate)
 	</insert>	
 	
 	<delete id="deleteBookList" parameterType="model.MyBookList">
@@ -43,11 +43,9 @@
 	</update>
 	
 	<select id="trendingbook" resultType="model.MyBookList">
-    	select title, total_by_title from 
-    	(select title, sum(count(*)) over(partition by title) total_by_title from mybooklist group by title order by total_by_title desc) 
-    	<!--[CDATA[
-    	where rownum <=5
-    	]]-->
+    	select title, author, publisher, description, image, total_by_title from 
+    	(select title, author, publisher, description, image, sum(count(*)) over(partition by title) total_by_title from mybooklist group by title, author, publisher, description, image order by total_by_title desc) 
+    	where rownum <![CDATA[<]]>=5
     </select>
     
 	<select id="countInterestBookList" parameterType="string" resultType="int">
