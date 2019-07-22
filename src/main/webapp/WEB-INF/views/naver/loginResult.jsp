@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" href="css/style.css?b">
 <head>
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
@@ -30,16 +32,19 @@ h3 {
 		$("#email").html(email);
 	  });
 </script>
-
+<!-- <meta http-equiv="refresh" content="3;url=http://localhost:8000/book/" /> -->
 </head>
 <body>
-	<div
-		style="background-color: #15a181; width: 100%; height: 50px; text-align: center; color: white;">
-		<h3>SIST Naver_Login Success</h3>
+	<div class="wrapper">	
+	<div class="content">
+		<h2 style="text-align: center; font-family: 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;" id="name"></h2>
+		<h4 style="text-align: center; font-family: 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;" id="email"></h4>
 	</div>
-	<br>
-	<h2 style="text-align: center" id="name"></h2>
-	<h4 style="text-align: center" id="email"></h4>
-
+	</div>
+	  <script>
+        var timer = setTimeout(function() {
+            window.location='/book/'
+        }, 2000);
+    </script>
 </body>
 </html>

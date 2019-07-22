@@ -118,7 +118,7 @@
 			<!-- 컨텐트 추가 시작 -->
 			<article id="updateArticle" class="card-body mx-auto">
 				<h2>내 정보 수정</h2>
-
+				<br>
 				<!-- 수정 폼태그 시작 -->
 				<form action="${pageContext.request.contextPath}/myPage" method="POST" location.reload();>
 					<!-- 닉네임 -->
