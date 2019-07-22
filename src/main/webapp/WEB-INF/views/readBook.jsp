@@ -98,7 +98,7 @@
 		<!-- Page Content 시작 -->
 		<div id="content">
 
-			<div class="top-page mb-5">
+			<div class="top-page mb-5 center-block">
 				<!-- top page 시작 -->
 
 				<div class="btn-with-fixedInput pr-1 pl-3">
@@ -174,35 +174,10 @@
 						</div><!-- 수정 및 삭제 끝-->
 						<div class="line"></div> <!-- 구분선 -->
 					</c:forEach>
-				</ul>
-			</c:if>
-			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
-				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
-			</a>
-			
-			<c:if test="${ empty list }">
-			<% 
-				if(request.getParameter("readkeyword") != null) { 
-			%>
-				<h2 style="padding-top: 30px">찾으시는 내용이 없어요!</h2>
-			<%
-				} else {
-			%>
-				<script>
-					$('#listall').hide();
-				</script>
-				<h2>읽은 책과 서평을 추가해주세요 :)</h2>
-			<%
-				}
-			%>
-			<div class="line"></div> <!-- 구분선 -->
-			</c:if>
-			<!-- 책이미지와 서평 내용 출력 끝 -->           
-            </div><!-- 컨테이너 끝 -->
-
-					<!-- 페이징 버튼 위치 시작 -->
+									<!-- 페이징 버튼 위치 시작 -->
+				<c:if test="${!empty listCnt }">
 					<div>
-						<c:if test="${pagination.curRange ne 1 }">
+						<c:if test="${pagination.curPage ne 1 }">
 							<a href="#" onClick="fn_paging(1)">[처음]</a>
 						</c:if>
 						<c:if test="${pagination.curPage ne 1}">
@@ -224,16 +199,38 @@
 							test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
 							<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
 						</c:if>
-						<c:if
-							test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+						<c:if test="${pagination.curPage ne pagination.pageCnt }">
 							<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
 						</c:if>
 					</div>
-
-					<div>총 게시글 수 : ${pagination.listCnt } / 총 페이지 수 :
-						${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 :
-						${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }</div>
+				</c:if>
 					<!-- 페이징 버튼 위치 종료 -->
+					
+				</ul>
+			</c:if>
+			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
+			</a>
+			
+			<c:if test="${ empty list }">
+			<% 
+				if(request.getParameter("readkeyword") != null) { 
+			%>
+				<h2 style="padding-top: 30px">찾으시는 책이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
+			<%
+				} else {
+			%>
+				<script>
+					$('#listall').hide();
+				</script>
+				<h2>읽은 책과 서평을 추가해주세요  <img src="images/smile-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
+			<%
+				}
+			%>
+			<div class="line"></div> <!-- 구분선 -->
+			</c:if>
+			<!-- 책이미지와 서평 내용 출력 끝 -->           
+            </div><!-- 컨테이너 끝 -->
 
 			<!-- 모달 영역 시작 -->
 			<div id="readMe" class="p-2">
@@ -284,7 +281,7 @@
 											<span id="title">${b.title}</span><br> <br> <span
 												id="author">${b.author}</span><br> <span id="publisher">${b.publisher}</span>
 										</div>
-										<div class="col-sm">${b.description}</div>
+										<div class="col-sm" id="description">${b.description}</div>
 										<div class="w-150"></div>
 									</div>
 								</c:forEach>
@@ -369,7 +366,7 @@
 				</form>
 			</c:if>
 			<c:if test="${!empty status }">
-				<form action="signIn" method="get" style='float: left;'>
+				<form action="signIn" method="post" style='float: left;'>
 					<input id="signColor" type="submit" class="nav-link p-2"
 						value="로그아웃">
 				</form>
@@ -402,13 +399,14 @@
 
 	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 -->
 	<script>   	
-    	var image, title, author, publisher, log;
+    	var image, title, author, publisher, description, log;
     	//책 추가 모달에서 목록을 눌렀을 때
 		$('div#row').click(function(){ 
 				image = $(this).children('div').children('img#image').attr("src");
 			  	title = $(this).children('div').children('span#title').text();
 			  	author = $(this).children('div').children('span#author').text();
 			  	publisher = $(this).children('div').children('span#publisher').text(); 	
+			  	description = $(this).children('div#description').text(); 	
 
 			 	$("#myModal").removeClass("in"); 
 			 	$(".modal-backdrop").remove();
@@ -419,7 +417,7 @@
 		 		$('button#m_submit').click(function(){ 
 		 		    var m_title = $('input#m_title').val();
 		 		    var m_content = $('textarea#m_content').val();
-
+		 		   	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 	 		    $.ajax({
 	 		        url: "readBook",
 	 		        type: 'POST', 
@@ -427,19 +425,21 @@
 	 		        	title : title,
 	 		        	author : author,
 	 		        	publisher : publisher,
+	 		        	description : description,
 	 		        	image : image, 
 	 		        	m_title : m_title,
 	 		        	m_star : m_star,
 	 		        	m_content : m_content
 	 		        },
 	 		        dataType : "text",
-	 		        success: function(data){      
-	 		           $("#myModal2 .close").click();
+	 		        success: function(data){           
+			 	 		$("#myModal2 .close").click();
+			 	 		return false;
 	 		        },
 	 		        error : function(request, status, error){
 	 		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
 	 		        }
-	 		    }); 	 		 		   
+	 		    }); 
 	 		}); 
 		});	
     </script>
@@ -463,9 +463,9 @@
 
 	<!-- 	수정버튼 -->
 	<script>
-  	function updateButton(id, m_title, m_star, m_content, registdate){
+  	function updateButton(id, m_title, m_star, m_content){
   		document.getElementById('m_title').value=m_title; 
-  		document.getElementById('m_content').value=m_content; 
+  		document.getElementById('m_content').value=m_content.replace(/(<br\/>|(<br><\/button>))/g, '\r\n');
   		$('#'+m_star).parent().children("a").removeClass("on");
   		$('#'+m_star).addClass("on").prevAll("a").addClass("on");
 
@@ -476,9 +476,10 @@
   		
   		//서평 추가 모달에서 확인버튼 눌렀을 때
   			$('button#m_submit').click(function(){ 
+  				
   			    var m_title = $('input#m_title').val();
   			    var m_content = $('textarea#m_content').val();
-  			    
+  			  	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
   			    $.ajax({
   			        url: "readBook",
   			        type: 'POST', 
@@ -545,6 +546,5 @@
 			image.id === 'pencil' ? image.src = 'images/pencil.png' : image.src = 'images/trash.png';
 		}
 	</script>
-
 </body>
 </html>

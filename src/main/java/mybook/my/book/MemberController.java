@@ -1,9 +1,12 @@
 package mybook.my.book;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import model.InterestBookList;
-import model.Log;
 import model.MyBookList;
 import service.MemberService;
 import service.NaverBookService;
@@ -29,12 +30,12 @@ public class MemberController {
 	private MemberService service;
 	@Inject
 	private NaverBookService serviceBook;
-	
-	// main ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙 
+	//main 페이지 이동 
 	@RequestMapping(value = "/")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("listLog", serviceBook.selectLog());
+		mav.addObject("list", serviceBook.trendingbook()); 
 		mav.setViewName("main");
 		return mav;
 	}
@@ -51,11 +52,11 @@ public class MemberController {
 		List<MyBookList> list = serviceBook.listAll(model);
 		mav.addObject("list", list); 
 		
-//		mav.addObject("listCnt", listCnt);
 		mav.addObject("pagination", pageList);	
 		mav.setViewName("otherReadBook");
 		return mav;
 	}
+
 	
 	@RequestMapping(value = "/otherInterestBook")
 	public ModelAndView otherInterestBook(String email) {
@@ -73,103 +74,132 @@ public class MemberController {
 		return mav;
 	}
 	
-	// ?占쏙옙?占쏙옙占�??占쏙옙 ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
+	@Inject
+	PasswordEncoder passwordEncoder;
+	
+	// 회원가입 페이지 이동
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
 	public String signUp() {
 		return "signUp";
 	}
 	
-	// ?占쏙옙?占쏙옙占�??占쏙옙 : ?占쏙옙鍮꾩뒪 媛앹껜?占쏙옙 ???占쏙옙
+	// 회원가입 : 서비스 객체에 저장
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
 	public ModelAndView signUp(@ModelAttribute MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName = null;
+		String encPassword = passwordEncoder.encode(vo.getUserPass());
+		vo.setUserPass(encPassword);
 		if(service.signup(vo)) {
-			mav.addObject("status", vo);
+//			mav.addObject("status", vo);
+			mav.addObject("list", serviceBook.trendingbook()); 
 			mav.addObject("listLog", serviceBook.selectLog());
-			viewName = "main";
+			viewName = "redirect:/signIn";
 		} else {
-			mav.addObject("status", null);
+//			mav.addObject("status", null);
 			viewName = "signUp";
 		}
 		mav.setViewName(viewName);
 		return mav;
 	}
 	
-	// 濡쒓렇?占쏙옙 ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
+	// 로그인 페이지 이동
 	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
 	public String  signIn() {
 		return "signIn";
 	}
 	
-	// 濡쒓렇?占쏙옙 : 媛앹껜 ?占쏙옙蹂댐옙?? 異붿텧?占쏙옙 ?占쏙옙?占쏙옙?占쏙옙 ???占쏙옙, 鍮꾧탳?占쏙옙 ?占쏙옙?占쏙옙
+	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
-	public ModelAndView signIn(@ModelAttribute MemberVO vo) throws Exception {
+	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName  =null;
-		boolean result = service.loginCheck(vo);
-		if(result) {
-			vo = service.viewMember(vo);
-			mav.addObject("status", vo);
-			mav.addObject("listLog", serviceBook.selectLog());
-			viewName = "main";
+		String pw = vo.getUserPass();
+		vo = service.viewMember(vo);
+		if(vo == null) {
+			viewName="signIn";
 		} else {
-			mav.addObject("status", null);
-			viewName = "signIn";
+			boolean result = passwordEncoder.matches(pw, vo.getUserPass());
+			if(result) {
+				mav.addObject("status", vo);
+				mav.addObject("list", serviceBook.trendingbook()); 
+				mav.addObject("listLog", serviceBook.selectLog());
+				viewName = "redirect:/";
+			} else {
+				mav.addObject("status", null);
+				mav.addObject("msg", "로그인 정보를 확인해주세요!!");
+				viewName = "signIn";
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.print("<script>alert('로그인 정보를 확인해 주세요!!');</script>");
+				out.flush();
+			}			
 		}
 		mav.setViewName(viewName);
 		return mav;
 	}
 	
-	// 濡쒓렇?占쏙옙?占쏙옙 
-	@RequestMapping(value="/signOut", method=RequestMethod.GET)
-	public String  signOut(SessionStatus session) throws Exception {
+	// 로그아웃 
+	@RequestMapping(value="/signOut", method=RequestMethod.POST)
+	public ModelAndView signOut(SessionStatus session) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		service.signout(session);
-		return "redirect:/";
+		mav.setViewName("redirect:/");
+		return mav;
 	}
 	
-	// ?占쏙옙?占쏙옙 ?占쏙옙?占쏙옙  ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
+	// 회원 수정  페이지 이동
 	@RequestMapping(value="/myPage", method=RequestMethod.GET)
 	public String  infoUpdate() throws Exception {
 		return "myPage";
 	}
 	
-	// ?占쏙옙?占쏙옙 ?占쏙옙?占쏙옙
+	// 회원 수정
 	@RequestMapping(value="/myPage", method=RequestMethod.POST)
 	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status")MemberVO member) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		String userId = member.getUserId();
+		vo.setUserId(userId);
+		vo.setUserPass(passwordEncoder.encode(vo.getUserPass()));
 		boolean result = service.updateMember(vo);
-		member = vo;
 		if(result) {
+			member = vo;
 			mav.addObject("status", member);
 		}
 		mav.setViewName("myPage");
 		return mav;
 	}
 	
-	// ?占쏙옙?占쏙옙?占쏙옙?占쏙옙 ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
+	// 회원탈퇴 페이지 이동
 	@RequestMapping(value="/withdrawal", method=RequestMethod.GET)
 	public String withdrawal() {
 		return "withdrawal";
 	}
 	
-	// ?占쏙옙?占쏙옙?占쏙옙?占쏙옙
+	// 회원탈퇴
 	@RequestMapping(value="/withdrawal", method=RequestMethod.POST)
-	public String  withdrawal(@RequestParam("checkPass")String checkPass, @ModelAttribute MyBookList model, 
-			@SessionAttribute("status")MemberVO user, SessionStatus sessionClear) throws Exception {
-		String userId = user.getUserId();
-		if(!checkPass.equals(user.getUserPass())) {
-			return "redirect:withdrawal";
+	public ModelAndView  withdrawal(@RequestParam("checkPass")String checkPass, @ModelAttribute MyBookList model, 
+			@SessionAttribute("status")MemberVO user, SessionStatus sessionClear, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		String viewName = "";
+		boolean passCheck = passwordEncoder.matches(checkPass, user.getUserPass());
+		if(!passCheck) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print("<script>alert('비밀번호가 다릅니다. 다시 확인해주세요!!');</script>");
+			out.flush();
+			viewName = "withdrawal";
 		} else {
+			String userId = user.getUserId();
 			boolean result = service.withdrawal(userId); 
 			if(result) {
-//				email占�? delete ?占쏙옙占�? ?占쏙옙?占쏙옙
-//				model.setEmail(userId);
-//				int id = ""
-//				serviceBook.delete(model);
+				serviceBook.deleteAll(userId);
+				serviceBook.deleteAllInterestBook(userId);
 				sessionClear.setComplete();
+				viewName = "redirect:/";
 			}
 		}
-		return "redirect:/";
+		mav.setViewName(viewName);
+		return mav;
 	}
 }

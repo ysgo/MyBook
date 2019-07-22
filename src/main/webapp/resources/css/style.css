@@ -5,10 +5,7 @@
 .wrapper {
     display: flex;
     width: 100%;
-}
-
-body {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
 }
 
 p {
@@ -64,7 +61,16 @@ p {
     height: 1px;
     border-bottom: 1px dashed rgb(81, 157, 158, .4);
     margin-bottom: 30px;
-    margin-top: 50px;
+    margin-top: 30px;
+}
+
+#ulRow .line {
+	margin-top: 50px;
+}
+
+.center-block {
+	display:table;
+	margin:auto;
 }
 
 /* ---------------------------------------------------
@@ -79,7 +85,7 @@ p {
     left: 0;
     z-index: 9999;
     height: 100vh;
-    background: #58C9B9; /* #7386D5 */ /* left Sidebar ¹è°æ»ö */
+    background: #58C9B9; /* #7386D5 */ /* left Sidebar ï¿½ï¿½ï¿½ï¿½ */
     color: #fff;
     transition: all 0.3s;
     margin-right: 0; 
@@ -92,7 +98,7 @@ p {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #fff; /* #47748b */ /* ±¸ºÐ¼± */
+    border-bottom: 1px solid #fff; /* #47748b */ /* ï¿½ï¿½ï¿½Ð¼ï¿½ */
 }
 
 #sidebar ul p {
@@ -112,13 +118,13 @@ p {
 
 #sidebar ul li #leftSideBar :hover {
     color: #7386D5;
-    background: #58C9B9; /* left Sidebar À§·Î ¸¶¿ì½º°¡ À§Ä¡ÇÒ ¶§ */
+    background: #58C9B9; /* left Sidebar ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ */
 }
 
 #sidebar ul li.active>#leftSideBar,
 #leftSideBar [aria-expanded="true"] {
     color: #fff;
-    background: #58C9B9; /* #6d7fcc */ /* ³» ¼­Àç ¸Þ´º ¹è°æ»ö */
+    background: #58C9B9; /* #6d7fcc */ /* ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 #sidebar li {
@@ -128,13 +134,13 @@ p {
 ul ul #leftSideBar {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #58C9B9; /* ÀÐÀº Ã¥, °ü½ÉÃ¥ ¸Þ´º ¹è°æ»ö */
+    background: #58C9B9; /* ï¿½ï¿½ï¿½ï¿½ Ã¥, ï¿½ï¿½ï¿½ï¿½Ã¥ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 ul ul #leftSideBar:hover {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #58C9B9; /* ÀÐÀº Ã¥, °ü½ÉÃ¥ ¸Þ´º ¹è°æ»ö */
+    background: #58C9B9; /* ï¿½ï¿½ï¿½ï¿½ Ã¥, ï¿½ï¿½ï¿½ï¿½Ã¥ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 .btn-outline-secondary {
@@ -148,7 +154,7 @@ ul ul #leftSideBar:hover {
 }
 
 
-/* ·Î°í */
+/* ï¿½Î°ï¿½ */
 
 .brand-logo-main {
 	position: fixed;
@@ -184,9 +190,9 @@ ul ul #leftSideBar:hover {
 	text-decoration: none;
 }
 
-/* ·Î°í ³¡*/
+/* ï¿½Î°ï¿½ ï¿½ï¿½*/
 
-/* ÅøÆÁ */
+/* ï¿½ï¿½ï¿½ï¿½ */
 #tooltiptext {
 	background-color: rgb(209, 182, 225, 0.5);
 	font-family: 'Noto Sans KR', sans-serif;
@@ -196,14 +202,24 @@ ul ul #leftSideBar:hover {
 	opacity: 0;
 	border-radius: 30px;
 }
-/* ÅøÆÁ ³¡ */
-
-#trending {
-	width: 90%;
-	height: 300px;
-	border: 1px solid gray;
+/* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
+h3 {
+	font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
 }
 
+
+#trending {
+	font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+	width: 100%;
+	height: 350px;
+	/* border: 1px solid #58C9B9; */
+}
+
+.slide img {
+	width: 180px;
+	height: 270px;
+	margin: 0;
+}
 
 ul.CTAs {
     padding: 20px;
@@ -224,7 +240,7 @@ ul.CTAs #leftSideBar {
 
 #content {
 	background-color: rgb(157, 200, 200, .3); 
-  	width: 60%;
+  	width: calc(100% - 500px);
     padding: 40px;
     min-height: 100vh;
     transition: all 0.3s;
@@ -257,6 +273,45 @@ body > div#content{
 	background-color: #58C9B9;
 	width : auto;
 	color : #fff;
+}
+
+#userNameCss{
+	font-weight: bold; 
+	border:none; 
+	background-color: #58C9B9; 
+	color: #fff;
+}
+
+.highlight {
+    position: relative;
+    display: inline-block;
+    background-color: rgb(88, 201, 185, .3);
+/*     transform: scale(1)  skew(-10deg); */
+    z-index: -1;
+}
+.highlight > * {
+    display: inherit;
+    transform: scale(0.7) rotate(2deg) skew(20deg);
+}
+
+.highlight-underline {
+    position: relative;
+    text-decoration: none;
+    color: rgb(21, 21, 21);
+}
+.highlight-underline::before {
+    content: "";
+    position: absolute;
+    left: 1%;
+    bottom: -1px;
+    width: 100%;
+    height: 8px;
+    background-color: rgb(88, 201, 185, .5);
+    z-index: -1;
+}
+
+.highlight-underline--center::before {
+    bottom: 4px;
 }
 /* ---------------------------------------------------
     MEDIAQUERIES

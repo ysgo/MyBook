@@ -27,10 +27,11 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/booklist-style.css">
-    <link rel="stylesheet" href="css/interestbook-style.css">
+    <link rel="stylesheet" href="css/interestbook-style.css?a">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
+	<!-- Font Awesome CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -99,7 +100,7 @@
         <!-- Page Content 시작 -->
         <div id="content">
 
-			<div class="top-page mb-5"><!-- top page 시작 -->
+			<div class="top-page mb-5 center-block"><!-- top page 시작 -->
 	 		
 	 			<div class="btn-with-fixedInput pr-1 pl-3"><!-- 메뉴 버튼 -->
 	
@@ -130,33 +131,116 @@
 	 		</div><!-- top page 끝 -->
 			
 			<!-- 책이미지 출력 -->
-			<c:if test="${ !empty list }">
-				<c:forEach var="vo" items="${ list }" varStatus="status">		
-				
-					<div class="img-wrap pl-2">
-   						<button type="button" class="btn btn-circle close" onclick="deleteButton('${vo.id}', '${vo.registdate}');">
-   							<i class="fas fa-times" style="color: white;"></i>
-   						</button>
-  							<form action="detailInterestBook" method="post">
-  								<input type="hidden" name="bookNum" value="${vo.id}">
-  								<input type="hidden" name="bookTitle" value="${vo.title}">
-							<input type="image" alt="이미지" src="${vo.image}"> 
-						</form>
-					</div>	
-					<c:if test="${status.count % 4 == 0}">		
-						<br>
-						<div class="line"></div> <!-- 구분선 -->
-					</c:if>    			 
-				</c:forEach>
-			</c:if>
+			<!-- 중앙 정렬 -->
+			<script>
+				function makeDiv() {
+					var total = '${total}';
+					console.log('토탈', total);
+					if(total%4 > 0) {
+						var rows = parseInt(total/4)+1;	
+					} else {
+						var rows = parseInt(total/4);
+					}
+					
+					for(var i = 1; i <= rows ; i++) {
+						$('#displayInterestBook').append("<div class='row justify-content-md-center mb-0' id=row"+ i +"></div><div class='line'></div>");	
+						for(var j = 1 ; j <=4 ; j++) {
+							$('#row'+i).append("<div class='col'><div class='center-block' id='col"+(((i-1)*4)+j)+"'></div></div>");
+						}
+					}	
+				};			
+			</script>
+
+		<c:if test="${ !empty list }">
+	
+		  <div class="container" id="displayInterestBook"></div>
+		  
+		  <script>
+		    function insertImg() {
+		      var count = 1;
+		
+		      <c:forEach var="vo" items="${ list }" varStatus="status">		
+		      
+		      var vo_id = '${vo.id}';
+		      var vo_title = '${vo.title}';
+		      var vo_img = '${vo.image}';
+		      var image = $('<img />', { 
+		        id:'image' + count,
+		        src: vo_img,	
+		      });
+		      
+		      image.css('width', '120px');
+		      image.css('height', '180px');
+		      image.css('border', '1px solid lightgray');
+		
+		      image.hover(function() {
+		        $(this).stop().animate({
+		          zoom: '1.1'
+		        }, 150);
+		      }, function() {
+		        $(this).stop().animate({
+		          zoom: '1'
+		        }, 200);
+		      }) 
+		
+		      image.click({bookNum: vo_id, bookTitle: vo_title, image: vo_img}, interestForm);
+		
+		      function interestForm(e, bookNum, bookTitle, image) {
+		        $.ajax({
+		          url: "detailInterestBook",
+		          type: 'POST', 
+		          data: {
+		            bookNum : e.data.bookNum,
+		            bookTitle : e.data.bookTitle,
+		            image : e.data.image
+		          },
+		          dataType : "text",
+		          success: function(data){           
+		            $('body').html(data);
+		          },
+		          error : function(request, status, error){
+		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
+		          }
+		        }); 
+		      }
+		
+		      $('#col' + count).append(image);
+		      $('#col' + count).append("<div style='position: relative;' id='iconbox'><div style='position: absolute; right: 3px; bottom: 153px'><a href='interestBook?bookNum=${vo.id}'><img class='svg deletelink' src='images/times-solid.svg' style='z-index: 999;'></a></div></div>");
+		
+		      count++;
+		
+		    </c:forEach>		
+		
+		    }		
+			</script>
+		</c:if>	
+		<!-- 중앙 정렬 끝 -->
+		
 			<a href="interestBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
-				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
 			</a>
 			<c:if test="${ empty list }">
-				<h2>관심 책을 추가해주세요.</h2>
-				<div class="line"></div> <!-- 구분선 -->
+			<% 
+				if(request.getParameter("interestkeyword") != null) { 
+			%>
+				<h2 style="padding-top: 30px">찾으시는 책이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
+			<%
+				} else {
+			%>
+				<script>
+					$('#listall').hide();
+				</script>
+				<h2>관심 책을 추가해주세요  <img src="images/smile-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
+			<%
+				}
+			%>
+			<div class="line"></div> <!-- 구분선 -->
 			</c:if>
 			<!-- 책이미지 출력 끝 -->           
+            
+            <c:if test="${!empty msg}">
+				<script> alert("${msg}"); </script> 
+			</c:if>
 
 			<!-- 모달 영역 시작 -->          
             <!-- Button trigger modal -->
@@ -203,7 +287,7 @@
 					                <span id="author">${b.author}</span><br>
 					                <span id="publisher">${b.publisher}</span>
 					            </div>
-					             <div class="col-sm">
+					             <div class="col-sm" id="description">
 					                ${b.description}
 					            </div>
 					            <div class="w-150"></div>
@@ -233,7 +317,7 @@
         </c:if>
         <c:if test="${ !empty status }">
 	        <div class="sign">
-	       		<form action="signOut" method="get" style ='float: left;'>
+	       		<form action="signOut" method="post" style ='float: left;'>
 	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
 	          	</form>
 	        </div>
@@ -256,6 +340,10 @@
 	            $('.collapse.in').toggleClass('in');
 	            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
 	        });
+	        
+	        makeDiv();
+	        insertImg();
+	        load();
 	    });
     </script>
         
@@ -291,29 +379,7 @@
 		});	
     </script>
     <!-- 책추가 controller 보내서 db저장 끝 -->
-    
-    <!-- 삭제버튼 끝 -->
-	<script>
-		function deleteButton(id, registdate){
-		    $.ajax({
-		        url: "interestBook",
-		        type: 'POST', 
-		        data: {
-		        	bookNum : id
-		        },
-		        dataType : "text",
-		        success: function(data){           
-		        	//alert("delete 보냄");	 	
-		        	$('body').html(data);
-		        },
-		        error : function(request, status, error){
-		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
-		        }
-		    }); 
-		}
-	</script> 
-	<!-- 삭제버튼 끝 -->
-    
+     
     <!-- 도서 검색 -->
 	<script>
 	function searchFunc(e) {  
@@ -347,5 +413,41 @@
 	});
 	</script>
 	<!-- 도서 검색 끝-->
+	
+	<!-- svg inline -->
+	<script>
+	function load() {
+		jQuery('img.svg').each(function(){
+	        var $img = jQuery(this);
+	        var imgID = $img.attr('id');
+	        var imgClass = $img.attr('class');
+	        var imgURL = $img.attr('src');
+
+	        jQuery.get(imgURL, function(data) {
+	            // Get the SVG tag, ignore the rest
+	            var $svg = jQuery(data).find('svg');
+
+	            // Add replaced image's ID to the new SVG
+	            if(typeof imgID !== 'undefined') {
+	                $svg = $svg.attr('id', imgID);
+	            }
+	            // Add replaced image's classes to the new SVG
+	            if(typeof imgClass !== 'undefined') {
+	                $svg = $svg.attr('class', imgClass+' replaced-svg');
+	            }
+
+	            // Remove any invalid XML tags as per http://validator.w3.org
+	            $svg = $svg.removeAttr('xmlns:a');
+
+	            // Replace image with new SVG
+	            $img.replaceWith($svg);
+
+	        }, 'xml');
+
+	    });
+	}
+    
+	</script>
+	<!-- svg inline -->
 </body>
 </html>

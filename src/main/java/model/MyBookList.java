@@ -7,7 +7,7 @@ public class MyBookList {
     private String author;
     private String publisher;
     private String description;
-    private String image;
+	private String image;
     private String m_title;
     private String m_star;
     private String m_content;
@@ -103,9 +103,12 @@ public class MyBookList {
 	}
 	@Override
 	public String toString() {
+
 		return "MyBookList [id=" + id + ", email=" + email + ", title=" + title + ", author=" + author + ", publisher="
 				+ publisher + ", description=" + description + ", image=" + image + ", m_title=" + m_title + ", m_star="
 				+ m_star + ", m_content=" + m_content + ", registdate=" + registdate + ", userName=" + userName
 				+ ", start=" + start + ", last=" + last + "]";
+
 	}
+
 }

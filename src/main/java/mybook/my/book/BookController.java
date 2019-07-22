@@ -34,7 +34,6 @@ public class BookController {
 		ModelAndView mav = new ModelAndView(); 
 		String userId = loginVO.getUserId();
 		String userName = loginVO.getUserName();
-		
 		if(readkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("readkeyword", readkeyword);
@@ -72,6 +71,7 @@ public class BookController {
 			}else if(bookNum == null && model.getTitle()!=null && model.getTitle()!=null && 
 				model.getPublisher()!=null && model.getImage()!=null 
 				&& model.getM_title()!=null && model.getM_star()!=null && model.getM_content()!=null) {
+
 				//insert mybooklist 
 				model.setUserName(userName);
 				service.insert(model);
@@ -91,8 +91,7 @@ public class BookController {
 				model.setLast(pageList.getEndIndex());
 				List<MyBookList> list = service.listAll(model);
 				mav.addObject("list", list); 
-				
-				//mav.addObject("listCnt", listCnt);
+				mav.addObject("listCnt", listCnt);
 				mav.addObject("pagination", pageList);				
 				mav.setViewName("readBook");
 		return mav;
@@ -104,19 +103,20 @@ public class BookController {
 		ModelAndView mav = new ModelAndView(); 
 		String userId = loginVO.getUserId();
 		String userName = loginVO.getUserName();
-		
+
 		if(interestkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("interestkeyword", interestkeyword);
 	        map.put("email", userId);
 
 			mav.addObject("list", service.searchInterestbook(map)); 
+			mav.addObject("total", service.countInterestBook(userId));
 			mav.setViewName("interestBook");
 			return mav;	
 		}
 		
 		if(keyword != null) { 
-			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api�? ?��?�� 찾�? 값을 list?��?��?���? 보내�??��.
+			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); 
 		}else {
 			model.setEmail(userId);
 			
@@ -128,6 +128,7 @@ public class BookController {
 				service.deleteLog(Integer.parseInt(bookNum)+1);
 			}else if(model.getTitle()!=null && model.getTitle()!=null && 
 					model.getPublisher()!=null && model.getDescription()!=null & model.getImage()!=null) {
+				
 				//insert interestBooklist 
 				service.insertInterestBook(model);
 				
@@ -140,6 +141,8 @@ public class BookController {
 			}
 		}
 		mav.addObject("list", service.listAllInterestBook(userId)); 
+		// interestBook list rendering
+		mav.addObject("total", service.countInterestBook(userId));
 		mav.setViewName("interestBook");
 		return mav;
 	}
@@ -153,12 +156,5 @@ public class BookController {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/trendingbook"}, method=RequestMethod.GET) 
-	public ModelAndView trendingbook() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", service.trendingbook()); 
-		mav.setViewName("main");
-		return mav;
-	}
 }
 

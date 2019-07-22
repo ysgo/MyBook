@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 
 body {
-	font-family:  ''Noto Sans KR";
-}
+	font-family: 'Noto Sans', sans-serif; 
+} 
 #imgContainer {
 	text-align:center;
 }
@@ -11,7 +11,6 @@ body {
 	padding: 5px;
 }
 .row:hover {
-	background-color: #dcebf7;
 	cursor: pointer;
 }
 .inputrow:hover {
@@ -27,7 +26,7 @@ body {
 }
 
 .modal-open {
-   	overflow: scroll; /* ¸ð´Þ ¿µ¿ªÀ» ´Ý¾Æµµ ½ºÅ©·Ñ¹Ù°¡ Á¸Àç */
+   	overflow: scroll; /* ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾Æµï¿½ ï¿½ï¿½Å©ï¿½Ñ¹Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 .upDelButton{
@@ -35,7 +34,7 @@ body {
 	border:none; 
 }
 
-/* ÀÌ¹ÌÁö À§¿¡ ¸¶¿ì½º¸¦ ¿Ã·Á³õÀ¸¸é opacity°¡ 1ÀÌ µÇ´Â ¿µ¿ª */
+/* ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ opacityï¿½ï¿½ 1ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 .img-wrap {
 	position: relative;
     display: inline-block;
@@ -66,4 +65,80 @@ input[type=image]{
 
 input[type=image]:hover {
 	transform: scale(1.1);
+}
+
+input[type=image]:hover + #iconbox .deletelink path{
+	fill: lightgray;
+	animation: fadeInFromNone 0.8s ease-out;
+}
+
+@keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    70% {
+        display: block;
+        opacity: 1;
+    }
+    90% {
+        display: block;
+        opacity: .5;
+    }
+    100% {
+        display: block;
+        opacity: .3;
+    }
+}
+
+.arrowlink {
+	width: 30px;
+}
+
+.deletelink {
+	width: 20px;
+	transition: width .2s ease-in-out;
+}
+
+.deletelink path{
+	fill: gray;
+	opacity: 0.3;
+}
+
+.deletelink:hover path{
+	fill: #58C9B9;
+	opacity: .5;
+}
+
+.deletelink:hover {
+	width: 25px;
+}
+
+.arrowlink {
+	width: 35px;
+	transition: width .2s ease-in-out;
+}
+
+.arrowlink path{
+	fill: gray;
+	opacity: 0.8;
+}
+
+.arrowlink:hover path{
+	fill: #58C9B9;
+	opacity: .5;
+}
+
+.arrowlink:hover {
+	width: 40px;
+}
+
+.booklink a {
+	text-decoration: none;
 }
