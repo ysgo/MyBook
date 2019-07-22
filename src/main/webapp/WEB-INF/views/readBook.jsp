@@ -174,6 +174,38 @@
 						</div><!-- 수정 및 삭제 끝-->
 						<div class="line"></div> <!-- 구분선 -->
 					</c:forEach>
+									<!-- 페이징 버튼 위치 시작 -->
+				<c:if test="${!empty listCnt }">
+					<div>
+						<c:if test="${pagination.curPage ne 1 }">
+							<a href="#" onClick="fn_paging(1)">[처음]</a>
+						</c:if>
+						<c:if test="${pagination.curPage ne 1}">
+							<a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a>
+						</c:if>
+						<c:forEach var="pageNum" begin="${pagination.startPage }"
+							end="${pagination.endPage }">
+							<c:choose>
+								<c:when test="${pageNum eq  pagination.curPage}">
+									<span style="font-weight: bold;"><a href="#"
+										onClick="fn_paging('${pageNum }')">${pageNum }</a></span>
+								</c:when>
+								<c:otherwise>
+									<a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if
+							test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+							<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
+						</c:if>
+						<c:if test="${pagination.curPage ne pagination.pageCnt }">
+							<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
+						</c:if>
+					</div>
+				</c:if>
+					<!-- 페이징 버튼 위치 종료 -->
+					
 				</ul>
 			</c:if>
 			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
@@ -199,41 +231,6 @@
 			</c:if>
 			<!-- 책이미지와 서평 내용 출력 끝 -->           
             </div><!-- 컨테이너 끝 -->
-
-					<!-- 페이징 버튼 위치 시작 -->
-					<div>
-						<c:if test="${pagination.curRange ne 1 }">
-							<a href="#" onClick="fn_paging(1)">[처음]</a>
-						</c:if>
-						<c:if test="${pagination.curPage ne 1}">
-							<a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a>
-						</c:if>
-						<c:forEach var="pageNum" begin="${pagination.startPage }"
-							end="${pagination.endPage }">
-							<c:choose>
-								<c:when test="${pageNum eq  pagination.curPage}">
-									<span style="font-weight: bold;"><a href="#"
-										onClick="fn_paging('${pageNum }')">${pageNum }</a></span>
-								</c:when>
-								<c:otherwise>
-									<a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:if
-							test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-							<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
-						</c:if>
-						<c:if
-							test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
-							<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
-						</c:if>
-					</div>
-
-					<div>총 게시글 수 : ${pagination.listCnt } / 총 페이지 수 :
-						${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 :
-						${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }</div>
-					<!-- 페이징 버튼 위치 종료 -->
 
 			<!-- 모달 영역 시작 -->
 			<div id="readMe" class="p-2">
@@ -369,7 +366,7 @@
 				</form>
 			</c:if>
 			<c:if test="${!empty status }">
-				<form action="signIn" method="get" style='float: left;'>
+				<form action="signIn" method="post" style='float: left;'>
 					<input id="signColor" type="submit" class="nav-link p-2"
 						value="로그아웃">
 				</form>
@@ -420,7 +417,7 @@
 		 		$('button#m_submit').click(function(){ 
 		 		    var m_title = $('input#m_title').val();
 		 		    var m_content = $('textarea#m_content').val();
-
+		 		   	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 	 		    $.ajax({
 	 		        url: "readBook",
 	 		        type: 'POST', 
@@ -468,7 +465,7 @@
 	<script>
   	function updateButton(id, m_title, m_star, m_content){
   		document.getElementById('m_title').value=m_title; 
-  		document.getElementById('m_content').value=m_content; 
+  		document.getElementById('m_content').value=m_content.replace(/(<br\/>|(<br><\/button>))/g, '\r\n');
   		$('#'+m_star).parent().children("a").removeClass("on");
   		$('#'+m_star).addClass("on").prevAll("a").addClass("on");
 
@@ -482,7 +479,7 @@
   				
   			    var m_title = $('input#m_title').val();
   			    var m_content = $('textarea#m_content').val();
-  			    
+  			  	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
   			    $.ajax({
   			        url: "readBook",
   			        type: 'POST', 
@@ -549,6 +546,5 @@
 			image.id === 'pencil' ? image.src = 'images/pencil.png' : image.src = 'images/trash.png';
 		}
 	</script>
-
 </body>
 </html>

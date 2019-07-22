@@ -118,6 +118,7 @@ public class NaverBookService {
 		return list;
 	}
 	
+
 	//myBookList
 	public List<MyBookList> listAll(MyBookList model){
 		List<MyBookList> list = null;
@@ -140,6 +141,13 @@ public class NaverBookService {
 		if(session.delete(statement, id) != 1)
 			result = false;
 		return result;
+	}
+	
+	public boolean deleteAll(String email) {
+		String statement = "resource.MyBookListMapper.deleteAll";
+		if(session.delete(statement, email) != 1)
+			return false;
+		return true;
 	}
 	
 	public boolean update(MyBookList vo) {
@@ -231,6 +239,13 @@ public class NaverBookService {
 			if(session.delete(statement, id) != 1)
 				result = false;
 			return result;
+		}
+		
+		public boolean deleteAllInterestBook(String email) {
+			String statement = "resource.MyBookListMapper.deleteAllInterestBook";
+			if(session.delete(statement, email) != 1)
+				return false;
+			return true;
 		}
 		
 		public List<InterestBookList> searchInterestbook(Map<String, String>map) {

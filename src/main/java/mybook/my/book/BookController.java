@@ -34,7 +34,6 @@ public class BookController {
 		ModelAndView mav = new ModelAndView(); 
 		String userId = loginVO.getUserId();
 		String userName = loginVO.getUserName();
-		
 		if(readkeyword != null) {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("readkeyword", readkeyword);
@@ -92,8 +91,7 @@ public class BookController {
 				model.setLast(pageList.getEndIndex());
 				List<MyBookList> list = service.listAll(model);
 				mav.addObject("list", list); 
-				
-				//mav.addObject("listCnt", listCnt);
+				mav.addObject("listCnt", listCnt);
 				mav.addObject("pagination", pageList);				
 				mav.setViewName("readBook");
 		return mav;
@@ -118,7 +116,7 @@ public class BookController {
 		}
 		
 		if(keyword != null) { 
-			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api�? ?��?�� 찾�? 값을 list?��?��?���? 보내�??��.
+			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); 
 		}else {
 			model.setEmail(userId);
 			

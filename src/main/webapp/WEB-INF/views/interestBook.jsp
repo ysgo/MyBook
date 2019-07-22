@@ -26,7 +26,7 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/booklist-style.css?a">
+    <link rel="stylesheet" href="css/booklist-style.css">
     <link rel="stylesheet" href="css/interestbook-style.css?a">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -317,7 +317,7 @@
         </c:if>
         <c:if test="${ !empty status }">
 	        <div class="sign">
-	       		<form action="signOut" method="get" style ='float: left;'>
+	       		<form action="signOut" method="post" style ='float: left;'>
 	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
 	          	</form>
 	        </div>

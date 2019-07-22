@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form-style.css">
 </head>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 	<div class="card bg-light">
 		<article class="card-body mx-auto mt-3 mb-3" style="max-width: 400px;">
 			<div class="row justify-content-center">
@@ -30,7 +30,8 @@
 			</div>
 	
 			<!-- 네이버 로그인 버튼 -->
-			<a href="${url}" class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
+			<a href="${ url }"
+			 class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
 			<p class="divider-text">
 				<span class="bg-light">OR</span>
 			</p>
@@ -76,8 +77,12 @@
 		</article>
 	</div>
 <script>
+// 뒤로가기시 로그인 페이지 안되게 하기
+window.history.forward();
+function noBack() { window.history.forward(); }
+
  function searchMember() {
-	window.open("/test/search", "아이디/비밀번호 찾기", "width=500, height=620, left=100, top=50");
+	window.open("/book/search", "아이디/비밀번호 찾기", "width=500, height=620, left=100, top=50");
 } 
 
 function searchFunc(e) {  

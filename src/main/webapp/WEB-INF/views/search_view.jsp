@@ -12,7 +12,7 @@
 <script>
 	$(function(){
 		$("#loginBtn").click(function(){
-			location.href='/test/search';
+			location.href='/book/search';
 		})
 	}) 
 </script>

@@ -85,7 +85,7 @@ p {
     left: 0;
     z-index: 9999;
     height: 100vh;
-    background: #58C9B9; /* #7386D5 */ /* left Sidebar ¹è°æ»ö */
+    background: #58C9B9; /* #7386D5 */ /* left Sidebar ï¿½ï¿½ï¿½ï¿½ */
     color: #fff;
     transition: all 0.3s;
     margin-right: 0; 
@@ -98,7 +98,6 @@ p {
 
 #sidebar ul.components {
     padding: 20px 0;
-    /* border-bottom: 1px solid #fff; */ /* #47748b */ /* ±¸ºÐ¼± */
 }
 
 #sidebar ul p {
@@ -118,13 +117,13 @@ p {
 
 #sidebar ul li #leftSideBar :hover {
     color: #7386D5;
-    background: #58C9B9; /* left Sidebar À§·Î ¸¶¿ì½º°¡ À§Ä¡ÇÒ ¶§ */
+    background: #58C9B9; /* left Sidebar ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ */
 }
 
 #sidebar ul li.active>#leftSideBar,
 #leftSideBar [aria-expanded="true"] {
     color: #fff;
-    background: #58C9B9; /* #6d7fcc */ /* ³» ¼­Àç ¸Þ´º ¹è°æ»ö */
+    background: #58C9B9; /* #6d7fcc */ /* ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 #sidebar li {
@@ -134,13 +133,13 @@ p {
 ul ul #leftSideBar {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #58C9B9; /* ÀÐÀº Ã¥, °ü½ÉÃ¥ ¸Þ´º ¹è°æ»ö */
+    background: #58C9B9; /* ï¿½ï¿½ï¿½ï¿½ Ã¥, ï¿½ï¿½ï¿½ï¿½Ã¥ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 ul ul #leftSideBar:hover {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #58C9B9; /* ÀÐÀº Ã¥, °ü½ÉÃ¥ ¸Þ´º ¹è°æ»ö */
+    background: #58C9B9; /* ï¿½ï¿½ï¿½ï¿½ Ã¥, ï¿½ï¿½ï¿½ï¿½Ã¥ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 .btn-outline-secondary {
@@ -154,7 +153,7 @@ ul ul #leftSideBar:hover {
 }
 
 
-/* ·Î°í */
+/* ï¿½Î°ï¿½ */
 
 .brand-logo-main {
 	position: fixed;
@@ -190,9 +189,9 @@ ul ul #leftSideBar:hover {
 	text-decoration: none;
 }
 
-/* ·Î°í ³¡*/
+/* ï¿½Î°ï¿½ ï¿½ï¿½*/
 
-/* ÅøÆÁ */
+/* ï¿½ï¿½ï¿½ï¿½ */
 #tooltiptext {
 	background-color: rgb(209, 182, 225, 0.5);
 	font-family: 'Noto Sans KR', sans-serif;
@@ -202,7 +201,7 @@ ul ul #leftSideBar:hover {
 	opacity: 0;
 	border-radius: 30px;
 }
-/* ÅøÆÁ ³¡ */
+
 h3 {
 	font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
 }

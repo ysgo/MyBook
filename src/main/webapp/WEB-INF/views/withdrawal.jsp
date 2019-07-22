@@ -31,7 +31,7 @@
 
 </head>
 
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 
     <div class="wrapper">
         <!-- left Sidebar 시작 -->
@@ -108,7 +108,7 @@
                             </c:if>
                             <c:if test="${!empty status}">
                             	<li class="nav-item active">
-	                            	<form action="signOut" method="get">
+	                            	<form action="signOut" method="post">
 		                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
 		                            </form>
 	                            </li>
@@ -158,6 +158,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
+    // 뒤로가기시 회원탈퇴 페이지 안되게 하기
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+    
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"

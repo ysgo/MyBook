@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -77,9 +76,9 @@
             </ul>
         </nav>
 		<!-- left Sidebar 끝 -->
-		
-        <!-- Page Content 시작 -->
-        <div id="content">
+
+		<!-- Page Content 시작 -->
+		<div id="content">
 
 			<!-- navbar 시작 -->
             <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5 mt-2">
@@ -90,7 +89,7 @@
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <%-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                          <ul class="nav navbar-nav ml-auto">
 	                        <c:if test="${empty status}">
 		                            <li class="nav-item active">
@@ -106,17 +105,17 @@
 	                            </c:if>
 	                            <c:if test="${!empty status}">
 	                            	<li class="nav-item active">
-		                            	<form action="signOut" method="get">
+		                            	<form action="signOut" method="post">
 			                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
 			                            </form>
 		                            </li>
 	                            </c:if> 
                             </ul>
-                    </div>
-            </nav>
+                    </div> --%>
+            <!-- </nav> -->
 			<!-- navbar 끝 -->
-			
-			<!-- 컨텐트 추가 시작 -->    
+
+			<!-- 컨텐트 추가 시작 -->
 			<article id="updateArticle" class="card-body mx-auto">
 				<h2>내 정보 수정</h2>
 				<br>
@@ -128,7 +127,9 @@
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
 						</div>
-						<input value="${ status.userName }" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
+						<input value="${ status.userName }" name="userName"
+							class="form-control" placeholder="닉네임" type="text" required
+							autofocus>
 					</div>
 					<!-- 이메일 -->
 					<div class="form-group input-group">
@@ -136,9 +137,10 @@
 							<span class="input-group-text"> <i class="fa fa-envelope"></i>
 							</span>
 						</div>
-						<input value="${ status.userId }" name="userId" class="form-control" placeholder="이메일" type="email" readonly>
+						<input value="${ status.userId }" name="userId"
+							class="form-control" placeholder="이메일" type="email" readonly>
 					</div>
-	
+
 					<!-- 비밀번호 -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
@@ -147,7 +149,7 @@
 						</div>
 						<input id="userPass" name="userPass" class="form-control" placeholder="비밀번호" type="password" required>
 					</div>
-					
+
 					<!-- 비밀번호 확인 -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
@@ -157,7 +159,7 @@
 						<input id="rePass" class="form-control" placeholder="비밀번호 확인" type="password" required>
 						<input type="button" id="checkPass" value="중복확인">
 					</div>
-					
+
 					<!-- 수정 버튼 -->
 					<div class="form-group">
 						<input id="submit" type="submit" class="btn btn-primary btn-block" value="수정">
@@ -171,22 +173,30 @@
 				</div>
 				
 			</article>
-            <div class="line"></div> <!-- 구분선 -->
-            <!-- 컨텐트 추가 끝 -->
+			<div class="line"></div>
+			<!-- 구분선 -->
+			<!-- 컨텐트 추가 끝 -->
 
-        </div>
+		</div>
+		<!-- Page Content 끝 -->
+
+		<!-- 회원가입 및 로그인 -->
+	   <div class="sign">
+			<c:if test="${ empty status }">
+	       		<form action="signIn" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
+	          	</form>
+	       		<form action="signUp" method="get" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
+	          	</form>
+	        </c:if>
+	        <c:if test="${ !empty status }">
+	       		<form action="signOut" method="post" style ='float: left;'>
+	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
+	          	</form>
+        	</c:if>
+        </div> 
         <!-- Page Content 끝 -->
-        
-        <!-- 회원가입 및 로그인 -->
-        <div class="sign">
-       		<form action="signIn" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
-          	</form>
-       		<form action="signUp" method="get" style ='float: left;'>
-              		<input id="signColor" type="submit" class="nav-link p-2" value="회원가입">
-          	</form>
-        </div>
-        <!-- 회원가입 및 로그인 끝 -->
         
     </div>
     
@@ -241,5 +251,4 @@
         });
     </script>
 </body>
-
 </html>

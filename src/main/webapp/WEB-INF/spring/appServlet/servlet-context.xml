@@ -56,4 +56,5 @@
 
 	<beans:bean id="naverLoginBO" class="mybook.my.book.NaverLoginBO" />
 
+
 </beans:beans>

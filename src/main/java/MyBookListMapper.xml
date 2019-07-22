@@ -35,6 +35,10 @@
 		delete from mybooklist where id = #{id} 
 	</delete>
 	
+	<delete id="deleteAll" parameterType="String">
+		delete from mybooklist where email = #{email}
+	</delete>
+	
 	<update id="updateBookList" parameterType="model.MyBookList">
 		update mybooklist set 
 				m_title=#{m_title}, 
@@ -112,5 +116,10 @@
 	<!-- detailInterestBook -->
 	<select id="selectDetailInterestBook" parameterType="int"  resultType="model.InterestBookList">
     	select id, image, title, author, publisher, description from interestbooklist where id = #{id}
- 	</select>
+	</select>
+	
+	<delete id="deleteAllInterestBook" parameterType="String">
+		delete from interestbooklist where email = #{email} 
+	</delete> 
+
 </mapper>

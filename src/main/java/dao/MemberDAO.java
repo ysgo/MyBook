@@ -1,7 +1,5 @@
 package dao;
 
-import java.util.HashMap;
-
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,13 +20,6 @@ public class MemberDAO {
 		if(session.insert(statement, vo) != 1)
 			result = false;
 		return result;
-	}
-	
-	//로그인 체크
-	public boolean loginCheck(MemberVO vo) {
-		String statement = "resource.MemberMapper.loginCheck";
-		String name = session.selectOne(statement, vo);
-		return (name == null)? false : true;
 	}
 	
 	// 회원 로그인 정보
@@ -61,10 +52,16 @@ public class MemberDAO {
 	}
 	
 	// 비밀번호 찾기
-	public String find_pw(HashMap<String, String> hash) {
+	public String find_pw(MemberVO vo) {
 		String statement = "resource.MemberMapper.find_pw";
-		return session.selectOne(statement, hash);
+		return session.selectOne(statement, vo);
 	}	
+	
+	// 임시 비밀번호 저장
+	public void tmp_pw(MemberVO vo) {
+		String statement = "resource.MemberMapper.tmp_pw";
+		session.update(statement, vo);
+	}
 	
 	// 회원 탈퇴
 	public boolean withdrawal(String userId) {
