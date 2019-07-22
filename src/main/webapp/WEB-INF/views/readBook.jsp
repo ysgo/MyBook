@@ -351,7 +351,7 @@
 							<!-- 내용작성부분 -->
 							<div class="md-form mb-3">
 								<p class="md-form mb-2">내용</p>
-								<textarea id="m_content" class="form-control" rows="5"></textarea>
+								<textarea id="m_content" class="form-control" rows="5" style="white-space:pre-wrap"></textarea>
 							</div>
 							<!-- 확인버튼 -->
 							<div class="text-center mb-3">
@@ -432,7 +432,7 @@
 		 		$('button#m_submit').click(function(){ 
 		 		    var m_title = $('input#m_title').val();
 		 		    var m_content = $('textarea#m_content').val();
-
+		 		    m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 	 		    $.ajax({
 	 		        url: "readBook",
 	 		        type: 'POST', 
@@ -478,8 +478,8 @@
 	<!-- 	수정버튼 -->
 	<script>
   	function updateButton(id, m_title, m_star, m_content){
-  		document.getElementById('m_title').value=m_title; 
-  		document.getElementById('m_content').value=m_content; 
+  		document.getElementById('m_title').value=m_title;
+  		document.getElementById('m_content').value=m_content.replace(/(<br\/>|(<br><\/button>))/g, '\r\n'); 
   		$('#'+m_star).parent().children("a").removeClass("on");
   		$('#'+m_star).addClass("on").prevAll("a").addClass("on");
 
@@ -493,7 +493,7 @@
   				
   			    var m_title = $('input#m_title').val();
   			    var m_content = $('textarea#m_content').val();
-  			    
+  			 	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
   			    $.ajax({
   			        url: "readBook",
   			        type: 'POST', 

@@ -59,6 +59,11 @@ public class BookController {
 				}else {
 					//delete
 					boolean result = service.delete(Integer.parseInt(bookNum));
+					if(result) {
+						mav.addObject("msg", "mybooklist delete 성공");
+					}
+					else
+						mav.addObject("msg", "mybooklist delete 실패");
 				} //insert				
 			}else if(bookNum == null && model.getTitle()!=null && model.getTitle()!=null && 
 				model.getPublisher()!=null && model.getImage()!=null 
@@ -107,6 +112,11 @@ public class BookController {
 			if(bookNum != null) {
 				//delete
 				boolean result = service.deleteInterestBook(Integer.parseInt(bookNum));
+				if(result) {
+					mav.addObject("msg", "mybooklist delete 성공");
+				}
+				else
+					mav.addObject("msg", "mybooklist delete 실패");
 			}else if(model.getTitle()!=null && model.getTitle()!=null && 
 					model.getPublisher()!=null && model.getDescription()!=null & model.getImage()!=null) {
 				boolean result = service.insertInterestBook(model);

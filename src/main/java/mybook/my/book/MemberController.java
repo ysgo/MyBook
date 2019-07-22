@@ -51,10 +51,10 @@ public class MemberController {
 		String encPassword = passwordEncoder.encode(vo.getUserPass());
 		vo.setUserPass(encPassword);
 		if(service.signup(vo)) {
-			mav.addObject("status", vo);
-			viewName = "main";
+//			mav.addObject("status", vo);
+			viewName = "redirect:/signIn";
 		} else {
-			mav.addObject("status", null);
+//			mav.addObject("status", null);
 			viewName = "signUp";
 		}
 		mav.setViewName(viewName);
@@ -80,14 +80,14 @@ public class MemberController {
 			boolean result = passwordEncoder.matches(pw, vo.getUserPass());
 			if(result) {
 				mav.addObject("status", vo);
-				viewName = "main";
+				viewName = "redirect:/";
 			} else {
 				mav.addObject("status", null);
 				mav.addObject("msg", "로그인 정보를 확인해주세요!!");
 				viewName = "signIn";
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				out.println("<script>alert('로그인 정보를 확인해 주세요!!');</script>");
+				out.print("<script>alert('로그인 정보를 확인해 주세요!!');</script>");
 				out.flush();
 			}			
 		}
@@ -97,9 +97,11 @@ public class MemberController {
 	
 	// 로그아웃 
 	@RequestMapping(value="/signOut", method=RequestMethod.POST)
-	public String  signOut(SessionStatus session) throws Exception {
+	public ModelAndView signOut(SessionStatus session) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		service.signout(session);
-		return "redirect:/";
+		mav.setViewName("redirect:/");
+		return mav;
 	}
 	
 	// 회원 수정  페이지 이동
@@ -132,19 +134,28 @@ public class MemberController {
 	
 	// 회원탈퇴
 	@RequestMapping(value="/withdrawal", method=RequestMethod.POST)
-	public String  withdrawal(@RequestParam("checkPass")String checkPass, @ModelAttribute MyBookList model, 
-			@SessionAttribute("status")MemberVO user, SessionStatus sessionClear) throws Exception {
-		String userId = user.getUserId();
-		if(!checkPass.equals(user.getUserPass())) {
-			return "redirect:withdrawal";
+	public ModelAndView  withdrawal(@RequestParam("checkPass")String checkPass, @ModelAttribute MyBookList model, 
+			@SessionAttribute("status")MemberVO user, SessionStatus sessionClear, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		String viewName = "";
+		boolean passCheck = passwordEncoder.matches(checkPass, user.getUserPass());
+		if(!passCheck) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print("<script>alert('비밀번호가 다릅니다. 다시 확인해주세요!!');</script>");
+			out.flush();
+			viewName = "withdrawal";
 		} else {
+			String userId = user.getUserId();
 			boolean result = service.withdrawal(userId); 
 			if(result) {
 				serviceBook.deleteAll(userId);
 				serviceBook.deleteAllInterestBook(userId);
 				sessionClear.setComplete();
+				viewName = "redirect:/";
 			}
 		}
-		return "redirect:/";
+		mav.setViewName(viewName);
+		return mav;
 	}
 }
