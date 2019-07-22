@@ -44,10 +44,12 @@ public class MemberController {
 	@Inject
 	private NaverBookService serviceBook;
 	//main 페이지 이동 
+	@Inject
+	PasswordEncoder passwordEncoder;
+	
 	@RequestMapping(value = "/")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
-		
 		mav.addObject("listLog", serviceBook.selectLog());
 		mav.addObject("list", serviceBook.trendingbook()); 
 		mav.setViewName("main");
@@ -65,7 +67,7 @@ public class MemberController {
 		model.setEmail(email);
 		List<MyBookList> list = serviceBook.listAll(model);
 		mav.addObject("list", list); 
-		
+		mav.addObject("listCnt", listCnt);
 		mav.addObject("pagination", pageList);	
 		mav.setViewName("otherReadBook");
 		return mav;
@@ -88,8 +90,6 @@ public class MemberController {
 		return mav;
 	}
 	
-	@Inject
-	PasswordEncoder passwordEncoder;
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
@@ -110,7 +110,7 @@ public class MemberController {
 			mav.addObject("status", vo);
 			mav.addObject("list", serviceBook.trendingbook()); 
 			mav.addObject("listLog", serviceBook.selectLog());
-			viewName = "redirect:/signIn";
+			viewName = "redirect:/";
 		} else {
 			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
 			model.addAttribute("url", naverAuthUrl);
@@ -135,6 +135,8 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		String viewName  =null;
 		String pw = vo.getUserPass();
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+		model.addAttribute("url", naverAuthUrl);
 		vo = service.viewMember(vo);
 		if(vo == null) {
 			viewName="signIn";
@@ -148,8 +150,6 @@ public class MemberController {
 			} else {
 				mav.addObject("status", null);
 				mav.addObject("msg", "로그인 정보를 확인해주세요!!");
-				String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
-				model.addAttribute("url", naverAuthUrl);
 				viewName = "signIn";
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();

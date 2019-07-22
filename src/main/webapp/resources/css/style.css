@@ -147,11 +147,6 @@ ul ul #leftSideBar:hover {
 	border-color: #58C9B9;
 }
 
-.btn-outline-secondary {
-	color: #58C9B9;
-	border-color: #58C9B9;
-}
-
 .btn:hover {
 	background: #58C9B9;
 	border: white;
@@ -209,12 +204,6 @@ ul ul #leftSideBar:hover {
 
 h3 {
 	font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-}
-
-#trending {
-	width: 90%;
-	height: 300px;
-	border: 1px solid gray;
 }
 
 

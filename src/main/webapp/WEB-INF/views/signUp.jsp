@@ -79,7 +79,7 @@
 					</span>
 				</div>
 				<input class="form-control" id="rePass" name="rePass" placeholder="비밀번호 확인" type="password" required>
-				<input type="button" id="repass_check" value="중복체크">
+				<input type="button" id="repass_check" value="확인">
 			</div>
 			
 			<!-- 등록 버튼 -->

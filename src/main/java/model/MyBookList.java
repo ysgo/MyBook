@@ -108,6 +108,7 @@ public class MyBookList {
 				+ publisher + ", description=" + description + ", image=" + image + ", m_title=" + m_title + ", m_star="
 				+ m_star + ", m_content=" + m_content + ", registdate=" + registdate + ", userName=" + userName
 				+ ", start=" + start + ", last=" + last + "]";
+
 	}
 
 }

@@ -13,15 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+
+import vo.MemberVO;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes({"url", "result"})
+//@SessionAttributes({"url", "result"})
 public class NaverLoginController {
 
 	/* NaverLoginBO */
@@ -55,10 +56,13 @@ public class NaverLoginController {
 		OAuth2AccessToken oauthToken;
         oauthToken = naverLoginBO.getAccessToken(session, code, state);
 	    apiResult = naverLoginBO.getUserProfile(oauthToken);
+	    System.out.println(apiResult.toString());
 		model.addAttribute("result", apiResult);
-
+		MemberVO vo = (MemberVO)session.getAttribute("result");
+		System.out.println(vo.getUserName());
+		System.out.println(vo.getUserId());
         /* 네이버 로그인 성공 페이지 View 호출 */
-		return "main";
+		return "/naver/loginResult";
 	}
 }
 
