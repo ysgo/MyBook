@@ -1,10 +1,7 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=origin/youngsun
+>>>>>>>=origin/master
 eclipse.preferences.version=1
 encoding//src/main/java/mybook/my/book/BookController.java=UTF-8
-<<<<<<< HEAD
-=======
 encoding//src/main/java/mybook/my/book/MemberController.java=UTF-8
 encoding/<project>=UTF-8
->>>>>>> origin/master
