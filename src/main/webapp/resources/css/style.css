@@ -274,6 +274,13 @@ body > div#content{
 	width : auto;
 	color : #fff;
 }
+
+#userNameCss{
+	font-weight: bold; 
+	border:none; 
+	background-color: #58C9B9; 
+	color: #fff;
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

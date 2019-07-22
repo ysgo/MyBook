@@ -135,7 +135,6 @@
 			<script>
 				function makeDiv() {
 					var total = '${total}';
-					console.log('토탈', total);
 					if(total%4 > 0) {
 						var rows = parseInt(total/4)+1;	
 					} else {

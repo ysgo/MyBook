@@ -1,5 +1,7 @@
 package mybook.my.book;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -12,10 +14,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.InterestBookList;
+import model.Log;
 import model.MyBookList;
 import service.MemberService;
 import service.NaverBookService;
 import vo.MemberVO;
+import vo.PagingVO;
 
 @Controller
 @SessionAttributes("status")
@@ -26,10 +31,48 @@ public class MemberController {
 	private NaverBookService serviceBook;
 	
 	// main ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙 
-	/*
-	 * @RequestMapping(value = "/") public String main() { return "main"; }
-	 */
+	@RequestMapping(value = "/")
+	public ModelAndView main() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("listLog", serviceBook.selectLog());
+		mav.setViewName("main");
+		return mav;
+	}
 	
+	@RequestMapping(value = "/otherReadBook")
+	public ModelAndView otherReadBook(@RequestParam(defaultValue="1")int curPage,
+			@ModelAttribute MyBookList model, String email) {
+		ModelAndView mav = new ModelAndView();
+		int listCnt = serviceBook.getTotalCnt(email);
+		PagingVO pageList = new PagingVO(listCnt, curPage);
+		model.setStart(pageList.getStartIndex());
+		model.setLast(pageList.getEndIndex());
+		model.setEmail(email);
+		List<MyBookList> list = serviceBook.listAll(model);
+		mav.addObject("list", list); 
+		
+//		mav.addObject("listCnt", listCnt);
+		mav.addObject("pagination", pageList);	
+		mav.setViewName("otherReadBook");
+		return mav;
+	}
+
+	
+	@RequestMapping(value = "/otherInterestBook")
+	public ModelAndView otherInterestBook(String email) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", serviceBook.listAllInterestBook(email)); 
+		mav.setViewName("otherInterestBook");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/allLog")
+	public ModelAndView allLog() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("listLog", serviceBook.selectLog()); 
+		mav.setViewName("allLog");
+		return mav;
+	}
 	
 	// ?占쏙옙?占쏙옙占�??占쏙옙 ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
@@ -45,6 +88,7 @@ public class MemberController {
 		if(service.signup(vo)) {
 			mav.addObject("status", vo);
 			mav.addObject("list", serviceBook.trendingbook()); 
+			mav.addObject("listLog", serviceBook.selectLog());
 			viewName = "main";
 		} else {
 			mav.addObject("status", null);
@@ -70,6 +114,8 @@ public class MemberController {
 			vo = service.viewMember(vo);
 			mav.addObject("status", vo);
 			mav.addObject("list", serviceBook.trendingbook()); 
+			mav.addObject("listLog", serviceBook.selectLog());
+
 			viewName = "main";
 		} else {
 			mav.addObject("status", null);

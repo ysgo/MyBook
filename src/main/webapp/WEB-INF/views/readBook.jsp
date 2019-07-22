@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -144,25 +145,10 @@
 								<span style="margin-right: 5px; font-size: 17pt;">${vo.m_title}</span>
 								<span>${vo.registdate}</span><br>
 								별점 : 
-								<span>
-								<c:choose>
-									<c:when test="${vo.m_star == '1'}">
-										<a class="on">★</a>
-									</c:when>
-									<c:when test="${vo.m_star == '2'}">
-										<a class="on">★★</a>
-									</c:when>
-									<c:when test="${vo.m_star == '3'}">	
-										<a class="on">★★★</a>
-									</c:when>
-									<c:when test="${vo.m_star == '4'}">
-										<a class="on">★★★★</a>
-									</c:when>
-									<c:otherwise>
-										<a class="on">★★★★★</a>
-									</c:otherwise>
-								</c:choose></span><br>	
-								<span style="font-size: 14pt;">${vo.m_content}</span>
+								<c:forEach var="i" begin="1" end="${vo.m_star}">
+									<span>★</span>
+								</c:forEach><br>	
+								<span style="font-size: 14pt; word-break: keep-all ;">${vo.m_content}</span> <!-- style="word-break: keep-all ;" -->
 							</div>
 						</li>
 						<div class="caption">

@@ -3,7 +3,6 @@ package model;
 public class MyBookList {
 	private int id;
     private String email;
-    private String userName;
     private String title;
     private String author;
     private String publisher;
@@ -13,6 +12,7 @@ public class MyBookList {
     private String m_star;
     private String m_content;
     private String registdate;
+    private String userName;
     
     private int start;
     private int last;
@@ -29,7 +29,6 @@ public class MyBookList {
 	public void setLast(int last) {
 		this.last = last;
 	}
-	
 	public int getId() {
 		return id;
 	}
@@ -72,12 +71,6 @@ public class MyBookList {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getRegistdate() {
-		return registdate;
-	}
-	public void setRegistdate(String registdate) {
-		this.registdate = registdate;
-	}
 	public String getM_title() {
 		return m_title;
 	}
@@ -96,7 +89,12 @@ public class MyBookList {
 	public void setM_content(String m_content) {
 		this.m_content = m_content;
 	}
-
+	public String getRegistdate() {
+		return registdate;
+	}
+	public void setRegistdate(String registdate) {
+		this.registdate = registdate;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -105,10 +103,12 @@ public class MyBookList {
 	}
 	@Override
 	public String toString() {
-		return "MyBookList [id=" + id + ", email=" + email + ", userName=" + userName + ", title=" + title + ", author="
-				+ author + ", publisher=" + publisher + ", description=" + description + ", image=" + image
-				+ ", m_title=" + m_title + ", m_star=" + m_star + ", m_content=" + m_content + ", registdate="
-				+ registdate + ", start=" + start + ", last=" + last + "]";
+
+		return "MyBookList [id=" + id + ", email=" + email + ", title=" + title + ", author=" + author + ", publisher="
+				+ publisher + ", description=" + description + ", image=" + image + ", m_title=" + m_title + ", m_star="
+				+ m_star + ", m_content=" + m_content + ", registdate=" + registdate + ", userName=" + userName
+				+ ", start=" + start + ", last=" + last + "]";
+
 	}
 
 }
