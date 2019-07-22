@@ -158,65 +158,6 @@
 			</c:if>
 			<!-- 책이미지 출력 끝 -->           
 
-			<!-- 모달 영역 시작 -->          
-            <!-- Button trigger modal -->
-			<button id="addButton" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-			  +
-			</button>
-			 
-			<!-- 책 추가 모달 -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
-			    <div class="modal-content">
-				  <!-- 닫기 버튼 -->
-			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-				 
-				 <div class="modal-body">
-				 	
-				 	<!--  모달 컨텐트 컨테이너 -->     	
-				 	<div class="container">
-				 		<!--  인풋 로우 -->   
-						<div class="row inputrow">
-							<div class="col-sm-12">
-								<div class="input-group">
-						        	<input name="keyword" 
-							        	type="text" class="form-control" 
-							        	placeholder="책 제목, 저자 검색"
-						        	 	aria-describedby="basic-addon2"
-						        	 	width="20px">
-						        	 <div class="input-group-append">
-						    			<button class="btn btn-outline-secondary" id="submitForm">검색</button>
-						 			 </div>
-							     </div>
-							</div>
-						</div>
-			
-				       <br>
-				       <!--  결과 로우 -->   
-			       		<c:forEach items="${bookList}" var ="b" >
-				        	<div id="row" class="row mr-1">
-				        		<div id="imgContainer" class="col-sm-3">
-				                	<img id="image" src="${b.image}" style="width: 200px">
-					            </div>
-					            <div class="col-sm-4">
-					            	<span id="title">${b.title}</span><br><br>
-					                <span id="author">${b.author}</span><br>
-					                <span id="publisher">${b.publisher}</span>
-					            </div>
-					             <div class="col-sm">
-					                ${b.description}
-					            </div>
-					            <div class="w-150"></div>
-				        	</div>
-			        	</c:forEach>
-						</div>
-			        	<!--  모달 컨텐트 컨테이너 끝 -->
-				 </div>	
-			    </div>
-			  </div>
-			</div>
-			<!-- 책 추가 모달 끝 -->
-
         </div>
         <!-- Page Content 끝 -->
         
@@ -258,61 +199,6 @@
 	        });
 	    });
     </script>
-        
-    <!-- 책추가 controller 보내서 db저장 -->
-    <script>   	
-    	//책 추가 모달에서 목록을 눌렀을 때
-		$('div#row').click(function(){ 
-		    var	image = $(this).children('div').children('img#image').attr("src");
-		    var	title = $(this).children('div').children('span#title').text();
-		    var	author = $(this).children('div').children('span#author').text();
-		    var	publisher = $(this).children('div').children('span#publisher').text(); 		
-		    var	description = $(this).children('div#description').text(); 	
-		    
-		    $.ajax({
- 		        url: "interestBook",
- 		        type: 'POST', 
- 		        data: {
- 		        	title : title,
- 		        	author : author,
- 		        	publisher : publisher,
- 		        	description : description,
- 		        	image : image
- 		        },
- 		        dataType : "text",
- 		        success: function(data){           
- 		        	//alert("insert 보냄");
- 		        	$("#myModal .close").click();
- 		        },
- 		        error : function(request, status, error){
- 		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
- 		        }
- 		    }); 
-		});	
-    </script>
-    <!-- 책추가 controller 보내서 db저장 끝 -->
-    
-    <!-- 삭제버튼 끝 -->
-	<script>
-		function deleteButton(id, registdate){
-		    $.ajax({
-		        url: "interestBook",
-		        type: 'POST', 
-		        data: {
-		        	bookNum : id
-		        },
-		        dataType : "text",
-		        success: function(data){           
-		        	//alert("delete 보냄");	 	
-		        	$('body').html(data);
-		        },
-		        error : function(request, status, error){
-		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
-		        }
-		    }); 
-		}
-	</script> 
-	<!-- 삭제버튼 끝 -->
     
     <!-- 도서 검색 -->
 	<script>

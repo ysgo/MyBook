@@ -25,7 +25,8 @@
   		<selectKey resultType="int" keyProperty="id" order="BEFORE">
       		select mybooklist_seq.nextval from dual     
     	</selectKey>  
-    		insert into mybooklist(id, email, title, author, publisher, image, m_title, m_star, m_content,  registdate, logregistdate) values(#{id},#{email},#{title},#{author},#{publisher},#{image},#{m_title}, #{m_star}, #{m_content}, sysdate, sysdate)
+    		insert into mybooklist(id, email, title, author, publisher, image, m_title, m_star, m_content,  registdate) 
+    		values(#{id},#{email},#{title},#{author},#{publisher},#{image},#{m_title}, #{m_star}, #{m_content}, sysdate)
 	</insert>	
 	
 	<delete id="deleteBookList" parameterType="model.MyBookList">
@@ -45,17 +46,41 @@
     	select title, count(*) as count from mybooklist group by title order by count(*) desc
     </select>
 
-	<!-- selectlog -->
-	<insert id="insertLog"  parameterType="model.Log">
-    		insert into log(userName, logregistdate) values(#{userName}, sysdate)
-	</insert>	
-	
-	<select id="selectLog" resultType="model.Log">
-    	select l.userName myBookUserName, mybook.title myBookTitle, mybook.m_star mStar, mybook.m_content mContent, interestbook.title interestBookTitle, l.logregistdate logRegistDate
-    	from mybooklist mybook,  interestbooklist interestbook, log l
-    	where mybook.logregistdate = l.logregistdate or interestbook.logregistdate = l.logregistdate
-    	order by l.logregistdate desc
+	<!-- select last registdate -->
+	<select id="selectMyBookLastRegistDate" resultType="String">
+		select max(registdate) KEEP(DENSE_RANK First ORDER BY registdate DESC) from mybooklist
  	</select>
+ 	
+ 	<select id="selectInterestLastRegistDate" resultType="String">
+		select max(registdate) KEEP(DENSE_RANK First ORDER BY registdate DESC) from interestbooklist
+ 	</select>
+	
+	<!-- log -->
+	<select id="selectLog" resultType="model.Log">
+    	select email, userName, myBookTitle, interestBookTitle, m_star, m_content, isupdate, logregistdate
+    	from log order by logregistdate desc
+ 	</select>
+ 	
+	<insert id="insertLog"  parameterType="model.Log">
+		<selectKey resultType="int" keyProperty="id" order="BEFORE">
+      		select mybooklist_seq.nextval from dual     
+    	</selectKey> 
+    	insert into log(id, email, userName, myBookTitle, interestBookTitle, m_star, m_content,logregistdate) 
+    	values(#{id}, #{email}, #{userName},#{myBookTitle},#{interestBookTitle},#{m_star},#{m_content},  to_Date(#{logregistdate},'yyyy-MM-dd hh24:mi:ss'))
+	</insert>
+	
+	<update id="updateLog" parameterType="model.Log">
+		update log set 
+				m_star=#{m_star}, 
+				m_content=#{m_content}, 
+				isupdate=#{isupdate},
+				logregistdate=to_Date(#{logregistdate},'yyyy-MM-dd hh24:mi:ss')
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteLog" parameterType="int">
+		delete from log where id = #{id} 
+	</delete> 
 	
 	<!-- interestBook -->
 	 <select id="searchInterestbook"  parameterType="string" resultType="model.InterestBookList">
@@ -63,14 +88,14 @@
     </select>
 	
 	<select id="selectAllInterestBookList" parameterType="string"  resultType="model.InterestBookList">
-    	select id, image, title from interestbooklist where email = #{email} order by id desc
+    	select id, image, title, registdate from interestbooklist where email = #{email} order by id desc
  	</select>
 
   	<insert id="insertInterestBookList"  parameterType="model.InterestBookList">
   		<selectKey resultType="int" keyProperty="id" order="BEFORE">
       		select mybooklist_seq.nextval from dual     
     	</selectKey>  
-    		insert into interestbooklist(id, email, title, author, publisher, description, image, logregistdate) values(#{id},#{email},#{title},#{author},#{publisher}, #{description}, #{image}, sysdate)
+    		insert into interestbooklist(id, email, title, author, publisher, description, image, registdate) values(#{id},#{email},#{title},#{author},#{publisher}, #{description}, #{image}, sysdate)
 	</insert>	
 	
 	<delete id="deleteInterestBookList" parameterType="int">

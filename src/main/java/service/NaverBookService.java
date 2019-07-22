@@ -4,8 +4,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -164,7 +164,27 @@ public class NaverBookService {
 		return list;
 	}
 	
+	//select last registdate
+	public String selectMyBookLastRegistDate(){
+		String statement = "resource.MyBookListMapper.selectMyBookLastRegistDate";
+		String result = session.selectOne(statement);
+		return result;
+	}
+	
+	public String selectInterestLastRegistDate(){
+		String statement = "resource.MyBookListMapper.selectInterestLastRegistDate";
+		String result = session.selectOne(statement);
+		return result;
+	}
+	
 	//log
+	public List<Log> selectLog(){
+		List<Log> list = null;
+		String statement = "resource.MyBookListMapper.selectLog";
+		list = session.selectList(statement);
+		return list;
+	}
+	
 	public boolean insertLog(Log vo) {
 		boolean result=true;
 		String statement = "resource.MyBookListMapper.insertLog";
@@ -173,12 +193,20 @@ public class NaverBookService {
 		return result;
 	}
 	
-	public List<Log> selectLog(){
-		List<Log> list = null;
-		String statement = "resource.MyBookListMapper.selectLog";
-		list = session.selectList(statement);
-		System.out.println("list : "+list);
-		return list;
+	public boolean updateLog(Log vo) {
+		boolean result=true;
+		String statement = "resource.MyBookListMapper.updateLog";
+		if(session.update(statement, vo) != 1)
+			result = false;
+		return result;
+	}
+	
+	public boolean deleteLog(int id) {
+		boolean result=true;
+		String statement = "resource.MyBookListMapper.deleteLog";
+		if(session.delete(statement, id) != 1)
+			result = false;
+		return result;
 	}
 	
 	//InterestBookList

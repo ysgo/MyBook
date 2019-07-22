@@ -141,78 +141,50 @@
                <i class="fas fa-align-left"></i>
                <span>MENU</span>
             </button>
-			
-			<!-- 컨텐트 추가 시작 -->
-            <h3>지금 CHACKCHECK에서 인기있는 책</h3>
-            <div id="trending" class="mx-auto mt-5">
-            	<c:set var="loop_flag" value="false" />
-            	<c:forEach var="vo" items="${ list }" varStatus="status">	
-            	<c:if test="${not loop_flag}">
-            		${vo.title}<br>
-	            	<c:if test="${status.count == 5}">		
-						<c:set var="loop_flag" value="true"/>
-					</c:if>   
-				</c:if>
-				</c:forEach> 		
-            </div>
-            
-            <br>
            		
-			<!-- 컨텐트 추가 시작 -->
             <h2>활동기록</h2>
             	 <br>
 	            <c:if test="${ !empty listLog }">
+					<ul>
 		           		<c:forEach var="vo" items="${listLog}" varStatus="status">
-			           		<c:if test="${status.count <6}">
-			           			<!-- 읽은 책 -->
-			           			<c:if test="${!empty vo.myBookTitle}"> 
-			           				<form action="otherReadBook" method="post">
-				               			<input type="hidden" name="email" value="${vo.email}">
-				           				<input id="userNameCss" type="submit" value="${vo.userName}">
-				           				&emsp;<span> ${vo.logregistdate}</span>
-			           				</form><br> 
-			           				<span style="font-weight: bold; word-break: keep-all ;">${vo.myBookTitle}</span>
-				           			<c:if test="${empty vo.isupdate}">
-				           				<span style="word-break: keep-all ;"> 책 서평을 작성하였습니다.</span>
-				           			</c:if>
-				           			<c:if test="${!empty vo.isupdate}">
-				           				<span style="word-break: keep-all ;"> 책 서평을 변경하였습니다.</span>
-				           			</c:if>	
-				           			<br>별점 <span>
-				           					<c:forEach var="i" begin="1" end="${vo.m_star}">
-				           						<span style="color : #58C9B9;">★</span>
-											</c:forEach></span><br>
-									<div style="word-break: keep-all ;">${vo.m_content}</div>		
-			           			</c:if> 
-			           			
-			           			<!-- 관심 책 -->
-			           			<c:if test="${empty vo.myBookTitle}"> 
-			           				<form action="otherInterestBook" method="post">
+			           		<%-- <c:if test="${status.count <6}"> --%>
+			           			<div id="row">    
+			           				<c:if test="${!empty vo.myBookTitle}">
+			           					<form action="otherReadBook" method="post">
 				               				<input type="hidden" name="email" value="${vo.email}">
 				           					<input id="userNameCss" type="submit" value="${vo.userName}">
 				           					&emsp;<span> ${vo.logregistdate}</span>
-			           				</form><br> 
-			           				<span style="font-weight: bold; word-break: keep-all ;">${vo.interestBookTitle}</span>
-				           			<c:if test="${empty vo.isupdate}">
-				           				<span style="word-break: keep-all ;"> 책을 관심 책으로 추가하였습니다.</span>
-				           			</c:if>
-			           			</c:if>			
+			           					</form><br> 
+			           					<span style="font-weight: bold; word-break: keep-all ;">${vo.myBookTitle}</span>
+				           				<c:if test="${empty vo.isupdate}">
+				           					<span style="word-break: keep-all ;"> 책 서평을 작성하였습니다.</span>
+				           					</c:if>
+				           				<c:if test="${!empty vo.isupdate}">
+				           					<span style="word-break: keep-all ;"> 책 서평을 변경하였습니다.</span>
+				           				</c:if>	
+				           				<br>별점 <span><c:forEach var="i" begin="1" end="${vo.m_star}">
+											<span style="color : #58C9B9;">★</span>
+										</c:forEach></span><br>
+										<div style="word-break: keep-all ;">${vo.m_content}</div>
+			           				</c:if> 
+			           				<c:if test="${empty vo.myBookTitle}">
+			           					<form action="otherInterestBook" method="post">
+				               				<input type="hidden" name="email" value="${vo.email}">
+				           					<input id="userNameCss" type="submit" value="${vo.userName}">
+				           					&emsp;<span> ${vo.logregistdate}</span>
+			           					</form><br>
+				           				<span style="font-weight: bold; word-break: keep-all ;">${vo.interestBookTitle}</span>
+				           				<span style="word-break: keep-all ;"> 책을 관심책에 담았습니다.</span><br>
+			           				</c:if>	
 								<div class="line"></div>
-							</c:if>
+							<%-- </c:if> --%>
 						 </c:forEach>
-					 <form style="text-align: right;" action="allLog" method="post">
-				     	<input type="submit" value="모든 활동기록 보기 >">
-				     </form>
+					 </ul>
 				 </c:if>
 				 <c:if test="${ empty listLog }">
 				 	<div>활동기록이 없습니다.</div>
 				 	<div class="line"></div>
 				 </c:if>
-
-            <!-- <h2>트렌드</h2>
-            <p>추후에 트렌드 추가</p>
-            <div class="line"></div>-->
-            <!-- 컨텐트 추가 끝 --> 
 
         </div>
         <!-- Page Content 끝 -->

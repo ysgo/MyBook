@@ -1,12 +1,27 @@
 package model;
 
-public class Log { //l.userName, m.title, m.m_star, m.m_content, i.title, l.logregistdate
+public class Log { 
+	private int id;
+	private String email;
 	private String userName;
 	private String myBookTitle;
-	private String mStar;
-	private String mContent;
 	private String interestBookTitle;
-	private String logRegistDate;
+	private String m_star;
+	private String m_content;
+	private String isupdate;
+	private String logregistdate;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -19,33 +34,40 @@ public class Log { //l.userName, m.title, m.m_star, m.m_content, i.title, l.logr
 	public void setMyBookTitle(String myBookTitle) {
 		this.myBookTitle = myBookTitle;
 	}
-	public String getmStar() {
-		return mStar;
-	}
-	public void setmStar(String mStar) {
-		this.mStar = mStar;
-	}
-	public String getmContent() {
-		return mContent;
-	}
-	public void setmContent(String mContent) {
-		this.mContent = mContent;
-	}
 	public String getInterestBookTitle() {
 		return interestBookTitle;
 	}
 	public void setInterestBookTitle(String interestBookTitle) {
 		this.interestBookTitle = interestBookTitle;
 	}
-	public String getLogRegistDate() {
-		return logRegistDate;
+	public String getM_star() {
+		return m_star;
 	}
-	public void setLogRegistDate(String logRegistDate) {
-		this.logRegistDate = logRegistDate;
+	public void setM_star(String m_star) {
+		this.m_star = m_star;
+	}
+	public String getM_content() {
+		return m_content;
+	}
+	public void setM_content(String m_content) {
+		this.m_content = m_content;
+	}
+	public String getIsupdate() {
+		return isupdate;
+	}
+	public void setIsupdate(String isupdate) {
+		this.isupdate = isupdate;
+	}
+	public String getLogregistdate() {
+		return logregistdate;
+	}
+	public void setLogregistdate(String logregistdate) {
+		this.logregistdate = logregistdate;
 	}
 	@Override
 	public String toString() {
-		return "Log [userName=" + userName + ", myBookTitle=" + myBookTitle + ", mStar=" + mStar + ", mContent="
-				+ mContent + ", interestBookTitle=" + interestBookTitle + ", logRegistDate=" + logRegistDate + "]";
+		return "Log [id=" + id + ", email=" + email + ", userName=" + userName + ", myBookTitle=" + myBookTitle
+				+ ", interestBookTitle=" + interestBookTitle + ", m_star=" + m_star + ", m_content=" + m_content
+				+ ", isupdate=" + isupdate + ", logregistdate=" + logregistdate + "]";
 	}
 }
