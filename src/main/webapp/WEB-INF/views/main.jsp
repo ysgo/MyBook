@@ -134,6 +134,18 @@
             </button>
 			
 			<!-- 컨텐트 추가 시작 -->
+			<h3>지금 CHACKCHECK에서 인기있는 책</h3>
+            <div id="trending" class="mx-auto mt-4 mb-2">
+            <c:forEach var="vo" items="${ list }" >
+            <script>
+            var vo = '${vo}'
+            console.log(vo);
+            </script>
+            		${vo.title}<br>
+            </c:forEach>		
+            </div>
+			
+			
             <h2>활동로그</h2>
 	            <c:if test="${ !empty listLog }">
 					<ul>

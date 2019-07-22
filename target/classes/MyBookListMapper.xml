@@ -43,8 +43,16 @@
 	</update>
 	
 	<select id="trendingbook" resultType="model.MyBookList">
-    	select title, count(*) as count from mybooklist group by title order by count(*) desc
+    	select title, total_by_title from 
+    	(select title, sum(count(*)) over(partition by title) total_by_title from mybooklist group by title order by total_by_title desc) 
+    	<!--[CDATA[
+    	where rownum <=5
+    	]]-->
     </select>
+    
+	<select id="countInterestBookList" parameterType="string" resultType="int">
+  		select count(*) as total from interestbooklist where email = #{email}
+	</select>
 
 	<!-- selectlog -->
 	<select id="selectReadBookLog" resultType="model.MyBookList">

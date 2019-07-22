@@ -98,7 +98,7 @@
 		<!-- Page Content 시작 -->
 		<div id="content">
 
-			<div class="top-page mb-5">
+			<div class="top-page mb-5 center-block">
 				<!-- top page 시작 -->
 
 				<div class="btn-with-fixedInput pr-1 pl-3">
@@ -199,7 +199,7 @@
 			<% 
 				if(request.getParameter("readkeyword") != null) { 
 			%>
-				<h2 style="padding-top: 30px">찾으시는 내용이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
+				<h2 style="padding-top: 30px">찾으시는 책이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
 			<%
 				} else {
 			%>

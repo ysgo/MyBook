@@ -201,6 +201,12 @@ public class NaverBookService {
 			return list;
 		}
 		
+		public int countInterestBook(String userId) {
+			String statement = "resource.MyBookListMapper.countInterestBookList";
+			int total = session.selectOne(statement, userId);
+			return total;
+		}
+		
 	//detailInterestBook
 		public List<InterestBookList> selectDetailInterestBook(int id){
 			List<InterestBookList> list = null;

@@ -96,6 +96,7 @@ public class BookController {
 	        map.put("email", "qwe@gmail.com");
 
 			mav.addObject("list", service.searchInterestbook(map)); 
+			mav.addObject("total", service.countInterestBook("qwe@gmail.com"));
 			mav.setViewName("interestBook");
 			return mav;	
 		}
@@ -117,6 +118,7 @@ public class BookController {
 					mav.addObject("msg", "InterestBookList insert 실패");
 			}
 		}
+		mav.addObject("total", service.countInterestBook("qwe@gmail.com"));
 		mav.addObject("list", service.listAllInterestBook("qwe@gmail.com")); 
 		mav.setViewName("interestBook");
 		return mav;
@@ -131,12 +133,13 @@ public class BookController {
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/trendingbook"}, method=RequestMethod.GET) 
-	public ModelAndView trendingbook() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", service.trendingbook()); 
-		mav.setViewName("main");
-		return mav;
+	
+	@RequestMapping(value = {"/"}) 
+		public ModelAndView trendingBook() {
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("list", service.trendingbook()); 
+			mav.setViewName("main");
+			return mav;
 	}
 }
 
