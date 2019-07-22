@@ -35,7 +35,7 @@
 <!-- 				<div class="col-sm-auto"><h4 class="card-title mt-2 text-center">회원가입</h4></div> -->
 		</div>
 		<!-- 네이버 로그인 버튼 -->
-		<a href="/book/signIn" class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
+		<a href="${url}" class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
 		<p class="divider-text">
 			<span class="bg-light">OR</span>
 		</p>

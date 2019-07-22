@@ -1,10 +1,14 @@
 package mybook.my.book;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import model.InterestBookList;
 import model.Log;
@@ -25,6 +31,16 @@ import vo.PagingVO;
 @Controller
 @SessionAttributes("status")
 public class MemberController {
+	
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+	
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
+	
 	@Inject
 	private MemberService service;
 	@Inject
@@ -33,6 +49,7 @@ public class MemberController {
 	@RequestMapping(value = "/")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
+		
 		mav.addObject("listLog", serviceBook.selectLog());
 		mav.addObject("list", serviceBook.trendingbook()); 
 		mav.setViewName("main");
@@ -74,12 +91,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-	public String signUp() {
+	public String signUp(Model model, HttpSession session) {
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+		model.addAttribute("url", naverAuthUrl);
 		return "signUp";
 	}
 	
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
-	public ModelAndView signUp(@ModelAttribute MemberVO vo) throws Exception {
+	public ModelAndView signUp(@ModelAttribute MemberVO vo, Model model, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName = null;
 		if(service.signup(vo)) {
@@ -88,6 +107,8 @@ public class MemberController {
 			mav.addObject("listLog", serviceBook.selectLog());
 			viewName = "main";
 		} else {
+			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+			model.addAttribute("url", naverAuthUrl);
 			mav.addObject("status", null);
 			viewName = "signUp";
 		}
@@ -96,12 +117,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
-	public String  signIn() {
+	public String  signIn(Model model, HttpSession session) {
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+		model.addAttribute("url", naverAuthUrl);
 		return "signIn";
 	}
 	
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
-	public ModelAndView signIn(@ModelAttribute MemberVO vo) throws Exception {
+	public ModelAndView signIn(@ModelAttribute MemberVO vo, Model model, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String viewName  =null;
 		boolean result = service.loginCheck(vo);
@@ -110,12 +133,13 @@ public class MemberController {
 			mav.addObject("status", vo);
 			mav.addObject("list", serviceBook.trendingbook()); 
 			mav.addObject("listLog", serviceBook.selectLog());
-
 			viewName = "main";
 		} else {
+			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+			model.addAttribute("url", naverAuthUrl);
 			mav.addObject("status", null);
 			viewName = "signIn";
-		}
+		}		
 		mav.setViewName(viewName);
 		return mav;
 	}

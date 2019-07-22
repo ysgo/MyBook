@@ -68,8 +68,9 @@
 				</form>
 				
 				<!-- 아이디, 비밀번호 찾기 링크 -->
+				<br>
 				<p class="text-center">
-					<button id="searchId" onclick="searchMember()">아이디/비밀번호 찾기</button>
+					<button id="searchId" onclick="searchMember()" class="btn btn-outline-secondary">아이디/비밀번호 찾기</button>
 				</p>
 				
 		</article>

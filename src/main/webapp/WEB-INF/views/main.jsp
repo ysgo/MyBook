@@ -256,7 +256,7 @@
 	</script>
     <script type="text/javascript">
     	
-        $(document).ready(function () {
+        $(document).ready(function () {	
         	// hide sidebar when refresh the page
             $('#sidebar').toggleClass('active');
  

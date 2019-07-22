@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
-
+@import url('https://fonts.googleapis.com/css?family=Cantarell&display=swap');
 body {
 	font-family: 'Noto Sans', sans-serif; 
 } 
@@ -139,6 +139,18 @@ input[type=image]:hover + #iconbox .deletelink path{
 	width: 40px;
 }
 
+.booklink {
+	color: #58C9B9;
+}
+
 .booklink a {
 	text-decoration: none;
+	font-size: 20px;
+	font-weight: 700;
+	color: #58C9B9;
+	transition: font-size .5s ease;
+}
+
+.booklink a:hover {
+	font-size: 23px;
 }
