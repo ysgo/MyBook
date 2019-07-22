@@ -98,7 +98,7 @@ p {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #fff; /* #47748b */ /* 구분선 */
+    /* border-bottom: 1px solid #fff; */ /* #47748b */ /* 구분선 */
 }
 
 #sidebar ul p {
