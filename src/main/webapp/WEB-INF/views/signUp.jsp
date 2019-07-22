@@ -84,7 +84,8 @@
 			
 			<!-- 등록 버튼 -->
 			<div class="form-group">
-				<input type="submit" id="signUp" class="btn btn-primary btn-block" value="등록">
+				<!-- <input type="submit" id="signUp" class="btn btn-primary btn-block" value="등록"> -->
+				<button id="signUp" class="btn btn-primary btn-block" onclick="signUpBtn();" >등록</button>
 			</div>
 			
 		</form>
@@ -193,6 +194,11 @@ $("#repass_check").on("click", function() {
 	loginBtn();
 	}
 });
+
+window.onload = function signUpBtn(){
+	
+	document.getElementById("signUp").submit();
+}
 
 function loginBtn() {
 	var count=0;

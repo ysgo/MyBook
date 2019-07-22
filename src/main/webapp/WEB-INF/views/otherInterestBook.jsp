@@ -110,7 +110,7 @@
 		            
 				</div>
 					
-				<div class="fixedInput pl-1"><!-- 고정된 인풋 -->
+				<!-- <div class="fixedInput pl-1">고정된 인풋
 				
 					<form method="get" action="interestBook" target="_self">
 					<div class="input-group">
@@ -125,7 +125,7 @@
 					</div>
 					</form>
 
-			     </div><!-- 고정된 인풋 끝 -->
+			     </div>고정된 인풋 끝 -->
 	 			
 	 		</div><!-- top page 끝 -->
 			
@@ -153,7 +153,7 @@
 				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;">전체 목록</button>
 			</a>
 			<c:if test="${ empty list }">
-				<h2>관심 책을 추가해주세요.</h2>
+				<h2>관심 책이 없습니다.</h2>
 				<div class="line"></div> <!-- 구분선 -->
 			</c:if>
 			<!-- 책이미지 출력 끝 -->           
@@ -199,39 +199,5 @@
 	        });
 	    });
     </script>
-    
-    <!-- 도서 검색 -->
-	<script>
-	function searchFunc(e) {  
-		var keyword = $('input[name=keyword]').val();
-	
-	    var url = "interestBook?keyword=" + keyword;
-	    if(e.type == "keydown" && e.keyCode != 13) { return; } 
-	    
-	    $.ajax({
-	        url: url,
-	        type: 'GET', 
-	        success: function(data){
-	        	$('body').html(data);
-	            $('#myModal').modal('show'); 
-	        }
-	    });
-	}
-	
-	$(function(){
-	    $('#submitForm').on('click', searchFunc);   
-	    $('input[name=keyword]').on('keydown', searchFunc);   
-	    $('.close').on('click', function() {
-	    	$.ajax({
-	            url: "interestBook",
-	            type: 'GET', 
-	            success: function(data){
-	            	$('body').html(data);
-	            }
-	        });
-	    });   
-	});
-	</script>
-	<!-- 도서 검색 끝-->
 </body>
 </html>

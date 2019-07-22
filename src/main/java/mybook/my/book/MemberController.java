@@ -1,7 +1,9 @@
 package mybook.my.book;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -110,7 +112,7 @@ public class MemberController {
 			mav.addObject("status", vo);
 			mav.addObject("list", serviceBook.trendingbook()); 
 			mav.addObject("listLog", serviceBook.selectLog());
-			viewName = "redirect:/signIn";
+			viewName = "redirect:/";
 		} else {
 			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
 			model.addAttribute("url", naverAuthUrl);

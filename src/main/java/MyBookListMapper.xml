@@ -69,7 +69,8 @@
 	
 	<!-- log -->
 	<select id="selectLog" resultType="model.Log">
-    	select email, userName, myBookTitle, interestBookTitle, m_star, m_content, isupdate, logregistdate from log order by logregistdate desc
+    	select email, t.userName userName, myBookTitle, interestBookTitle, 
+    	m_star, m_content, isupdate, logregistdate from log l, tbl_member t where l.email = t.userId order by logregistdate desc
  	</select>
  	
 	<insert id="insertLog"  parameterType="model.Log">

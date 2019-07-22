@@ -98,7 +98,7 @@
 		<!-- Page Content 시작 -->
 		<div id="content">
 
-			<div class="top-page mb-5">
+			<div class="top-page mb-5 center-block">
 				<!-- top page 시작 -->
 
 				<div class="btn-with-fixedInput pr-1 pl-3">
@@ -111,10 +111,10 @@
 
 				</div>
 
-				<div class="fixedInput pl-1">
-					<!-- 고정된 인풋 -->
+				<!-- <div class="fixedInput pl-1">
+					고정된 인풋
 
-					<form method="get" action="readBook" target="_self">
+					<form method="get" action="otherReadBook" target="_self">
 						<div class="input-group">
 							<input name="readkeyword" type="text" class="form-control"
 								placeholder="내가 등록한 책 제목, 저자, 출판사 검색"
@@ -126,7 +126,7 @@
 					</form>
 
 				</div>
-				<!-- 고정된 인풋 끝 -->
+				고정된 인풋 끝 -->
 
 			</div>
 			<!-- top page 끝 -->
@@ -162,35 +162,10 @@
 						</div>
 						<div class="line"></div> <!-- 구분선 -->
 					</c:forEach>
-				</ul>
-			</c:if>
-			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
-				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
-			</a>
-			
-			<c:if test="${ empty list }">
-			<% 
-				if(request.getParameter("readkeyword") != null) { 
-			%>
-				<h2 style="padding-top: 30px">찾으시는 내용이 없어요!</h2>
-			<%
-				} else {
-			%>
-				<script>
-					$('#listall').hide();
-				</script>
-				<h2>읽은 책과 서평을 추가해주세요 :)</h2>
-			<%
-				}
-			%>
-			<div class="line"></div> <!-- 구분선 -->
-			</c:if>
-			<!-- 책이미지와 서평 내용 출력 끝 -->           
-            </div><!-- 컨테이너 끝 -->
-
-					<!-- 페이징 버튼 위치 시작 -->
+									<!-- 페이징 버튼 위치 시작 -->
+				<c:if test="${!empty listCnt }">
 					<div>
-						<c:if test="${pagination.curRange ne 1 }">
+						<c:if test="${pagination.curPage ne 1 }">
 							<a href="#" onClick="fn_paging(1)">[처음]</a>
 						</c:if>
 						<c:if test="${pagination.curPage ne 1}">
@@ -212,16 +187,26 @@
 							test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
 							<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
 						</c:if>
-						<c:if
-							test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+						<c:if test="${pagination.curPage ne pagination.pageCnt }">
 							<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
 						</c:if>
 					</div>
-
-					<div>총 게시글 수 : ${pagination.listCnt } / 총 페이지 수 :
-						${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 :
-						${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }</div>
+				</c:if>
 					<!-- 페이징 버튼 위치 종료 -->
+					
+				</ul>
+			</c:if>
+			<a href="otherReadBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
+			</a>
+			
+			<c:if test="${ empty list }">
+				<h2>읽은 책이 없습니다.  <img src="images/smile-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
+
+			<div class="line"></div> <!-- 구분선 -->
+			</c:if>
+			<!-- 책이미지와 서평 내용 출력 끝 -->           
+            </div><!-- 컨테이너 끝 -->
 
 		</div>
 		<!-- Page Content 끝 -->
@@ -238,7 +223,7 @@
 				</form>
 			</c:if>
 			<c:if test="${!empty status }">
-				<form action="signIn" method="get" style='float: left;'>
+				<form action="signIn" method="post" style='float: left;'>
 					<input id="signColor" type="submit" class="nav-link p-2"
 						value="로그아웃">
 				</form>
@@ -269,40 +254,6 @@
 	    });
     </script>
 
-	<!-- 도서 검색 -->
-	<script>
-	function searchFunc(e) {  
-		var keyword = $('input[name=keyword]').val();
-	
-	    var url = "readBook?keyword=" + keyword;
-	    if(e.type == "keydown" && e.keyCode != 13) { return; } 
-	    
-	    $.ajax({
-	        url: url,
-	        type: 'GET', 
-	        success: function(data){
-	        	$('body').html(data);
-	            $('#myModal').modal('show'); 
-	        }
-	    });
-	}
-	
-	$(function(){
-	    $('#submitForm').on('click', searchFunc);   
-	    $('input[name=keyword]').on('keydown', searchFunc);   
-	    $('.close').on('click', function() {
-	    	$.ajax({
-	            url: "readBook",
-	            type: 'GET', 
-	            success: function(data){
-	            	$('body').html(data);
-	            }
-	        });
-	    });   
-	});
-	</script>
-	<!-- 도서 검색 끝-->
-
 	<script>
 		function hover(e) {
 			var image = e.childNodes[1];
@@ -313,6 +264,5 @@
 			image.id === 'pencil' ? image.src = 'images/pencil.png' : image.src = 'images/trash.png';
 		}
 	</script>
-
 </body>
 </html>
