@@ -20,7 +20,7 @@
     <!-- Bootstrap CSS CDN -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css?a">
+    <link rel="stylesheet" href="css/style.css?b">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -128,14 +128,14 @@
         <div id="content">
 
 			<!-- navbar 시작 -->
-			<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5">
+			<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5 mt-2">
                <i class="fas fa-align-left"></i>
                <span>MENU</span>
             </button>
 			
 			<!-- 컨텐트 추가 시작 -->
 			<!-- 트렌딩 북 -->
-			<h3 style="font-size: 28px; font-weight: 700; color: #58C9B9;">지금 <span style="font-family: 'Fredoka One'; color: #D1B6E1; font-size: 30px; font-weight: 500;">CHACKCHECK</span>에서 인기있는 책</h3>
+			<h3 style="font-size: 28px; font-weight: 700; color: #58C9B9;">지금 인기있는 책</h3>
             <div class="line"></div>
             <div id="trending" class="mx-auto mt-4 mb-2 p-3">
 			<c:set var ="num" value="1" />
@@ -153,7 +153,7 @@
             		<c:set var="num" value="${num+1}" />	
             </c:forEach>		
             </div>
-            <div class="line"></div>
+            <div style="height: 60px"></div>
 			
 			<script>
 			var index = 0;
@@ -173,8 +173,8 @@
 			</script>
 			<!-- 트렌딩 북 끝 -->
 			
-            <h2>활동기록</h2>
-            	 <br>
+            <h2 style="font-size: 28px; font-weight: 700; color: #58C9B9;">회원들의 활동 로그</h2>
+            	 <div class="line"></div>
 	            <c:if test="${ !empty listLog }">
 		           		<c:forEach var="vo" items="${listLog}" varStatus="status">
 			           		<c:if test="${status.count <6}">
@@ -206,16 +206,18 @@
 				           					<input id="userNameCss" type="submit" value="${vo.userName}">
 				           					&emsp;<span> ${vo.logregistdate}</span>
 			           				</form><br> 
-			           				<span style="font-weight: bold; word-break: keep-all ;">${vo.interestBookTitle}</span>
-				           			<c:if test="${empty vo.isupdate}">
-				           				<span style="word-break: keep-all ;"> 책을 관심 책으로 추가하였습니다.</span>
-				           			</c:if>
+
+		           					<span style="font-weight: bold; word-break: keep-all ;">${vo.interestBookTitle}</span>
+			           				<c:if test="${empty vo.isupdate}">
+			           				<span style="word-break: keep-all ;"> 책을 관심 책으로 추가하였습니다.</span>
+			           				</c:if>	           			
+			           				
 			           			</c:if>			
 								<div class="line"></div>
 							</c:if>
 						 </c:forEach>
-					 <form style="text-align: right;" action="allLog" method="post">
-				     	<input type="submit" value="모든 활동기록 보기 >">
+					 <form style="text-align: right;" action="allLog" method="post"> 	
+				     	<button type="submit" class="btn btn-outline-secondary">모든 활동기록 보기 ></button>
 				     </form>
 				 </c:if>
 				 <c:if test="${ empty listLog }">

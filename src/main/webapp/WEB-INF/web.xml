@@ -47,5 +47,13 @@
         <url-pattern>/*</url-pattern>
    </filter-mapping>
 	<!--  끝 -->
-
+	<!-- 톰캣 cors 필터-->
+	<filter>
+  		<filter-name>CorsFilter</filter-name>
+  		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+  		<filter-name>CorsFilter</filter-name>
+  		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

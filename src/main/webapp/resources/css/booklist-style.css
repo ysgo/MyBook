@@ -33,15 +33,18 @@
 
 .btn-with-fixedInput,
 .fixedInput {
+	vertical-align:middle;
 	display: table-cell;
 }
 
 .btn-with-fixedInput {
-	width: 100px;
+	width: 20%;
 }
 
 .fixedInput {
-	width: 390px;
+	margin-left: 10px;
+	margin: auto;
+	width: 70%;
 }
 
 .caption {

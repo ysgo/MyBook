@@ -111,15 +111,15 @@
 			<!-- 선택한 관심책 상세 내용 출력 -->
 			<c:if test="${ !empty list }">	
 				<c:forEach var="vo" items="${ list }">	
-				<div class="row pl-4" style="height: auto;">
-						<div class="col-sm-2 pt-2">
-							<img alt="이미지" src="${vo.image}" width="100" height="150" style="border : 1px solid lightgray;"/>
+				<div style="display:table; margin:0 auto;">
+						<div style="display: table-cell; vertical-align:middle;">
+							<img alt="이미지" src="${vo.image}" width="120" height="180" style="border : 1px solid lightgray;  box-shadow: 2px 2px 3px 0px rgba(107,106,107,1);"/>
 						</div>
 							
-						<div class="col"> 
+						<div style="display: table-cell; vertical-align:middle;" class="pl-4"> 
 							<span style="font-weight: bold; font-size: 25px;">${vo.title}</span><br>	
 							<span style="font-weight: bold; font-size: 17px;">저자 : ${vo.author}</span><br>	
-							<span style="font-weight: bold; font-size: 17px;">출판사 : ${vo.publisher}</span><br>	
+							<span style="font-weight: bold; font-size: 17px;">출판사 : ${vo.publisher}</span><br><br>	
 							<p style="font-size: 15px;">${vo.description}</p>
 						</div>
 				</div>

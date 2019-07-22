@@ -37,9 +37,9 @@
     <div class="wrapper">
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
-            <div class="sidebar-header">
+            <div class="sidebar-header p-3">
             	<a href="${pageContext.request.contextPath}/" class="brand-logo">
-					<img src="images/logo.svg" alt="logo">
+					CHACKCHECK
 				</a>
             </div>
 
@@ -82,7 +82,7 @@
         <div id="content">
 
 			<!-- navbar 시작 -->
-            <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5">
+            <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary mb-5 mt-2">
                <i class="fas fa-align-left"></i>
                <span>MENU</span>
             </button>
@@ -225,11 +225,15 @@
 	
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#sidebar").mCustomScrollbar({
+        	// hide sidebar when refresh the page
+            $('#sidebar').toggleClass('active');
+ 
+        	$("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
-
+            
             $('#sidebarCollapse').on('click', function () {
+            	// open sidebar when clicked
                 $('#sidebar, #content').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');

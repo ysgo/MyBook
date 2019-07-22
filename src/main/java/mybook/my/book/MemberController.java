@@ -30,11 +30,11 @@ public class MemberController {
 	@Inject
 	private NaverBookService serviceBook;
 	
-	// main ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙 
 	@RequestMapping(value = "/")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("listLog", serviceBook.selectLog());
+		mav.addObject("list", serviceBook.trendingbook()); 
 		mav.setViewName("main");
 		return mav;
 	}
@@ -51,7 +51,6 @@ public class MemberController {
 		List<MyBookList> list = serviceBook.listAll(model);
 		mav.addObject("list", list); 
 		
-//		mav.addObject("listCnt", listCnt);
 		mav.addObject("pagination", pageList);	
 		mav.setViewName("otherReadBook");
 		return mav;
@@ -74,13 +73,11 @@ public class MemberController {
 		return mav;
 	}
 	
-	// ?占쏙옙?占쏙옙占�??占쏙옙 ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
 	public String signUp() {
 		return "signUp";
 	}
 	
-	// ?占쏙옙?占쏙옙占�??占쏙옙 : ?占쏙옙鍮꾩뒪 媛앹껜?占쏙옙 ???占쏙옙
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
 	public ModelAndView signUp(@ModelAttribute MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -98,13 +95,11 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 濡쒓렇?占쏙옙 ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
 	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
 	public String  signIn() {
 		return "signIn";
 	}
 	
-	// 濡쒓렇?占쏙옙 : 媛앹껜 ?占쏙옙蹂댐옙?? 異붿텧?占쏙옙 ?占쏙옙?占쏙옙?占쏙옙 ???占쏙옙, 鍮꾧탳?占쏙옙 ?占쏙옙?占쏙옙
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
 	public ModelAndView signIn(@ModelAttribute MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -125,20 +120,17 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 濡쒓렇?占쏙옙?占쏙옙 
 	@RequestMapping(value="/signOut", method=RequestMethod.GET)
 	public String  signOut(SessionStatus session) throws Exception {
 		service.signout(session);
 		return "redirect:/";
 	}
 	
-	// ?占쏙옙?占쏙옙 ?占쏙옙?占쏙옙  ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
 	@RequestMapping(value="/myPage", method=RequestMethod.GET)
 	public String  infoUpdate() throws Exception {
 		return "myPage";
 	}
 	
-	// ?占쏙옙?占쏙옙 ?占쏙옙?占쏙옙
 	@RequestMapping(value="/myPage", method=RequestMethod.POST)
 	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status")MemberVO member) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -151,13 +143,11 @@ public class MemberController {
 		return mav;
 	}
 	
-	// ?占쏙옙?占쏙옙?占쏙옙?占쏙옙 ?占쏙옙?占쏙옙占�? ?占쏙옙?占쏙옙
 	@RequestMapping(value="/withdrawal", method=RequestMethod.GET)
 	public String withdrawal() {
 		return "withdrawal";
 	}
 	
-	// ?占쏙옙?占쏙옙?占쏙옙?占쏙옙
 	@RequestMapping(value="/withdrawal", method=RequestMethod.POST)
 	public String  withdrawal(@RequestParam("checkPass")String checkPass, @ModelAttribute MyBookList model, 
 			@SessionAttribute("status")MemberVO user, SessionStatus sessionClear) throws Exception {
