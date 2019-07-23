@@ -59,7 +59,7 @@
 					</span>
 				</div>
 				<input id="userId" name="userId" class="form-control" placeholder="이메일" type="email" required>
-				<input type="button" id="id_check" value="중복체크">
+				<input type="button" id="id_check" value="중복체크"> 
 			</div>
 			
 			<!-- 비밀번호 -->
@@ -85,7 +85,7 @@
 			<!-- 등록 버튼 -->
 			<div class="form-group">
 				<!-- <input type="submit" id="signUp" class="btn btn-primary btn-block" value="등록"> -->
-				<button id="signUp" class="btn btn-primary btn-block" onclick="signUpBtn();" >등록</button>
+				<button id="signUp" class="btn btn-primary btn-block">등록</button> 
 			</div>
 			
 		</form>
@@ -114,7 +114,7 @@ var pwJ = /^[A-Za-z0-9]{4,16}$/;
 
 var text;
 var check=new Array(true, true, true);
-$("#signUp").attr("disabled", true);
+//$("#signUp").attr("disabled", true);
 //이름 유효성 및 중복 검사(한글로만 2~6자리 또는 특수문자 안됨)
 $("#name_check").on("click", function() {						
 	var userName = $('#userName').val();
@@ -195,9 +195,16 @@ $("#repass_check").on("click", function() {
 	}
 });
 
-window.onload = function signUpBtn(){
-	
-	document.getElementById("signUp").submit();
+$('#signUp').on("click",function(){
+	signUpBtn();
+});
+
+function signUpBtn(count){
+	console.log(count);
+	if(count == 3)
+		document.getElementById("#signUp").submit();
+	else
+		alet("중복체크를 확인해주세요.");
 }
 
 function loginBtn() {
@@ -209,10 +216,12 @@ function loginBtn() {
 	}
 	if(count == 3) {
 		btn = false;
+		signUpBtn(count);
 	} else {
 		btn = true;
+		signUpBtn(count);
 	}
-	$("#signUp").attr("disabled", btn);
+	//$("#signUp").attr("disabled", btn);
 }
 
 </script>

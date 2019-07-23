@@ -101,14 +101,14 @@
 
 			<div class="top-page mb-5"><!-- top page 시작 -->
 	 		
-	 			<div class="btn-with-fixedInput pr-1 pl-3"><!-- 메뉴 버튼 -->
+	 			<!-- <div class="btn-with-fixedInput pr-1 pl-3">메뉴 버튼
 	
 					<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
 		               <i class="fas fa-align-left"></i>
 		               <span>MENU</span>
 		            </button>
 		            
-				</div>
+				</div> -->
 					
 				<!-- <div class="fixedInput pl-1">고정된 인풋
 				
