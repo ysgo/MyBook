@@ -1,13 +1,9 @@
 package mybook.my.book;
-import java.io.IOException;
-import java.util.Random;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.social.google.connect.GoogleConnectionFactory;

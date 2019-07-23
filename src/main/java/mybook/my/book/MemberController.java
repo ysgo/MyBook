@@ -49,7 +49,6 @@ public class MemberController {
 	@RequestMapping(value = "/")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
-		
 		mav.addObject("listLog", serviceBook.selectLog());
 		mav.addObject("list", serviceBook.trendingbook()); 
 		mav.setViewName("main");
@@ -64,12 +63,10 @@ public class MemberController {
 			Map<String, String> map = new HashMap<String, String>();
 	        map.put("readkeyword", readkeyword);
 	        map.put("email", email);
-	        System.out.println("검색내용 : "+serviceBook.searchReadbook(map));
 			mav.addObject("list", serviceBook.searchReadbook(map)); 
 			mav.setViewName("otherReadBook");
 			return mav;	
 		}
-		
 		int listCnt = serviceBook.getTotalCnt(email);
 		PagingVO pageList = new PagingVO(listCnt, curPage);
 		model.setStart(pageList.getStartIndex());
@@ -85,9 +82,23 @@ public class MemberController {
 
 	
 	@RequestMapping(value = "/otherInterestBook")
-	public ModelAndView otherInterestBook(String email) {
+	public ModelAndView otherInterestBook(String email,  String interestkeyword) {
 		ModelAndView mav = new ModelAndView();
+		System.out.println("밖에 이메일 : "+email);
+		if(interestkeyword != null) {
+			Map<String, String> map = new HashMap<String, String>();
+	        map.put("interestkeyword", interestkeyword);
+	        map.put("email", email);
+
+			mav.addObject("list", serviceBook.searchInterestbook(map)); 
+			mav.addObject("total", serviceBook.countInterestBook(email));
+			mav.setViewName("otherInterestBook");
+			return mav;	
+		}
+		
 		mav.addObject("list", serviceBook.listAllInterestBook(email)); 
+		// interestBook list rendering
+		mav.addObject("total", serviceBook.countInterestBook(email));
 		mav.setViewName("otherInterestBook");
 		return mav;
 	}
