@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 
 #content {
-	font-family:  ''Noto Sans KR";
+	font-family: 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
 }
 #imgContainer {
 	text-align:center;
@@ -14,7 +14,7 @@
 	background-color: #dcebf7;
 	cursor: pointer;
 }
-.inputrow:hover {
+.searchResult:hover {
 	background-color: #dcebf7;
 	cursor: pointer;
 }

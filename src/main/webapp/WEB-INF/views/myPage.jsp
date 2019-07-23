@@ -22,6 +22,7 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css?a">
     <link rel="stylesheet" href="css/booklist-style.css?a">
+    <link rel="stylesheet" href="css/form-style.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -157,19 +158,22 @@
 							</span>
 						</div>
 						<input id="rePass" class="form-control" placeholder="비밀번호 확인" type="password" required>
-						<input type="button" id="checkPass" value="중복확인">
+						<div class="input-group-append">
+							<input class="btn btn-primary" type="button" id="checkPass" value="중복확인">
+						</div>
+						
 					</div>
 
 					<!-- 수정 버튼 -->
 					<div class="form-group">
-						<input id="submit" type="submit" class="btn btn-primary btn-block" value="수정">
+						<input id="submit" type="submit" class="btn btn-outline-secondary btn-block" value="수정">
 					</div>
 				</form>
 				<!-- 수정 폼태그 끝 -->
 				
 				<!-- 탈퇴 페이지 이동 -->
 				<div class="form-group">
-					<input onclick="location.href='/book/withdrawal'"type="button" class="btn btn-primary btn-block" value="탈퇴">
+					<input onclick="location.href='/book/withdrawal'"type="button" class="btn btn-outline-secondary btn-block" value="탈퇴">
 				</div>
 				
 			</article>

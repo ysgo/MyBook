@@ -273,7 +273,7 @@
 								<br>
 								<!--  결과 로우 -->
 								<c:forEach items="${bookList}" var="b">
-									<div id="row" class="row mr-1">
+									<div id="row" class="row mr-1 searchResult">
 										<div id="imgContainer" class="col-sm-3">
 											<img id="image" src="${b.image}" style="width: 200px">
 										</div>
