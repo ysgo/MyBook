@@ -55,3 +55,13 @@
 	background-color:transparent;
 	color : #007bff;
 }
+
+.btn-primary {
+	background-color: #58C9B9 !important;
+	border-color: #58C9B9 !important;
+}
+
+.btn-primary:hover {
+	background-color: #58C9B9 !important;
+	color: #fff !important;
+}

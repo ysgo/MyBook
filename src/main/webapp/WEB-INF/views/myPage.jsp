@@ -162,14 +162,14 @@
 
 					<!-- 수정 버튼 -->
 					<div class="form-group">
-						<input id="submit" type="submit" class="btn btn-primary btn-block" value="수정">
+						<input id="submit" type="submit" class="btn btn-outline-secondary btn-block" value="수정">
 					</div>
 				</form>
 				<!-- 수정 폼태그 끝 -->
 				
 				<!-- 탈퇴 페이지 이동 -->
 				<div class="form-group">
-					<input onclick="location.href='/book/withdrawal'"type="button" class="btn btn-primary btn-block" value="탈퇴">
+					<input onclick="location.href='/book/withdrawal'"type="button" class="btn btn-outline-secondary btn-block" value="탈퇴">
 				</div>
 				
 			</article>
