@@ -45,21 +45,7 @@ public class NaverLoginController {
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
 	}
-
-//	//로그?�� �? ?���? ?���? 메소?��
-//	@RequestMapping(value = "/naver/login.do", method = { RequestMethod.GET, RequestMethod.POST })
-//	public ModelAndView login(Model model, HttpSession session) {
-//		ModelAndView mav = new ModelAndView();
-//		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-//		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-//		
-//		//네이버 
-//		mav.addObject("url", naverAuthUrl);
-//		mav.setViewName("signIn");
-//		/* 생성한 인증 URL을 View로 전달 */
-//		return mav;
-//	}
- 
+	
 	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/naver/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
