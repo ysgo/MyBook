@@ -28,13 +28,6 @@
 			<div class="row justify-content-center">
 				<div class="col-sm-auto logo pl-1 pr-0 mb-4"><a href="${pageContext.request.contextPath}/">CHACKCHECK</a></div>
 			</div>
-	
-			<!-- 네이버 로그인 버튼 -->
-			<a href="${ url }"
-			 class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
-			<p class="divider-text">
-				<span class="bg-light">OR</span>
-			</p>
 			
 			<!-- 로그인 폼태그 시작 -->
 			<form action="${pageContext.request.contextPath}/signIn" method="POST">
@@ -63,16 +56,27 @@
 			</form>
 			<!-- 로그인 폼태그 끝 -->
 			
-			<!-- 회원가입 링크 -->
-				<form class="text-center" action="signUp" method="get">
+			<p class="divider-text"><span class="bg-light">or</span></p>
+			
+			<!-- 네이버 로그인 버튼 -->
+			<div class="row justify-content-center">
+				<a href="${ url }" class="btn btn-outline-info"><img src="images/naver.png" width="35px" height="35px"><span style="font-size: 16px">  네이버 아이디로 로그인</span></a>
+			</div>
+			
+			<br>
+			
+			
+				<!-- 회원가입 링크 -->
+				<div class="row justify-content-center">
+				<form class="form-inline" action="signUp" method="get">
 					아직 회원가입을 안하셨나요? <input id="signColor" type="submit" value="회원가입">
 				</form>
-				
+				</div>
 				<!-- 아이디, 비밀번호 찾기 링크 -->
-				<br>
-				<p class="text-center">
-					<button id="searchId" onclick="searchMember()" class="btn btn-outline-secondary">아이디/비밀번호 찾기</button>
-				</p>
+				<!-- <p class="text-center"> -->
+				<div class="row justify-content-center">
+				<span class="text-center" id="searchId" onclick="searchMember()" style="color: #58C9B9; cursor:pointer">아이디/비밀번호 찾기</span>
+				</div>
 				
 		</article>
 	</div>

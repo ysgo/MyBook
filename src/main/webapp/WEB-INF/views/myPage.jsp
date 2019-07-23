@@ -22,6 +22,7 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css?a">
     <link rel="stylesheet" href="css/booklist-style.css?a">
+    <link rel="stylesheet" href="css/form-style.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -157,7 +158,10 @@
 							</span>
 						</div>
 						<input id="rePass" class="form-control" placeholder="비밀번호 확인" type="password" required>
-						<input type="button" id="checkPass" value="중복확인">
+						<div class="input-group-append">
+							<input class="btn btn-primary" type="button" id="checkPass" value="중복확인">
+						</div>
+						
 					</div>
 
 					<!-- 수정 버튼 -->
