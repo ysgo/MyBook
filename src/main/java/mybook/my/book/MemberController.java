@@ -58,8 +58,18 @@ public class MemberController {
 	
 	@RequestMapping(value = "/otherReadBook")
 	public ModelAndView otherReadBook(@RequestParam(defaultValue="1")int curPage,
-			@ModelAttribute MyBookList model, String email) {
+			@ModelAttribute MyBookList model, String email, String readkeyword) {
 		ModelAndView mav = new ModelAndView();
+		if(readkeyword != null) {
+			Map<String, String> map = new HashMap<String, String>();
+	        map.put("readkeyword", readkeyword);
+	        map.put("email", email);
+	        System.out.println("검색내용 : "+serviceBook.searchReadbook(map));
+			mav.addObject("list", serviceBook.searchReadbook(map)); 
+			mav.setViewName("otherReadBook");
+			return mav;	
+		}
+		
 		int listCnt = serviceBook.getTotalCnt(email);
 		PagingVO pageList = new PagingVO(listCnt, curPage);
 		model.setStart(pageList.getStartIndex());

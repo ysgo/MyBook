@@ -101,18 +101,18 @@
 			<div class="top-page mb-5 center-block">
 				<!-- top page 시작 -->
 
-				<!-- <div class="btn-with-fixedInput pr-1 pl-3">
-					메뉴 버튼
+				<div class="btn-with-fixedInput pr-1 pl-3">
+					<!-- 메뉴 버튼 -->
 
 					<button type="button" id="sidebarCollapse"
 						class="btn btn-outline-secondary">
 						<i class="fas fa-align-left"></i> <span>MENU</span>
 					</button>
 
-				</div> -->
+				</div>
 
-				<!-- <div class="fixedInput pl-1">
-					고정된 인풋
+				<div class="fixedInput pl-1">
+					<!-- 고정된 인풋 -->
 
 					<form method="get" action="otherReadBook" target="_self">
 						<div class="input-group">
@@ -126,7 +126,7 @@
 					</form>
 
 				</div>
-				고정된 인풋 끝 -->
+				<!-- 고정된 인풋 끝 -->
 
 			</div>
 			<!-- top page 끝 -->
@@ -196,13 +196,18 @@
 					
 				</ul>
 			</c:if>
-			<a href="otherReadBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
+			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
 				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
 			</a>
 			
 			<c:if test="${ empty list }">
-				<h2>읽은 책이 없습니다.  <img src="images/smile-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
-
+			<% 
+				if(request.getParameter("readkeyword") != null) { 
+			%>
+				<h2 style="padding-top: 30px">찾으시는 책이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
+			<%
+				}
+			%>
 			<div class="line"></div> <!-- 구분선 -->
 			</c:if>
 			<!-- 책이미지와 서평 내용 출력 끝 -->           

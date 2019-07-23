@@ -134,9 +134,9 @@
 				<c:forEach var="vo" items="${ list }" varStatus="status">		
 				
 					<div class="img-wrap pl-2">
-   						<button type="button" class="btn btn-circle close" onclick="deleteButton('${vo.id}', '${vo.registdate}');">
+   						<%-- <button type="button" class="btn btn-circle close" onclick="deleteButton('${vo.id}', '${vo.registdate}');">
    							<i class="fas fa-times" style="color: white;"></i>
-   						</button>
+   						</button> --%>
   							<form action="detailInterestBook" method="post">
   								<input type="hidden" name="bookNum" value="${vo.id}">
   								<input type="hidden" name="bookTitle" value="${vo.title}">
