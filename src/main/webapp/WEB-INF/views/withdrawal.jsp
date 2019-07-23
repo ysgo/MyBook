@@ -21,7 +21,9 @@
     <!-- Bootstrap CSS CDN -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/booklist-style.css">
+    <link rel="stylesheet" href="css/form-style.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -36,9 +38,9 @@
     <div class="wrapper">
         <!-- left Sidebar 시작 -->
         <nav id="sidebar">
-            <div class="sidebar-header">
-            	<a href="${pageContext.request.contextPath}/" class="brand-logo">
-					<img src="images/logo.svg" alt="logo">
+            <div class="sidebar-header p-3">
+            	<a href="${pageContext.request.contextPath}/" class="brand-logo" style="font-family: 'Fredoka one'">
+					CHACKCHECK
 				</a>
             </div>
 
@@ -84,9 +86,9 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
                         <i class="fas fa-align-left"></i>
-                        <span>메뉴</span>
+                        <span>MENU</span>
                     </button>
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
@@ -109,7 +111,7 @@
                             <c:if test="${!empty status}">
                             	<li class="nav-item active">
 	                            	<form action="signOut" method="post">
-		                                <input id="signColor" type="submit" value="로그아웃" class="nav-link">
+		                                <input id="signColor" type="submit" value="로그아웃" class="nav-link" style="color:#58C9B9; font-weight: 700">
 		                            </form>
 	                            </li>
                             </c:if>                    
@@ -121,7 +123,7 @@
 			
 			<!-- 컨텐트 추가 시작 -->    
 			<article id="updateArticle" class="card-body mx-auto">
-				<h2>회원 탈퇴</h2>
+				<h2>회원 탈퇴</h2><br>
 				
 				<!-- 수정 폼태그 시작 -->
 				<form action="${pageContext.request.contextPath}/withdrawal" method="POST">
@@ -137,12 +139,12 @@
 					
 					<!-- 탈퇴 버튼 -->
 					<div class="form-group">
-						<input type="submit" class="btn btn-primary btn-block" value="탈퇴">
+						<input type="submit" class="btn btn-outline-secondary btn-block" value="탈퇴">
 					</div>
 				</form>
 				<!-- 취소 -->
 				<div class="form-group">
-					<input onclick="location.href='/book/myPage'"type="button" class="btn btn-primary btn-block" value="취소">
+					<input onclick="location.href='/book/myPage'"type="button" class="btn btn-outline-secondary btn-block" value="취소">
 				</div>
 				
 			</article>
@@ -163,15 +165,18 @@
     function noBack() { window.history.forward(); }
     
         $(document).ready(function () {
-            $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
-            });
-
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
+	    	// hide sidebar when refresh the page
+	        $('#sidebar').toggleClass('active');
+	        $("#sidebar").mCustomScrollbar({
+	            theme: "minimal"
+	        });
+	        
+	        $('#sidebarCollapse').on('click', function () {
+	        	// open sidebar when clicked
+	            $('#sidebar, #content').toggleClass('active');
+	            $('.collapse.in').toggleClass('in');
+	            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+	        });
         });
     </script>
 </body>

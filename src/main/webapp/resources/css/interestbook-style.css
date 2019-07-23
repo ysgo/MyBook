@@ -14,7 +14,8 @@ body {
 	cursor: pointer;
 }
 .inputrow:hover {
-	background-color: white;
+	background-color: #dcebf7;
+	cursor: pointer;
 }
 .inputrow {
 	margin: 0 auto;
@@ -26,7 +27,7 @@ body {
 }
 
 .modal-open {
-   	overflow: scroll; /* ��� ������ �ݾƵ� ��ũ�ѹٰ� ���� */
+   	overflow: scroll;
 }
 
 .upDelButton{
@@ -34,7 +35,6 @@ body {
 	border:none; 
 }
 
-/* �̹��� ���� ���콺�� �÷������� opacity�� 1�� �Ǵ� ���� */
 .img-wrap {
 	position: relative;
     display: inline-block;
@@ -67,8 +67,8 @@ input[type=image]:hover {
 	transform: scale(1.1);
 }
 
-input[type=image]:hover + #iconbox .deletelink path{
-	fill: lightgray;
+.col img:hover + #iconbox .deletelink path{
+	fill: #58C9B9;
 	animation: fadeInFromNone 0.8s ease-out;
 }
 

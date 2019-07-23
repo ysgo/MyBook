@@ -113,7 +113,15 @@ var pwJ = /^[A-Za-z0-9]{4,16}$/;
 
 var text;
 var check=new Array(true, true, true);
-$("#signUp").attr("disabled", true);
+
+// btn disabled
+$("#signUp").click(function(e) {
+	if(loginBtn() !== "success") {
+		e.preventDefault();
+		$("#signUp").prop("disabled", true); 
+	} 
+})
+
 //이름 유효성 및 중복 검사(한글로만 2~6자리 또는 특수문자 안됨)
 $("#name_check").on("click", function() {						
 	var userName = $('#userName').val();
@@ -201,14 +209,17 @@ function loginBtn() {
 		if(check[i] == false)
 			count++;
 	}
+	console.log(count);
 	if(count == 3) {
-		btn = false;
+		$("#signUp").prop("disabled", false);
+		return "success";
+	} else if(count == 0) {
+		alert('중복체크 버튼을 눌러 확인해주세요!')
 	} else {
 		btn = true;
 	}
 	$("#signUp").attr("disabled", btn);
 }
-
 </script>
 </body>
 </html>

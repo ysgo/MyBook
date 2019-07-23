@@ -110,7 +110,7 @@ public class MemberController {
 			mav.addObject("status", vo);
 			mav.addObject("list", serviceBook.trendingbook()); 
 			mav.addObject("listLog", serviceBook.selectLog());
-			viewName = "redirect:/signIn";
+			viewName = "redirect:/";
 		} else {
 			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
 			model.addAttribute("url", naverAuthUrl);
