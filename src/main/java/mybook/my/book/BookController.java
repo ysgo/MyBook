@@ -9,17 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import model.InterestBookList;
-import model.Log;
-import model.MyBookList;
 import service.NaverBookService;
+import vo.InterestBookList;
+import vo.Log;
 import vo.MemberVO;
+import vo.MyBookList;
 import vo.PagingVO;
 
 @Controller
@@ -45,7 +44,7 @@ public class BookController {
 		}
 		
 		if(keyword != null) { 
-			mav.addObject("bookList", service.searchBook(keyword, 10, 1)); //Open Api�? ?��?�� 찾�? 값을 list?��?��?���? 보내�??��.
+			mav.addObject("bookList", service.searchBook(keyword, 10, 1));
 		}else {
 			model.setEmail(userId);
 			

@@ -183,7 +183,7 @@
 			           				<form action="otherReadBook" method="get">
 				               			<input type="hidden" name="email" value="${vo.email}">
 				           				<input id="userNameCss" type="submit" value="${vo.userName}">
-				           				&emsp;<span> ${vo.logregistdate}</span>
+				           				&emsp;<span>${vo.logregistdate}</span>
 			           				</form><br> 
 			           				<span style="font-weight: bold; word-break: keep-all ;">${vo.myBookTitle}</span>
 				           			<c:if test="${empty vo.isupdate}">
@@ -204,7 +204,7 @@
 			           				<form action="otherInterestBook" method="get">
 				               				<input type="hidden" name="email" value="${vo.email}">
 				           					<input id="userNameCss" type="submit" value="${vo.userName}">
-				           					&emsp;<span> ${vo.logregistdate}</span>
+				           					&emsp;<span>${vo.logregistdate}</span>
 			           				</form><br> 
 
 		           					<span style="font-weight: bold; word-break: keep-all ;">${vo.interestBookTitle}</span>
@@ -230,14 +230,14 @@
         <!-- Page Content 끝 -->
         
         <!-- 회원가입 및 로그인 -->
-        <c:if test="${ !empty status or !empty result }">
+        <c:if test="${ !empty status}">
 	        <div class="sign">
 	       		<form action="signOut" method="post" style ='float: left;'>
 	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
 	          	</form>
 	        </div>
         </c:if>
-        <c:if test="${ empty status or empty result }">
+        <c:if test="${ empty status}">
 	        <div class="sign">
 	       		<form action="signIn" method="get" style ='float: left;'>
 	              		<input id="signColor" type="submit" class="nav-link p-2" value="로그인">
@@ -255,14 +255,6 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
 	</script>
     <script type="text/javascript">
-    // 네아로 로그인 토큰 값 세션에 저장하기
-    $(document).ready(function() {
-    	var userName = ${result}.response.nickname;
-    	var userId = ${result}.response.email;
-    	console.log('네임: ' + userName);
-    	console.log('아이디: ' + userId);
-    });
-    
     	
         $(document).ready(function () {
         	// hide sidebar when refresh the page

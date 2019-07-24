@@ -6,12 +6,12 @@
 
 	<!-- readBook -->	
 	 <!-- search readBook -->
-	 <select id="searchBookList"  parameterType="string" resultType="model.MyBookList">
+	 <select id="searchBookList"  parameterType="string" resultType="vo.MyBookList">
     	select id, email, title, author, publisher, image, m_title, m_star, m_content, registdate from mybooklist where email = #{email} and (title like '%'||#{readkeyword}||'%' or author like '%'||#{readkeyword}||'%' or publisher like '%'||#{readkeyword}||'%')
     </select>
     
  	<!--rownum을 이용하여 id시퀀스 번호만큼 추출  -->
- 	<select id="selectAllBookList" parameterType="model.MyBookList"  resultType="model.MyBookList">
+ 	<select id="selectAllBookList" parameterType="vo.MyBookList"  resultType="vo.MyBookList">
     	select id, title, image, m_title, m_star, m_content,  registdate from 
     	(select id, title, image, m_title, m_star, m_content,  registdate, rownum rnum from 
     	(select * from mybooklist where email = #{email} order by registdate desc)) 
@@ -22,7 +22,7 @@
 		select count(*) from mybooklist where email=#{email}
 	</select>
 
-  	<insert id="insertBookList"  parameterType="model.MyBookList">
+  	<insert id="insertBookList"  parameterType="vo.MyBookList">
   		<selectKey resultType="int" keyProperty="id" order="BEFORE">
       		select mybooklist_seq.nextval from dual     
     	</selectKey>  
@@ -30,7 +30,7 @@
     		insert into mybooklist(id, email, title, author, publisher, description, image, m_title, m_star, m_content,  registdate) values(#{id},#{email},#{title},#{author},#{publisher}, #{description}, #{image},#{m_title}, #{m_star}, #{m_content}, sysdate)
 	</insert>	
 	
-	<delete id="deleteBookList" parameterType="model.MyBookList">
+	<delete id="deleteBookList" parameterType="vo.MyBookList">
 		delete from mybooklist where id = #{id} 
 	</delete>
 	
@@ -38,7 +38,7 @@
 		delete from mybooklist where email = #{email}
 	</delete>
 	
-	<update id="updateBookList" parameterType="model.MyBookList">
+	<update id="updateBookList" parameterType="vo.MyBookList">
 		update mybooklist set 
 				m_title=#{m_title}, 
 				m_star=#{m_star}, 
@@ -47,7 +47,7 @@
 		where id=#{id}
 	</update>
 	
-	<select id="trendingbook" resultType="model.MyBookList">
+	<select id="trendingbook" resultType="vo.MyBookList">
     	select title, author, publisher, description, image, total_by_title from 
     	(select title, author, publisher, description, image, sum(count(*)) over(partition by title) total_by_title from mybooklist group by title, author, publisher, description, image order by total_by_title desc) 
     	where rownum <![CDATA[<]]>=5
@@ -67,12 +67,11 @@
  	</select>
 	
 	<!-- log -->
-	<select id="selectLog" resultType="model.Log">
-    	select l.email email, t.userName userName, myBookTitle, interestBookTitle, 
-    	m_star, m_content, isupdate, logregistdate from log l, tbl_member t where l.email = t.userId order by logregistdate desc
- 	</select>
+	<select id="selectLog" resultType="vo.Log"><!--selectLog 변경-->
+		select email, userName, myBookTitle, interestBookTitle, m_star, m_content, isupdate, logregistdate from log order by logregistdate desc
+	</select>
  	
-	<insert id="insertLog"  parameterType="model.Log">
+	<insert id="insertLog"  parameterType="vo.Log">
 		<selectKey resultType="int" keyProperty="id" order="BEFORE">
       		select mybooklist_seq.nextval from dual     
     	</selectKey> 
@@ -80,7 +79,7 @@
     	values(#{id}, #{email}, #{userName},#{myBookTitle},#{interestBookTitle},#{m_star},#{m_content},  to_Date(#{logregistdate},'yyyy-MM-dd hh24:mi:ss'))
 	</insert>
 	
-	<update id="updateLog" parameterType="model.Log">
+	<update id="updateLog" parameterType="vo.Log">
 		update log set 
 				m_star=#{m_star}, 
 				m_content=#{m_content}, 
@@ -89,20 +88,37 @@
 		where id=#{id}
 	</update>
 	
+	<update id="updateUserName" parameterType="vo.Log">
+		update log set 
+				userName=#{userName}
+		where email=#{email}
+	</update>
+	
 	<delete id="deleteLog" parameterType="int">
 		delete from log where id = #{id} 
 	</delete> 
 	
+	<!-- 모든 활동기록 -->
+	<select id="selectTotalLog" parameterType="vo.Log" resultType="vo.Log"><!--selectLog 변경-->
+		select email, userName, myBookTitle, interestBookTitle, m_star, m_content, isupdate, logregistdate from (select email, userName, myBookTitle, interestBookTitle, 
+		m_star, m_content, isupdate, logregistdate, rownum rnum from (select * from log order by logregistdate desc))
+		where rnum between #{start} and #{last}
+	</select>
+	
+	<select id="totalCntLog" resultType="int">
+		select count(*) from log
+	</select>
+	
 	<!-- interestBook -->
-	 <select id="searchInterestbook"  parameterType="string" resultType="model.InterestBookList">
+	 <select id="searchInterestbook"  parameterType="string" resultType="vo.InterestBookList">
     	select id, email, title, author, publisher, description, image from interestbooklist where email = #{email} and (title like '%'||#{interestkeyword}||'%' or author like '%'||#{interestkeyword}||'%' or publisher like '%'||#{interestkeyword}||'%')
     </select>
 	
-	<select id="selectAllInterestBookList" parameterType="string"  resultType="model.InterestBookList">
+	<select id="selectAllInterestBookList" parameterType="string"  resultType="vo.InterestBookList">
     	select id, image, title, registdate from interestbooklist where email = #{email} order by id desc
  	</select>
 
-  	<insert id="insertInterestBookList"  parameterType="model.InterestBookList">
+  	<insert id="insertInterestBookList"  parameterType="vo.InterestBookList">
   		<selectKey resultType="int" keyProperty="id" order="BEFORE">
       		select mybooklist_seq.nextval from dual     
     	</selectKey>  
@@ -114,12 +130,12 @@
 	</delete> 
 
 	<!-- detailInterestBook -->
-	<select id="selectDetailInterestBook" parameterType="int"  resultType="model.InterestBookList">
+	<select id="selectDetailInterestBook" parameterType="int"  resultType="vo.InterestBookList">
     	select id, image, title, author, publisher, description from interestbooklist where id = #{id}
 	</select>
 	
 	<delete id="deleteAllInterestBook" parameterType="String">
 		delete from interestbooklist where email = #{email} 
-	</delete> 
+	</delete>
 
 </mapper>

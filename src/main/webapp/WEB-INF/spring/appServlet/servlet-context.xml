@@ -34,13 +34,18 @@
 	<context:component-scan base-package="dao"/>
 	<context:component-scan base-package="vo"/>
 	
+	<!-- DB Config Properties -->
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <beans:property name="location" value="/WEB-INF/config/config.properties"/>
+        <beans:property name="fileEncoding" value="UTF-8" />
+    </beans:bean>
 	
 	<beans:bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-	<beans:property value="oracle.jdbc.OracleDriver" name="driverClassName"/>
-	<beans:property value="jdbc:oracle:thin:@localhost:1521:XE" name="url"/>
-	<!-- <beans:property value="jdbc:oracle:thin:@70.12.113.180:1521:XE" name="url"/>  -->
-	<beans:property value="jdbctest" name="username"/>
-	<beans:property value="jdbctest" name="password"/>
+		<beans:property value="${db.driver}" name="driverClassName"/>
+		<beans:property value="${db.url}" name="url"/>
+		<!-- <beans:property value="jdbc:oracle:thin:@70.12.113.180:1521:XE" name="url"/>  -->
+		<beans:property value="${db.username}" name="username"/>
+		<beans:property value="${db.password}" name="password"/>
 	</beans:bean>
 	
 	
@@ -56,6 +61,6 @@
 	</beans:bean>
 
 	<beans:bean id="naverLoginBO" class="mybook.my.book.NaverLoginBO" />
-
+	
 
 </beans:beans>

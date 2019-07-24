@@ -1,4 +1,4 @@
-package model;
+package vo;
 
 public class Book {
 	private String title;

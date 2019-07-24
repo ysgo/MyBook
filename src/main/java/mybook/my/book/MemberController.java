@@ -1,9 +1,6 @@
 package mybook.my.book;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -22,20 +19,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import model.MyBookList;
 import service.MemberService;
 import service.NaverBookService;
+import vo.Log;
 import vo.MemberVO;
-import vo.PagingVO;
+import vo.MyBookList;
 
 @Controller
 @SessionAttributes("status")
 public class MemberController {
-	
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
-	private String apiResult = null;
-	
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
@@ -45,10 +39,10 @@ public class MemberController {
 	private MemberService service;
 	@Inject
 	private NaverBookService serviceBook;
-	//main 페이지 이동 
 	@Inject
 	PasswordEncoder passwordEncoder;
 	
+	//main 페이지 이동 
 	@RequestMapping(value = "/")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
@@ -57,63 +51,6 @@ public class MemberController {
 		mav.setViewName("main");
 		return mav;
 	}
-	
-	@RequestMapping(value = "/otherReadBook")
-	public ModelAndView otherReadBook(@RequestParam(defaultValue="1")int curPage,
-			@ModelAttribute MyBookList model, String email, String readkeyword) {
-		ModelAndView mav = new ModelAndView();
-		if(readkeyword != null) {
-			Map<String, String> map = new HashMap<String, String>();
-	        map.put("readkeyword", readkeyword);
-	        map.put("email", email);
-			mav.addObject("list", serviceBook.searchReadbook(map)); 
-			mav.setViewName("otherReadBook");
-			return mav;	
-		}
-		int listCnt = serviceBook.getTotalCnt(email);
-		PagingVO pageList = new PagingVO(listCnt, curPage);
-		model.setStart(pageList.getStartIndex());
-		model.setLast(pageList.getEndIndex());
-		model.setEmail(email);
-		List<MyBookList> list = serviceBook.listAll(model);
-		mav.addObject("list", list); 
-		mav.addObject("listCnt", listCnt);
-		mav.addObject("pagination", pageList);	
-		mav.setViewName("otherReadBook");
-		return mav;
-	}
-
-	
-	@RequestMapping(value = "/otherInterestBook")
-	public ModelAndView otherInterestBook(String email,  String interestkeyword) {
-		ModelAndView mav = new ModelAndView();
-		System.out.println("밖에 이메일 : "+email);
-		if(interestkeyword != null) {
-			Map<String, String> map = new HashMap<String, String>();
-	        map.put("interestkeyword", interestkeyword);
-	        map.put("email", email);
-
-			mav.addObject("list", serviceBook.searchInterestbook(map)); 
-			mav.addObject("total", serviceBook.countInterestBook(email));
-			mav.setViewName("otherInterestBook");
-			return mav;	
-		}
-		
-		mav.addObject("list", serviceBook.listAllInterestBook(email)); 
-		// interestBook list rendering
-		mav.addObject("total", serviceBook.countInterestBook(email));
-		mav.setViewName("otherInterestBook");
-		return mav;
-	}
-	
-	@RequestMapping(value = "/allLog")
-	public ModelAndView allLog() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("listLog", serviceBook.selectLog()); 
-		mav.setViewName("allLog");
-		return mav;
-	}
-	
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
@@ -202,12 +139,16 @@ public class MemberController {
 	
 	// 회원 수정
 	@RequestMapping(value="/myPage", method=RequestMethod.POST)
-	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status")MemberVO member) throws Exception {
+	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status")MemberVO member, Log log) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String userId = member.getUserId();
 		vo.setUserId(userId);
 		vo.setUserPass(passwordEncoder.encode(vo.getUserPass()));
 		boolean result = service.updateMember(vo);
+		//log테이블 userName 수정
+		log.setEmail(userId);
+		log.setUserName(vo.getUserName());
+		serviceBook.updateUserName(log);
 		if(result) {
 			member = vo;
 			mav.addObject("status", member);

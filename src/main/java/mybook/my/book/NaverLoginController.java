@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
@@ -25,7 +26,7 @@ import vo.MemberVO;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes({"status", "result"})
+@SessionAttributes("status")
 public class NaverLoginController {
 	@Inject
 	private MemberService service;
