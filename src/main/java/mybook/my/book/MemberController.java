@@ -1,7 +1,9 @@
 package mybook.my.book;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -58,8 +60,16 @@ public class MemberController {
 	
 	@RequestMapping(value = "/otherReadBook")
 	public ModelAndView otherReadBook(@RequestParam(defaultValue="1")int curPage,
-			@ModelAttribute MyBookList model, String email) {
+			@ModelAttribute MyBookList model, String email, String readkeyword) {
 		ModelAndView mav = new ModelAndView();
+		if(readkeyword != null) {
+			Map<String, String> map = new HashMap<String, String>();
+	        map.put("readkeyword", readkeyword);
+	        map.put("email", email);
+			mav.addObject("list", serviceBook.searchReadbook(map)); 
+			mav.setViewName("otherReadBook");
+			return mav;	
+		}
 		int listCnt = serviceBook.getTotalCnt(email);
 		PagingVO pageList = new PagingVO(listCnt, curPage);
 		model.setStart(pageList.getStartIndex());
@@ -75,9 +85,23 @@ public class MemberController {
 
 	
 	@RequestMapping(value = "/otherInterestBook")
-	public ModelAndView otherInterestBook(String email) {
+	public ModelAndView otherInterestBook(String email,  String interestkeyword) {
 		ModelAndView mav = new ModelAndView();
+		System.out.println("밖에 이메일 : "+email);
+		if(interestkeyword != null) {
+			Map<String, String> map = new HashMap<String, String>();
+	        map.put("interestkeyword", interestkeyword);
+	        map.put("email", email);
+
+			mav.addObject("list", serviceBook.searchInterestbook(map)); 
+			mav.addObject("total", serviceBook.countInterestBook(email));
+			mav.setViewName("otherInterestBook");
+			return mav;	
+		}
+		
 		mav.addObject("list", serviceBook.listAllInterestBook(email)); 
+		// interestBook list rendering
+		mav.addObject("total", serviceBook.countInterestBook(email));
 		mav.setViewName("otherInterestBook");
 		return mav;
 	}

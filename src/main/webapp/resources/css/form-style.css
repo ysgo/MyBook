@@ -5,7 +5,7 @@
 	max-width: 50%;
 	margin: auto;
 	margin-top: 5%;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
 	box-shadow: 6px 7px 5px 0px rgba(158,155,158,1);
 }
 
@@ -53,5 +53,25 @@
 #signColor {
 	border:none; 
 	background-color:transparent;
-	color : #007bff;
+	color : #58C9B9 !important
+}
+
+.btn-primary {
+	background-color: #58C9B9 !important;
+	border-color: #58C9B9 !important;
+}
+
+.btn-primary:hover {
+	background-color: #58C9B9 !important;
+	color: #fff !important;
+}
+
+.btn-outline-info {
+    color: #3EAF0E !important;
+    border-color: #3EAF0E !important;
+}
+
+.btn-outline-info:hover {
+    color: white !important;
+    background-color: #3EAF0E !important;
 }

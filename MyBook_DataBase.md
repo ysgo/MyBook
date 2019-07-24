@@ -3,27 +3,12 @@
 ## < Member Table >
 
 ```sql
-/* 추가 개인정보 필요할시 사용할 테이블
 create table tbl_member (
-userId varchar2(50) not null,
-userPass varchar2(100) not null,
-userName varchar2(30) not null,
-userPhon varchar2(20) null,
-userAddr1 varchar2(20) null,
-userAddr2 varchar2(50) null,
-userAddr3 varchar2(50) null,
-regidate date default sysdate,
-verify number default 0,
-primary key(userId)
-);
-*/
------------------------------------------------------
-create table tbl_member (
-userId varchar2(50) not null,
-userPass varchar2(100) not null,
-userName varchar2(30) not null,
-regidate date default sysdate,
-primary key(userId)
+    userId varchar2(50) not null,
+    userPass varchar2(100) not null,
+    userName varchar2(30) not null,
+    regidate date default sysdate,
+    primary key(userId)
 );
 -----------------------------------------------------
 select * from tbl_member;
@@ -48,30 +33,45 @@ commit;
 
 ```sql
 CREATE TABLE mybooklist(
-    id NUMBER(30) PRIMARY KEY not null,
-    email VARCHAR2(100) not null,
-    title VARCHAR2(300),
-    author VARCHAR2(80),
-    publisher VARCHAR2(100),
-    image VARCHAR2(400),
-    m_title VARCHAR2(400),
+    id NUMBER(38) primary key not null,
+    email VARCHAR2(200) not null,
+    title VARCHAR2(500),
+    author VARCHAR2(200),
+    publisher VARCHAR2(500),
+    description VARCHAR2(4000),
+    image VARCHAR2(1000),
+    m_title VARCHAR2(500),
     m_star VARCHAR2(30),
-    m_content VARCHAR2(800),
+    m_content VARCHAR2(4000),
     registdate date
 );
 
 CREATE TABLE interestBooklist(
-    id NUMBER(10) PRIMARY KEY not null,
+    id NUMBER(38) primary key not null,
     email VARCHAR2(200) not null,
-    title VARCHAR2(200),
-    author VARCHAR2(100),
-    publisher VARCHAR2(100),
-    image VARCHAR2(400)
+    title VARCHAR2(500),
+    author VARCHAR2(200),
+    publisher VARCHAR2(500),
+    description VARCHAR2(4000), 
+    image VARCHAR2(1000),
+    registdate date
 );
 
 create sequence mybooklist_seq
 start with 1
 increment by 1;
+
+create table log (
+    id NUMBER(38) primary key not null,
+    email VARCHAR2(200) not null,
+    userName varchar2(30) not null,
+    myBookTitle VARCHAR2(500),
+    interestBookTitle VARCHAR2(500),
+    m_star VARCHAR2(30),
+    m_content VARCHAR2(4000),
+    isupdate VARCHAR2(10),
+    logregistdate date
+);
 -----------------------------------------------------
 
 select * from mybooklist;
@@ -97,15 +97,18 @@ select id, title, content, author, regisDate
         order by bno desc;
 
 -----------------------------------------------------
+ALTER TABLE interestBooklist RENAME COLUMN logregistdate TO registdate;
 
-select * from interestBooklist;
-
+-----------------------------------------------------
 --drop table
 drop table mybooklist;
 
 drop table interestBooklist;
 
------------------------------------------------------
+drop table tbl_member;
+
+drop table log;
+
 --drop sequence
 drop sequence mybooklist_seq;
 
@@ -116,9 +119,49 @@ SELECT mybooklist_seq.CURRVAL FROM DUAL;
 SELECT SEQUENCE_NAME, MIN_VALUE, MAX_VALUE, INCREMENT_BY, CYCLE_FLAG 
 FROM USER_SEQUENCES;
 
+select * from user_sequences;
+
+insert into log(id, email, userName, logregistdate) values(1,'e','e',to_date('1999-04-03 12:33:33','yyyy-MM-dd HH24:MI:SS'));
 ----------------------------------------------------
 commit;
+ROLLBACK;
+----------------------------------------------------
 
-select * from user_sequences;
+select * from mybooklist;
+
+select * from interestBooklist;
+select count(*) as total from interestBooklist where email='ss@gmail.com';
+
+select * from tbl_member;
+
+select * from log;
+
+select id, userName,myBookTitle,m_star,m_content, isupdate, 
+to_char(logregistdate,'YYYY-MM-DD HH24:Mi:SS') from log;
+
+select id, title, m_content, to_char(registdate,'YYYY-MM-DD hh:mi:ss') from mybooklist;
+
+select max(to_char(registdate,'yyyy-MM-dd hh:mi:ss')) KEEP(DENSE_RANK First ORDER BY registdate DESC) from mybooklist;
+
+update interestBooklist
+set logregistdate = sysdate
+where logregistdate is null;
+
+select userName, myBookTitle, interestBookTitle, m_star, m_content, logregistdate
+from log order by logregistdate desc;
+
+insert into log(to_Date(logregistdate,'yyyy-MM-dd HH:mm:ss')) 
+    	values('Mon Jul 22 10:33:55 KST 2019');
+
+insert into tbl_member(userId, userPass, userName)
+values('qwe@gmail.com', '1234', 'qwe');
+
+insert into mybooklist(id,email,registdate) values(5,'qwe@gmail.com',sysdate);
+
+select max(id) from mybooklist;
+
+insert into log (id,userName, myBookTitle,logregistdate) values(2,'tt', '제목',TO_DATE('2019-07-21 18:35:20','yyyy-MM-dd'));
+--select title, count(*) from mybooklist,(select title, count(*) from mybooklist group by title order by count(*) desc) where rownum<=5;
+
 ```
 

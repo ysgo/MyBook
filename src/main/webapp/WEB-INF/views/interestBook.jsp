@@ -26,8 +26,8 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/booklist-style.css">
-    <link rel="stylesheet" href="css/interestbook-style.css?a">
+    <link rel="stylesheet" href="css/booklist-style.css?a">
+    <link rel="stylesheet" href="css/interestbook-style.css?aa">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 	<!-- Font Awesome CSS -->
@@ -278,7 +278,7 @@
 				       <br>
 				       <!--  결과 로우 -->   
 			       		<c:forEach items="${bookList}" var ="b" >
-				        	<div id="row" class="row mr-1">
+				        	<div id="row" class="row mr-1 searchResult">
 				        		<div id="imgContainer" class="col-sm-3">
 				                	<img id="image" src="${b.image}" style="width: 200px">
 					            </div>

@@ -34,11 +34,6 @@
 			</div>
 <!-- 				<div class="col-sm-auto"><h4 class="card-title mt-2 text-center">회원가입</h4></div> -->
 		</div>
-		<!-- 네이버 로그인 버튼 -->
-		<a href="${url}" class="btn btn-block" ><img src="images/naverbutton.PNG" width="210px" height="40px"></a>
-		<p class="divider-text">
-			<span class="bg-light">OR</span>
-		</p>
 		
 		<!-- 회원가입 폼태그 시작 -->
 		<form action="${pageContext.request.contextPath}/signUp" method="POST" >
@@ -49,7 +44,9 @@
 					</span>
 				</div>
 				<input id="userName" name="userName" class="form-control" placeholder="닉네임" type="text" required autofocus>
-				<input type="button" id="name_check" value="중복체크">
+				<div class="input-group-append">
+				<input class="btn btn-primary" type="button" id="name_check" value="중복체크">
+				</div>
 			</div>
 			
 			<!-- 이메일 -->
@@ -59,7 +56,9 @@
 					</span>
 				</div>
 				<input id="userId" name="userId" class="form-control" placeholder="이메일" type="email" required>
-				<input type="button" id="id_check" value="중복체크">
+				<div class="input-group-append">
+				<input class="btn btn-primary"  type="button" id="id_check" value="중복체크"> 
+				</div>
 			</div>
 			
 			<!-- 비밀번호 -->
@@ -79,16 +78,27 @@
 					</span>
 				</div>
 				<input class="form-control" id="rePass" name="rePass" placeholder="비밀번호 확인" type="password" required>
-				<input type="button" id="repass_check" value="확인">
+				<div class="input-group-append">
+				<input class="btn btn-primary" type="button" id="repass_check" value="중복체크">
+				</div>
 			</div>
 			
 			<!-- 등록 버튼 -->
 			<div class="form-group">
-				<input type="submit" id="signUp" class="btn btn-primary btn-block" value="등록">
+				<!-- <input type="submit" id="signUp" class="btn btn-primary btn-block" value="등록"> -->
+				<button id="signUp" class="btn btn-outline-secondary btn-block" style="font-weight:700">등록</button> 
 			</div>
 			
 		</form>
 		<!-- 회원가입 폼태그 끝 -->
+		
+		<p class="divider-text"><span class="bg-light">or</span></p>
+		
+		<!-- 네이버 로그인 버튼 -->
+		<div class="row justify-content-center mb-3">
+			<a href="${ url }" class="btn btn-outline-info"><img src="images/naver.png" width="35px" height="35px"><span style="font-size: 16px">  네이버 아이디로 로그인</span></a>
+		</div>
+		
 			
 		<!-- 로그인 링크 -->
 		<form class="text-center" action="signIn" method="get">
@@ -113,7 +123,15 @@ var pwJ = /^[A-Za-z0-9]{4,16}$/;
 
 var text;
 var check=new Array(true, true, true);
-$("#signUp").attr("disabled", true);
+
+// btn disabled
+$("#signUp").click(function(e) {
+	if(loginBtn() !== "success") {
+		e.preventDefault();
+		$("#signUp").prop("disabled", true); 
+	} 
+})
+
 //이름 유효성 및 중복 검사(한글로만 2~6자리 또는 특수문자 안됨)
 $("#name_check").on("click", function() {						
 	var userName = $('#userName').val();
@@ -194,6 +212,18 @@ $("#repass_check").on("click", function() {
 	}
 });
 
+$('#signUp').on("click",function(){
+	signUpBtn();
+});
+
+function signUpBtn(count){
+	console.log(count);
+	if(count == 3)
+		document.getElementById("#signUp").submit();
+	else
+		alet("중복체크를 확인해주세요.");
+}
+
 function loginBtn() {
 	var count=0;
 	var btn = true;
@@ -201,14 +231,18 @@ function loginBtn() {
 		if(check[i] == false)
 			count++;
 	}
+	console.log(count);
 	if(count == 3) {
-		btn = false;
+		$("#signUp").prop("disabled", false);
+		return "success";
+	} else if(count == 0) {
+		alert('중복체크 버튼을 눌러 확인해주세요!')
 	} else {
 		btn = true;
+		signUpBtn(count);
 	}
 	$("#signUp").attr("disabled", btn);
 }
-
 </script>
 </body>
 </html>

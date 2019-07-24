@@ -66,31 +66,60 @@
 						<input id="leftSideBarColor" type="submit" value="메인">
 					</form>
 				</li>
-				<li class="active">
-					<form id="leftSideBar" action="readBook" method="get">
-						<a href="#bookSubmenu" data-toggle="collapse"
-							aria-expanded="false" class="dropdown-toggle"> <input
-							id="leftSideBarColor" type="submit" value="내 서재">
-						</a>
-					</form>
-					<ul class="collapse list-unstyled" id="bookSubmenu">
-						<li>
-							<form id="leftSideBar" action="readBook" method="get">
-								<input id="leftSideBarColor" type="submit" value="읽은 책">
-							</form>
-						</li>
-						<li>
-							<form id="leftSideBar" action="interestBook" method="get">
-								<input id="leftSideBarColor" type="submit" value="관심 책">
-							</form>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<form id="leftSideBar" action="myPage" method="get">
-						<input id="leftSideBarColor" type="submit" value="내 정보">
-					</form>
-				</li>
+				<c:choose>
+                	<c:when test="${ !empty status }">
+		                <li class="active">
+		                	<form id="leftSideBar" action="readBook" method="get">
+			                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+			                		<input id="leftSideBarColor" type="submit" value="내 서재">
+			                	</a>
+			               	</form>
+		                    <ul class="collapse list-unstyled" id="bookSubmenu">
+		                        <li>
+		                        	<form id="leftSideBar" action="readBook" method="post">
+			                			<input id="leftSideBarColor" type="submit" value="읽은 책">
+			                		</form>
+		                        </li>
+		                        <li>
+		                        	<form id="leftSideBar" action="interestBook" method="get">
+			                			<input id="leftSideBarColor" type="submit" value="관심 책">
+			                		</form>
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li>
+		                	<form id="leftSideBar" action="myPage" method="get">
+			                	<input id="leftSideBarColor" type="submit" value="내 정보">
+			                </form>
+		                </li> 
+		                </c:when>
+		                <c:otherwise>
+			                <li class="active">
+			                	<form id="leftSideBar" action="signIn" method="get">
+				                	<a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+				                		<input id="leftSideBarColor" type="submit" value="내 서재">
+				                	</a>
+				               	</form>
+			                    <ul class="collapse list-unstyled" id="bookSubmenu">
+			                        <li>
+			                        	<form id="leftSideBar" action="signIn" method="post">
+				                			<input id="leftSideBarColor" type="submit" value="읽은 책">
+				                		</form>
+			                        </li>
+			                        <li>
+			                        	<form id="leftSideBar" action="signIn" method="get">
+				                			<input id="leftSideBarColor" type="submit" value="관심 책">
+				                		</form>
+			                        </li>
+			                    </ul>
+			                </li>
+			                <li>
+			                	<form id="leftSideBar" action="signIn" method="get">
+				                	<input id="leftSideBarColor" type="submit" value="내 정보">
+				                </form>
+			                </li> 
+		                </c:otherwise>
+		     	</c:choose>
 			</ul>
 		</nav>
 		<!-- left Sidebar 끝 -->
@@ -98,33 +127,32 @@
 		<!-- Page Content 시작 -->
 		<div id="content">
 
-			<div class="top-page mb-5">
+			<div class="top-page mb-5 center-block">
 				<!-- top page 시작 -->
-
+				
 				<div class="btn-with-fixedInput pr-1 pl-3">
 					<!-- 메뉴 버튼 -->
-
 					<button type="button" id="sidebarCollapse"
 						class="btn btn-outline-secondary">
 						<i class="fas fa-align-left"></i> <span>MENU</span>
 					</button>
-
 				</div>
 
 				<div class="fixedInput pl-1">
 					<!-- 고정된 인풋 -->
-
-					<form method="get" action="readBook" target="_self">
+				<% %>
+					<form method="get" action="otherReadBook" target="_self">
 						<div class="input-group">
 							<input name="readkeyword" type="text" class="form-control"
 								placeholder="내가 등록한 책 제목, 저자, 출판사 검색"
 								aria-describedby="basic-addon2">
+								<input type="hidden" name="email" value="<%= request.getParameter("email")%>">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary" type="submit">검색</button>
 							</div>
 						</div>
 					</form>
-
+					
 				</div>
 				<!-- 고정된 인풋 끝 -->
 
@@ -162,8 +190,7 @@
 						</div>
 						<div class="line"></div> <!-- 구분선 -->
 					</c:forEach>
-					
-				<!-- 페이징 버튼 위치 시작 -->
+									<!-- 페이징 버튼 위치 시작 -->
 				<c:if test="${!empty listCnt }">
 					<div>
 						<c:if test="${pagination.curPage ne 1 }">
@@ -197,7 +224,7 @@
 					
 				</ul>
 			</c:if>
-			<a href="readBook" style="text-decoration: none"><!-- 전체목록으로 이동 -->
+			<a href="otherReadBook?email=<%= request.getParameter("email")%>" style="text-decoration: none"><!-- 전체목록으로 이동 -->
 				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
 			</a>
 			
@@ -205,14 +232,7 @@
 			<% 
 				if(request.getParameter("readkeyword") != null) { 
 			%>
-				<h2 style="padding-top: 30px">찾으시는 내용이 없어요!</h2>
-			<%
-				} else {
-			%>
-				<script>
-					$('#listall').hide();
-				</script>
-				<h2>읽은 책과 서평을 추가해주세요 :)</h2>
+				<h2 style="padding-top: 30px">찾으시는 책이 없어요  <img src="images/sad-emoji.png" style="width: 50px; padding-bottom: 5px"></h2>
 			<%
 				}
 			%>
@@ -236,7 +256,7 @@
 				</form>
 			</c:if>
 			<c:if test="${!empty status }">
-				<form action="signIn" method="get" style='float: left;'>
+				<form action="signIn" method="post" style='float: left;'>
 					<input id="signColor" type="submit" class="nav-link p-2"
 						value="로그아웃">
 				</form>
@@ -267,40 +287,6 @@
 	    });
     </script>
 
-	<!-- 도서 검색 -->
-	<script>
-	function searchFunc(e) {  
-		var keyword = $('input[name=keyword]').val();
-	
-	    var url = "readBook?keyword=" + keyword;
-	    if(e.type == "keydown" && e.keyCode != 13) { return; } 
-	    
-	    $.ajax({
-	        url: url,
-	        type: 'GET', 
-	        success: function(data){
-	        	$('body').html(data);
-	            $('#myModal').modal('show'); 
-	        }
-	    });
-	}
-	
-	$(function(){
-	    $('#submitForm').on('click', searchFunc);   
-	    $('input[name=keyword]').on('keydown', searchFunc);   
-	    $('.close').on('click', function() {
-	    	$.ajax({
-	            url: "readBook",
-	            type: 'GET', 
-	            success: function(data){
-	            	$('body').html(data);
-	            }
-	        });
-	    });   
-	});
-	</script>
-	<!-- 도서 검색 끝-->
-
 	<script>
 		function hover(e) {
 			var image = e.childNodes[1];
@@ -311,6 +297,5 @@
 			image.id === 'pencil' ? image.src = 'images/pencil.png' : image.src = 'images/trash.png';
 		}
 	</script>
-
 </body>
 </html>

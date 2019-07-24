@@ -180,7 +180,7 @@
 			           		<c:if test="${status.count <6}">
 			           			<!-- 읽은 책 -->
 			           			<c:if test="${!empty vo.myBookTitle}"> 
-			           				<form action="otherReadBook" method="post">
+			           				<form action="otherReadBook" method="get">
 				               			<input type="hidden" name="email" value="${vo.email}">
 				           				<input id="userNameCss" type="submit" value="${vo.userName}">
 				           				&emsp;<span> ${vo.logregistdate}</span>
@@ -201,7 +201,7 @@
 			           			
 			           			<!-- 관심 책 -->
 			           			<c:if test="${empty vo.myBookTitle}"> 
-			           				<form action="otherInterestBook" method="post">
+			           				<form action="otherInterestBook" method="get">
 				               				<input type="hidden" name="email" value="${vo.email}">
 				           					<input id="userNameCss" type="submit" value="${vo.userName}">
 				           					&emsp;<span> ${vo.logregistdate}</span>

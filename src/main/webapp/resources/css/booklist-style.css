@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 
 #content {
-	font-family:  ''Noto Sans KR";
+	font-family: 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
 }
 #imgContainer {
 	text-align:center;
@@ -10,12 +10,13 @@
 .row {
 	padding: 5px;
 }
-#content .row:hover {
+#ulRow .row:hover {
 	background-color: #dcebf7;
 	cursor: pointer;
 }
-.inputrow:hover {
-	background-color: white;
+.searchResult:hover {
+	background-color: #dcebf7;
+	cursor: pointer;
 }
 .inputrow {
 	margin: 0 auto;
@@ -55,7 +56,6 @@
 	color: gray;
 }
 
-/*���� �߰� ���*/
 .form-elegant .font-small {
     font-size: 0.8rem; }
 .form-elegant .z-depth-1a {
@@ -71,7 +71,6 @@
 .form-elegant .modal-body, .form-elegant .modal-footer {
     font-weight: 400; }
     
-/*����*/    
 .star_rating {font-size:0; letter-spacing:-4px;}
 .star_rating a {
     font-size:22px;
@@ -89,7 +88,7 @@
 }
 
 .modal-open {
-   	overflow: scroll; /* ��� ������ �ݾƵ� ��ũ�ѹٰ� ���� */
+   	overflow: scroll; /* 占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쌥아듸옙 占쏙옙크占싼바곤옙 占쏙옙占쏙옙 */
 }
 
 .btn-outline-primary {
