@@ -76,7 +76,7 @@
 			               	</form>
 		                    <ul class="collapse list-unstyled" id="bookSubmenu">
 		                        <li>
-		                        	<form id="leftSideBar" action="readBook" method="post">
+		                        	<form id="leftSideBar" action="readBook" method="get">
 			                			<input id="leftSideBarColor" type="submit" value="읽은 책">
 			                		</form>
 		                        </li>
@@ -102,7 +102,7 @@
 				               	</form>
 			                    <ul class="collapse list-unstyled" id="bookSubmenu">
 			                        <li>
-			                        	<form id="leftSideBar" action="signIn" method="post">
+			                        	<form id="leftSideBar" action="signIn" method="get">
 				                			<input id="leftSideBarColor" type="submit" value="읽은 책">
 				                		</form>
 			                        </li>

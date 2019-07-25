@@ -90,7 +90,7 @@ gradle-app.setting
  
 ########## -- Maven.gitignore Start
 target/
-config.properties
+# config.properties
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

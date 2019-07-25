@@ -85,7 +85,7 @@
 			               	</form>
 		                    <ul class="collapse list-unstyled" id="bookSubmenu">
 		                        <li>
-		                        	<form id="leftSideBar" action="readBook" method="post">
+		                        	<form id="leftSideBar" action="readBook" method="get">
 			                			<input id="leftSideBarColor" type="submit" value="읽은 책">
 			                		</form>
 		                        </li>
@@ -111,7 +111,7 @@
 				               	</form>
 			                    <ul class="collapse list-unstyled" id="bookSubmenu">
 			                        <li>
-			                        	<form id="leftSideBar" action="signIn" method="post">
+			                        	<form id="leftSideBar" action="signIn" method="get">
 				                			<input id="leftSideBarColor" type="submit" value="읽은 책">
 				                		</form>
 			                        </li>
@@ -149,7 +149,7 @@
 		           		<c:forEach var="vo" items="${listLog}" varStatus="status">
 			           			<div id="row">    
 			           				<c:if test="${!empty vo.myBookTitle}">
-			           					<form action="otherReadBook" method="post">
+			           					<form action="otherReadBook" method="get">
 				               				<input type="hidden" name="email" value="${vo.email}">
 				           					<input id="userNameCss" type="submit" value="${vo.userName}">
 				           					&emsp;<span> ${vo.logregistdate}</span>
@@ -167,7 +167,7 @@
 										<div style="word-break: keep-all ;">${vo.m_content}</div>
 			           				</c:if> 
 			           				<c:if test="${empty vo.myBookTitle}">
-			           					<form action="otherInterestBook" method="post">
+			           					<form action="otherInterestBook" method="get">
 				               				<input type="hidden" name="email" value="${vo.email}">
 				           					<input id="userNameCss" type="submit" value="${vo.userName}">
 				           					&emsp;<span> ${vo.logregistdate}</span>
