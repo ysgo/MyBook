@@ -24,8 +24,8 @@ public class NaverBookDAO {
 	@Autowired
 	SqlSession session=null;
 	
-	private static String clientID = "cTj9CJ7ev5hnHb4dsgdX";
-	private static String clientSecret="DgiKpqs83X";
+	private static String clientID = "개인 등록";
+	private static String clientSecret="개인 등록";
 	
 	public List<Book> searchBook(String keyword, int display, int start) {
 		List<Book> list = null;
