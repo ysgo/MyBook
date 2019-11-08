@@ -1,41 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>CHACKCHECK</title>
-
-	<!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <!-- jQuery Custom Scroller CDN -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
-	</script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap CSS CDN -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css?a">
-    <link rel="stylesheet" href="css/booklist-style.css?a">
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-	
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+<%@ include file="common/header.jsp" %>
 </head>
-
 <body>
 	<div class="wrapper">
 		<div style="z-index: 500">
@@ -376,175 +342,194 @@
 	</div>
 
 
-	<script type="text/javascript">
-    function fn_paging(curPage) {
-    	location.href = "/book/readBook?curPage=" + curPage;
-    }
-    
-	    $(document).ready(function () {
-	    	// hide sidebar
-	        $('#sidebar').toggleClass('active');
-	        $("#sidebar").mCustomScrollbar({
-	            theme: "minimal"
-	        });
-	        
-	        $('#sidebarCollapse').on('click', function () {
-	        	// open sidebar
-	            $('#sidebar, #content').toggleClass('active');
-	            $('.collapse.in').toggleClass('in');
-	            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-	        });
-	    });
-    </script>
-
-	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 -->
-	<script>   	
-    	var image, title, author, publisher, description, log;
-    	//책 추가 모달에서 목록을 눌렀을 때
-		$('div#row').click(function(){ 
-				image = $(this).children('div').children('img#image').attr("src");
-			  	title = $(this).children('div').children('span#title').text();
-			  	author = $(this).children('div').children('span#author').text();
-			  	publisher = $(this).children('div').children('span#publisher').text(); 	
-			  	description = $(this).children('div#description').text(); 	
-
-			 	$("#myModal").removeClass("in"); 
-			 	$(".modal-backdrop").remove();
-		 	 	$("#myModal").hide();
-		 	 	$('#myModal2').modal('show');	
-		 	 	
-		 	 //서평 추가 모달에서 확인버튼 눌렀을 때
-		 		$('button#m_submit').click(function(){ 
-		 		    var m_title = $('input#m_title').val();
-		 		    var m_content = $('textarea#m_content').val();
-		 		   	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-	 		    $.ajax({
-	 		        url: "readBook",
-	 		        type: 'POST', 
-	 		        data: {
-	 		        	title : title,
-	 		        	author : author,
-	 		        	publisher : publisher,
-	 		        	description : description,
-	 		        	image : image, 
-	 		        	m_title : m_title,
-	 		        	m_star : m_star,
-	 		        	m_content : m_content
-	 		        },
-	 		        dataType : "text",
-	 		        success: function(data){           
-			 	 		$("#myModal2 .close").click();
-			 	 		return false;
-	 		        },
-	 		        error : function(request, status, error){
-	 		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
-	 		        }
-	 		    }); 
-	 		}); 
-		});	
-    </script>
-	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 끝 -->
-
-	<script>	
-	//서평 모달에서 별점 눌렀을 때 채워지게 함 
-	$( ".star_rating a" ).click(function() {
-	    $(this).parent().children("a").removeClass("on");
-	    $(this).addClass("on").prevAll("a").addClass("on");
-	    return false;
-	});
-	
-	//별값 가져오기
-	var m_star=5;
-	$('a[target]').click(function(){
-		   m_star = $(this).attr('id');
-	}); 
-	</script>
-
-
-	<!-- 	수정버튼 -->
-	<script>
-  	function updateButton(id, m_title, m_star, m_content){
-  		document.getElementById('m_title').value=m_title; 
-  		document.getElementById('m_content').value=m_content.replace(/(<br\/>|(<br><\/button>))/g, '\r\n');
-  		$('#'+m_star).parent().children("a").removeClass("on");
-  		$('#'+m_star).addClass("on").prevAll("a").addClass("on");
-
-  		var m_star = m_star;
-  		$('a[target]').click(function(){
-  			m_star = $(this).attr('id');
-  		});
-  		
-  		//서평 추가 모달에서 확인버튼 눌렀을 때
-  			$('button#m_submit').click(function(){ 
-  				
-  			    var m_title = $('input#m_title').val();
-  			    var m_content = $('textarea#m_content').val();
-  			  	m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-  			    $.ajax({
-  			        url: "readBook",
-  			        type: 'POST', 
-  			        data: {
-  			        	bookNum : id,
-  			        	m_title : m_title,
-  			        	m_star : m_star,
-  			        	m_content : m_content
-  			        },
-  			        dataType : "text",
-  			        success: function(data){           
-  			 	 		$("#myModal2 .close").click(); 			 	 		
-  			        },
-  			        error : function(request, status, error){
-  			            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
-  			        }
-  			    }); 
-  			}); 
-  	}
-	</script>
-	<!-- 	수정버튼 끝 -->
-
-	<!-- 도서 검색 -->
-	<script>
-	function searchFunc(e) {  
-		var keyword = $('input[name=keyword]').val();
-	
-	    var url = "readBook?keyword=" + keyword;
-	    if(e.type == "keydown" && e.keyCode != 13) { return; } 
-	    
-	    $.ajax({
-	        url: url,
-	        type: 'GET', 
-	        success: function(data){
-	        	$('body').html(data);
-	            $('#myModal').modal('show'); 
-	        }
-	    });
+<script type="text/javascript">
+	function fn_paging(curPage) {
+		location.href = "/book/readBook?curPage=" + curPage;
 	}
-	
-	$(function(){
-	    $('#submitForm').on('click', searchFunc);   
-	    $('input[name=keyword]').on('keydown', searchFunc);   
-	    $('.close').on('click', function() {
-	    	$.ajax({
-	            url: "readBook",
-	            type: 'GET', 
-	            success: function(data){
-	            	$('body').html(data);
-	            }
-	        });
-	    });   
-	});
-	</script>
-	<!-- 도서 검색 끝-->
 
-	<script>
-		function hover(e) {
-			var image = e.childNodes[1];
-			image.id === 'pencil' ? image.src = 'images/white-pencil.png' : image.src = 'images/white-trash.png';
+	$(document).ready(function() {
+		// hide sidebar
+		$('#sidebar').toggleClass('active');
+		$("#sidebar").mCustomScrollbar({
+			theme : "minimal"
+		});
+
+		$('#sidebarCollapse').on('click', function() {
+			// open sidebar
+			$('#sidebar, #content').toggleClass('active');
+			$('.collapse.in').toggleClass('in');
+			$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+		});
+	});
+
+	// 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기
+	var image, title, author, publisher, description, log;
+	//책 추가 모달에서 목록을 눌렀을 때
+	$('div#row')
+			.click(
+					function() {
+						image = $(this).children('div').children('img#image')
+								.attr("src");
+						title = $(this).children('div').children('span#title')
+								.text();
+						author = $(this).children('div')
+								.children('span#author').text();
+						publisher = $(this).children('div').children(
+								'span#publisher').text();
+						description = $(this).children('div#description')
+								.text();
+
+						$("#myModal").removeClass("in");
+						$(".modal-backdrop").remove();
+						$("#myModal").hide();
+						$('#myModal2').modal('show');
+
+						//서평 추가 모달에서 확인버튼 눌렀을 때
+						$('button#m_submit')
+								.click(
+										function() {
+											var m_title = $('input#m_title')
+													.val();
+											var m_content = $(
+													'textarea#m_content').val();
+											m_content = m_content.replace(
+													/(?:\r\n|\r|\n)/g, '<br/>');
+											$
+													.ajax({
+														url : "readBook",
+														type : 'POST',
+														data : {
+															title : title,
+															author : author,
+															publisher : publisher,
+															description : description,
+															image : image,
+															m_title : m_title,
+															m_star : m_star,
+															m_content : m_content
+														},
+														dataType : "text",
+														success : function(data) {
+															$(
+																	"#myModal2 .close")
+																	.click();
+															return false;
+														},
+														error : function(
+																request,
+																status, error) {
+															console
+																	.log("code:"
+																			+ request.status
+																			+ "\n"
+																			+ "message:"
+																			+ request.responseText
+																			+ "\n"
+																			+ "error:");
+														}
+													});
+										});
+					});
+	// 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 끝
+
+	//서평 모달에서 별점 눌렀을 때 채워지게 함 
+	$(".star_rating a").click(function() {
+		$(this).parent().children("a").removeClass("on");
+		$(this).addClass("on").prevAll("a").addClass("on");
+		return false;
+	});
+
+	//별값 가져오기
+	var m_star = 5;
+	$('a[target]').click(function() {
+		m_star = $(this).attr('id');
+	});
+
+	/* 수정버튼 */
+	function updateButton(id, m_title, m_star, m_content) {
+		document.getElementById('m_title').value = m_title;
+		document.getElementById('m_content').value = m_content.replace(
+				/(<br\/>|(<br><\/button>))/g, '\r\n');
+		$('#' + m_star).parent().children("a").removeClass("on");
+		$('#' + m_star).addClass("on").prevAll("a").addClass("on");
+
+		var m_star = m_star;
+		$('a[target]').click(function() {
+			m_star = $(this).attr('id');
+		});
+
+		//서평 추가 모달에서 확인버튼 눌렀을 때
+		$('button#m_submit').click(
+				function() {
+
+					var m_title = $('input#m_title').val();
+					var m_content = $('textarea#m_content').val();
+					m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+					$.ajax({
+						url : "readBook",
+						type : 'POST',
+						data : {
+							bookNum : id,
+							m_title : m_title,
+							m_star : m_star,
+							m_content : m_content
+						},
+						dataType : "text",
+						success : function(data) {
+							$("#myModal2 .close").click();
+						},
+						error : function(request, status, error) {
+							console.log("code:" + request.status + "\n"
+									+ "message:" + request.responseText + "\n"
+									+ "error:");
+						}
+					});
+				});
+	}
+	/* 수정버튼 끝 */
+	/* 도서 검색 */
+	function searchFunc(e) {
+		var keyword = $('input[name=keyword]').val();
+
+		var url = "readBook?keyword=" + keyword;
+		if (e.type == "keydown" && e.keyCode != 13) {
+			return;
 		}
-		function leave(e) {
-			var image = e.childNodes[1];
-			image.id === 'pencil' ? image.src = 'images/pencil.png' : image.src = 'images/trash.png';
-		}
-	</script>
+
+		$.ajax({
+			url : url,
+			type : 'GET',
+			success : function(data) {
+				$('body').html(data);
+				$('#myModal').modal('show');
+			}
+		});
+	}
+
+	$(function() {
+		$('#submitForm').on('click', searchFunc);
+		$('input[name=keyword]').on('keydown', searchFunc);
+		$('.close').on('click', function() {
+			$.ajax({
+				url : "readBook",
+				type : 'GET',
+				success : function(data) {
+					$('body').html(data);
+				}
+			});
+		});
+	});
+	/* 도서 검색 끝 */
+	function hover(e) {
+		var image = e.childNodes[1];
+		image.id === 'pencil' ? image.src = 'images/white-pencil.png'
+				: image.src = 'images/white-trash.png';
+	}
+	function leave(e) {
+		var image = e.childNodes[1];
+		image.id === 'pencil' ? image.src = 'images/pencil.png'
+				: image.src = 'images/trash.png';
+	}
+</script>
 </body>
 </html>

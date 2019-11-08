@@ -56,7 +56,7 @@ public class PagingVO {
          * 페이징 처리 순서
          * 1. 총 페이지수
          * 2. 총 블럭(range)수
-         * 3. range setting
+        * 3. range setting
          */
         
         // 총 게시물 수와 현재 페이지를 Controller로 부터 받아온다.
