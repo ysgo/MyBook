@@ -1,0 +1,12 @@
+<svg width="230" height="50" xmlns="http://www.w3.org/2000/svg">
+
+<style>
+<defs>
+	<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Fredoka+One&amp;display=swap');
+	</style>
+</defs>
+</style>
+	<text x="17" y="40" font-size="30" style="font-family:'Fredoka One'" fill="#519D9E" opacity=".4">CHACKCHECK</text>
+	<text x="15" y="35" font-size="30" style="font-family:'Fredoka One'" fill="#58C9B9">CHACKCHECK</text>
+</svg>
