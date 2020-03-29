@@ -1,4 +1,7 @@
 package com.mc.mybook.controller;
+
+import org.springframework.stereotype.Controller;
+
 //
 //import java.text.ParseException;
 //import java.util.HashMap;
@@ -14,16 +17,17 @@ package com.mc.mybook.controller;
 //import org.springframework.web.bind.annotation.SessionAttributes;
 //import org.springframework.web.servlet.ModelAndView;
 //
+//import com.mc.mybook.model.InterestBookList;
+//import com.mc.mybook.model.Log;
+//import com.mc.mybook.model.MyBookList;
+//
 //import mybook.my.book.service.NaverBookService;
-//import mybook.my.book.vo.InterestBookList;
-//import mybook.my.book.vo.Log;
 //import mybook.my.book.vo.MemberVO;
-//import mybook.my.book.vo.MyBookList;
 //import mybook.my.book.vo.PagingVO;
 //
-//@Controller
+@Controller
 //@SessionAttributes("status")
-//public class BookController {
+public class BookController {
 //	@Autowired
 //	private NaverBookService service;
 //	
@@ -155,5 +159,4 @@ package com.mc.mybook.controller;
 //		return mav;
 //	}
 //	
-//}
-//
+}

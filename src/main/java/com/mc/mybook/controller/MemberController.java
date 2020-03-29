@@ -25,14 +25,14 @@ public class MemberController {
 //	PasswordEncoder passwordEncoder;
 	
 	//main 페이지 이동
-	@GetMapping
-	public ModelAndView main() {
-		ModelAndView mav = new ModelAndView();
-//		mav.addObject("listLog", serviceBook.selectLog());
-//		mav.addObject("list", serviceBook.trendingbook()); 
-		mav.setViewName("main");
-		return mav;
-	}
+//	@GetMapping
+//	public ModelAndView main() {
+//		ModelAndView mav = new ModelAndView();
+////		mav.addObject("listLog", serviceBook.selectLog());
+////		mav.addObject("list", serviceBook.trendingbook()); 
+//		mav.setViewName("main");
+//		return mav;
+//	}
 //	
 //	// 회원가입 페이지 이동
 //	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
