@@ -2,20 +2,20 @@ package com.mc.mybook.controller;
 
 import org.springframework.stereotype.Controller;
 
-//
-//import java.text.ParseException;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
+
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 //import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.ModelAttribute;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.SessionAttribute;
-//import org.springframework.web.bind.annotation.SessionAttributes;
-//import org.springframework.web.servlet.ModelAndView;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 //
 //import com.mc.mybook.model.InterestBookList;
 //import com.mc.mybook.model.Log;
@@ -26,15 +26,15 @@ import org.springframework.stereotype.Controller;
 //import mybook.my.book.vo.PagingVO;
 //
 @Controller
-//@SessionAttributes("status")
+@SessionAttributes("status")
 public class BookController {
 //	@Autowired
 //	private NaverBookService service;
-//	
-//	@RequestMapping(value = {"/readBook"}) 
-//	public ModelAndView  readBook(@RequestParam(required=false)String keyword, @ModelAttribute MyBookList model, String bookNum, String readkeyword,
-//			@SessionAttribute("status")MemberVO loginVO, @RequestParam(defaultValue="1")int curPage, Log logmodel) throws ParseException {
-//		ModelAndView mav = new ModelAndView(); 
+	
+	@RequestMapping(value = {"/readBook"}) 
+	public ModelAndView  readBook(@RequestParam(required=false)String keyword, @ModelAttribute MyBookList model, String bookNum, String readkeyword,
+			@SessionAttribute("status")MemberVO loginVO, @RequestParam(defaultValue="1")int curPage, Log logmodel) throws ParseException {
+		ModelAndView mav = new ModelAndView(); 
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();
 //		if(readkeyword != null) {
@@ -96,14 +96,14 @@ public class BookController {
 //				mav.addObject("list", list); 
 //				mav.addObject("listCnt", listCnt);
 //				mav.addObject("pagination", pageList);				
-//				mav.setViewName("readBook");
-//		return mav;
-//	}
-//	
-//	@RequestMapping(value = {"/interestBook"}) 
-//	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword,
-//			@SessionAttribute("status")MemberVO loginVO, Log logmodel) throws ParseException {
-//		ModelAndView mav = new ModelAndView(); 
+				mav.setViewName("readBook");
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/interestBook"}) 
+	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword,
+			@SessionAttribute("status")MemberVO loginVO, Log logmodel) throws ParseException {
+		ModelAndView mav = new ModelAndView(); 
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();
 //
@@ -146,17 +146,17 @@ public class BookController {
 //		mav.addObject("list", service.listAllInterestBook(userId)); 
 //		// interestBook list rendering
 //		mav.addObject("total", service.countInterestBook(userId));
-//		mav.setViewName("interestBook");
-//		return mav;
-//	}
-//	
-//	@RequestMapping(value = {"/detailInterestBook"}) 
-//	public ModelAndView detailInterestBook(String bookNum, String bookTitle) {
-//		ModelAndView mav = new ModelAndView();
+		mav.setViewName("interestBook");
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/detailInterestBook"}) 
+	public ModelAndView detailInterestBook(String bookNum, String bookTitle) {
+		ModelAndView mav = new ModelAndView();
 //		mav.addObject("bookTitle", bookTitle);
 //		mav.addObject("list", service.selectDetailInterestBook(Integer.parseInt(bookNum))); 
-//		mav.setViewName("detailInterestBook");
-//		return mav;
-//	}
-//	
+		mav.setViewName("detailInterestBook");
+		return mav;
+	}
+	
 }

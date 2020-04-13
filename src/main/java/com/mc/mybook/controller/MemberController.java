@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @SessionAttributes("status")
-@RequestMapping("/")
+@RequestMapping("/" + PathConstants.MEMBER_PATH)
 public class MemberController {
 	/* NaverLoginBO */
 //	private NaverLoginBO naverLoginBO;
@@ -25,22 +25,22 @@ public class MemberController {
 //	PasswordEncoder passwordEncoder;
 	
 	//main 페이지 이동
-//	@GetMapping
-//	public ModelAndView main() {
-//		ModelAndView mav = new ModelAndView();
-////		mav.addObject("listLog", serviceBook.selectLog());
-////		mav.addObject("list", serviceBook.trendingbook()); 
-//		mav.setViewName("main");
-//		return mav;
-//	}
-//	
-//	// 회원가입 페이지 이동
-//	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-//	public String signUp(Model model, HttpSession session) {
-////		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
-////		model.addAttribute("url", naverAuthUrl);
-//		return "signUp";
-//	}
+	@GetMapping
+	public ModelAndView main() {
+		ModelAndView mav = new ModelAndView();
+//		mav.addObject("listLog", serviceBook.selectLog());
+//		mav.addObject("list", serviceBook.trendingbook()); 
+		mav.setViewName("main");
+		return mav;
+	}
+	
+	// 회원가입 페이지 이동
+	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
+	public String signUp(Model model, HttpSession session) {
+//		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+//		model.addAttribute("url", naverAuthUrl);
+		return "signUp";
+	}
 //	
 //	// 회원가입 : 서비스 객체에 저장
 //	@RequestMapping(value="/signUp", method=RequestMethod.POST)
@@ -64,15 +64,15 @@ public class MemberController {
 //		mav.setViewName(viewName);
 //		return mav;
 //	}
-//	
-//	// 로그인 페이지 이동
-//	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
-//	public String  signIn(Model model, HttpSession session) {
-////		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
-////		model.addAttribute("url", naverAuthUrl);
-//		return "signIn";
-//	}
-//	
+	
+	// 로그인 페이지 이동
+	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
+	public String  signIn(Model model, HttpSession session) {
+//		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
+//		model.addAttribute("url", naverAuthUrl);
+		return "signIn";
+	}
+	
 //	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
 //	@RequestMapping(value="/signIn", method=RequestMethod.POST)
 //	public ModelAndView signIn(@ModelAttribute MemberVO vo, Model model, HttpServletResponse response, HttpSession session) throws Exception {
@@ -105,22 +105,22 @@ public class MemberController {
 //		mav.setViewName(viewName);
 //		return mav;
 //	}
-//	
-//	// 로그아웃 
-//	@RequestMapping(value="/signOut", method=RequestMethod.POST)
-//	public ModelAndView signOut(SessionStatus session) throws Exception {
-//		ModelAndView mav = new ModelAndView();
-//		service.signout(session);
-//		mav.setViewName("redirect:/");
-//		return mav;
-//	}
-//	
-//	// 회원 수정  페이지 이동
-//	@RequestMapping(value="/myPage", method=RequestMethod.GET)
-//	public String  infoUpdate() throws Exception {
-//		return "myPage";
-//	}
-//	
+	
+	// 로그아웃 
+	@RequestMapping(value="/signOut", method=RequestMethod.POST)
+	public ModelAndView signOut(SessionStatus session) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		service.signout(session);
+		mav.setViewName("redirect:/");
+		return mav;
+	}
+	
+	// 회원 수정  페이지 이동
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public String  infoUpdate() throws Exception {
+		return "myPage";
+	}
+	
 //	// 회원 수정
 //	@RequestMapping(value="/myPage", method=RequestMethod.POST)
 //	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status")MemberVO member, Log log) throws Exception {
@@ -141,13 +141,13 @@ public class MemberController {
 //		mav.setViewName("myPage");
 //		return mav;
 //	}
-//	
-//	// 회원탈퇴 페이지 이동
-//	@RequestMapping(value="/withdrawal", method=RequestMethod.GET)
-//	public String withdrawal() {
-//		return "withdrawal";
-//	}
-//	
+	
+	// 회원탈퇴 페이지 이동
+	@RequestMapping(value="/withdrawal", method=RequestMethod.GET)
+	public String withdrawal() {
+		return "withdrawal";
+	}
+	
 //	// 회원탈퇴
 //	@RequestMapping(value="/withdrawal", method=RequestMethod.POST)
 //	public ModelAndView  withdrawal(@RequestParam("checkPass")String checkPass, @ModelAttribute MyBookList model, 

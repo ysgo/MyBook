@@ -1,5 +1,5 @@
 package com.mc.mybook.controller;
-//import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 //
 //import org.json.simple.JSONObject;
 //import org.json.simple.parser.JSONParser;
@@ -8,25 +8,25 @@ package com.mc.mybook.controller;
 ////import org.springframework.social.oauth2.GrantType;
 ////import org.springframework.social.oauth2.OAuth2Operations;
 ////import org.springframework.social.oauth2.OAuth2Parameters;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.SessionAttributes;
-//
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 //import com.github.scribejava.core.model.OAuth2AccessToken;
 //
 //import mybook.my.book.naver.NaverLoginBO;
 //import mybook.my.book.service.MemberService;
 //import mybook.my.book.vo.MemberVO;
-//
+
 ///**
 // * Handles requests for the application home page.
 // */
-//@Controller
-//@SessionAttributes("status")
-//public class NaverLoginController {
+@Controller
+@SessionAttributes("status")
+public class NaverLoginController {
 //	@Autowired
 //	private MemberService service;
 ////	@Autowired
@@ -40,12 +40,12 @@ package com.mc.mybook.controller;
 ////	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 ////		this.naverLoginBO = naverLoginBO;
 ////	}
-//	
-//	//네이버 로그인 성공시 callback호출 메소드
-//	@RequestMapping(value = "/naver/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
-//	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
-//			throws Exception {
-////		System.out.println("여기는 callback");
+	
+	//네이버 로그인 성공시 callback호출 메소드
+	@RequestMapping(value = "/naver/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+			throws Exception {
+		System.out.println("여기는 callback");
 //		OAuth2AccessToken oauthToken;
 //        oauthToken = naverLoginBO.getAccessToken(session, code, state);
 //	    apiResult = naverLoginBO.getUserProfile(oauthToken);
@@ -79,9 +79,9 @@ package com.mc.mybook.controller;
 //		//4.파싱 닉네임 세션으로 저장
 ////		session.setAttribute("sessionId",nickname); //세션 생성
 ////		model.addAttribute("result", apiResult);
-//
+
 //		/* 네이버 로그인 성공 페이지 View 호출 */
-//		return "redirect:/";
-//	}
-//}
-//
+		return "redirect:/";
+	}
+}
+
