@@ -1,10 +1,17 @@
 package com.mc.mybook.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.mc.mybook.constants.PathConstants;
 
 @Controller
 @SessionAttributes("status")
@@ -110,7 +117,7 @@ public class MemberController {
 	@RequestMapping(value="/signOut", method=RequestMethod.POST)
 	public ModelAndView signOut(SessionStatus session) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		service.signout(session);
+//		service.signout(session);
 		mav.setViewName("redirect:/");
 		return mav;
 	}
