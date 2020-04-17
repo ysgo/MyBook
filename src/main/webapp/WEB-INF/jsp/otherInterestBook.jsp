@@ -1,19 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="common/head.jsp"%>
-<!-- Our Custom CSS -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/booklist-style.css?a">
-<link rel="stylesheet" href="css/interestbook-style.css?aa">
-</head>
-<body>
-	<div class="wrapper">
-		<%@ include file="fragments/logo.jsp"%>
-		<%@ include file="fragments/sidebar.jsp"%>
-
 		<!-- Page Content 시작 -->
 		<div id="content">
 			<div class="top-page mb-5 center-block">
@@ -143,9 +129,6 @@
 		</div>
 		<!-- Page Content 끝 -->
 
-		<%@ include file="fragments/member.jsp"%>
-	</div>
-	<%@ include file="common/scripts.jsp"%>
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        makeDiv();
@@ -199,6 +182,3 @@
 	    });
 	}
 	</script>
-	<!-- svg inline -->
-</body>
-</html>

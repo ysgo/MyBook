@@ -1,17 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="common/head.jsp"%>
-<link rel="stylesheet" href="css/booklist-style.css?a">
-</head>
-
-<body>
-	<div class="wrapper">
-		<%@ include file="fragments/logo.jsp"%>
-		<%@ include file="fragments/sidebar.jsp"%>
 		<!-- Page Content 시작 -->
 		<div id="content">
 
@@ -141,9 +130,6 @@
 		</div>
 		<!-- Page Content 끝 -->
 
-		<%@ include file="fragments/member.jsp"%>
-	</div>
-	<%@ include file="common/scripts.jsp"%>
 	<script type="text/javascript">
 		function fn_paging(curPage) {
 			location.href = "/book/readBook?curPage=" + curPage;
@@ -161,5 +147,3 @@
 					: image.src = 'images/trash.png';
 		}
 	</script>
-</body>
-</html>

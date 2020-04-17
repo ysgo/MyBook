@@ -1,16 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="common/head.jsp"%>
-</head>
-<body>
-	<div class="wrapper">
-		<%@ include file="fragments/logo.jsp"%>
-		<%@ include file="fragments/sidebar.jsp"%>
-
 		<!-- Page Content 시작 -->
 		<div id="content">
 
@@ -253,8 +242,6 @@
 		</c:if>
 		<!-- 회원가입 및 로그인 끝 -->
 
-	</div>
-
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	    	// hide sidebar when refresh the page
@@ -376,6 +363,3 @@
 	    });
 	}
 	</script>
-	<!-- svg inline -->
-</body>
-</html>

@@ -1,23 +1,6 @@
 <%@page import="java.net.URLEncoder"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="common/head.jsp"%>
-<style>
-#kyoboImg, #interparkImg, #aladinImg, #yes24Img {
-	width: 178px;
-	height: 65px;
-}
-</style>
-</head>
-<body>
-	<div class="wrapper">
-		<%@ include file="fragments/logo.jsp"%>
-		<%@ include file="fragments/sidebar.jsp"%>
-
 		<!-- Page Content 시작 -->
 		<div id="content">
 			<div class="top-page mb-5">
@@ -77,10 +60,6 @@
 		</div>
 		<!-- Page Content 끝 -->
 
-		<%@ include file="fragments/member.jsp"%>
-	</div>
-	<%@ include file="common/scripts.jsp"%>
-	<!-- svg inline -->
 	<script>
 		$('#tooltip').hover(function() {
 			//$( '#tooltiptext' ).removeClass( 'invisible' );
@@ -127,6 +106,3 @@
 			}, 'xml');
 		});
 	</script>
-	<!-- svg inline -->
-</body>
-</html>

@@ -2,24 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mc.mybook.model.MyBookList, java.util.List"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="common/head.jsp"%>
-<style>
-#userNameCss {
-	font-weight: bold;
-	border: none;
-	background-color: #58C9B9;
-	color: #fff;
-}
-</style>
-</head>
-<body>
-	<div class="wrapper">
-		<%@ include file="fragments/logo.jsp"%>
-		<%@ include file="fragments/sidebar.jsp"%>
-
 		<!-- Page Content 시작 -->
 		<div id="content">
 			<!-- navbar 시작 -->
@@ -111,10 +93,6 @@
 
 		</div>
 		<!-- Page Content 끝 -->
-
-		<%@ include file="fragments/member.jsp"%>
-	</div>
-	<%@ include file="common/scripts.jsp"%>
 	<script type="text/javascript">
 		$('#tooltip').hover(function() {
 			//$( '#tooltiptext' ).removeClass( 'invisible' );
@@ -137,5 +115,3 @@
 			location.href = "/book/allLog?curPage=" + curPage;
 		}
 	</script>
-</body>
-</html>
