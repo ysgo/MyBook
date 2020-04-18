@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mc.mybook.model.Log;
-import com.mc.mybook.model.MyBookList;
 
 //import mybook.my.book.service.NaverBookService;
 //import mybook.my.book.vo.Log;
@@ -23,8 +22,7 @@ public class LogController {
 //	private NaverBookService serviceBook;
 	
 	@RequestMapping(value = "/otherReadBook")
-	public ModelAndView otherReadBook(@RequestParam(defaultValue="1")int curPage,
-			@ModelAttribute MyBookList model, String email, String readkeyword) {
+	public ModelAndView otherReadBook() {
 		ModelAndView mav = new ModelAndView();
 //		if(readkeyword != null) {
 //			Map<String, String> map = new HashMap<String, String>();

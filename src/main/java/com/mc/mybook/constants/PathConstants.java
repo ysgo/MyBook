@@ -1,8 +1,10 @@
 package com.mc.mybook.constants;
 
 public class PathConstants {
-	public static final String MEMBER_PATH = "members";
+	public static final String USER_PATH = "users";
 	public static final String BOOK_PATH = "books";
+	public static final String REVIEW_PATH = "reviews";
+	public static final String LOG_PATH = "logs";
 
 	public static final String CRUD_INDEX = "/index";
 	public static final String CRUD_DETAIL = "/detail";

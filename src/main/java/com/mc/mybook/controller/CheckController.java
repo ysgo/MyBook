@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mc.mybook.model.Member;
+import com.mc.mybook.model.User;
 
 //import mybook.my.book.service.MemberService;
 //import mybook.my.book.vo.MemberVO;
@@ -57,7 +57,7 @@ public class CheckController {
 	// 비밀번호 찾기
 	@RequestMapping(value="/searchPass", method=RequestMethod.POST)
 	public ModelAndView searchPass(@RequestParam("userName") String userName,
-			@RequestParam("userId") String userId, @ModelAttribute Member vo) {
+			@RequestParam("userId") String userId, @ModelAttribute User vo) {
 		ModelAndView mav = new ModelAndView();
 //		String result = service.find_pw(vo);
 //		if(result == null) {

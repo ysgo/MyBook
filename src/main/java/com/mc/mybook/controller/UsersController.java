@@ -15,8 +15,8 @@ import com.mc.mybook.constants.PathConstants;
 
 @Controller
 @SessionAttributes("status")
-@RequestMapping("/" + PathConstants.MEMBER_PATH)
-public class MemberController {
+@RequestMapping("/" + PathConstants.USER_PATH)
+public class UsersController {
 	/* NaverLoginBO */
 //	private NaverLoginBO naverLoginBO;
 //	@Autowired

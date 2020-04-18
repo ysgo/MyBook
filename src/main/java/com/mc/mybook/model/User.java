@@ -13,25 +13,22 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "logs")
-public class Log {
+@Table(name = "users")
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column
+	private String loginId;
+	
+	@Column
+	private String password;
+	
+	@Column
 	private String name;
-
-	@Column
-	private String title;
 	
-	@Column
-	private boolean interested;
-
-	// join columns
-	@Column
-	private int reviewId;
-	
+	@Column(updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	
@@ -46,36 +43,28 @@ public class Log {
 		this.id = id;
 	}
 
+	public String getLoginId() {
+		return loginId;
+	}
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public boolean isInterested() {
-		return interested;
-	}
-
-	public void setInterested(boolean interested) {
-		this.interested = interested;
-	}
-
-	public int getReviewId() {
-		return reviewId;
-	}
-
-	public void setReviewId(int reviewId) {
-		this.reviewId = reviewId;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -96,7 +85,7 @@ public class Log {
 
 	@Override
 	public String toString() {
-		return "Log [id=" + id + ", name=" + name + ", title=" + title + ", interested=" + interested + ", reviewId="
-				+ reviewId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+		return "User [id=" + id + ", loginId=" + loginId + ", password=" + password + ", name=" + name + ", createdAt="
+				+ createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 }

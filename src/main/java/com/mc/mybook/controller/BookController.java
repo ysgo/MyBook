@@ -3,17 +3,9 @@ package com.mc.mybook.controller;
 import java.text.ParseException;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.mc.mybook.model.InterestBookList;
-import com.mc.mybook.model.Log;
-import com.mc.mybook.model.Member;
-import com.mc.mybook.model.MyBookList;
 //
 //import com.mc.mybook.model.InterestBookList;
 //import com.mc.mybook.model.Log;
@@ -30,8 +22,7 @@ public class BookController {
 //	private NaverBookService service;
 	
 	@RequestMapping(value = {"/readBook"}) 
-	public ModelAndView  readBook(@RequestParam(required=false)String keyword, @ModelAttribute MyBookList model, String bookNum, String readkeyword,
-			@SessionAttribute("status")Member loginVO, @RequestParam(defaultValue="1")int curPage, Log logmodel) throws ParseException {
+	public ModelAndView  readBook() throws ParseException {
 		ModelAndView mav = new ModelAndView(); 
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();
@@ -99,8 +90,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = {"/interestBook"}) 
-	public ModelAndView interestBook(@RequestParam(required=false)String keyword, InterestBookList model, String bookNum, String interestkeyword,
-			@SessionAttribute("status")Member loginVO, Log logmodel) throws ParseException {
+	public ModelAndView interestBook() throws ParseException {
 		ModelAndView mav = new ModelAndView(); 
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();

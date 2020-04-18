@@ -1,4 +1,4 @@
-package com.mc.mybook.model;
+package com.mc.mybook.utils;
 
 public class Paging {
 	/** 한 페이지당 게시글 수 **/
