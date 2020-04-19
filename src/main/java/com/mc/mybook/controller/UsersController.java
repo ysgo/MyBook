@@ -5,11 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.mc.mybook.constants.PathConstants;
 
@@ -17,36 +16,10 @@ import com.mc.mybook.constants.PathConstants;
 @SessionAttributes("status")
 @RequestMapping("/" + PathConstants.USER_PATH)
 public class UsersController {
-	/* NaverLoginBO */
-//	private NaverLoginBO naverLoginBO;
-//	@Autowired
-//	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-//		this.naverLoginBO = naverLoginBO;
-//	}
-	
-//	@Autowired
-//	private MemberService service;
-//	@Autowired
-//	private NaverBookService serviceBook;
-//	@Autowired
-//	PasswordEncoder passwordEncoder;
-	
-	//main 페이지 이동
-	@GetMapping
-	public ModelAndView main() {
-		ModelAndView mav = new ModelAndView();
-//		mav.addObject("listLog", serviceBook.selectLog());
-//		mav.addObject("list", serviceBook.trendingbook()); 
-		mav.setViewName("main");
-		return mav;
-	}
-	
 	// 회원가입 페이지 이동
-	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
+	@GetMapping(PathConstants.CRUD_SIGNUP)
 	public String signUp(Model model, HttpSession session) {
-//		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
-//		model.addAttribute("url", naverAuthUrl);
-		return "signUp";
+		return PathConstants.USER_PATH + PathConstants.CRUD_SIGNUP;
 	}
 //	
 //	// 회원가입 : 서비스 객체에 저장
@@ -73,11 +46,11 @@ public class UsersController {
 //	}
 	
 	// 로그인 페이지 이동
-	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
+	@GetMapping(PathConstants.CRUD_SIGNIN)
 	public String  signIn(Model model, HttpSession session) {
 //		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
 //		model.addAttribute("url", naverAuthUrl);
-		return "signIn";
+		return PathConstants.USER_PATH + PathConstants.CRUD_SIGNIN;
 	}
 	
 //	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
@@ -114,18 +87,15 @@ public class UsersController {
 //	}
 	
 	// 로그아웃 
-	@RequestMapping(value="/signOut", method=RequestMethod.POST)
-	public ModelAndView signOut(SessionStatus session) throws Exception {
-		ModelAndView mav = new ModelAndView();
-//		service.signout(session);
-		mav.setViewName("redirect:/");
-		return mav;
+	@PostMapping(PathConstants.CRUD_SIGNOUT)
+	public String signOut(SessionStatus session) throws Exception {
+		return "redirect:/";
 	}
 	
 	// 회원 수정  페이지 이동
-	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	@GetMapping("/myPage")
 	public String  infoUpdate() throws Exception {
-		return "myPage";
+		return "books/myPage";
 	}
 	
 //	// 회원 수정
@@ -150,9 +120,9 @@ public class UsersController {
 //	}
 	
 	// 회원탈퇴 페이지 이동
-	@RequestMapping(value="/withdrawal", method=RequestMethod.GET)
+	@GetMapping("/withDrawal")
 	public String withdrawal() {
-		return "withdrawal";
+		return "books/withdrawal";
 	}
 	
 //	// 회원탈퇴
@@ -182,4 +152,11 @@ public class UsersController {
 //		mav.setViewName(viewName);
 //		return mav;
 //	}
+	
+	// 아이디/비밀번호 찾기 페이지로 이동
+	@GetMapping(PathConstants.CRUD_SEARCH)
+	public String searchId() {
+		return PathConstants.USER_PATH + PathConstants.CRUD_SEARCH;
+	}
+	
 }

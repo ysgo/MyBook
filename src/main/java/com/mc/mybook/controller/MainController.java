@@ -3,10 +3,12 @@ package com.mc.mybook.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.mc.mybook.constants.PathConstants;
+
 @Controller
 public class MainController {
 	@GetMapping
 	public String main() {
-		return "index";
+		return "redirect:/" + PathConstants.BOOK_PATH;
 	}
 }

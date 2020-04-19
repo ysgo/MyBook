@@ -1,38 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-<title>CHACKCHECK</title>
-
-<!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!-- Bootstrap JS -->
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
-
-<!-- Bootstrap CSS CDN -->
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<!-- Font Awesome JS -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-<!-- Our Custom CSS -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/form-style.css">
-
-</head>
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();"
-	onunload="">
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 	<div class="card bg-light">
 		<article class="card-body mx-auto mt-3 mb-3" style="max-width: 400px;">
 			<div class="row justify-content-center">
@@ -45,8 +11,7 @@
 			</div>
 
 			<!-- 회원가입 폼태그 시작 -->
-			<form action="${pageContext.request.contextPath}/signUp"
-				method="POST">
+			<form action="${pageContext.request.contextPath}/signUp" method="POST">
 				<!-- 닉네임 -->
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
@@ -117,13 +82,13 @@
 			<!-- 네이버 로그인 버튼 -->
 			<div class="row justify-content-center mb-3">
 				<a href="${ url }" class="btn btn-outline-info"><img
-					src="images/naver.png" width="35px" height="35px"><span
+					src="/images/naver.png" width="35px" height="35px"><span
 					style="font-size: 16px"> 네이버 아이디로 로그인</span></a>
 			</div>
 
 
 			<!-- 로그인 링크 -->
-			<form class="text-center" action="signIn" method="get">
+			<form class="text-center" action="/users/signIn" method="GET">
 				이미 회원가입을 하셨나요? <input id="signColor" type="submit" value="로그인">
 			</form>
 
@@ -132,7 +97,6 @@
 
 	<script>
 		// 뒤로가기시 회원가입페이지 안뜨게하기
-		window.history.forward();
 		function noBack() {
 			window.history.forward();
 		}
@@ -274,5 +238,3 @@
 			$("#signUp").attr("disabled", btn);
 		}
 	</script>
-</body>
-</html>

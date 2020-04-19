@@ -12,6 +12,12 @@ public class PathConstants {
 	public static final String CRUD_DELETE = "/delete";
 	public static final String CRUD_UPDATE = "/update";
 	
+	public static final String CRUD_SIGNUP = "/signUp";
+	public static final String CRUD_SIGNIN = "/signIn";
+	public static final String CRUD_SIGNOUT = "/signOut";
+	public static final String CRUD_SEARCH = "/search";
+	public static final String CRUD_SEARCHVIEW = "/searchView";
+	
 	public static final String ERROR_PATH = "/errors";
 	public static final String ERROR_PAGE = "/error";
 }

@@ -17,7 +17,7 @@ import com.mc.mybook.model.Log;
 
 @Controller
 @SessionAttributes("status")
-public class LogController {
+public class LogsController {
 //	@Autowired
 //	private NaverBookService serviceBook;
 	

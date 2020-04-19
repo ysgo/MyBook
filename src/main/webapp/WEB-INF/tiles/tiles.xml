@@ -3,16 +3,22 @@
 
 <tiles-definitions>
 	  <!-- Header / Footer가 제외된 화면 -->
-    <definition name="default" template="/WEB-INF/tiles/layout/default.jsp">
-        <put-attribute name="body" value="" />	
+    <definition name="login-base" template="/WEB-INF/tiles/users/base.jsp">
+    	<put-attribute name="head" value="/WEB-INF/tiles/users/head.jsp" />
+    	<put-attribute name="script" value="/WEB-INF/tiles/users/script.jsp" />
+      <put-attribute name="body" value="" />	
     </definition>
 
-    <definition name="error/*" extends="default">
+    <definition name="users/*" extends="login-base">
+        <put-attribute name="body" value="/WEB-INF/jsp/users/{1}.jsp" />
+    </definition>
+    
+    <definition name="error/*" extends="login-base">
         <put-attribute name="body" value="/WEB-INF/tiles/error/{1}.jsp" />
     </definition>
     
     <!-- Header / Footer가 들어간 기본 화면 -->
-    <definition name="base" template="/WEB-INF/tiles/layout/base.jsp">
+    <definition name="book-base" template="/WEB-INF/tiles/layout/base.jsp">
         <put-attribute name="head" value="/WEB-INF/tiles/layout/head.jsp" />
         <put-attribute name="logo" value="/WEB-INF/tiles/layout/logo.jsp" />
         <put-attribute name="sidebar" value="/WEB-INF/tiles/layout/sidebar.jsp" />
@@ -21,7 +27,7 @@
         <put-attribute name="body" value="" />
     </definition>
 
-    <definition name="*" extends="base">
-        <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+    <definition name="books/*" extends="book-base">
+        <put-attribute name="body" value="/WEB-INF/jsp/books/{1}.jsp" />
     </definition>
 </tiles-definitions>
