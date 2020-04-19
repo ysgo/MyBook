@@ -2,6 +2,7 @@ package com.mc.mybook.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +12,26 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.mc.mybook.constants.PathConstants;
+import com.mc.mybook.model.User;
+import com.mc.mybook.service.UsersService;
 
 @Controller
 @SessionAttributes("status")
 @RequestMapping("/" + PathConstants.USER_PATH)
 public class UsersController {
-	// 회원가입 페이지 이동
+	@Autowired
+	private UsersService usersService;
+	
 	@GetMapping(PathConstants.CRUD_SIGNUP)
 	public String signUp(Model model, HttpSession session) {
 		return PathConstants.USER_PATH + PathConstants.CRUD_SIGNUP;
+	}
+	
+	@PostMapping(PathConstants.CRUD_SIGNUP)
+	public String signUp(User user) {
+		System.out.println(user);
+		usersService.addUser(user);
+		return "redirect:/" + PathConstants.BOOK_PATH;
 	}
 //	
 //	// 회원가입 : 서비스 객체에 저장

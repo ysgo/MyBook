@@ -6,7 +6,6 @@
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"	crossorigin="anonymous"></script>
 <script>
 	// 뒤로가기시 회원가입페이지 안뜨게하기
-	window.history.forward();
 	function noBack() {
 		window.history.forward();
 	}
