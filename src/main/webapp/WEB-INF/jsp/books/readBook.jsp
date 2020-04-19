@@ -382,8 +382,8 @@
 	<script>
 		function searchFunc(e) {
 			var keyword = $('input[name=keyword]').val();
-
-			var url = "readBook?keyword=" + keyword;
+			console.log(keyword)
+			var url = "/naver/search?keyword=" + keyword;
 			if (e.type == "keydown" && e.keyCode != 13) {
 				return;
 			}
@@ -392,6 +392,7 @@
 				url : url,
 				type : 'GET',
 				success : function(data) {
+					console.log(data);
 					$('body').html(data);
 					$('#myModal').modal('show');
 				}
@@ -403,7 +404,7 @@
 			$('input[name=keyword]').on('keydown', searchFunc);
 			$('.close').on('click', function() {
 				$.ajax({
-					url : "readBook",
+					url : "/books/readBook",
 					type : 'GET',
 					success : function(data) {
 						$('body').html(data);
