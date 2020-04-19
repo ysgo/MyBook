@@ -116,9 +116,9 @@ public class UsersController {
 	}
 	
 	// 회원 수정  페이지 이동
-	@GetMapping("/myPage")
+	@GetMapping(PathConstants.CRUD_MYPAGE)
 	public String  infoUpdate() throws Exception {
-		return "books/myPage";
+		return PathConstants.BOOK_PATH + PathConstants.CRUD_MYPAGE;
 	}
 	
 //	// 회원 수정
@@ -143,9 +143,9 @@ public class UsersController {
 //	}
 	
 	// 회원탈퇴 페이지 이동
-	@GetMapping("/withDrawal")
+	@GetMapping(PathConstants.CRUD_WITHDRAWAL)
 	public String withdrawal() {
-		return "books/withdrawal";
+		return PathConstants.BOOK_PATH + PathConstants.CRUD_WITHDRAWAL;
 	}
 	
 //	// 회원탈퇴

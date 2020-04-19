@@ -3,28 +3,21 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 		<!-- Page Content 시작 -->
 		<div id="content">
-
 			<div class="top-page mb-5 center-block">
 				<!-- top page 시작 -->
-
 				<div class="btn-with-fixedInput pr-1 pl-3">
 					<!-- 메뉴 버튼 -->
-
-					<button type="button" id="sidebarCollapse"
-						class="btn btn-outline-secondary">
-						<i class="fas fa-align-left"></i> <span>MENU</span>
+					<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
+						<i class="fas fa-align-left"></i>
+						<span>MENU</span>
 					</button>
-
 				</div>
 
 				<div class="fixedInput pl-1">
 					<!-- 고정된 인풋 -->
-
-					<form method="get" action="readBook" target="_self">
+					<form method="get" action="/books/readBook" target="_self">
 						<div class="input-group">
-							<input name="readkeyword" type="text" class="form-control"
-								placeholder="내가 등록한 책 제목, 저자, 출판사 검색"
-								aria-describedby="basic-addon2">
+							<input name="readkeyword" type="text" class="form-control" placeholder="내가 등록한 책 제목, 저자, 출판사 검색" aria-describedby="basic-addon2">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary" type="submit">검색</button>
 							</div>
@@ -33,55 +26,50 @@
 
 				</div>
 				<!-- 고정된 인풋 끝 -->
-
 			</div>
 			<!-- top page 끝 -->
 
 
 			<!-- 책이미지와 서평 내용 출력 -->
 			<div class="container">
-
 				<c:if test="${ !empty list }">
 					<ul id="ulRow">
 						<c:forEach var="vo" items="${ list }">
-							<li class="row pl-3"><img alt="이미지" src="${vo.image}"
-								width="100" height="150" style="border: 1px solid lightgray" />
+							<li class="row pl-3">
+								<img alt="이미지" src="${vo.image}" width="100" height="150" style="border: 1px solid lightgray" />
 								<div style="width: 70%" class="ml-4">
 									<span style="margin-right: 5px; font-size: 17pt;">${vo.m_title}</span>
-									<span>${vo.registdate}</span><br> 별점 :
+									<span>${vo.registdate}</span>
+									<br> 별점 :
 									<c:forEach var="i" begin="1" end="${vo.m_star}">
 										<span>★</span>
 									</c:forEach>
-									<br> <span style="font-size: 14pt; word-break: keep-all;">${vo.m_content}</span>
+									<br>
+									<span style="font-size: 14pt; word-break: keep-all;">${vo.m_content}</span>
 									<!-- style="word-break: keep-all ;" -->
-								</div></li>
+								</div>
+							</li>
 							<div class="caption">
 								<c:choose>
 									<c:when test='${fn:length(vo.title) >= 19}'>
-							${fn:substring(vo.title,0,18)}...
-							</c:when>
+										${fn:substring(vo.title,0,18)}...
+									</c:when>
 									<c:otherwise>
-							${vo.title}
-							</c:otherwise>
+										${vo.title}
+									</c:otherwise>
 								</c:choose>
 							</div>
 							<div class="float-right">
 								<!-- 수정 및 삭제 시작-->
 								<form action="readBook" method="post">
 									<input type="hidden" name="bookNum" value="${vo.id}">
-									<button type="button"
-										class="btn btn-outline-primary upDelButton"
-										data-toggle="modal" data-target="#myModal2"
+									<button type="button"	class="btn btn-outline-primary upDelButton"	data-toggle="modal" data-target="#myModal2"
 										onclick="updateButton('${vo.id}', '${vo.m_title}', '${vo.m_star}', '${vo.m_content}');"
 										onmouseover="hover(this);" onmouseleave="leave(this)">
-										<img id="pencil" src="images/pencil.png" style="width: 20px"
-											class="mr-2">수정
+										<img id="pencil" src="/images/pencil.png" style="width: 20px" class="mr-2">수정
 									</button>
-									<button type="submit"
-										class="btn btn-outline-primary upDelButton"
-										onmouseover="hover(this);" onmouseleave="leave(this)">
-										<img id="trash" src="images/trash.png" style="width: 20px"
-											class="mr-1">삭제
+									<button type="submit" class="btn btn-outline-primary upDelButton"	onmouseover="hover(this);" onmouseleave="leave(this)">
+										<img id="trash" src="/images/trash.png" style="width: 20px" class="mr-1">삭제
 									</button>
 								</form>
 							</div>
@@ -125,8 +113,7 @@
 				</c:if>
 				<a href="readBook" style="text-decoration: none">
 					<!-- 전체목록으로 이동 -->
-					<button class="btn btn-outline-secondary mx-auto mt-5"
-						type="button" style="display: block;" id="listall">전체 목록</button>
+					<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
 				</a>
 
 				<c:if test="${ empty list }">
@@ -134,8 +121,8 @@
 						if (request.getParameter("readkeyword") != null) {
 					%>
 					<h2 style="padding-top: 30px">
-						찾으시는 책이 없어요 <img src="images/sad-emoji.png"
-							style="width: 50px; padding-bottom: 5px">
+						찾으시는 책이 없어요
+						<img src="/images/sad-emoji.png" style="width: 50px; padding-bottom: 5px">
 					</h2>
 					<%
 						} else {
@@ -144,8 +131,8 @@
 						$('#listall').hide();
 					</script>
 					<h2>
-						읽은 책과 서평을 추가해주세요 <img src="images/smile-emoji.png"
-							style="width: 50px; padding-bottom: 5px">
+						읽은 책과 서평을 추가해주세요
+						<img src="/images/smile-emoji.png" style="width: 50px; padding-bottom: 5px">
 					</h2>
 					<%
 						}
@@ -162,23 +149,18 @@
 				밑의 버튼을 클릭하여<br>책을 추가해주세요:)
 			</div>
 			<!-- Button trigger modal -->
-			<button id="addButton" type="button" class="btn btn-primary btn-lg"
-				data-toggle="modal" data-target="#myModal">+</button>
+			<button id="addButton" type="button" class="btn btn-primary btn-lg"	data-toggle="modal" data-target="#myModal">+</button>
 
 			<!-- 책 추가 모달 -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog"
-					style="max-width: 100%; width: auto; display: table;">
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog"	style="max-width: 100%; width: auto; display: table;">
 					<div class="modal-content">
 						<!-- 닫기 버튼 -->
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 
 						<div class="modal-body">
-
 							<!--  모달 컨텐트 컨테이너 -->
 							<div class="container">
 								<!--  인풋 로우 -->
@@ -186,8 +168,7 @@
 									<div class="col-sm-12  ">
 										<div class="input-group">
 											<input name="keyword" type="text" class="form-control"
-												placeholder="책 제목, 저자 검색" aria-describedby="basic-addon2"
-												width="20px">
+												placeholder="책 제목, 저자 검색" aria-describedby="basic-addon2" width="20px">
 											<div class="input-group-append">
 												<button class="btn btn-outline-secondary" id="submitForm">검색</button>
 											</div>
@@ -203,8 +184,12 @@
 											<img id="image" src="${b.image}" style="width: 200px">
 										</div>
 										<div class="col-sm-4">
-											<span id="title">${b.title}</span><br> <br> <span
-												id="author">${b.author}</span><br> <span id="publisher">${b.publisher}</span>
+											<span id="title">${b.title}</span>
+											<br>
+											<br>
+											<span	id="author">${b.author}</span>
+											<br>
+											<span id="publisher">${b.publisher}</span>
 										</div>
 										<div class="col-sm" id="description">${b.description}</div>
 										<div class="w-150"></div>
@@ -220,21 +205,17 @@
 			<!-- 책 추가 모달 끝 -->
 
 			<!-- 서평 추가 모달 -->
-			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"	aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<!-- 컨텐트 시작 -->
 					<div class="modal-content form-elegant">
 						<!-- 닫기 버튼 -->
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 						<!--헤더-->
 						<div class="modal-header text-center">
-							<h3
-								class="modal-title w-100 dark-grey-text font-weight-bold my-3"
-								id="myModalLabel">
+							<h3	class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
 								<strong>글쓰기</strong>
 							</h3>
 						</div>
@@ -250,11 +231,11 @@
 								<!-- 1:4px 2:8px 3:16px 4:24px 5:48px -->
 								<p class="md-form mb-1">별점</p>
 								<p class="star_rating">
-									<a href="#" target="star" id="1" class="on">★</a> <a href="#"
-										target="star" id="2" class="on">★</a> <a href="#"
-										target="star" id="3" class="on">★</a> <a href="#"
-										target="star" id="4" class="on">★</a> <a href="#"
-										target="star" id="5" class="on">★</a>
+									<a href="#" target="star" id="1" class="on">★</a>
+									<a href="#"	target="star" id="2" class="on">★</a>
+									<a href="#"	target="star" id="3" class="on">★</a>
+									<a href="#"	target="star" id="4" class="on">★</a>
+									<a href="#"	target="star" id="5" class="on">★</a>
 								</p>
 							</div>
 							<!-- 내용작성부분 -->

@@ -21,9 +21,8 @@ public class BooksController {
 		return PathConstants.BOOK_PATH + PathConstants.CRUD_INDEX;
 	}
 	
-	@GetMapping("/readBook")
-	public ModelAndView  readBook() throws ParseException {
-		ModelAndView mav = new ModelAndView(); 
+	@GetMapping(PathConstants.CRUD_READBOOK)
+	public String  readBook() throws ParseException {
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();
 //		if(readkeyword != null) {
@@ -85,13 +84,11 @@ public class BooksController {
 //				mav.addObject("list", list); 
 //				mav.addObject("listCnt", listCnt);
 //				mav.addObject("pagination", pageList);				
-				mav.setViewName("readBook");
-		return mav;
+		return PathConstants.BOOK_PATH + PathConstants.CRUD_READBOOK;
 	}
 	
-	@GetMapping("/interestBook")
-	public ModelAndView interestBook() throws ParseException {
-		ModelAndView mav = new ModelAndView(); 
+	@GetMapping(PathConstants.CRUD_INTERESTBOOK)
+	public String interestBook() throws ParseException {
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();
 //
@@ -134,17 +131,16 @@ public class BooksController {
 //		mav.addObject("list", service.listAllInterestBook(userId)); 
 //		// interestBook list rendering
 //		mav.addObject("total", service.countInterestBook(userId));
-		mav.setViewName("interestBook");
-		return mav;
+		return PathConstants.BOOK_PATH + PathConstants.CRUD_INTERESTBOOK;
 	}
 	
-	@GetMapping("/detailInterestBook")
-	public ModelAndView detailInterestBook(String bookNum, String bookTitle) {
+	@GetMapping(PathConstants.CRUD_DETAILINTERESTBOOK)
+	public String detailInterestBook(String bookNum, String bookTitle) {
 		ModelAndView mav = new ModelAndView();
 //		mav.addObject("bookTitle", bookTitle);
 //		mav.addObject("list", service.selectDetailInterestBook(Integer.parseInt(bookNum))); 
 		mav.setViewName("detailInterestBook");
-		return mav;
+		return PathConstants.BOOK_PATH + PathConstants.CRUD_DETAILINTERESTBOOK;
 	}
 	
 }

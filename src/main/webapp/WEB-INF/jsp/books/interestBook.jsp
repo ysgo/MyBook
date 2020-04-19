@@ -2,15 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<!-- Page Content 시작 -->
 		<div id="content">
-
 			<div class="top-page mb-5 center-block">
 				<!-- top page 시작 -->
-
 				<div class="btn-with-fixedInput pr-1 pl-3">
 					<!-- 메뉴 버튼 -->
-
-					<button type="button" id="sidebarCollapse"
-						class="btn btn-outline-secondary">
+					<button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
 						<i class="fas fa-align-left"></i> <span>MENU</span>
 					</button>
 
@@ -21,9 +17,7 @@
 
 					<form method="get" action="interestBook" target="_self">
 						<div class="input-group">
-							<input name="interestkeyword" type="text" class="form-control"
-								placeholder="내가 추가한 책 제목, 저자, 출판사 검색"
-								aria-describedby="basic-addon2">
+							<input name="interestkeyword" type="text" class="form-control" placeholder="내가 추가한 책 제목, 저자, 출판사 검색"	aria-describedby="basic-addon2">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary" type="submit">검색</button>
 							</div>
@@ -58,9 +52,7 @@
 			</script>
 
 			<c:if test="${ !empty list }">
-
 				<div class="container" id="displayInterestBook"></div>
-
 				<script>
 		    function insertImg() {
 		      var count = 1;
@@ -121,11 +113,9 @@
 			</script>
 			</c:if>
 			<!-- 중앙 정렬 끝 -->
-
 			<a href="interestBook" style="text-decoration: none">
 				<!-- 전체목록으로 이동 -->
-				<button class="btn btn-outline-secondary mx-auto mt-5" type="button"
-					style="display: block;" id="listall">전체 목록</button>
+				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
 			</a>
 			<c:if test="${ empty list }">
 				<% 
@@ -142,7 +132,7 @@
 					$('#listall').hide();
 				</script>
 				<h2>
-					관심 책을 추가해주세요 <img src="images/smile-emoji.png"
+					관심 책을 추가해주세요 <img src="/images/smile-emoji.png"
 						style="width: 50px; padding-bottom: 5px">
 				</h2>
 				<%
@@ -159,32 +149,25 @@
 
 			<!-- 모달 영역 시작 -->
 			<!-- Button trigger modal -->
-			<button id="addButton" type="button" class="btn btn-primary btn-lg"
-				data-toggle="modal" data-target="#myModal">+</button>
+			<button id="addButton" type="button" class="btn btn-primary btn-lg"	data-toggle="modal" data-target="#myModal">+</button>
 
 			<!-- 책 추가 모달 -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog"
-					style="max-width: 100%; width: auto; display: table;">
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog"	style="max-width: 100%; width: auto; display: table;">
 					<div class="modal-content">
 						<!-- 닫기 버튼 -->
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 
 						<div class="modal-body">
-
 							<!--  모달 컨텐트 컨테이너 -->
 							<div class="container">
 								<!--  인풋 로우 -->
 								<div class="row inputrow">
 									<div class="col-sm-12">
 										<div class="input-group">
-											<input name="keyword" type="text" class="form-control"
-												placeholder="책 제목, 저자 검색" aria-describedby="basic-addon2"
-												width="20px">
+											<input name="keyword" type="text" class="form-control" placeholder="책 제목, 저자 검색" aria-describedby="basic-addon2" width="20px">
 											<div class="input-group-append">
 												<button class="btn btn-outline-secondary" id="submitForm">검색</button>
 											</div>
@@ -218,29 +201,6 @@
 
 		</div>
 		<!-- Page Content 끝 -->
-
-		<!-- 회원가입 및 로그인 -->
-		<c:if test="${ empty status }">
-			<div class="sign">
-				<form action="signIn" method="get" style='float: left;'>
-					<input id="signColor" type="submit" class="nav-link p-2"
-						value="로그인">
-				</form>
-				<form action="signUp" method="get" style='float: left;'>
-					<input id="signColor" type="submit" class="nav-link p-2"
-						value="회원가입">
-				</form>
-			</div>
-		</c:if>
-		<c:if test="${ !empty status }">
-			<div class="sign">
-				<form action="signOut" method="post" style='float: left;'>
-					<input id="signColor" type="submit" class="nav-link p-2"
-						value="로그아웃">
-				</form>
-			</div>
-		</c:if>
-		<!-- 회원가입 및 로그인 끝 -->
 
 	<script type="text/javascript">
 	    $(document).ready(function () {
