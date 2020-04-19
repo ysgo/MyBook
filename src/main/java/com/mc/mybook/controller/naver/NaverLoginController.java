@@ -1,4 +1,4 @@
-package com.mc.mybook.controller;
+package com.mc.mybook.controller.naver;
 import javax.servlet.http.HttpSession;
 //
 //import org.json.simple.JSONObject;

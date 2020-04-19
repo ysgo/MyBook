@@ -1,4 +1,4 @@
-package com.mc.mybook.controller;
+package com.mc.mybook.controller.books;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mc.mybook.model.User;
+import com.mc.mybook.model.books.User;
 
 //import mybook.my.book.service.MemberService;
 //import mybook.my.book.vo.MemberVO;

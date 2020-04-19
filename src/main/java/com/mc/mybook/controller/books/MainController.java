@@ -1,4 +1,4 @@
-package com.mc.mybook.controller;
+package com.mc.mybook.controller.books;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

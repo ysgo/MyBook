@@ -1,4 +1,4 @@
-package com.mc.mybook.controller;
+package com.mc.mybook.controller.books;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;

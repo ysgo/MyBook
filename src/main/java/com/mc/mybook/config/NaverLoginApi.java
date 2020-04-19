@@ -1,3 +1,4 @@
+package com.mc.mybook.config;
 //package mybook.my.book.naver;
 //import org.springframework.context.annotation.Configuration;
 //

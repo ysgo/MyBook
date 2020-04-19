@@ -167,8 +167,7 @@
 								<div class="row inputrow">
 									<div class="col-sm-12  ">
 										<div class="input-group">
-											<input name="keyword" type="text" class="form-control"
-												placeholder="책 제목, 저자 검색" aria-describedby="basic-addon2" width="20px">
+											<input name="keyword" type="text" class="form-control" placeholder="책 제목, 저자 검색" aria-describedby="basic-addon2" width="20px">
 											<div class="input-group-append">
 												<button class="btn btn-outline-secondary" id="submitForm">검색</button>
 											</div>
@@ -262,23 +261,18 @@
 
 	<script type="text/javascript">
 		function fn_paging(curPage) {
-			location.href = "/book/readBook?curPage=" + curPage;
+			location.href = "/books/readBook?curPage=" + curPage;
 		}
-
 
 /* 	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 --> */
 		var image, title, author, publisher, description, log;
 		//책 추가 모달에서 목록을 눌렀을 때
 		$('div#row').click(
 				function() {
-					image = $(this).children('div').children('img#image').attr(
-							"src");
-					title = $(this).children('div').children('span#title')
-							.text();
-					author = $(this).children('div').children('span#author')
-							.text();
-					publisher = $(this).children('div').children(
-							'span#publisher').text();
+					image = $(this).children('div').children('img#image').attr("src");
+					title = $(this).children('div').children('span#title').text();
+					author = $(this).children('div').children('span#author').text();
+					publisher = $(this).children('div').children('span#publisher').text();
 					description = $(this).children('div#description').text();
 
 					$("#myModal").removeClass("in");
@@ -291,8 +285,7 @@
 							function() {
 								var m_title = $('input#m_title').val();
 								var m_content = $('textarea#m_content').val();
-								m_content = m_content.replace(
-										/(?:\r\n|\r|\n)/g, '<br/>');
+								m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 								$.ajax({
 									url : "readBook",
 									type : 'POST',

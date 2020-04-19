@@ -1,4 +1,4 @@
-package com.mc.mybook.dao;
+package com.mc.mybook.service.naver;
 //
 //import java.io.InputStreamReader;
 //import java.net.URL;

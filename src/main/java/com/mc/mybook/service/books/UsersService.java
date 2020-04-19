@@ -1,12 +1,12 @@
-package com.mc.mybook.service;
+package com.mc.mybook.service.books;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mc.mybook.model.User;
-import com.mc.mybook.repository.UsersRepository;
+import com.mc.mybook.model.books.User;
+import com.mc.mybook.repository.books.UsersRepository;
 
 @Service
 public class UsersService {

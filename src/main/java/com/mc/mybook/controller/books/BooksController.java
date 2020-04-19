@@ -1,4 +1,4 @@
-package com.mc.mybook.controller;
+package com.mc.mybook.controller.books;
 
 import java.text.ParseException;
 

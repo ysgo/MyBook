@@ -1,4 +1,4 @@
-package com.mc.mybook.model;
+package com.mc.mybook.model.books;
 
 import java.time.LocalDateTime;
 
@@ -13,23 +13,24 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "reviews")
-public class Review {
+@Table(name = "logs")
+public class Log {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column
+	private String name;
+
+	@Column
 	private String title;
 	
 	@Column
-	private String star;
-	
+	private boolean interested;
+
+	// join columns
 	@Column
-	private String content;
-	
-	@Column
-	private int bookId;
+	private int reviewId;
 	
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -45,6 +46,14 @@ public class Review {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -53,28 +62,20 @@ public class Review {
 		this.title = title;
 	}
 
-	public String getStar() {
-		return star;
+	public boolean isInterested() {
+		return interested;
 	}
 
-	public void setStar(String star) {
-		this.star = star;
+	public void setInterested(boolean interested) {
+		this.interested = interested;
 	}
 
-	public String getContent() {
-		return content;
+	public int getReviewId() {
+		return reviewId;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public int getBookId() {
-		return bookId;
-	}
-
-	public void setBookId(int bookId) {
-		this.bookId = bookId;
+	public void setReviewId(int reviewId) {
+		this.reviewId = reviewId;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -95,7 +96,7 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", title=" + title + ", star=" + star + ", content=" + content + ", bookId="
-				+ bookId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+		return "Log [id=" + id + ", name=" + name + ", title=" + title + ", interested=" + interested + ", reviewId="
+				+ reviewId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 }

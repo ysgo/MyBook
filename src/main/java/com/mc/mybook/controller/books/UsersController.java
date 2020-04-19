@@ -1,4 +1,4 @@
-package com.mc.mybook.controller;
+package com.mc.mybook.controller.books;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mc.mybook.constants.PathConstants;
-import com.mc.mybook.model.User;
-import com.mc.mybook.service.UsersService;
+import com.mc.mybook.model.books.User;
+import com.mc.mybook.service.books.UsersService;
 
 @Controller
 @RequestMapping("/" + PathConstants.USER_PATH)

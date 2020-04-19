@@ -1,4 +1,4 @@
-package com.mc.mybook.dao;
+package com.mc.mybook.repository.books;
 
 import org.springframework.stereotype.Repository;
 

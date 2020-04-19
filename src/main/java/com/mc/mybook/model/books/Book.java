@@ -1,4 +1,4 @@
-package com.mc.mybook.model;
+package com.mc.mybook.model.books;
 
 import java.time.LocalDateTime;
 

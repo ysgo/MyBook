@@ -1,4 +1,4 @@
-package com.mc.mybook.model;
+package com.mc.mybook.model.books;
 
 import java.time.LocalDateTime;
 
@@ -13,22 +13,24 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "reviews")
+public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column
-	private String loginId;
+	private String title;
 	
 	@Column
-	private String password;
+	private String star;
 	
 	@Column
-	private String name;
+	private String content;
 	
-	@Column(updatable = false)
+	@Column
+	private int bookId;
+	
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	
@@ -43,28 +45,36 @@ public class User {
 		this.id = id;
 	}
 
-	public String getLoginId() {
-		return loginId;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getStar() {
+		return star;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setStar(String star) {
+		this.star = star;
 	}
 
-	public String getName() {
-		return name;
+	public String getContent() {
+		return content;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public int getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -85,7 +95,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", loginId=" + loginId + ", password=" + password + ", name=" + name + ", createdAt="
-				+ createdAt + ", updatedAt=" + updatedAt + "]";
+		return "Review [id=" + id + ", title=" + title + ", star=" + star + ", content=" + content + ", bookId="
+				+ bookId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 }
