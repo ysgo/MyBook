@@ -21,9 +21,9 @@
 <div class="wrapper">
 	<tiles:insertAttribute name="logo"/>
 	<tiles:insertAttribute name="sidebar"/>
+	<tiles:insertAttribute name="login"/>
 	<tiles:insertAttribute name="script"/>
 	<tiles:insertAttribute name="body"/>
-	<tiles:insertAttribute name="login"/>
 </div>
 </body>
 </html>

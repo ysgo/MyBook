@@ -3,22 +3,21 @@ package com.mc.mybook.controller;
 import java.text.ParseException;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mc.mybook.constants.PathConstants;
 
 @Controller
-@SessionAttributes("status")
 @RequestMapping("/" + PathConstants.BOOK_PATH)
 public class BooksController {
 //	@Autowired
 //	private NaverBookService service;
 	
 	@GetMapping
-	public String main() {
+	public String main(Model model) {
 		return PathConstants.BOOK_PATH + PathConstants.CRUD_INDEX;
 	}
 	

@@ -6,17 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.mc.mybook.constants.PathConstants;
 import com.mc.mybook.model.User;
 import com.mc.mybook.service.UsersService;
 
 @Controller
-@SessionAttributes("status")
 @RequestMapping("/" + PathConstants.USER_PATH)
 public class UsersController {
 	@Autowired
@@ -28,10 +26,11 @@ public class UsersController {
 	}
 	
 	@PostMapping(PathConstants.CRUD_SIGNUP)
-	public String signUp(User user) {
-		System.out.println(user);
-		usersService.addUser(user);
-		return "redirect:/" + PathConstants.BOOK_PATH;
+	public String signUp(@ModelAttribute User user, HttpSession session) {
+		String viewName = "redirect:/" + PathConstants.BOOK_PATH;
+		user = usersService.addUser(user);
+		session.setAttribute("user", user);
+		return viewName;
 	}
 //	
 //	// 회원가입 : 서비스 객체에 저장
@@ -57,12 +56,24 @@ public class UsersController {
 //		return mav;
 //	}
 	
-	// 로그인 페이지 이동
 	@GetMapping(PathConstants.CRUD_SIGNIN)
-	public String  signIn(Model model, HttpSession session) {
+	public String signIn(Model model, HttpSession session) {
 //		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);		
 //		model.addAttribute("url", naverAuthUrl);
 		return PathConstants.USER_PATH + PathConstants.CRUD_SIGNIN;
+	}
+	
+	@PostMapping(PathConstants.CRUD_SIGNIN)
+	public String signIn(@ModelAttribute User user, HttpSession session) {
+		String viewName;
+		user = usersService.findByLoginIdAndPassword(user);
+		if(user == null) {
+			viewName = PathConstants.USER_PATH + PathConstants.CRUD_SIGNIN;
+		} else {
+			session.setAttribute("user", user);
+			viewName = "redirect:/" + PathConstants.BOOK_PATH;
+		}
+		return viewName;
 	}
 	
 //	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
@@ -98,9 +109,9 @@ public class UsersController {
 //		return mav;
 //	}
 	
-	// 로그아웃 
 	@PostMapping(PathConstants.CRUD_SIGNOUT)
-	public String signOut(SessionStatus session) throws Exception {
+	public String signOut(HttpSession session) throws Exception {
+		session.invalidate();
 		return "redirect:/";
 	}
 	

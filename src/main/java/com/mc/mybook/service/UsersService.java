@@ -1,6 +1,6 @@
 package com.mc.mybook.service;
 
-import java.util.Optional;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +13,20 @@ public class UsersService {
 	@Autowired
 	private UsersRepository usersRepository;
 	
-	public void addUser(User user) {
-		usersRepository.save(user);
+	public User addUser(User user) {
+		user = usersRepository.save(user);
+		return user;
 	}
 	
-	public Optional<User> findById(User user) {
-		return usersRepository.findById(user.getId());
+	public User findByLoginIdAndPassword(User user) {
+		return usersRepository.findByLoginIdAndPassword(user.getLoginId(), user.getPassword());
 	}
 	
 	public void editUser(User user) {
 		usersRepository.save(user);
+	}
+	
+	public void signOut(HttpSession session) {
+		session.invalidate();
 	}
 }

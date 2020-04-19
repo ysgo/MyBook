@@ -3,7 +3,7 @@
 		<article class="card-body mx-auto mt-3 mb-3" style="max-width: 400px;">
 			<div class="row justify-content-center">
 				<div class="col-sm-auto logo pl-1 pr-0 mb-4">
-					<a href="${pageContext.request.contextPath}/">CHACKCHECK</a>
+					<a href="/">CHACKCHECK</a>
 				</div>
 			</div>
 

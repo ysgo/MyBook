@@ -8,32 +8,30 @@
 			</div>
 
 			<!-- 로그인 폼태그 시작 -->
-			<form action="${pageContext.request.contextPath}/signIn"
-				method="POST">
+			<form action="/users/signIn" method="POST">
 				<!-- 이메일 아이디 -->
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
-						<span class="input-group-text"> <i class="fa fa-envelope"></i>
+						<span class="input-group-text">
+							<i class="fa fa-envelope"></i>
 						</span>
 					</div>
-					<input id="userId" name="userId" class="form-control"
-						placeholder="이메일을 입력해주세요." type="email" required autofocus>
+					<input id="userId" name="loginId" class="form-control" placeholder="이메일을 입력해주세요." type="email" required autofocus />
 				</div>
 
 				<!-- 비밀번호 -->
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
-						<span class="input-group-text"> <i class="fa fa-lock"></i>
+						<span class="input-group-text">
+							<i class="fa fa-lock"></i>
 						</span>
 					</div>
-					<input id="userPass" name="userPass" class="form-control"
-						placeholder="비밀번호를 입력해주세요." type="password">
+					<input id="userPass" name="password" class="form-control" placeholder="비밀번호를 입력해주세요." type="password">
 				</div>
 
 				<!-- 로그인 버튼 -->
 				<div class="form-group">
-					<input id="signIn" type="submit" class="btn btn-primary btn-block"
-						value="로그인">
+					<input id="signIn" type="submit" class="btn btn-primary btn-block" value="로그인">
 				</div>
 			</form>
 			<!-- 로그인 폼태그 끝 -->
@@ -44,14 +42,13 @@
 
 			<!-- 네이버 로그인 버튼 -->
 			<div class="row justify-content-center">
-				<a href="${ url }" class="btn btn-outline-info"><img
-					src="/images/naver.png" width="35px" height="35px"><span
-					style="font-size: 16px"> 네이버 아이디로 로그인</span></a>
+				<a href="${ url }" class="btn btn-outline-info">
+					<img src="/images/naver.png" width="35px" height="35px">
+					<span	style="font-size: 16px"> 네이버 아이디로 로그인</span>
+				</a>
 			</div>
 
 			<br>
-
-
 			<!-- 회원가입 링크 -->
 			<div class="row justify-content-center">
 				<form class="form-inline" action="/users/signUp" method="GET">
@@ -59,10 +56,8 @@
 				</form>
 			</div>
 			<!-- 아이디, 비밀번호 찾기 링크 -->
-			<!-- <p class="text-center"> -->
 			<div class="row justify-content-center">
-				<span class="text-center" id="searchId" onclick="searchMember()"
-					style="color: #58C9B9; cursor: pointer">아이디/비밀번호 찾기</span>
+				<span class="text-center" id="searchId" onclick="searchMember()" style="color: #58C9B9; cursor: pointer">아이디/비밀번호 찾기</span>
 			</div>
 
 		</article>
