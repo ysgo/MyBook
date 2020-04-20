@@ -15,7 +15,7 @@
 
 				<div class="fixedInput pl-1">
 					<!-- 고정된 인풋 -->
-					<form method="get" action="/books/readBook" target="_self">
+					<form method="GET" action="/books/readBook" target="_self">
 						<div class="input-group">
 							<input name="readkeyword" type="text" class="form-control" placeholder="내가 등록한 책 제목, 저자, 출판사 검색" aria-describedby="basic-addon2">
 							<div class="input-group-append">
@@ -155,17 +155,14 @@
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog"	style="max-width: 100%; width: auto; display: table;">
 					<div class="modal-content">
-						<!-- 닫기 버튼 -->
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 
 						<div class="modal-body">
-							<!--  모달 컨텐트 컨테이너 -->
 							<div class="container">
-								<!--  인풋 로우 -->
 								<div class="row inputrow">
-									<div class="col-sm-12  ">
+									<div class="col-sm-12">
 										<div class="input-group">
 											<input name="keyword" type="text" class="form-control" placeholder="책 제목, 저자 검색" aria-describedby="basic-addon2" width="20px">
 											<div class="input-group-append">
@@ -174,26 +171,29 @@
 										</div>
 									</div>
 								</div>
-
 								<br>
-								<!--  결과 로우 -->
-								<c:forEach items="${bookList}" var="b">
-									<div id="row" class="row mr-1 searchResult">
-										<div id="imgContainer" class="col-sm-3">
-											<img id="image" src="${b.image}" style="width: 200px">
-										</div>
-										<div class="col-sm-4">
-											<span id="title">${b.title}</span>
-											<br>
-											<br>
-											<span	id="author">${b.author}</span>
-											<br>
-											<span id="publisher">${b.publisher}</span>
-										</div>
-										<div class="col-sm" id="description">${b.description}</div>
-										<div class="w-150"></div>
-									</div>
-								</c:forEach>
+<!--  결과 로우 -->
+<div id="search-result">
+	<script id="search-result-item" type="text/x-handlebars-template">
+	{{#each books}}
+		<div id="row" class="row mr-1 searchResult">
+			<div id="imgContainer" class="col-sm-3">
+				<img id="image" src="{{image}}" style="width: 200px">
+			</div>
+			<div class="col-sm-4">
+				<span id="title">{{title}}</span>
+				<br>
+				<br>
+				<span	id="author">{{author}}</span>
+				<br>
+				<span id="publisher">{{publisher}}</span>
+			</div>
+			<div class="col-sm" id="description">{{description}}</div>
+			<div class="w-150"></div>
+		</div>
+	{{/each}}
+	</script>
+</div>
 
 							</div>
 							<!--  모달 컨텐트 컨테이너 끝 -->
@@ -253,177 +253,8 @@
 				</div>
 			</div>
 			<!-- 서평 추가 모달 끝 -->
-
 			<!-- 모달 영역 끝 -->
 
 		</div>
 		<!-- Page Content 끝 -->
-
-	<script type="text/javascript">
-		function fn_paging(curPage) {
-			location.href = "/books/readBook?curPage=" + curPage;
-		}
-
-/* 	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 --> */
-		var image, title, author, publisher, description, log;
-		//책 추가 모달에서 목록을 눌렀을 때
-		$('div#row').click(
-				function() {
-					image = $(this).children('div').children('img#image').attr("src");
-					title = $(this).children('div').children('span#title').text();
-					author = $(this).children('div').children('span#author').text();
-					publisher = $(this).children('div').children('span#publisher').text();
-					description = $(this).children('div#description').text();
-
-					$("#myModal").removeClass("in");
-					$(".modal-backdrop").remove();
-					$("#myModal").hide();
-					$('#myModal2').modal('show');
-
-					//서평 추가 모달에서 확인버튼 눌렀을 때
-					$('button#m_submit').click(
-							function() {
-								var m_title = $('input#m_title').val();
-								var m_content = $('textarea#m_content').val();
-								m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-								$.ajax({
-									url : "readBook",
-									type : 'POST',
-									data : {
-										title : title,
-										author : author,
-										publisher : publisher,
-										description : description,
-										image : image,
-										m_title : m_title,
-										m_star : m_star,
-										m_content : m_content
-									},
-									dataType : "text",
-									success : function(data) {
-										$("#myModal2 .close").click();
-										return false;
-									},
-									error : function(request, status, error) {
-										console.log("code:" + request.status
-												+ "\n" + "message:"
-												+ request.responseText + "\n"
-												+ "error:");
-									}
-								});
-							});
-				});
-	</script>
-	<!-- 책추가, 서평추가 내용 controller 보내서 db저장 & 서평작성모달창 띄우기 끝 -->
-
-	<script>
-		//서평 모달에서 별점 눌렀을 때 채워지게 함 
-		$(".star_rating a").click(function() {
-			$(this).parent().children("a").removeClass("on");
-			$(this).addClass("on").prevAll("a").addClass("on");
-			return false;
-		});
-
-		//별값 가져오기
-		var m_star = 5;
-		$('a[target]').click(function() {
-			m_star = $(this).attr('id');
-		});
-	</script>
-
-
-	<!-- 	수정버튼 -->
-	<script>
-		function updateButton(id, m_title, m_star, m_content) {
-			document.getElementById('m_title').value = m_title;
-			document.getElementById('m_content').value = m_content.replace(
-					/(<br\/>|(<br><\/button>))/g, '\r\n');
-			$('#' + m_star).parent().children("a").removeClass("on");
-			$('#' + m_star).addClass("on").prevAll("a").addClass("on");
-
-			var m_star = m_star;
-			$('a[target]').click(function() {
-				m_star = $(this).attr('id');
-			});
-
-			//서평 추가 모달에서 확인버튼 눌렀을 때
-			$('button#m_submit').click(
-					function() {
-
-						var m_title = $('input#m_title').val();
-						var m_content = $('textarea#m_content').val();
-						m_content = m_content.replace(/(?:\r\n|\r|\n)/g,
-								'<br/>');
-						$.ajax({
-							url : "readBook",
-							type : 'POST',
-							data : {
-								bookNum : id,
-								m_title : m_title,
-								m_star : m_star,
-								m_content : m_content
-							},
-							dataType : "text",
-							success : function(data) {
-								$("#myModal2 .close").click();
-							},
-							error : function(request, status, error) {
-								console.log("code:" + request.status + "\n"
-										+ "message:" + request.responseText
-										+ "\n" + "error:");
-							}
-						});
-					});
-		}
-	</script>
-	<!-- 	수정버튼 끝 -->
-
-	<!-- 도서 검색 -->
-	<script>
-		function searchFunc(e) {
-			var keyword = $('input[name=keyword]').val();
-			console.log(keyword)
-			var url = "/naver/search?keyword=" + keyword;
-			if (e.type == "keydown" && e.keyCode != 13) {
-				return;
-			}
-
-			$.ajax({
-				url : url,
-				type : 'GET',
-				success : function(data) {
-					console.log(data);
-					$('body').html(data);
-					$('#myModal').modal('show');
-				}
-			});
-		}
-
-		$(function() {
-			$('#submitForm').on('click', searchFunc);
-			$('input[name=keyword]').on('keydown', searchFunc);
-			$('.close').on('click', function() {
-				$.ajax({
-					url : "/books/readBook",
-					type : 'GET',
-					success : function(data) {
-						$('body').html(data);
-					}
-				});
-			});
-		});
-	</script>
-	<!-- 도서 검색 끝-->
-
-	<script>
-		function hover(e) {
-			var image = e.childNodes[1];
-			image.id === 'pencil' ? image.src = 'images/white-pencil.png'
-					: image.src = 'images/white-trash.png';
-		}
-		function leave(e) {
-			var image = e.childNodes[1];
-			image.id === 'pencil' ? image.src = 'images/pencil.png'
-					: image.src = 'images/trash.png';
-		}
-	</script>
+<script type="text/javascript" src="/js/readBook.js"></script>

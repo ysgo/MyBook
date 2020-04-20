@@ -32,7 +32,7 @@ public class NaverBookApiService {
 	private String clientSecret;
 	
 	@Value("${naver.URL}")
-	private StringBuilder apiURL;
+	private String apiURL;
 	
 	@SuppressWarnings("unchecked")
 	public List<Book> searchBook(String keyword, int display, int start, String sort) {
@@ -43,12 +43,12 @@ public class NaverBookApiService {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
-        apiURL.append("query=" + text).append("&display=" + display).append("&start=" + start).append("&sort=" + sort);
         
+        String url = apiURL + "query=" + text + "&display=" + display + "&start=" + start + "&sort=" + sort; 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
-        String responseBody = get(apiURL.toString(),requestHeaders);
+        String responseBody = get(url ,requestHeaders);
         ObjectMapper obj = new ObjectMapper();
         try {
 			Map<String, Object> map = obj.readValue(responseBody, Map.class);

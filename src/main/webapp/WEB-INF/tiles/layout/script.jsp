@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- jQuery CDN -->
+<script src="/js/ext/handlebars-v4.1.1.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- Popper.JS -->
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
