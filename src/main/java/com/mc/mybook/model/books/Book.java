@@ -20,7 +20,7 @@ public class Book {
 	private int id;
 	
 	@Column
-	private String name;
+	private String title;
 	
 	@Column
 	private String author;
@@ -29,7 +29,7 @@ public class Book {
 	private String publisher;
 	
 	@Column
-	private String content;
+	private String description;
 	
 	@Column
 	private String image;
@@ -54,12 +54,12 @@ public class Book {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getAuthor() {
@@ -78,12 +78,12 @@ public class Book {
 		this.publisher = publisher;
 	}
 
-	public String getContent() {
-		return content;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getImage() {
@@ -128,8 +128,8 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", author=" + author + ", publisher=" + publisher + ", content="
-				+ content + ", image=" + image + ", interested=" + interested + ", userId=" + userId + ", createdAt="
-				+ createdAt + ", updatedAt=" + updatedAt + "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publisher=" + publisher
+				+ ", description=" + description + ", image=" + image + ", interested=" + interested + ", userId="
+				+ userId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 }

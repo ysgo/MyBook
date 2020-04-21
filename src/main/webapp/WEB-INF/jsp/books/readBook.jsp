@@ -32,20 +32,20 @@
 
 			<!-- 책이미지와 서평 내용 출력 -->
 			<div class="container">
-				<c:if test="${ !empty list }">
+				<c:if test="${ !empty reviews }">
 					<ul id="ulRow">
-						<c:forEach var="vo" items="${ list }">
+						<c:forEach var="vo" items="${ reviews }">
 							<li class="row pl-3">
-								<img alt="이미지" src="${vo.image}" width="100" height="150" style="border: 1px solid lightgray" />
+								<img alt="이미지" src="${ vo.bookId.image }" width="100" height="150" style="border: 1px solid lightgray" />
 								<div style="width: 70%" class="ml-4">
-									<span style="margin-right: 5px; font-size: 17pt;">${vo.m_title}</span>
-									<span>${vo.registdate}</span>
+									<span style="margin-right: 5px; font-size: 17pt;">${vo.title}</span>
+									<span>${vo.createdAt}</span>
 									<br> 별점 :
-									<c:forEach var="i" begin="1" end="${vo.m_star}">
+									<c:forEach var="i" begin="1" end="${vo.star}">
 										<span>★</span>
 									</c:forEach>
 									<br>
-									<span style="font-size: 14pt; word-break: keep-all;">${vo.m_content}</span>
+									<span style="font-size: 14pt; word-break: keep-all;">${vo.description}</span>
 									<!-- style="word-break: keep-all ;" -->
 								</div>
 							</li>
@@ -64,7 +64,7 @@
 								<form action="readBook" method="post">
 									<input type="hidden" name="bookNum" value="${vo.id}">
 									<button type="button"	class="btn btn-outline-primary upDelButton"	data-toggle="modal" data-target="#myModal2"
-										onclick="updateButton('${vo.id}', '${vo.m_title}', '${vo.m_star}', '${vo.m_content}');"
+										onclick="updateButton('${vo.id}', '${vo.title}', '${vo.star}', '${vo.description}');"
 										onmouseover="hover(this);" onmouseleave="leave(this)">
 										<img id="pencil" src="/images/pencil.png" style="width: 20px" class="mr-2">수정
 									</button>

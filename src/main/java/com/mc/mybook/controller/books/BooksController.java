@@ -2,19 +2,31 @@ package com.mc.mybook.controller.books;
 
 import java.text.ParseException;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mc.mybook.constants.PathConstants;
+import com.mc.mybook.model.books.Book;
+import com.mc.mybook.service.books.BooksService;
+import com.mc.mybook.service.books.ReviewsService;
 
 @Controller
 @RequestMapping("/" + PathConstants.BOOK_PATH)
 public class BooksController {
 //	@Autowired
 //	private NaverBookService service;
+	@Autowired
+	private BooksService booksService;
+	@Autowired
+	private ReviewsService reviewsService;
 	
 	@GetMapping
 	public String main(Model model) {
@@ -22,7 +34,8 @@ public class BooksController {
 	}
 	
 	@GetMapping(PathConstants.CRUD_READBOOK)
-	public String  readBook() throws ParseException {
+	public String readBook(HttpSession session) {
+		session.setAttribute("reviews", reviewsService.listAll());
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();
 //		if(readkeyword != null) {
@@ -85,6 +98,15 @@ public class BooksController {
 //				mav.addObject("listCnt", listCnt);
 //				mav.addObject("pagination", pageList);				
 		return PathConstants.BOOK_PATH + PathConstants.CRUD_READBOOK;
+	}
+	
+	@PostMapping
+	@ResponseBody
+	public Book addReadBook(Book book) {
+		System.out.println(book);
+		book = booksService.addBook(book);
+		System.out.println(book);
+		return book;
 	}
 	
 	@GetMapping(PathConstants.CRUD_INTERESTBOOK)

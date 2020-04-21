@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,10 +29,11 @@ public class Review {
 	private String star;
 	
 	@Column
-	private String content;
+	private String description;
 	
-	@Column
-	private int bookId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "book_id")
+	private Book book;
 	
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -61,20 +65,20 @@ public class Review {
 		this.star = star;
 	}
 
-	public String getContent() {
-		return content;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public int getBookId() {
-		return bookId;
+	public Book getBookId() {
+		return book;
 	}
 
-	public void setBookId(int bookId) {
-		this.bookId = bookId;
+	public void setBookId(Book book) {
+		this.book = book;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -95,7 +99,7 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", title=" + title + ", star=" + star + ", content=" + content + ", bookId="
-				+ bookId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+		return "Review [id=" + id + ", title=" + title + ", star=" + star + ", description=" + description + ", book="
+				+ book + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 }

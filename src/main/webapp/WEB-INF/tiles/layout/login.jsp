@@ -15,6 +15,7 @@
 	<c:otherwise>
 		<div class="sign">
 			<form action="/users/signOut" method="POST" style='float: left;'>
+				<input type="hidden" id="user-id" value="${ user.id }"/>
 				<input id="signColor" type="submit" class="nav-link p-2" value="로그아웃">
 			</form>
 		</div>
