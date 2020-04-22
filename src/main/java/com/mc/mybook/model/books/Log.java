@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,9 +31,9 @@ public class Log {
 	@Column
 	private boolean interested;
 
-	// join columns
-	@Column
-	private int reviewId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "review_id")
+	private Review review;
 	
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -70,12 +73,12 @@ public class Log {
 		this.interested = interested;
 	}
 
-	public int getReviewId() {
-		return reviewId;
+	public Review getReview() {
+		return review;
 	}
 
-	public void setReviewId(int reviewId) {
-		this.reviewId = reviewId;
+	public void setReview(Review review) {
+		this.review = review;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -96,7 +99,7 @@ public class Log {
 
 	@Override
 	public String toString() {
-		return "Log [id=" + id + ", name=" + name + ", title=" + title + ", interested=" + interested + ", reviewId="
-				+ reviewId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+		return "Log [id=" + id + ", name=" + name + ", title=" + title + ", interested=" + interested + ", review="
+				+ review + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 }
