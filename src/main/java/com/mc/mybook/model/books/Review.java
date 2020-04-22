@@ -28,6 +28,7 @@ public class Review {
 	@Column
 	private String description;
 	
+	@Column(updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	

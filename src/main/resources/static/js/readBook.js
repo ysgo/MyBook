@@ -4,6 +4,11 @@ let template = Handlebars.compile(source);
 let image, title, author, publisher, description;
 
 $(document).ready(function() {
+	let m_star = 5;
+	$('a[target]').click(function() {
+		m_star = $(this).attr('id');
+	});
+	
 	$('#submitForm').on('click', searchFunc);
 	
 	$('button#m_submit').click(function() {
@@ -35,7 +40,7 @@ $(document).ready(function() {
 						review: response.id
 					},
 					sucess: function(response) {
-						$('#myModal-review .close').click();
+						location.reload();
 					},
 					error: function(request, status, error) {
 						console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:");
@@ -54,19 +59,34 @@ $(document).ready(function() {
 		$(this).addClass("on").prevAll("a").addClass("on");
 		return false;
 	});
+	
+	$('#book-update').on('click', function() {
+		let m_title = $('input#m_title').val();
+		let m_content = $('textarea#m_content').val();
+		let review_id = $('#review-id').val();
+		m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+		$.ajax({
+			url: '/reviews',
+			type: 'PUT',
+			data: {
+				id: review_id,
+				title: m_title,
+				star: m_star,
+				description: m_content
+			},
+			success: function(response) {
+				location.reload();
+			},
+			error: function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:");
+			}
+		});
+	});
 });
 
 
-
-//별값 가져오기
-let m_star = 5;
-$('a[target]').click(function() {
-	m_star = $(this).attr('id');
-});
-
-
-//	<!-- 수정버튼 -->
 function updateButton(id, m_title, m_star, m_content) {
+	document.getElementById('review-id').value = id;
 	document.getElementById('m_title').value = m_title;
 	document.getElementById('m_content').value = m_content.replace(/(<br\/>|(<br><\/button>))/g, '\r\n');
 	$('#' + m_star).parent().children("a").removeClass("on");
@@ -76,8 +96,10 @@ function updateButton(id, m_title, m_star, m_content) {
 	$('a[target]').click(function() {
 		m_star = $(this).attr('id');
 	});
+	
+	$('#m_submit').addClass('d-none');
+	$('#book-update').removeClass('d-none');
 }
-//	<!-- 	수정버튼 끝 -->
 
 function searchFunc(e) {
 	let keyword = $('input[name=keyword]').val();

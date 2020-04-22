@@ -62,9 +62,8 @@
 								
 								<!-- 수정 및 삭제 시작-->
 								<div class="float-right">
-									<form action="readBook" method="post">
-										<input type="hidden" name="bookNum" value="${book.id}">
-										<button type="button"	class="btn btn-outline-primary upDelButton"	data-toggle="modal" data-target="#myModal2"
+									<form action="#">
+										<button type="button"	class="btn btn-outline-primary upDelButton"	data-toggle="modal" data-target="#myModal-review"
 											onclick="updateButton('${book.review.id}', '${book.review.title}', '${book.review.star}', '${book.review.description}');"
 											onmouseover="hover(this);" onmouseleave="leave(this)">
 											<img id="pencil" src="/images/pencil.png" style="width: 20px" class="mr-2">수정
@@ -227,6 +226,7 @@
 							</h3>
 						</div>
 						<!--바디-->
+						<input type="hidden" id="review-id"/>
 						<div class="modal-body mx-4">
 							<!-- 제목 -->
 							<div class="md-form mb-3">
@@ -253,6 +253,7 @@
 							<!-- 확인버튼 -->
 							<div class="text-center mb-3">
 								<button type="button" id="m_submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">확인</button>
+								<button type="button" id="book-update" class="btn blue-gradient btn-block btn-rounded z-depth-1a d-none">수정</button>
 							</div>
 						</div>
 					</div>
