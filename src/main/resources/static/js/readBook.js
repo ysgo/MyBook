@@ -35,7 +35,7 @@ $(document).ready(function() {
 						review: response.id
 					},
 					sucess: function(response) {
-						console.log(response);
+						$('#myModal-review .close').click();
 					},
 					error: function(request, status, error) {
 						console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:");

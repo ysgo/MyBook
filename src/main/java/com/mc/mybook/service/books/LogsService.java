@@ -1,5 +1,7 @@
 package com.mc.mybook.service.books;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,9 @@ public class LogsService {
 	public Log addLog(Log log) {
 		log = logsRepository.save(log);
 		return log;
+	}
+	
+	public List<Log> listAll() {
+		return logsRepository.findAll();
 	}
 }

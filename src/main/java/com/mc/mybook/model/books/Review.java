@@ -33,6 +33,12 @@ public class Review {
 	
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+	
+	public Review() {}
+	
+	public Review(int id) {
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

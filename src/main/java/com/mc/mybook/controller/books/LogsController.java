@@ -1,14 +1,21 @@
 package com.mc.mybook.controller.books;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mc.mybook.constants.PathConstants;
 import com.mc.mybook.model.books.Log;
+import com.mc.mybook.service.books.LogsService;
 
 //import mybook.my.book.service.NaverBookService;
 //import mybook.my.book.vo.Log;
@@ -17,9 +24,24 @@ import com.mc.mybook.model.books.Log;
 
 @Controller
 @SessionAttributes("status")
+@RequestMapping("/" + PathConstants.LOG_PATH)
 public class LogsController {
 //	@Autowired
 //	private NaverBookService serviceBook;
+	@Autowired
+	private LogsService logsService;
+	
+	@GetMapping
+	public String logTotalPage(HttpSession session) {
+		session.setAttribute("logs", logsService.listAll());
+		return PathConstants.BOOK_PATH + PathConstants.CRUD_ALLLOG;
+	}
+	
+	@PostMapping
+	public Log addLog(Log log) {
+		log = logsService.addLog(log);
+		return log;
+	}
 	
 	@RequestMapping(value = "/otherReadBook")
 	public ModelAndView otherReadBook() {

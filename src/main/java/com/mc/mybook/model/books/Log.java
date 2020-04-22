@@ -41,6 +41,14 @@ public class Log {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 
+	public Log() {}
+	
+	public Log(String name, String title, int reviewId) {
+		this.name = name;
+		this.title = title;
+		this.review = new Review(reviewId);
+	}
+	
 	public int getId() {
 		return id;
 	}

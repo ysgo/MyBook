@@ -17,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mc.mybook.constants.PathConstants;
 import com.mc.mybook.model.books.Book;
+import com.mc.mybook.model.books.Log;
 import com.mc.mybook.model.books.User;
 import com.mc.mybook.service.books.BooksService;
+import com.mc.mybook.service.books.LogsService;
 
 @Controller
 @RequestMapping("/" + PathConstants.BOOK_PATH)
@@ -27,6 +29,8 @@ public class BooksController {
 //	private NaverBookService service;
 	@Autowired
 	private BooksService booksService;
+	@Autowired
+	private LogsService logsService;
 	
 	@GetMapping
 	public String main(Model model) {
@@ -105,10 +109,13 @@ public class BooksController {
 	
 	@PostMapping
 	@ResponseBody
-	public Book addReadBook(Book book) {
-		System.out.println(book);
+	public Book addReadBook(Book book, @SessionAttribute("user") Optional<User> user) {
 		book = booksService.addBook(book);
-		System.out.println(book);
+		Log log = null;
+		if(user.isPresent()) {
+			log = new Log(user.get().getName(), book.getTitle(), book.getReview().getId());
+		}
+		logsService.addLog(log);
 		return book;
 	}
 	

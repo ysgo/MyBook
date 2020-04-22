@@ -16,6 +16,8 @@ public class PathConstants {
 	public static final String CRUD_INTERESTBOOK = "/interestBook";
 	public static final String CRUD_DETAILINTERESTBOOK = "/detailInterestBook";
 	
+	public static final String CRUD_ALLLOG = "/allLog";
+	
 	public static final String CRUD_SIGNUP = "/signUp";
 	public static final String CRUD_SIGNIN = "/signIn";
 	public static final String CRUD_SIGNOUT = "/signOut";
