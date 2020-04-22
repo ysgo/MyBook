@@ -1,5 +1,7 @@
 package com.mc.mybook.service.books;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,5 +15,9 @@ public class BooksService {
 	
 	public Book addBook(Book book) {
 		return booksRepository.save(book);
+	}
+	
+	public List<Book> findAllByUserId(int userId) {
+		return booksRepository.findAllByUserId(userId);
 	}
 }

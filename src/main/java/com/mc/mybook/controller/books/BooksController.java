@@ -1,6 +1,7 @@
 package com.mc.mybook.controller.books;
 
 import java.text.ParseException;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mc.mybook.constants.PathConstants;
 import com.mc.mybook.model.books.Book;
+import com.mc.mybook.model.books.User;
 import com.mc.mybook.service.books.BooksService;
-import com.mc.mybook.service.books.ReviewsService;
 
 @Controller
 @RequestMapping("/" + PathConstants.BOOK_PATH)
@@ -25,8 +27,6 @@ public class BooksController {
 //	private NaverBookService service;
 	@Autowired
 	private BooksService booksService;
-	@Autowired
-	private ReviewsService reviewsService;
 	
 	@GetMapping
 	public String main(Model model) {
@@ -34,8 +34,11 @@ public class BooksController {
 	}
 	
 	@GetMapping(PathConstants.CRUD_READBOOK)
-	public String readBook(HttpSession session) {
-		session.setAttribute("reviews", reviewsService.listAll());
+	public String readBook(HttpSession session, @SessionAttribute("user") Optional<User> user) {
+		if(user.isPresent()) {
+			session.setAttribute("books", booksService.findAllByUserId(user.get().getId()));
+		}
+//		session.setAttribute("reviews", reviewsService.listAll());
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();
 //		if(readkeyword != null) {

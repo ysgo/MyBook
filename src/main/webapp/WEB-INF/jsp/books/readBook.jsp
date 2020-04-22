@@ -32,84 +32,92 @@
 
 			<!-- 책이미지와 서평 내용 출력 -->
 			<div class="container">
-				<c:if test="${ !empty reviews }">
-					<ul id="ulRow">
-						<c:forEach var="vo" items="${ reviews }">
-							<li class="row pl-3">
-								<img alt="이미지" src="${ vo.bookId.image }" width="100" height="150" style="border: 1px solid lightgray" />
-								<div style="width: 70%" class="ml-4">
-									<span style="margin-right: 5px; font-size: 17pt;">${vo.title}</span>
-									<span>${vo.createdAt}</span>
-									<br> 별점 :
-									<c:forEach var="i" begin="1" end="${vo.star}">
-										<span>★</span>
-									</c:forEach>
-									<br>
-									<span style="font-size: 14pt; word-break: keep-all;">${vo.description}</span>
-									<!-- style="word-break: keep-all ;" -->
-								</div>
-							</li>
-							<div class="caption">
-								<c:choose>
-									<c:when test='${fn:length(vo.title) >= 19}'>
-										${fn:substring(vo.title,0,18)}...
-									</c:when>
-									<c:otherwise>
-										${vo.title}
-									</c:otherwise>
-								</c:choose>
-							</div>
-							<div class="float-right">
-								<!-- 수정 및 삭제 시작-->
-								<form action="readBook" method="post">
-									<input type="hidden" name="bookNum" value="${vo.id}">
-									<button type="button"	class="btn btn-outline-primary upDelButton"	data-toggle="modal" data-target="#myModal2"
-										onclick="updateButton('${vo.id}', '${vo.title}', '${vo.star}', '${vo.description}');"
-										onmouseover="hover(this);" onmouseleave="leave(this)">
-										<img id="pencil" src="/images/pencil.png" style="width: 20px" class="mr-2">수정
-									</button>
-									<button type="submit" class="btn btn-outline-primary upDelButton"	onmouseover="hover(this);" onmouseleave="leave(this)">
-										<img id="trash" src="/images/trash.png" style="width: 20px" class="mr-1">삭제
-									</button>
-								</form>
-							</div>
-							<!-- 수정 및 삭제 끝-->
-							<div class="line"></div>
-							<!-- 구분선 -->
-						</c:forEach>
-						<!-- 페이징 버튼 위치 시작 -->
-						<c:if test="${!empty listCnt }">
-							<div>
-								<c:if test="${pagination.curPage ne 1 }">
-									<a href="#" onClick="fn_paging(1)">[처음]</a>
-								</c:if>
-								<c:if test="${pagination.curPage ne 1}">
-									<a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a>
-								</c:if>
-								<c:forEach var="pageNum" begin="${pagination.startPage }"
-									end="${pagination.endPage }">
+				<c:choose>
+					<c:when test="${ !empty books }">
+						<ul id="ulRow">
+							<c:forEach var="book" items="${ books }">
+								<li class="row pl-3">
+									<img alt="이미지" src="${ book.image }" width="100" height="150" style="border: 1px solid lightgray" />
+									<div style="width: 70%" class="ml-4">
+										<span style="margin-right: 5px; font-size: 17pt;">${book.review.title}</span>
+										<span>${book.review.createdAt}</span>
+										<br> 별점 :
+										<c:forEach var="i" begin="1" end="${book.review.star}">
+											<span>★</span>
+										</c:forEach>
+										<br>
+										<span style="font-size: 14pt; word-break: keep-all;">${book.review.description}</span>
+									</div>
+								</li>
+								<div class="caption">
 									<c:choose>
-										<c:when test="${pageNum eq  pagination.curPage}">
-											<span style="font-weight: bold;"><a href="#"
-												onClick="fn_paging('${pageNum }')">${pageNum }</a></span>
+										<c:when test='${fn:length(book.title) >= 30}'>
+											${fn:substring(book.title,0,29)}...
 										</c:when>
 										<c:otherwise>
-											<a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+											${book.title}
 										</c:otherwise>
 									</c:choose>
-								</c:forEach>
-								<c:if
-									test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-									<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
-								</c:if>
-								<c:if test="${pagination.curPage ne pagination.pageCnt }">
-									<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
-								</c:if>
-							</div>
-						</c:if>
-						<!-- 페이징 버튼 위치 종료 -->
-
-					</ul>
+								</div>
+								
+								<!-- 수정 및 삭제 시작-->
+								<div class="float-right">
+									<form action="readBook" method="post">
+										<input type="hidden" name="bookNum" value="${book.id}">
+										<button type="button"	class="btn btn-outline-primary upDelButton"	data-toggle="modal" data-target="#myModal2"
+											onclick="updateButton('${book.review.id}', '${book.review.title}', '${book.review.star}', '${book.review.description}');"
+											onmouseover="hover(this);" onmouseleave="leave(this)">
+											<img id="pencil" src="/images/pencil.png" style="width: 20px" class="mr-2">수정
+										</button>
+										<button type="submit" class="btn btn-outline-primary upDelButton"	onmouseover="hover(this);" onmouseleave="leave(this)">
+											<img id="trash" src="/images/trash.png" style="width: 20px" class="mr-1">삭제
+										</button>
+									</form>
+								</div>
+								<!-- 수정 및 삭제 끝-->
+								<div class="line"></div>
+								<!-- 구분선 -->
+							</c:forEach>
+							<!-- 페이징 버튼 위치 시작 -->
+							<c:if test="${!empty listCnt }">
+								<div>
+									<c:if test="${pagination.curPage ne 1 }">
+										<a href="#" onClick="fn_paging(1)">[처음]</a>
+									</c:if>
+									<c:if test="${pagination.curPage ne 1}">
+										<a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a>
+									</c:if>
+									<c:forEach var="pageNum" begin="${pagination.startPage }"
+										end="${pagination.endPage }">
+										<c:choose>
+											<c:when test="${pageNum eq  pagination.curPage}">
+												<span style="font-weight: bold;"><a href="#"
+													onClick="fn_paging('${pageNum }')">${pageNum }</a></span>
+											</c:when>
+											<c:otherwise>
+												<a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:if
+										test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+										<a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a>
+									</c:if>
+									<c:if test="${pagination.curPage ne pagination.pageCnt }">
+										<a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a>
+									</c:if>
+								</div>
+							</c:if>
+							<!-- 페이징 버튼 위치 종료 -->
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<h2>읽은 책과 서평을 추가해주세요
+							<img src="/images/smile-emoji.png" style="width: 50px; padding-bottom: 5px">
+						</h2>
+					</c:otherwise>
+				</c:choose>
+				<c:if test="${ !empty books }">
 				</c:if>
 				<a href="readBook" style="text-decoration: none">
 					<!-- 전체목록으로 이동 -->
@@ -130,10 +138,10 @@
 					<script>
 						$('#listall').hide();
 					</script>
-					<h2>
+					<!-- <h2>
 						읽은 책과 서평을 추가해주세요
 						<img src="/images/smile-emoji.png" style="width: 50px; padding-bottom: 5px">
-					</h2>
+					</h2> -->
 					<%
 						}
 					%>
@@ -204,7 +212,7 @@
 			<!-- 책 추가 모달 끝 -->
 
 			<!-- 서평 추가 모달 -->
-			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"	aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal-review" tabindex="-1" role="dialog"	aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<!-- 컨텐트 시작 -->
 					<div class="modal-content form-elegant">
@@ -244,8 +252,7 @@
 							</div>
 							<!-- 확인버튼 -->
 							<div class="text-center mb-3">
-								<button type="button" id="m_submit"
-									class="btn blue-gradient btn-block btn-rounded z-depth-1a">확인</button>
+								<button type="button" id="m_submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">확인</button>
 							</div>
 						</div>
 					</div>
