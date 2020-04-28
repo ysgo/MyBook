@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -18,9 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mc.mybook.constants.PathConstants;
 import com.mc.mybook.model.books.Book;
 import com.mc.mybook.model.books.Log;
+import com.mc.mybook.model.books.Review;
 import com.mc.mybook.model.books.User;
 import com.mc.mybook.service.books.BooksService;
 import com.mc.mybook.service.books.LogsService;
+import com.mc.mybook.service.books.ReviewsService;
 
 @Controller
 @RequestMapping("/" + PathConstants.BOOK_PATH)
@@ -29,6 +33,8 @@ public class BooksController {
 //	private NaverBookService service;
 	@Autowired
 	private BooksService booksService;
+	@Autowired
+	private ReviewsService reviewsService;
 	@Autowired
 	private LogsService logsService;
 	
@@ -110,13 +116,30 @@ public class BooksController {
 	@PostMapping
 	@ResponseBody
 	public Book addReadBook(Book book, @SessionAttribute("user") Optional<User> user) {
-		book = booksService.addBook(book);
+		book = booksService.save(book);
 		Log log = null;
 		if(user.isPresent()) {
 			log = new Log(user.get().getName(), book.getTitle(), book.getReview().getId());
 		}
 		logsService.addLog(log);
 		return book;
+	}
+	
+	@PutMapping
+	@ResponseBody
+	public Book editReadBook(Book book) {
+		book = booksService.findById(book.getId());
+		book.setReview(new Review());
+		booksService.save(book);
+		reviewsService.delete(book.getReview());
+		return book;
+	}
+	
+	@DeleteMapping
+	@ResponseBody
+	public String deleteReadBook(Book book) {
+		booksService.deleteById(book.getId());
+		return "success";
 	}
 	
 	@GetMapping(PathConstants.CRUD_INTERESTBOOK)

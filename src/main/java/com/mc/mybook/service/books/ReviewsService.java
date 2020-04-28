@@ -20,4 +20,8 @@ public class ReviewsService {
 	public List<Review> listAll() {
 		return reviewsRepository.findAll();
 	}
+	
+	public void delete(Review review) {
+		reviewsRepository.delete(review);
+	}
 }

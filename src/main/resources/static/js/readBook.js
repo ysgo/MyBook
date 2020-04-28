@@ -84,6 +84,21 @@ $(document).ready(function() {
 	});
 });
 
+function reviewDelete(book_id) {
+	$.ajax({
+		url: '/books',
+		type: 'DELETE',
+		data: {
+			id: book_id
+		},
+		success: function() {
+			location.reload();
+		},
+		error: function(request, status, error) {
+			console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:");
+		}
+	});
+}
 
 function updateButton(id, m_title, m_star, m_content) {
 	document.getElementById('review-id').value = id;

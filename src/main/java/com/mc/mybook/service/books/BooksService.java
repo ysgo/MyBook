@@ -13,11 +13,19 @@ public class BooksService {
 	@Autowired
 	private BooksRepository booksRepository;
 	
-	public Book addBook(Book book) {
+	public Book save(Book book) {
 		return booksRepository.save(book);
 	}
 	
 	public List<Book> findAllByUserId(int userId) {
 		return booksRepository.findAllByUserId(userId);
+	}
+	
+	public Book findById(int id) {
+		return booksRepository.findById(id).orElse(null);
+	}
+	
+	public void deleteById(int id) {
+		booksRepository.deleteById(id);
 	}
 }
