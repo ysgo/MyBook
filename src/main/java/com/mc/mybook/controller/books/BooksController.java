@@ -116,12 +116,11 @@ public class BooksController {
 	@PostMapping
 	@ResponseBody
 	public Book addReadBook(Book book, @SessionAttribute("user") Optional<User> user) {
-		book = booksService.save(book);
-		Log log = null;
 		if(user.isPresent()) {
-			log = new Log(user.get().getName(), book.getTitle(), book.getReview().getId());
+			book = booksService.save(book);
+			Log log = new Log(user.get().getName(), book.getTitle(), book.getReview().getId());
+			logsService.addLog(log);
 		}
-		logsService.addLog(log);
 		return book;
 	}
 	

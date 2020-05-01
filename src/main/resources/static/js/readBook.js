@@ -12,44 +12,30 @@ $(document).ready(function() {
 	$('#submitForm').on('click', searchFunc);
 	
 	$('button#m_submit').click(function() {
-		let m_title = $('input#m_title').val();
+		const m_title = $('input#m_title').val();
 		let m_content = $('textarea#m_content').val();
 		m_content = m_content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+		const id = $('#user-id').val();
 		$.ajax({
-			url: '/reviews',
+			url: '/books',
 			type: 'POST',
-			data: {
-				title: m_title,
-				star: m_star,
-				description: m_content,
-			},
-			async: false,
+ 			data: {
+ 				'title': title,
+ 				'author': author,
+ 				'publisher': publisher,
+ 				'image': image,
+ 				'description': description,
+ 				'userId': id,
+ 				'review.title': m_title,
+ 				'review.star': m_star,
+ 				'review.description': m_content,
+ 			},
 			success: function(response) {
-				id = $('#user-id').val();
-				// insert book
-				$.ajax({
-					url: '/books',
-					type: 'POST',
-					data: {
-						title: title,
-						author: author,
-						publisher: publisher,
-						image: image,
-						description: description,
-						userId: id,
-						review: response.id
-					},
-					sucess: function(response) {
-						location.reload();
-					},
-					error: function(request, status, error) {
-						console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:");
-					}
-				});
+				location.reload();
 			},
-			error : function(request, status, error) {
-				console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:");
-			}					
+			error: function(request, status, error) {
+				console.log('code: ' + request.status + '\nmessage: ' + request.responseText + '\nerror: ' + error);
+			}
 		});
 	});
 	

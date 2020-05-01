@@ -51,8 +51,8 @@
 								</li>
 								<div class="caption">
 									<c:choose>
-										<c:when test='${fn:length(book.title) >= 30}'>
-											${fn:substring(book.title,0,29)}...
+										<c:when test='${fn:length(book.title) >= 20}'>
+											${fn:substring(book.title,0,19)}...
 										</c:when>
 										<c:otherwise>
 											${book.title}
@@ -144,7 +144,7 @@
 					<%
 						}
 					%>
-					<div class="line"></div>
+					<!-- <div class="line"></div> -->
 					<!-- 구분선 -->
 				</c:if>
 				<!-- 책이미지와 서평 내용 출력 끝 -->

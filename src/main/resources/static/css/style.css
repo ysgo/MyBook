@@ -15,9 +15,9 @@ p {
     color: #999;
 }
 
-#leftSideBar,
-#leftSideBar:hover,
-#leftSideBar:focus {
+.leftSideBar,
+.leftSideBar:hover,
+.leftSideBar:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
@@ -105,23 +105,23 @@ p {
     padding: 10px;
 }
 
-#sidebar ul li #leftSideBar {
+#sidebar ul li .leftSideBar {
     padding: 15px;
     font-size: 1.1em;
     display: block;
 }
 
-#leftSideBar [data-toggle="collapse"] {
+.leftSideBar [data-toggle="collapse"] {
     position: relative;
 }
 
-#sidebar ul li #leftSideBar :hover {
+#sidebar ul li .leftSideBar :hover {
     color: #7386D5;
     background: #58C9B9;
 }
 
-#sidebar ul li.active>#leftSideBar,
-#leftSideBar [aria-expanded="true"] {
+#sidebar ul li.active>.leftSideBar,
+.leftSideBar [aria-expanded="true"] {
     color: #fff;
     background: #58C9B9; /* #6d7fcc */ /* �� ���� �޴� ���� */
 }
@@ -130,13 +130,13 @@ p {
 	padding-bottom: 30px;
 }
 
-ul ul #leftSideBar {
+ul ul .leftSideBar {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #58C9B9; 
 }
 
-ul ul #leftSideBar:hover {
+ul ul .leftSideBar:hover {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #58C9B9; 
@@ -223,7 +223,7 @@ ul.CTAs {
     padding: 20px;
 }
 
-ul.CTAs #leftSideBar {
+ul.CTAs .leftSideBar {
     text-align: center;
     font-size: 0.9em !important;
     display: block;
@@ -266,7 +266,7 @@ body > div#content{
 	background-color:transparent;
 }
 
-#leftSideBarColor{
+.leftSideBarColor{
 	border:none; 
 	background-color: #58C9B9;
 	width : auto;
