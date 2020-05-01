@@ -125,7 +125,7 @@ function searchFunc(e) {
 				publisher = $(this).children('div').children('span#publisher').text();
 				description = $(this).children('div#description').text();
 
-				$("#myModal").hide();
+				$("#myModal").modal('toggle');
 				$('#myModal-review').modal('show');
 			});
 		}

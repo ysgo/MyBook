@@ -188,14 +188,14 @@
 				<img id="image" src="{{image}}" style="width: 200px">
 			</div>
 			<div class="col-sm-4">
-				<span id="title">{{title}}</span>
+				<span id="title">{{{title}}}</span>
 				<br>
 				<br>
 				<span	id="author">{{author}}</span>
 				<br>
 				<span id="publisher">{{publisher}}</span>
 			</div>
-			<div class="col-sm" id="description">{{description}}</div>
+			<div class="col-sm" id="description">{{{description}}}</div>
 			<div class="w-150"></div>
 		</div>
 	{{/each}}
