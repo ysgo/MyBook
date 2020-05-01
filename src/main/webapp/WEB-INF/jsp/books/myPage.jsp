@@ -15,22 +15,21 @@
 		<i class="fas fa-align-justify"></i>
 	</button>
 
-	<!-- </nav> -->
-	<!-- navbar 끝 -->
-
 	<!-- 컨텐트 추가 시작 -->
 	<article id="updateArticle" class="card-body mx-auto">
 		<h2>내 정보 수정</h2>
 		<br>
 		<!-- 수정 폼태그 시작 -->
-		<form action="/books/myPage" method="POST" location.reload();>
+		<form action="/users/myPage" method="POST">
+			<input type="hidden" name="id" value="${ user.id }"/>
 			<!-- 닉네임 -->
 			<div class="form-group input-group">
 				<div class="input-group-prepend">
-					<span class="input-group-text"> <i class="fa fa-user"></i>
+					<span class="input-group-text">
+						<i class="fa fa-user"></i>
 					</span>
 				</div>
-				<input value="${ status.userName }" name="userName"	class="form-control" placeholder="닉네임" type="text" required autofocus>
+				<input value="${ user.name }" name="name" class="form-control" placeholder="닉네임" type="text" required autofocus>
 			</div>
 			<!-- 이메일 -->
 			<div class="form-group input-group">
@@ -39,7 +38,7 @@
 						<i class="fa fa-envelope"></i>
 					</span>
 				</div>
-				<input value="${ status.userId }" name="userId"	class="form-control" placeholder="이메일" type="email" readonly>
+				<input value="${ user.loginId }" name="loginId" class="form-control" placeholder="이메일" type="email" readonly>
 			</div>
 
 			<!-- 비밀번호 -->
@@ -48,8 +47,7 @@
 					<span class="input-group-text"> <i class="fa fa-lock"></i>
 					</span>
 				</div>
-				<input id="userPass" name="userPass" class="form-control"
-					placeholder="비밀번호" type="password" required>
+				<input id="userPass" name="password" class="form-control" placeholder="비밀번호" type="password" required>
 			</div>
 
 			<!-- 비밀번호 확인 -->
@@ -58,19 +56,16 @@
 					<span class="input-group-text"> <i class="fa fa-lock"></i>
 					</span>
 				</div>
-				<input id="rePass" class="form-control" placeholder="비밀번호 확인"
-					type="password" required>
+				<input id="rePass" class="form-control" placeholder="비밀번호 확인" type="password" required>
 				<div class="input-group-append">
-					<input class="btn btn-primary" type="button" id="checkPass"
-						value="중복확인">
+					<input class="btn btn-primary" type="button" id="checkPass" value="중복확인">
 				</div>
 
 			</div>
 
 			<!-- 수정 버튼 -->
 			<div class="form-group">
-				<input id="submit" type="submit"
-					class="btn btn-outline-secondary btn-block" value="수정">
+				<input id="submit" type="submit" class="btn btn-outline-secondary btn-block" value="수정">
 			</div>
 		</form>
 		<!-- 수정 폼태그 끝 -->

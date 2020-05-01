@@ -13,7 +13,7 @@ public class UsersService {
 	@Autowired
 	private UsersRepository usersRepository;
 	
-	public User addUser(User user) {
+	public User save(User user) {
 		user = usersRepository.save(user);
 		return user;
 	}

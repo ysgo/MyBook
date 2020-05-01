@@ -28,7 +28,7 @@ public class UsersController {
 	@PostMapping(PathConstants.CRUD_SIGNUP)
 	public String signUp(@ModelAttribute User user, HttpSession session) {
 		String viewName = "redirect:/" + PathConstants.BOOK_PATH;
-		user = usersService.addUser(user);
+		user = usersService.save(user);
 		session.setAttribute("user", user);
 		return viewName;
 	}
@@ -115,37 +115,26 @@ public class UsersController {
 		return "redirect:/";
 	}
 	
-	// 회원 수정  페이지 이동
 	@GetMapping(PathConstants.CRUD_MYPAGE)
-	public String  infoUpdate() throws Exception {
+	public String infoUpdate(){
 		return PathConstants.BOOK_PATH + PathConstants.CRUD_MYPAGE;
 	}
 	
-//	// 회원 수정
-//	@RequestMapping(value="/myPage", method=RequestMethod.POST)
-//	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status")MemberVO member, Log log) throws Exception {
-//		ModelAndView mav = new ModelAndView();
-//		String userId = member.getUserId();
-//		vo.setUserId(userId);
-////		vo.setUserPass(passwordEncoder.encode(vo.getUserPass()));
-//		vo.setUserPass(vo.getUserPass());
-//		boolean result = service.updateMember(vo);
-//		//log테이블 userName 수정
-//		log.setEmail(userId);
-//		log.setUserName(vo.getUserName());
-//		serviceBook.updateUserName(log);
-//		if(result) {
-//			member = vo;
-//			mav.addObject("status", member);
-//		}
-//		mav.setViewName("myPage");
-//		return mav;
-//	}
+	@PostMapping(PathConstants.CRUD_MYPAGE)
+	public String infoUpdate(HttpSession session, User user){
+		user = usersService.save(user);
+		session.setAttribute("user", user);
+		return "redirect:/" + PathConstants.USER_PATH + PathConstants.CRUD_MYPAGE;
+	}
 	
-	// 회원탈퇴 페이지 이동
 	@GetMapping(PathConstants.CRUD_WITHDRAWAL)
 	public String withdrawal() {
 		return PathConstants.BOOK_PATH + PathConstants.CRUD_WITHDRAWAL;
+	}
+	
+	@PostMapping(PathConstants.CRUD_WITHDRAWAL)
+	public String withdrawal(User user) {
+		return "redirect:/";
 	}
 	
 //	// 회원탈퇴
@@ -176,7 +165,6 @@ public class UsersController {
 //		return mav;
 //	}
 	
-	// 아이디/비밀번호 찾기 페이지로 이동
 	@GetMapping(PathConstants.CRUD_SEARCH)
 	public String searchId() {
 		return PathConstants.USER_PATH + PathConstants.CRUD_SEARCH;
