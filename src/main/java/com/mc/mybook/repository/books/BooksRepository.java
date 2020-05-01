@@ -8,4 +8,5 @@ import com.mc.mybook.model.books.Book;
 
 public interface BooksRepository extends JpaRepository<Book, Integer> {
 	public List<Book> findAllByUserId(int userId);
+	public List<Book> findAllByUserIdAndReviewIdNotNull(int userId);
 }

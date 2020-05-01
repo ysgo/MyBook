@@ -45,7 +45,7 @@ public class Book {
 	private int userId;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "review_id")
+	@JoinColumn(name = "review_id", nullable = true)
 	private Review review;
 	
 	@Column(updatable = false)

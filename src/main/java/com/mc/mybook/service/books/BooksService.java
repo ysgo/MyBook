@@ -21,6 +21,10 @@ public class BooksService {
 		return booksRepository.findAllByUserId(userId);
 	}
 	
+	public List<Book> findAllByUserIdAndReviewIdNotNull(int userId) {
+		return booksRepository.findAllByUserIdAndReviewIdNotNull(userId);
+	}
+	
 	public Book findById(int id) {
 		return booksRepository.findById(id).orElse(null);
 	}

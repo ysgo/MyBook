@@ -261,7 +261,7 @@ body > div#content{
 	text-align: center;
 }
 
-#signColor{
+.signColor{
 	border:none; 
 	background-color:transparent;
 }

@@ -72,8 +72,8 @@ $(document).ready(function() {
 
 function reviewDelete(book_id) {
 	$.ajax({
-		url: '/books',
-		type: 'DELETE',
+		url: '/books/delete/'+book_id,
+		type: 'PUT',
 		data: {
 			id: book_id
 		},

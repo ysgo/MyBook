@@ -13,7 +13,7 @@ public class ReviewsService {
 	@Autowired
 	private ReviewsRepository reviewsRepository;
 	
-	public Review addReview(Review review) {
+	public Review save(Review review) {
 		return reviewsRepository.save(review);
 	}
 	

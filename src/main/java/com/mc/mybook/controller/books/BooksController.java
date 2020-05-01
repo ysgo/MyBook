@@ -8,8 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +46,7 @@ public class BooksController {
 	@GetMapping(PathConstants.CRUD_READBOOK)
 	public String readBook(HttpSession session, @SessionAttribute("user") Optional<User> user) {
 		if(user.isPresent()) {
-			session.setAttribute("books", booksService.findAllByUserId(user.get().getId()));
+			session.setAttribute("books", booksService.findAllByUserIdAndReviewIdNotNull(user.get().getId()));
 		}
 //		session.setAttribute("reviews", reviewsService.listAll());
 //		String userId = loginVO.getUserId();
@@ -124,6 +124,15 @@ public class BooksController {
 		return book;
 	}
 	
+	@PutMapping("/delete/{id}")
+	@ResponseBody
+	public Book deleteBooksReview(@PathVariable("id") int id) {
+		Book book = booksService.findById(id);
+		book.setReview(null);
+		booksService.save(book);
+		return book;
+	}
+	
 	@PutMapping
 	@ResponseBody
 	public Book editReadBook(Book book) {
@@ -132,13 +141,6 @@ public class BooksController {
 		booksService.save(book);
 		reviewsService.delete(book.getReview());
 		return book;
-	}
-	
-	@DeleteMapping
-	@ResponseBody
-	public String deleteReadBook(Book book) {
-		booksService.deleteById(book.getId());
-		return "success";
 	}
 	
 	@GetMapping(PathConstants.CRUD_INTERESTBOOK)
