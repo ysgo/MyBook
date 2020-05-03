@@ -1,6 +1,5 @@
 package com.mc.mybook.controller.books;
 
-import java.text.ParseException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -144,7 +143,10 @@ public class BooksController {
 	}
 	
 	@GetMapping(PathConstants.CRUD_INTERESTBOOK)
-	public String interestBook() throws ParseException {
+	public String interestBook(HttpSession session, @SessionAttribute("user") Optional<User> user) {
+		if(user.isPresent()) {
+			session.setAttribute("books", booksService.findAllByUserIdAndInterestedTrue(user.get().getId()));
+		}
 //		String userId = loginVO.getUserId();
 //		String userName = loginVO.getUserName();
 //
@@ -188,6 +190,21 @@ public class BooksController {
 //		// interestBook list rendering
 //		mav.addObject("total", service.countInterestBook(userId));
 		return PathConstants.BOOK_PATH + PathConstants.CRUD_INTERESTBOOK;
+	}
+	
+	@PostMapping(PathConstants.CRUD_INTERESTBOOK)
+	@ResponseBody
+	public Book addInterestBook(Book book, @SessionAttribute("user") Optional<User> user) {
+		if(user.isPresent()) {
+			Book checkBook = booksService.findTop1ByUserIdAndImageAndInterestedFalse(book.getUserId(), book.getImage());
+			if(checkBook != null) {
+				checkBook.setInterested(true);
+				book = booksService.save(checkBook);
+			} else {
+				book = booksService.save(book);
+			}
+		}
+		return book;
 	}
 	
 	@GetMapping(PathConstants.CRUD_DETAILINTERESTBOOK)

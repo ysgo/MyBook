@@ -21,12 +21,20 @@ public class BooksService {
 		return booksRepository.findAllByUserId(userId);
 	}
 	
+	public List<Book> findAllByUserIdAndInterestedTrue(int userId) {
+		return booksRepository.findAllByUserIdAndInterestedTrue(userId);
+	}
+	
 	public List<Book> findAllByUserIdAndReviewIdNotNull(int userId) {
 		return booksRepository.findAllByUserIdAndReviewIdNotNull(userId);
 	}
 	
 	public Book findById(int id) {
 		return booksRepository.findById(id).orElse(null);
+	}
+	
+	public Book findTop1ByUserIdAndImageAndInterestedFalse(int userId, String image) {
+		return booksRepository.findTop1ByUserIdAndImageAndInterestedFalse(userId, image);
 	}
 	
 	public void deleteById(int id) {

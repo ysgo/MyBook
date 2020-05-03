@@ -191,7 +191,7 @@
 				<span id="title">{{{title}}}</span>
 				<br>
 				<br>
-				<span	id="author">{{author}}</span>
+				<span id="author">{{author}}</span>
 				<br>
 				<span id="publisher">{{publisher}}</span>
 			</div>

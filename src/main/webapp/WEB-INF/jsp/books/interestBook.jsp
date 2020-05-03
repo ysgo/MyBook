@@ -32,29 +32,25 @@
 
 			<!-- 책이미지 출력 -->
 			<!-- 중앙 정렬 -->
-			<script>
-				function makeDiv() {
-					var total = '${total}';
-					console.log('토탈', total);
-					if(total%4 > 0) {
-						var rows = parseInt(total/4)+1;	
-					} else {
-						var rows = parseInt(total/4);
-					}
-					
-					for(var i = 1; i <= rows ; i++) {
-						$('#displayInterestBook').append("<div class='row justify-content-md-center mb-0' id=row"+ i +"></div><div class='line'></div>");	
-						for(var j = 1 ; j <=4 ; j++) {
-							$('#row'+i).append("<div class='col'><div class='center-block' id='col"+(((i-1)*4)+j)+"'></div></div>");
-						}
-					}	
-				};			
-			</script>
-
-			<c:if test="${ !empty list }">
-				<div class="container" id="displayInterestBook"></div>
+			
+			<div class="container" id="displayInterestBook">
+				<c:choose>
+					<c:when test="${ !empty books }">
+						<c:forEach var="book" items="${ books }" varStatus="status">
+							<img class="interestBook" id="image${ status.count }" src="${ book.image }"/>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<h2>관심 책을 추가해주세요. 
+							<img src="/images/smile-emoji.png" style="width: 50px; padding-bottom: 5px">
+						</h2>
+			</c:otherwise>
+				</c:choose>
+			</div>
+			
+			<c:if test="${ !empty books }">
 				<script>
-		    function insertImg() {
+		    /* function insertImg() {
 		      var count = 1;
 		
 		      <c:forEach var="vo" items="${ list }" varStatus="status">		
@@ -109,15 +105,15 @@
 		
 		    </c:forEach>		
 		
-		    }		
+		    }		 */
 			</script>
 			</c:if>
 			<!-- 중앙 정렬 끝 -->
-			<a href="interestBook" style="text-decoration: none">
-				<!-- 전체목록으로 이동 -->
+			<!-- <a href="interestBook" style="text-decoration: none">
+				전체목록으로 이동
 				<button class="btn btn-outline-secondary mx-auto mt-5" type="button" style="display: block;" id="listall">전체 목록</button>
-			</a>
-			<c:if test="${ empty list }">
+			</a> -->
+			<%-- <c:if test="${ empty list }">
 				<% 
 				if(request.getParameter("interestkeyword") != null) { 
 			%>
@@ -140,7 +136,7 @@
 			%>
 				<div class="line"></div>
 				<!-- 구분선 -->
-			</c:if>
+			</c:if> --%>
 			<!-- 책이미지 출력 끝 -->
 
 			<c:if test="${!empty msg}">
@@ -176,8 +172,29 @@
 								</div>
 
 								<br>
-								<!--  결과 로우 -->
-								<c:forEach items="${bookList}" var="b">
+<!--  결과 로우 -->
+<div id="search-result">
+	<script id="search-result-item" type="text/x-handlebars-template">
+	{{#each books}}
+		<div id="row" class="row mr-1 searchResult">
+			<div id="imgContainer" class="col-sm-3">
+				<img id="image" src="{{image}}" style="width: 200px">
+			</div>
+			<div class="col-sm-4">
+				<span id="title">{{{title}}}</span>
+				<br>
+				<br>
+				<span id="author">{{author}}</span>
+				<br>
+				<span id="publisher">{{publisher}}</span>
+			</div>
+			<div class="col-sm" id="description">{{{description}}}</div>
+			<div class="w-150"></div>
+		</div>
+	{{/each}}
+	</script>
+</div>
+						<%-- 		<c:forEach items="${bookList}" var="b">
 									<div id="row" class="row mr-1 searchResult">
 										<div id="imgContainer" class="col-sm-3">
 											<img id="image" src="${b.image}" style="width: 200px">
@@ -190,9 +207,8 @@
 										<div class="col-sm" id="description">${b.description}</div>
 										<div class="w-150"></div>
 									</div>
-								</c:forEach>
+								</c:forEach> --%>
 							</div>
-							<!--  모달 컨텐트 컨테이너 끝 -->
 						</div>
 					</div>
 				</div>
@@ -201,125 +217,4 @@
 
 		</div>
 		<!-- Page Content 끝 -->
-
-	<script type="text/javascript">
-	    $(document).ready(function () {
-	    	// hide sidebar when refresh the page
-	        $('#sidebar').toggleClass('active');
-	        $("#sidebar").mCustomScrollbar({
-	            theme: "minimal"
-	        });
-	        
-	        $('#sidebarCollapse').on('click', function () {
-	        	// open sidebar when clicked
-	            $('#sidebar, #content').toggleClass('active');
-	            $('.collapse.in').toggleClass('in');
-	            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-	        });
-	        
-	        makeDiv();
-	        insertImg();
-	        load();
-	    });
-    </script>
-
-	<!-- 책추가 controller 보내서 db저장 -->
-	<script>   	
-    	//책 추가 모달에서 목록을 눌렀을 때
-		$('div#row').click(function(){ 
-		    var	image = $(this).children('div').children('img#image').attr("src");
-		    var	title = $(this).children('div').children('span#title').text();
-		    var	author = $(this).children('div').children('span#author').text();
-		    var	publisher = $(this).children('div').children('span#publisher').text(); 		
-		    var	description = $(this).children('div#description').text(); 	
-		    
-		    $.ajax({
- 		        url: "interestBook",
- 		        type: 'POST', 
- 		        data: {
- 		        	title : title,
- 		        	author : author,
- 		        	publisher : publisher,
- 		        	description : description,
- 		        	image : image
- 		        },
- 		        dataType : "text",
- 		        success: function(data){           
- 		        	//alert("insert 보냄");
- 		        	$("#myModal .close").click();
- 		        },
- 		        error : function(request, status, error){
- 		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
- 		        }
- 		    }); 
-		});	
-    </script>
-	<!-- 책추가 controller 보내서 db저장 끝 -->
-
-	<!-- 도서 검색 -->
-	<script>
-	function searchFunc(e) {  
-		var keyword = $('input[name=keyword]').val();
-	
-	    var url = "interestBook?keyword=" + keyword;
-	    if(e.type == "keydown" && e.keyCode != 13) { return; } 
-	    
-	    $.ajax({
-	        url: url,
-	        type: 'GET', 
-	        success: function(data){
-	        	$('body').html(data);
-	            $('#myModal').modal('show'); 
-	        }
-	    });
-	}
-	
-	$(function(){
-	    $('#submitForm').on('click', searchFunc);   
-	    $('input[name=keyword]').on('keydown', searchFunc);   
-	    $('.close').on('click', function() {
-	    	$.ajax({
-	            url: "interestBook",
-	            type: 'GET', 
-	            success: function(data){
-	            	$('body').html(data);
-	            }
-	        });
-	    });   
-	});
-	</script>
-	<!-- 도서 검색 끝-->
-
-	<!-- svg inline -->
-	<script>
-	function load() {
-		jQuery('img.svg').each(function(){
-	        var $img = jQuery(this);
-	        var imgID = $img.attr('id');
-	        var imgClass = $img.attr('class');
-	        var imgURL = $img.attr('src');
-
-	        jQuery.get(imgURL, function(data) {
-	            // Get the SVG tag, ignore the rest
-	            var $svg = jQuery(data).find('svg');
-
-	            // Add replaced image's ID to the new SVG
-	            if(typeof imgID !== 'undefined') {
-	                $svg = $svg.attr('id', imgID);
-	            }
-	            // Add replaced image's classes to the new SVG
-	            if(typeof imgClass !== 'undefined') {
-	                $svg = $svg.attr('class', imgClass+' replaced-svg');
-	            }
-
-	            // Remove any invalid XML tags as per http://validator.w3.org
-	            $svg = $svg.removeAttr('xmlns:a');
-
-	            // Replace image with new SVG
-	            $img.replaceWith($svg);
-
-	        }, 'xml');
-
-	    });
-	}
-	</script>
+<script type="text/javascript" src="/js/interestBook.js"></script>
