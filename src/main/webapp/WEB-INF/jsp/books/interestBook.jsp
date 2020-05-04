@@ -37,69 +37,31 @@
 				<c:choose>
 					<c:when test="${ !empty books }">
 						<c:forEach var="book" items="${ books }" varStatus="status">
-							<img class="interestBook" id="image${ status.count }" src="${ book.image }"/>
+							<img id="${ book.id }" src="${ book.image }" />
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<h2>관심 책을 추가해주세요. 
 							<img src="/images/smile-emoji.png" style="width: 50px; padding-bottom: 5px">
 						</h2>
-			</c:otherwise>
+					</c:otherwise>
 				</c:choose>
 			</div>
 			
-			<c:if test="${ !empty books }">
+	<%-- 		<c:if test="${ !empty books }">
 				<script>
 		    /* function insertImg() {
 		      var count = 1;
 		
-		      <c:forEach var="vo" items="${ list }" varStatus="status">		
-		      
-		      var vo_id = '${vo.id}';
-		      var vo_title = '${vo.title}';
-		      var vo_img = '${vo.image}';
-		      var image = $('<img />', { 
-		        id:'image' + count,
-		        src: vo_img,	
-		      });
-		      
-		      image.css('width', '120px');
-		      image.css('height', '180px');
-		      image.css('border', '1px solid lightgray');
-		
-		      image.hover(function() {
-		        $(this).stop().animate({
-		          zoom: '1.1'
-		        }, 150);
-		      }, function() {
-		        $(this).stop().animate({
-		          zoom: '1'
-		        }, 200);
-		      }) 
-		
-		      image.click({bookNum: vo_id, bookTitle: vo_title, image: vo_img}, interestForm);
-		
-		      function interestForm(e, bookNum, bookTitle, image) {
-		        $.ajax({
-		          url: "detailInterestBook",
-		          type: 'POST', 
-		          data: {
-		            bookNum : e.data.bookNum,
-		            bookTitle : e.data.bookTitle,
-		            image : e.data.image
-		          },
-		          dataType : "text",
-		          success: function(data){           
-		            $('body').html(data);
-		          },
-		          error : function(request, status, error){
-		            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
-		          }
-		        }); 
-		      }
-		
 		      $('#col' + count).append(image);
-		      $('#col' + count).append("<div style='position: relative;' id='iconbox'><div style='position: absolute; right: 3px; bottom: 153px'><a href='interestBook?bookNum=${vo.id}'><img class='svg deletelink' src='images/times-solid.svg' style='z-index: 999;'></a></div></div>");
+		      $('#col' + count).append("
+		      <div style='position: relative;' id='iconbox'>
+			      <div style='position: absolute; right: 3px; bottom: 153px'>
+				      <a href='interestBook?bookNum=${vo.id}'>
+				      	<img class='svg deletelink' src='images/times-solid.svg' style='z-index: 999;'>
+				      </a>
+			      </div>
+		      </div>");
 		
 		      count++;
 		
@@ -107,7 +69,7 @@
 		
 		    }		 */
 			</script>
-			</c:if>
+			</c:if> --%>
 			<!-- 중앙 정렬 끝 -->
 			<!-- <a href="interestBook" style="text-decoration: none">
 				전체목록으로 이동
@@ -194,27 +156,12 @@
 	{{/each}}
 	</script>
 </div>
-						<%-- 		<c:forEach items="${bookList}" var="b">
-									<div id="row" class="row mr-1 searchResult">
-										<div id="imgContainer" class="col-sm-3">
-											<img id="image" src="${b.image}" style="width: 200px">
-										</div>
-										<div class="col-sm-4">
-											<span id="title">${b.title}</span><br>
-											<br> <span id="author">${b.author}</span><br> <span
-												id="publisher">${b.publisher}</span>
-										</div>
-										<div class="col-sm" id="description">${b.description}</div>
-										<div class="w-150"></div>
-									</div>
-								</c:forEach> --%>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- 책 추가 모달 끝 -->
-
 		</div>
 		<!-- Page Content 끝 -->
 <script type="text/javascript" src="/js/interestBook.js"></script>

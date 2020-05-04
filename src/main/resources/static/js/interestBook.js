@@ -1,58 +1,33 @@
 let source = $("#search-result-item")[0].innerHTML;
 let template = Handlebars.compile(source);
 
-let image, title, author, publisher, description;
+let id, image, title, author, publisher, description;
 
 $(document).ready(function() {
-	makeDiv();
-//	insertImg();
-	load();
+//	makeDiv();
+//	load();
 	
     $('#submitForm').on('click', searchFunc);   
     
     $('input[name=keyword]').on('keydown', searchFunc);
     
-//    $('.close').on('click', function() {
-//    	$.ajax({
-//            url: "/books/interestBook",
-//            type: 'GET', 
-//            success: function(data){
-//            	console.log(data);
-////            	$('body').html(data);
-//            }
-//        });
-//    });
-
-//	$('div#row').click(
-//		function() {
-//			var image = $(this).children('div').children('img#image').attr("src");
-//			var title = $(this).children('div').children('span#title').text();
-//			var author = $(this).children('div').children('span#author').text();
-//			var publisher = $(this).children('div').children('span#publisher').text();
-//			var description = $(this).children('div#description').text();
-//	
-//			$.ajax({
-//				url : "interestBook",
-//				type : 'POST',
-//				data : {
-//					title : title,
-//					author : author,
-//					publisher : publisher,
-//					description : description,
-//					image : image
-//				},
-//				dataType : "text",
-//				success : function(data) {
-//					// alert("insert 보냄");
-//					$("#myModal .close").click();
-//				},
-//				error : function(request, status, error) {
-//					console.log("code:" + request.status + "\n"
-//							+ "message:" + request.responseText
-//							+ "\n" + "error:");
-//				}
-//			});
-//		});	
+    $('#displayInterestBook > img').css({
+    	'width': '120px',
+    	'height': '180px',
+    	'border': '1px solid lightgray'
+    });
+    
+    $('#displayInterestBook > img').hover(function() {
+    	$(this).stop().animate({zoom: '1.1'}, 150);
+    	}, function() {
+    		$(this).stop().animate({zoom: '1'}, 200);
+    });
+    
+    $('#displayInterestBook > img').click(function(e) {
+    	id = $(this).attr('id');
+    	console.log(id);
+    	location.href='/books/interestBook/detail/' + id;
+    });
 });
 
 function searchFunc(e) {  
@@ -105,39 +80,6 @@ function searchFunc(e) {
         	console.log('code: ' + request.status + '\nmessage: ' + request.responseText + '\nerror: ' + error);
         }
     });
-    
-    $('#displayInterestBook > .interestBook').css({
-    	'width': '120px',
-    	'height': '180px',
-    	'border': '1px solid lightgray'
-    });
-    
-    $('#displayInterestBook > .interestBook').hover(function() {
-    	$(this).stop().animate({
-    		zoom: '1.1'
-    	}, 150), function() {
-    		$(this).stop().animate({
-    			zoom: '1'
-    		}, 200);
-    	}
-    });
-    
-    $('#displayInterestBook > .interestBook').click(function() {
-    	console.log('test');
-    	$.ajax({
-    		url: '/books/interestBook/detail',
-    		type: 'POST',
-    		data: {
-    			'image:': ''
-    		},
-    		success: function(response) {
-    			console.log(response);
-    		},
-    		error: function(request, status, error) {
-    			console.log('code: ' + request.status + '\nmessage: ' + request.responseText + '\nerror: ' + error);
-    		}
-    	});
-    });
 }
 
 function load() {
@@ -167,7 +109,6 @@ function load() {
             $img.replaceWith($svg);
 
         }, 'xml');
-
     });
 }
 

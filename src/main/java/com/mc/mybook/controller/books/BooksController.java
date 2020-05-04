@@ -1,5 +1,7 @@
 package com.mc.mybook.controller.books;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.mc.mybook.constants.PathConstants;
 import com.mc.mybook.model.books.Book;
@@ -207,12 +208,13 @@ public class BooksController {
 		return book;
 	}
 	
-	@GetMapping(PathConstants.CRUD_DETAILINTERESTBOOK)
-	public String detailInterestBook(String bookNum, String bookTitle) {
-		ModelAndView mav = new ModelAndView();
-//		mav.addObject("bookTitle", bookTitle);
-//		mav.addObject("list", service.selectDetailInterestBook(Integer.parseInt(bookNum))); 
-		mav.setViewName("detailInterestBook");
+	@GetMapping(PathConstants.CRUD_INTERESTBOOK + PathConstants.CRUD_DETAIL + "/{id}")
+	public String detailInterestBook(HttpSession session, @PathVariable("id") int id) throws UnsupportedEncodingException {
+		Book book = booksService.findById(id);
+		String encodeBookTitle = book.getTitle().replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>", "");
+		encodeBookTitle = URLEncoder.encode(encodeBookTitle, "EUC-KR");
+		session.setAttribute("book", book);
+		session.setAttribute("encodeBookTitle", encodeBookTitle);
 		return PathConstants.BOOK_PATH + PathConstants.CRUD_DETAILINTERESTBOOK;
 	}
 	
